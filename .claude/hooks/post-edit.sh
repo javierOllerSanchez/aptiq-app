@@ -7,6 +7,9 @@ set -uo pipefail
 input="$(cat)"
 file="$(printf '%s' "$input" | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{try{const j=JSON.parse(s);const t=j.tool_input||{};process.stdout.write(t.file_path||t.path||"")}catch(e){}})' 2>/dev/null)"
 root="${CLAUDE_PROJECT_DIR:-$(pwd)}"
+# Windows: Claude Code entrega rutas con «\»; se normalizan para poder hacerlas relativas.
+file="${file//\\//}"
+root="${root//\\//}"
 cd "$root" || exit 0
 
 [ -z "$file" ] && exit 0
@@ -20,19 +23,19 @@ rel="${file#"$root"/}"
 
 out=""
 if ! res="$(pnpm exec eslint --no-warn-ignored "$rel" 2>&1 | tail -n 40)"; then
-  out+="ESLint en ${rel}:\n${res}\n\n"
+  out+="ESLint en ${rel}:"$'\n'"${res}"$'\n\n'
 fi
 
 case "$rel" in
   packages/engine/*)
     if ! res="$(pnpm --filter @aptiq/engine exec vitest related --run "$root/$rel" 2>&1 | tail -n 40)"; then
-      out+="Pruebas del motor relacionadas con ${rel}:\n${res}\n"
+      out+="Pruebas del motor relacionadas con ${rel}:"$'\n'"${res}"$'\n'
     fi
     ;;
 esac
 
 if [ -n "$out" ]; then
-  printf "%b" "$out" >&2
+  printf '%s' "$out" >&2
   exit 2
 fi
 exit 0
