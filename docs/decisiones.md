@@ -11,6 +11,12 @@
 | 2026-11-11 | Stack: Expo (React Native) + Expo Router, TypeScript, pnpm + Turborepo, Supabase (UE), RevenueCat, PostHog (UE), Sentry | Una base para iOS, Android y una futura web |
 | 2026-11-11 | Estilos con StyleSheet + tokens propios, sin librería de UI | Fidelidad al sistema visual y menos dependencias |
 | 2026-11-11 | Las skills de Aptiq mandan sobre las de terceros | Evitar que cada skill imponga su estilo |
+| 2026-11-12 | Expo SDK 58 (React Native 0.88) y Node 22.13 o superior (24 en CI) | Es la versión actual de la plantilla oficial; el SDK 58 ya no admite Node 20 |
+| 2026-11-12 | TypeScript ~6.0 y ESLint 9 (no TypeScript 7 ni ESLint 10) | Son las versiones que admiten Expo y typescript-eslint hoy |
+| 2026-11-12 | Dependencias nuevas fuera del stack: `@expo-google-fonts/*` (Instrument Sans, IBM Plex Mono, Bricolage Grotesque; licencia OFL), Prettier, `eslint-config-expo`, `typescript-eslint` | Fuentes de la guía de estilos y calidad automática (NFR-07) |
+| 2026-11-12 | El logotipo se carga tal cual desde `docs/marca/` con `expo-image` (Metro trata `.svg` como imagen) | Una sola fuente del logotipo; nunca se recrea |
+| 2026-11-12 | ESLint prohíbe `Math.random`, `Date.now` y `new Date()` en `packages/engine` | Determinismo del motor (NFR-09) vigilado por la máquina |
+| 2026-11-12 | Se quitan de la plantilla de Expo `@expo/ui`, `expo-glass-effect`, `expo-symbols`, `expo-device` y `expo-web-browser` | No se usan; el stack es sin librería de UI. El cristal se hará con `expo-blur` en la fase 1 |
 
 ## Pendientes (las decide el propietario)
 
