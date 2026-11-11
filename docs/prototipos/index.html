@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aptiq · Prototipos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Instrument+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#EFEEE9;--ink:#121316;--graphite:#4A4C52;--line:#D9D7CF}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Instrument Sans',system-ui,sans-serif;
+  background-image:linear-gradient(rgba(18,19,22,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(18,19,22,.045) 1px,transparent 1px);background-size:24px 24px}
+main{max-width:1360px;margin:0 auto;padding:48px 24px 80px}
+.label{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.12em;color:#5E6066}
+h1{margin:8px 0 8px;font-size:40px;letter-spacing:-.02em}
+p{margin:0 0 32px;max-width:720px;line-height:1.5;color:var(--graphite)}
+h2{margin:48px 0 16px;font-size:22px}
+.phones{display:flex;flex-wrap:wrap;gap:32px}
+.phone{display:flex;flex-direction:column;gap:10px}
+.phone iframe{width:390px;height:844px;border:0;border-radius:44px;box-shadow:0 0 0 1px var(--line),0 20px 50px rgba(18,19,22,.12);background:var(--paper)}
+.board{display:block;width:100%;overflow:auto;border-radius:16px;box-shadow:0 0 0 1px var(--line)}
+.board iframe{border:0;display:block}
+a{color:var(--ink)}
+ul{line-height:1.8}
+</style>
+</head>
+<body>
+<main>
+<span class="label">GUÍA DE ESTILOS · PROTOTIPOS</span>
+<h1>Aptiq · papel, tinta y subrayador</h1>
+<p>Prototipos de referencia de la interfaz. Son la fuente visual para implementar <code>packages/ui</code> y las pantallas de <code>apps/mobile</code>. Las reglas completas están en <a href="../guia-estilos.md">guia-estilos.md</a> y los valores en <a href="../tokens.json">tokens.json</a>. Los datos que aparecen (porcentajes, notas) son de ejemplo.</p>
+
+<h2>Pantallas (390 × 844)</h2>
+<div class="phones">
+  <div class="phone"><span class="label">INICIO</span><iframe src="inicio.html" title="Prototipo de la pantalla de inicio"></iframe></div>
+  <div class="phone"><span class="label">SIMULACRO</span><iframe src="simulacro.html" title="Prototipo de la pantalla de simulacro"></iframe></div>
+  <div class="phone"><span class="label">RESULTADO</span><iframe src="resultado.html" title="Prototipo de la pantalla de resultado"></iframe></div>
+</div>
+
+<h2>Sistema visual</h2>
+<div class="board"><iframe src="sistema.html" width="1440" height="1000" title="Sistema visual"></iframe></div>
+
+<h2>Logotipo</h2>
+<div class="board"><iframe src="logotipo.html" width="1280" height="1000" title="Logotipo"></iframe></div>
+
+<h2>Marca</h2>
+<div class="board"><iframe src="marca.html" width="1440" height="900" title="Marca"></iframe></div>
+
+<h2>Archivos de marca</h2>
+<ul>
+  <li><a href="../marca/logo-aptiq.svg">logo-aptiq.svg</a> · principal (p marcada)</li>
+  <li><a href="../marca/logo-aptiq-sobre-tinta.svg">logo-aptiq-sobre-tinta.svg</a></li>
+  <li><a href="../marca/logo-aptiq-sobre-subrayador.svg">logo-aptiq-sobre-subrayador.svg</a></li>
+  <li><a href="../marca/logo-aptiq-alternativa-punto-i.svg">logo-aptiq-alternativa-punto-i.svg</a> · alternativa pendiente de decisión</li>
+  <li><a href="../marca/icono-app.svg">icono-app.svg</a> · 1024 × 1024, sin esquinas (las pone el sistema)</li>
+  <li><a href="../marca/icono-app-subrayador.svg">icono-app-subrayador.svg</a></li>
+</ul>
+</main>
+</body>
+</html>
