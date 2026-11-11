@@ -39,8 +39,8 @@ export const tokens = {
     timer: { font: 'mono', weight: 600, size: 15 },
     seal: { font: 'brand', weight: 800, size: 36, letterSpacing: 0.06, uppercase: true },
   },
-  radius: { button: 14, option: 14, tile: 12, card: 22, cardLarge: 24, nav: 22, pill: 999 },
-  border: { default: 1.5, selected: 2, hairline: 1 },
+  radius: { tick: 2, button: 14, option: 14, tile: 12, card: 22, cardLarge: 24, nav: 22, pill: 999 },
+  border: { default: 1.5, selected: 2, hairline: 1, stampOuter: 3.5, stampGap: 3 },
   spacing: { screenX: 20, screenTop: 56, xs: 4, s: 8, m: 12, l: 16, xl: 20, xxl: 24 },
   size: {
     touchMin: 44,
