@@ -1,0 +1,23 @@
+{
+  "name": "aptiq",
+  "private": true,
+  "packageManager": "pnpm@9.15.9",
+  "engines": {
+    "node": "^22.13.0 || >=24.3.0"
+  },
+  "scripts": {
+    "typecheck": "turbo run typecheck",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "test:stress": "turbo run test:stress",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "eslint": "^9",
+    "eslint-config-expo": "~58.0",
+    "prettier": "^3.10.0",
+    "turbo": "^2.11",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.72.2"
+  }
+}
