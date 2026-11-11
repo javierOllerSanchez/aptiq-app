@@ -1,2 +1,3 @@
-// Componentes de la fase 1.
-export {};
+export * from './logo';
+export * from './paper-background';
+export * from './text';
