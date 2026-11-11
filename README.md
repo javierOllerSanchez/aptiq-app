@@ -5,7 +5,7 @@ Este kit contiene todo lo que Claude Code necesita para construir Aptiq por fase
 ## Cómo empezar
 
 1. **Requisitos en tu ordenador:**
-   - Node.js 20 o superior, pnpm y git.
+   - Node.js 22.13 o superior (recomendado 24; el SDK 58 de Expo ya no admite Node 20), pnpm y git.
    - Claude Code.
    - Para ver la app: la app **Expo Go** en tu móvil o un simulador (Xcode en Mac / Android Studio).
 2. **Crea una carpeta** para el proyecto (por ejemplo `~/Proyectos/aptiq`) y copia dentro **todo el contenido** de este kit, incluida la carpeta oculta `.claude`.
