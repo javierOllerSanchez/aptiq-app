@@ -4,7 +4,7 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 
 | Fase | Estado | Rama / PR | Cerrada | Aprobada por el propietario |
 | --- | --- | --- | --- | --- |
-| 0 · Base del proyecto | En curso: falta CI en GitHub y prueba en iPhone | `fase-0-base` | | |
+| 0 · Base del proyecto | En curso: CI en verde ([ejecución](https://github.com/javierOllerSanchez/aptiq-app/actions/runs/43120389658)); falta prueba en iPhone | `fase-0-base` | | |
 | 1 · Sistema de diseño en código | Pendiente | | | |
 | 2 · Motor de contenido v1 | Pendiente | | | |
 | 3 · Perfil de examen y puntuación | Pendiente | | | |
