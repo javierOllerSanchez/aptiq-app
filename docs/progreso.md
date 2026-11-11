@@ -4,7 +4,7 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 
 | Fase | Estado | Rama / PR | Cerrada | Aprobada por el propietario |
 | --- | --- | --- | --- | --- |
-| 0 · Base del proyecto | En curso: CI en verde ([ejecución](https://github.com/javierOllerSanchez/aptiq-app/actions/runs/43120389658)); falta prueba en iPhone | `fase-0-base` | | |
+| 0 · Base del proyecto | Cerrada a falta de la prueba en iPhone del propietario | `fase-0-base` (PR hacia `main`) | 2026-11-12 | |
 | 1 · Sistema de diseño en código | Pendiente | | | |
 | 2 · Motor de contenido v1 | Pendiente | | | |
 | 3 · Perfil de examen y puntuación | Pendiente | | | |
@@ -35,9 +35,24 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
   - `post-edit.sh` detecta errores de ESLint y lanza las pruebas del motor relacionadas.
   - `stop-check.sh` bloquea un error de tipos.
   - Se corrigió un fallo con las rutas de Windows en `post-edit.sh`.
-- **Queda:**
-  - subir la rama y ver la CI en verde en GitHub;
-  - `/cerrar-fase 0`.
+  - CI en verde en GitHub ([ejecución](https://github.com/javierOllerSanchez/aptiq-app/actions/runs/43120389658)).
+- **Cierre (`/cerrar-fase 0`):**
+  - `verificador-fase`: todo lo comprobable cumple; solo falta la prueba en iPhone (no verificable aquí).
+  - `revisor-interfaz`: sin bloqueantes. Corregidos I-1 (logotipo accesible para VoiceOver/TalkBack), I-3 (margen superior con el área segura) y M-1 (grosor de la cuadrícula).
+  - `revisor-contenido`: no aplica (el motor aún no tiene generadores ni perfiles).
+  - Ponytail: quitados dos tipos sin uso en `@aptiq/tokens`.
+  - El `tsconfig` de la app ya usa las mismas reglas estrictas que el resto del monorepo.
+- **Anotado para la fase 1 (hallazgos menores del revisor de interfaz):**
+  - token de tamaño del logotipo, y decidir entre el SVG oficial (trazo 9) o el del prototipo a 80 px (trazo 11);
+  - Bricolage solo en `Stamp`, en color `seal` (el «APTO» de la pantalla provisional es solo una muestra de la fuente);
+  - patrón de pantalla con `ScrollView` para texto grande;
+  - registrar si fallan las fuentes, y fondo `paper` en las transiciones del `Stack`;
+  - sacar de `tokens.type` los pesos de fuente que se cargan;
+  - pasar `app.json` a `app.config.ts` con tokens, y fondo del icono en `ink`.
+- **Anotado (avisos del verificador):**
+  - no se fija iOS 16 / Android 9 en la configuración porque el SDK ya admite desde iOS 15.1 y Android 7, así que NFR-10 se cumple sin añadir `expo-build-properties`;
+  - no hace falta `.npmrc`: pnpm con dependencias aisladas funciona y `expo-doctor` lo aprueba;
+  - `format` llama a Prettier directamente, sin Turborepo: es una sola herramienta en la raíz.
 - **Debe comprobar el propietario:** abrir la app en Expo Go en su iPhone (`pnpm --filter mobile start` y escanear el código QR).
 - **Notas para fases siguientes:**
   - iconos y pantalla de arranque siguen siendo los de Expo; se sustituirán por `docs/marca/icono-app.svg` antes de la beta;

@@ -1,6 +1,7 @@
 import { tokens } from '@aptiq/tokens';
 import { Image } from 'expo-image';
 import { StyleSheet, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Svg, { Defs, Path, Pattern, Rect } from 'react-native-svg';
 
 import logo from '../../../../docs/marca/logo-aptiq.svg';
@@ -12,8 +13,9 @@ const LOGO_WIDTH = 160; // ponytail: provisional; el componente Logo con sus tam
 
 // Pantalla provisional de la fase 0: papel con cuadrícula, logotipo oficial y las tres fuentes.
 export function Provisional() {
+  const { top } = useSafeAreaInsets();
   return (
-    <View style={styles.screen}>
+    <View style={[styles.screen, { paddingTop: Math.max(top, spacing.screenTop) }]}>
       <Svg style={StyleSheet.absoluteFill} accessible={false}>
         <Defs>
           <Pattern
@@ -22,7 +24,7 @@ export function Provisional() {
             height={size.gridCell}
             patternUnits="userSpaceOnUse">
             <Path
-              d={`M ${size.gridCell} 0 V ${size.gridCell} H 0`}
+              d={`M 0 0.5 H ${size.gridCell} M 0.5 0 V ${size.gridCell}`}
               fill="none"
               stroke={color.ink}
               strokeOpacity={opacity.gridLine}
@@ -33,7 +35,14 @@ export function Provisional() {
         <Rect width="100%" height="100%" fill="url(#cuadricula)" />
       </Svg>
 
-      <Image source={logo} style={styles.logo} contentFit="contain" accessibilityLabel="Aptiq" />
+      <Image
+        source={logo}
+        style={styles.logo}
+        contentFit="contain"
+        accessible
+        accessibilityRole="image"
+        accessibilityLabel="Aptiq"
+      />
       <Text style={styles.label}>Fase 0 · Base del proyecto</Text>
       <Text style={styles.title} accessibilityRole="header">
         Saca tu apto.
@@ -52,7 +61,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: color.paper,
     paddingHorizontal: spacing.screenX,
-    paddingTop: spacing.screenTop,
     gap: spacing.l,
   },
   logo: { width: LOGO_WIDTH, aspectRatio: 2 },

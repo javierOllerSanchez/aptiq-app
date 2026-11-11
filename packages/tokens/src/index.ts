@@ -63,5 +63,3 @@ export const tokens = {
 } as const;
 
 export type Tokens = typeof tokens;
-export type ColorToken = keyof Tokens['color'];
-export type TypeToken = keyof Tokens['type'];
