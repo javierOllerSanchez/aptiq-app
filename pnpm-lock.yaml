@@ -29,6 +29,9 @@ importers:
 
   apps/mobile:
     dependencies:
+      '@aptiq/engine':
+        specifier: workspace:^
+        version: link:../../packages/engine
       '@aptiq/tokens':
         specifier: workspace:^
         version: link:../../packages/tokens

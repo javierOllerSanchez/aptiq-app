@@ -19,6 +19,24 @@ export { taxonomy, typeCodes, type TypeCode } from './taxonomy';
 export * from './types';
 export { validateProfile, type ExamProfile } from './profile';
 export { score, type ScoreResult } from './score';
+export {
+  createExam,
+  answer,
+  mark,
+  goTo,
+  finish,
+  tick,
+  remainingMs,
+  type ExamState,
+} from './exam/state';
+export { buildPractice, type PracticeInput, type PracticeItemSpec } from './session/plan';
+export {
+  reviewOf,
+  breakdown,
+  type ReviewResult,
+  type Breakdown,
+  type Result,
+} from './review/review';
 
 /** Un generador y su solucionador por cada tipo de la taxonomía. */
 export const registry: Record<TypeCode, { generator: Generator; solver: Solver }> = {

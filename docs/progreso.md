@@ -166,3 +166,8 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 
 - **Hecho:** explicación de cada pregunta, error de la opción elegida y truco (`packages/engine/src/review/review.ts`); desglose por tipo y aptitud, cuadrado con `score()`, y aptitud a reforzar. Pruebas en verde.
 - **Pendiente de la fase:** T4 a T11.
+
+**2026-11-12 · Fase 4 · T4**
+
+- **Hecho:** hook `useExamClock` (`apps/mobile/src/hooks/use-exam-clock.ts`): recalcula con el reloj cada segundo y al volver a primer plano; recibe el estado del simulacro (no inicio y duración, como decía el plan) para no repetir la lógica del motor. La app depende de `@aptiq/engine`. Pruebas en verde.
+- **Pendiente de la fase:** T5 a T11. Pendiente en dispositivo: pasar el móvil a segundo plano 2 minutos y comprobar el cronómetro.

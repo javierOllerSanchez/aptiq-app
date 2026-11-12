@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "expo-router/entry",
   "dependencies": {
+    "@aptiq/engine": "workspace:^",
     "@aptiq/tokens": "workspace:^",
     "@aptiq/ui": "workspace:^",
     "@expo-google-fonts/bricolage-grotesque": "^0.4.1",
