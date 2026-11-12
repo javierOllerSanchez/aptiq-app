@@ -1,0 +1,255 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`COD.CRIPTO v1 > nivel 1: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 0,
+  "explanation": {
+    "apply": "E A S N → 5 0 9 2 = 5092",
+    "distractors": [
+      {
+        "error": "Escribes el código de derecha a izquierda.",
+        "optionIndex": 1,
+      },
+      {
+        "error": "Confundes la cifra de la E con la de la N.",
+        "optionIndex": 2,
+      },
+      {
+        "error": "Intercambias el orden de dos cifras seguidas.",
+        "optionIndex": 3,
+      },
+    ],
+    "observe": "Cada letra se escribe siempre con la misma cifra: S = 9, E = 5, N = 2, A = 0.",
+    "rule": "Sustituye cada letra de EASN por su cifra, en el mismo orden.",
+    "tip": "Escribe la clave antes de mirar las opciones: qué cifra o qué salto corresponde a cada letra. Después codifica letra a letra y compara con las opciones de izquierda a derecha.",
+  },
+  "id": "COD.CRIPTO:1:muestra:1",
+  "level": 1,
+  "meta": {
+    "expectedSeconds": 25,
+    "generatorVersion": "1",
+  },
+  "options": [
+    "5092",
+    "2905",
+    "2095",
+    "0592",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "examples": [
+      {
+        "code": "95260",
+        "plain": "SENDA",
+      },
+    ],
+    "target": "EASN",
+    "text": "En un código, SENDA se escribe 95260. Con la misma clave, ¿cómo se escribe EASN?",
+  },
+  "type": "COD.CRIPTO",
+}
+`;
+
+exports[`COD.CRIPTO v1 > nivel 2: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 1,
+  "explanation": {
+    "apply": "N R O N O → 0 4 7 0 7 = 04707",
+    "distractors": [
+      {
+        "error": "Confundes la cifra de la R con la de la N.",
+        "optionIndex": 0,
+      },
+      {
+        "error": "Intercambias el orden de dos cifras seguidas.",
+        "optionIndex": 2,
+      },
+      {
+        "error": "Escribes el código de derecha a izquierda.",
+        "optionIndex": 3,
+      },
+    ],
+    "observe": "Cada letra se escribe siempre con la misma cifra: N = 0, O = 7, R = 4.",
+    "rule": "Sustituye cada letra de NRONO por su cifra, en el mismo orden.",
+    "tip": "Escribe la clave antes de mirar las opciones: qué cifra o qué salto corresponde a cada letra. Después codifica letra a letra y compara con las opciones de izquierda a derecha.",
+  },
+  "id": "COD.CRIPTO:1:muestra:2",
+  "level": 2,
+  "meta": {
+    "expectedSeconds": 35,
+    "generatorVersion": "1",
+  },
+  "options": [
+    "40747",
+    "04707",
+    "07407",
+    "70740",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "examples": [
+      {
+        "code": "07438",
+        "plain": "NORMA",
+      },
+    ],
+    "target": "NRONO",
+    "text": "En un código, NORMA se escribe 07438. Con la misma clave, ¿cómo se escribe NRONO?",
+  },
+  "type": "COD.CRIPTO",
+}
+`;
+
+exports[`COD.CRIPTO v1 > nivel 3: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 1,
+  "explanation": {
+    "apply": "O R C O C → 8 0 4 8 4 = 80484",
+    "distractors": [
+      {
+        "error": "Intercambias el orden de dos cifras seguidas.",
+        "optionIndex": 0,
+      },
+      {
+        "error": "Escribes el código de derecha a izquierda.",
+        "optionIndex": 2,
+      },
+      {
+        "error": "Confundes la cifra de la O con la de la C.",
+        "optionIndex": 3,
+      },
+    ],
+    "observe": "Cada letra se escribe siempre con la misma cifra: R = 0, O = 8, C = 4.",
+    "rule": "Sustituye cada letra de ORCOC por su cifra, en el mismo orden.",
+    "tip": "Escribe la clave antes de mirar las opciones: qué cifra o qué salto corresponde a cada letra. Después codifica letra a letra y compara con las opciones de izquierda a derecha.",
+  },
+  "id": "COD.CRIPTO:1:muestra:3",
+  "level": 3,
+  "meta": {
+    "expectedSeconds": 45,
+    "generatorVersion": "1",
+  },
+  "options": [
+    "08484",
+    "80484",
+    "48408",
+    "40848",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "examples": [
+      {
+        "code": "08196",
+        "plain": "ROBLE",
+      },
+      {
+        "code": "43196",
+        "plain": "CABLE",
+      },
+    ],
+    "target": "ORCOC",
+    "text": "En un código, ROBLE se escribe 08196 y CABLE se escribe 43196. Con la misma clave, ¿cómo se escribe ORCOC?",
+  },
+  "type": "COD.CRIPTO",
+}
+`;
+
+exports[`COD.CRIPTO v1 > nivel 4: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 0,
+  "explanation": {
+    "apply": "CAMISA → GEPMWE",
+    "distractors": [
+      {
+        "error": "Olvidas codificar la última letra.",
+        "optionIndex": 1,
+      },
+      {
+        "error": "Desplazas una posición de más.",
+        "optionIndex": 2,
+      },
+      {
+        "error": "Olvidas la Ñ al contar las posiciones.",
+        "optionIndex": 3,
+      },
+    ],
+    "observe": "Compara letra a letra: C→G, A→E, J→N… Todas se desplazan lo mismo.",
+    "rule": "Cada letra se sustituye por la que está +4 posiciones en el alfabeto (con Ñ).",
+    "tip": "Escribe la clave antes de mirar las opciones: qué cifra o qué salto corresponde a cada letra. Después codifica letra a letra y compara con las opciones de izquierda a derecha.",
+  },
+  "id": "COD.CRIPTO:1:muestra:4",
+  "level": 4,
+  "meta": {
+    "expectedSeconds": 55,
+    "generatorVersion": "1",
+  },
+  "options": [
+    "GEPMWE",
+    "GEPMWA",
+    "HFQNXF",
+    "GEQMWE",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "examples": [
+      {
+        "code": "GENSQ",
+        "plain": "CAJON",
+      },
+    ],
+    "target": "CAMISA",
+    "text": "En un código, CAJON se escribe GENSQ. Con la misma clave, ¿cómo se escribe CAMISA?",
+  },
+  "type": "COD.CRIPTO",
+}
+`;
+
+exports[`COD.CRIPTO v1 > nivel 5: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 3,
+  "explanation": {
+    "apply": "ESPEJO → FQQCKN",
+    "distractors": [
+      {
+        "error": "Aplicas +1 a todas las letras, sin alternar.",
+        "optionIndex": 0,
+      },
+      {
+        "error": "Olvidas la Ñ al contar las posiciones.",
+        "optionIndex": 1,
+      },
+      {
+        "error": "Desplazas hacia el lado contrario del alfabeto.",
+        "optionIndex": 2,
+      },
+    ],
+    "observe": "Compara letra a letra: T→U, R→P, I→J… El salto cambia según la posición.",
+    "rule": "Cada letra se sustituye por la que está +1 y −2 posiciones, alternando en el alfabeto (con Ñ).",
+    "tip": "Escribe la clave antes de mirar las opciones: qué cifra o qué salto corresponde a cada letra. Después codifica letra a letra y compara con las opciones de izquierda a derecha.",
+  },
+  "id": "COD.CRIPTO:1:muestra:5",
+  "level": 5,
+  "meta": {
+    "expectedSeconds": 70,
+    "generatorVersion": "1",
+  },
+  "options": [
+    "FTQFKP",
+    "FQQCKM",
+    "DUOGIQ",
+    "FQQCKN",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "examples": [
+      {
+        "code": "UPJEP",
+        "plain": "TRIGO",
+      },
+    ],
+    "target": "ESPEJO",
+    "text": "En un código, TRIGO se escribe UPJEP. Con la misma clave, ¿cómo se escribe ESPEJO?",
+  },
+  "type": "COD.CRIPTO",
+}
+`;
