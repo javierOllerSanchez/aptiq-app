@@ -1,0 +1,258 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`VER.ORDEN v1 > nivel 1: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 2,
+  "explanation": {
+    "apply": "Puesto 1: DEDAL (DEDAL < FAROL)",
+    "distractors": [
+      {
+        "error": "Cuentas los puestos desde el final de la lista ordenada.",
+        "optionIndex": 0,
+      },
+      {
+        "error": "Tomas la palabra que ocupa ese puesto en la lista sin ordenarla.",
+        "optionIndex": 1,
+      },
+      {
+        "error": "Te equivocas al contar: tomas la palabra del puesto siguiente.",
+        "optionIndex": 3,
+      },
+    ],
+    "observe": "Compara letra a letra. Ordenadas: DEDAL, FAROL, MONTAÑA, PLUMA.",
+    "rule": "Se ordena por la primera letra distinta, con la Ñ después de la N.",
+    "tip": "Compara primero la letra inicial; si coincide, la segunda, y así sucesivamente. La Ñ va después de la N: CANAL va antes que CAÑA.",
+  },
+  "id": "VER.ORDEN:1:muestra:1",
+  "level": 1,
+  "meta": {
+    "expectedSeconds": 20,
+    "generatorVersion": "1",
+  },
+  "options": [
+    "PLUMA",
+    "MONTAÑA",
+    "DEDAL",
+    "FAROL",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "position": 1,
+    "text": "¿Qué palabra va primera en orden alfabético? MONTAÑA, FAROL, PLUMA, DEDAL",
+    "words": [
+      "MONTAÑA",
+      "FAROL",
+      "PLUMA",
+      "DEDAL",
+    ],
+  },
+  "type": "VER.ORDEN",
+}
+`;
+
+exports[`VER.ORDEN v1 > nivel 2: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 2,
+  "explanation": {
+    "apply": "Puesto 1: RAMA (RAMA < RELOJ)",
+    "distractors": [
+      {
+        "error": "Te equivocas al contar: tomas la palabra del puesto siguiente.",
+        "optionIndex": 0,
+      },
+      {
+        "error": "Cuentas los puestos desde el final de la lista ordenada.",
+        "optionIndex": 1,
+      },
+      {
+        "error": "Tomas la palabra que ocupa ese puesto en la lista sin ordenarla.",
+        "optionIndex": 3,
+      },
+    ],
+    "observe": "Compara letra a letra. Ordenadas: RAMA, RELOJ, RIO, ROBLE, RUEDA.",
+    "rule": "Se ordena por la primera letra distinta, con la Ñ después de la N.",
+    "tip": "Compara primero la letra inicial; si coincide, la segunda, y así sucesivamente. La Ñ va después de la N: CANAL va antes que CAÑA.",
+  },
+  "id": "VER.ORDEN:1:muestra:2",
+  "level": 2,
+  "meta": {
+    "expectedSeconds": 25,
+    "generatorVersion": "1",
+  },
+  "options": [
+    "RELOJ",
+    "RUEDA",
+    "RAMA",
+    "RIO",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "position": 1,
+    "text": "¿Qué palabra va primera en orden alfabético? RIO, RELOJ, ROBLE, RUEDA, RAMA",
+    "words": [
+      "RIO",
+      "RELOJ",
+      "ROBLE",
+      "RUEDA",
+      "RAMA",
+    ],
+  },
+  "type": "VER.ORDEN",
+}
+`;
+
+exports[`VER.ORDEN v1 > nivel 3: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 3,
+  "explanation": {
+    "apply": "Puesto 2: TECHO (TALLER < TECHO < TELA)",
+    "distractors": [
+      {
+        "error": "Te equivocas al contar: tomas la palabra del puesto anterior.",
+        "optionIndex": 0,
+      },
+      {
+        "error": "Cuentas los puestos desde el final de la lista ordenada.",
+        "optionIndex": 1,
+      },
+      {
+        "error": "Te equivocas al contar: tomas la palabra del puesto siguiente.",
+        "optionIndex": 2,
+      },
+    ],
+    "observe": "Compara letra a letra. Ordenadas: TALLER, TECHO, TELA, TIENDA, TRIGO.",
+    "rule": "Se ordena por la primera letra distinta, con la Ñ después de la N.",
+    "tip": "Compara primero la letra inicial; si coincide, la segunda, y así sucesivamente. La Ñ va después de la N: CANAL va antes que CAÑA.",
+  },
+  "id": "VER.ORDEN:1:muestra:3",
+  "level": 3,
+  "meta": {
+    "expectedSeconds": 35,
+    "generatorVersion": "1",
+  },
+  "options": [
+    "TALLER",
+    "TIENDA",
+    "TELA",
+    "TECHO",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "position": 2,
+    "text": "¿Qué palabra ocupa el segundo lugar en orden alfabético? TALLER, TELA, TECHO, TRIGO, TIENDA",
+    "words": [
+      "TALLER",
+      "TELA",
+      "TECHO",
+      "TRIGO",
+      "TIENDA",
+    ],
+  },
+  "type": "VER.ORDEN",
+}
+`;
+
+exports[`VER.ORDEN v1 > nivel 4: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 0,
+  "explanation": {
+    "apply": "Puesto 2: PEINE (DEDAL < PEINE < PELOTA)",
+    "distractors": [
+      {
+        "error": "Cuentas los puestos desde el final de la lista ordenada.",
+        "optionIndex": 1,
+      },
+      {
+        "error": "Te equivocas al contar: tomas la palabra del puesto siguiente.",
+        "optionIndex": 2,
+      },
+      {
+        "error": "Te equivocas al contar: tomas la palabra del puesto anterior.",
+        "optionIndex": 3,
+      },
+    ],
+    "observe": "Compara letra a letra. Ordenadas: DEDAL, PEINE, PELOTA, PEÑA, PERSIANA, ZANAHORIA.",
+    "rule": "Se ordena por la primera letra distinta, con la Ñ después de la N.",
+    "tip": "Compara primero la letra inicial; si coincide, la segunda, y así sucesivamente. La Ñ va después de la N: CANAL va antes que CAÑA.",
+  },
+  "id": "VER.ORDEN:1:muestra:4",
+  "level": 4,
+  "meta": {
+    "expectedSeconds": 45,
+    "generatorVersion": "1",
+  },
+  "options": [
+    "PEINE",
+    "PERSIANA",
+    "PELOTA",
+    "DEDAL",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "position": 2,
+    "text": "¿Qué palabra ocupa el segundo lugar en orden alfabético? PEÑA, DEDAL, PELOTA, PERSIANA, PEINE, ZANAHORIA",
+    "words": [
+      "PEÑA",
+      "DEDAL",
+      "PELOTA",
+      "PERSIANA",
+      "PEINE",
+      "ZANAHORIA",
+    ],
+  },
+  "type": "VER.ORDEN",
+}
+`;
+
+exports[`VER.ORDEN v1 > nivel 5: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 1,
+  "explanation": {
+    "apply": "Puesto 3: ESPEJO (ESCUDO < ESPEJO < ESTACION)",
+    "distractors": [
+      {
+        "error": "Cuentas los puestos desde el final de la lista ordenada.",
+        "optionIndex": 0,
+      },
+      {
+        "error": "Te equivocas al contar: tomas la palabra del puesto anterior.",
+        "optionIndex": 2,
+      },
+      {
+        "error": "Te equivocas al contar: tomas la palabra del puesto siguiente.",
+        "optionIndex": 3,
+      },
+    ],
+    "observe": "Compara letra a letra. Ordenadas: ESCALERA, ESCUDO, ESPEJO, ESTACION, ESTRELLA, HORMIGA, PLATO.",
+    "rule": "Se ordena por la primera letra distinta, con la Ñ después de la N.",
+    "tip": "Compara primero la letra inicial; si coincide, la segunda, y así sucesivamente. La Ñ va después de la N: CANAL va antes que CAÑA.",
+  },
+  "id": "VER.ORDEN:1:muestra:5",
+  "level": 5,
+  "meta": {
+    "expectedSeconds": 55,
+    "generatorVersion": "1",
+  },
+  "options": [
+    "ESTRELLA",
+    "ESPEJO",
+    "ESCUDO",
+    "ESTACION",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "position": 3,
+    "text": "¿Qué palabra ocupa el tercer lugar en orden alfabético? HORMIGA, ESCALERA, ESTRELLA, PLATO, ESTACION, ESCUDO, ESPEJO",
+    "words": [
+      "HORMIGA",
+      "ESCALERA",
+      "ESTRELLA",
+      "PLATO",
+      "ESTACION",
+      "ESCUDO",
+      "ESPEJO",
+    ],
+  },
+  "type": "VER.ORDEN",
+}
+`;

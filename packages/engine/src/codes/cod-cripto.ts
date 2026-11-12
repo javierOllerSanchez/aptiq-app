@@ -22,7 +22,7 @@ const digits =
   (exampleCount: 1 | 2, targetLen: number): Family =>
   (rng) => {
     const pool = WORDS.filter((w) => w.length >= 4 && w.length <= 6 && !w.includes('Ñ'));
-    const examples = [rng.pick(pool)];
+    const examples: string[] = [rng.pick(pool)];
     if (exampleCount === 2) examples.push(rng.pick(pool.filter((w) => w !== examples[0])));
     const letters = [...new Set(examples.join(''))];
     if (letters.length > 10 || letters.length < 4) return null;
