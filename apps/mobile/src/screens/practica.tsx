@@ -1,13 +1,22 @@
-import { type Item, reviewOf } from '@aptiq/engine';
+import type { Item } from '@aptiq/engine';
 import { tokens } from '@aptiq/tokens';
-import { Button, OptionBubble, PaperBackground, ProgressTicks, Text } from '@aptiq/ui';
-import type { OptionState } from '@aptiq/ui';
+import {
+  Button,
+  OptionBubble,
+  type OptionState,
+  PaperBackground,
+  ProgressTicks,
+  Text,
+} from '@aptiq/ui';
+import * as Haptics from 'expo-haptics';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { useStore } from '@/data/provider';
-import { startRun } from '@/practice/run';
+import { APTITUDE_LABELS, startRun } from '@/practice/run';
+import { Explicacion } from '@/screens/explicacion';
+import { Loading } from '@/screens/loading';
 
 const LETTERS = ['A', 'B', 'C', 'D'] as const;
 const SESSION_QUESTIONS = 10;
@@ -32,18 +41,20 @@ export function Practica() {
     }).then(setItems);
   }, [store, aptitud]);
 
-  if (!items) return null;
+  if (!items) return <Loading text="Preparando la sesión…" />;
   const item = items[index];
   if (!item) return null;
-  const review = reviewOf(item, selected);
+  const titulo = aptitud ? (APTITUDE_LABELS[aptitud] ?? aptitud) : 'Sesión de hoy';
 
   function stateOf(i: number): OptionState {
-    if (revealed) {
-      if (i === item!.answerIndex) return 'correct';
-      if (i === selected) return 'wrong';
-      return 'empty';
-    }
-    return i === selected ? 'marked' : 'empty';
+    if (!revealed) return i === selected ? 'marked' : 'empty';
+    if (i === item!.answerIndex) return 'correct';
+    return i === selected ? 'wrong' : 'empty';
+  }
+
+  function confirmar() {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
+    setRevealed(true);
   }
 
   async function siguiente() {
@@ -70,62 +81,48 @@ export function Practica() {
   }
 
   return (
-    <PaperBackground scroll>
-      <View style={styles.content}>
-        <ProgressTicks
-          total={items.length}
-          current={index}
-          answered={items.map((_, i) => i < answers.length)}
-        />
-        <Text variant="label" color="graphite">
-          Pregunta {index + 1} de {items.length}
-        </Text>
-        <Text variant="questionTitle">{item.stem.text}</Text>
+    <PaperBackground scroll style={styles.content}>
+      <Text variant="label" color="graphite">
+        {titulo} · pregunta {index + 1} de {items.length}
+      </Text>
+      <ProgressTicks
+        total={items.length}
+        current={index}
+        answered={items.map((_, i) => i < answers.length)}
+      />
+      <Text variant="questionTitle">{item.stem.text}</Text>
+      <View accessibilityRole="radiogroup" style={styles.options}>
         {item.options.map((value, i) => (
           <OptionBubble
             key={i}
             letter={LETTERS[i] ?? ''}
             value={value}
             state={stateOf(i)}
-            onPress={() => {
-              if (!revealed) setSelected(i);
-            }}
+            {...(revealed ? {} : { onPress: () => setSelected(i) })}
           />
         ))}
-        {revealed && (
-          <View style={styles.explanation}>
-            <Text variant="bodyStrong">{review.correct ? 'Correcta.' : 'No es esta.'}</Text>
-            <Text>{item.explanation.observe}</Text>
-            <Text>{item.explanation.rule}</Text>
-            <Text>{item.explanation.apply}</Text>
-            {review.wrongReason && <Text color="sealText">{review.wrongReason}</Text>}
-            <Text variant="bodyStrong">Truco: {review.tip}</Text>
-          </View>
-        )}
-        {revealed ? (
-          <Button
-            label={index + 1 < items.length ? 'Siguiente' : 'Terminar sesión'}
-            onPress={siguiente}
-            variant="primary"
-          />
-        ) : (
-          <Button
-            label="Confirmar"
-            onPress={() => setRevealed(true)}
-            disabled={selected === null}
-            variant="primary"
-          />
-        )}
       </View>
+      {revealed && <Explicacion item={item} answer={selected} />}
+      {revealed ? (
+        // Tras corregir, el amarillo es la opción correcta: el botón pasa a secundario (un solo protagonista).
+        <Button
+          label={index + 1 < items.length ? 'Siguiente' : 'Terminar sesión'}
+          onPress={siguiente}
+          variant="secondary"
+        />
+      ) : (
+        <Button
+          label="Confirmar"
+          onPress={confirmar}
+          disabled={selected === null}
+          variant="primary"
+        />
+      )}
     </PaperBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  content: {
-    padding: tokens.spacing.screenX,
-    gap: tokens.spacing.m,
-    paddingTop: tokens.spacing.screenTop,
-  },
-  explanation: { gap: tokens.spacing.s },
+  content: { gap: tokens.spacing.m },
+  options: { gap: tokens.spacing.s },
 });

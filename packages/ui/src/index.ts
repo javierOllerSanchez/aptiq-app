@@ -11,3 +11,4 @@ export * from './stamp';
 export * from './glass-card';
 export * from './source-note';
 export * from './tab-bar';
+export * from './timer';

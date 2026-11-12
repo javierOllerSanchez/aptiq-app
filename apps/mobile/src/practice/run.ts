@@ -1,5 +1,6 @@
 import {
   buildPractice,
+  guardiaCivil2026,
   type Item,
   type Level,
   registry,
@@ -11,6 +12,12 @@ import type { Store } from '@/data/store';
 
 /** Opciones por pregunta del perfil de la Guardia Civil (base 7.3, N = 4). */
 export const OPTION_COUNT = 4 as const;
+
+/** Organismo que publica la plantilla oficial, sacado del perfil (para `SourceNote`). */
+export const FUENTE = `la ${guardiaCivil2026.sources.find((s) => s.tipo === 'plantilla')?.organismo ?? 'Administración'}`;
+
+/** «0,13» con coma y signo menos tipográfico. */
+export const formatNota = (n: number) => n.toFixed(2).replace('.', ',').replace('-', '−');
 
 /** Nombres de las aptitudes del motor, en español para la pantalla. */
 export const APTITUDE_LABELS: Record<string, string> = {

@@ -19,13 +19,28 @@ appId: com.javioller.aptiq
 - repeat:
     times: 80
     commands:
+      - scrollUntilVisible:
+          element: "Opción C, .*"
+          direction: UP
       - tapOn: "Opción C, .*"
+      - scrollUntilVisible:
+          element: "Siguiente"
+          direction: DOWN
       - tapOn:
           text: "Siguiente"
           optional: true
+# Tras 80 respuestas, la última pregunta debe estar contestada (comprueba que de verdad se avanzó).
+- scrollUntilVisible:
+    element: "Pregunta 80 de 80"
+    direction: UP
+- scrollUntilVisible:
+    element: "Entregar simulacro"
 - tapOn: "Entregar simulacro"
-- assertVisible: "Resultado · simulacro"
-- assertVisible: ".* aciertos − .* fallos ÷ 3"
-- tapOn: "Repasar fallos y en blanco"
-- assertVisible: "Repasar fallos"
+- tapOn: "Entregar ahora"
+- assertVisible: "Resultado · simulacro.*"
+- assertVisible: '\(.* aciertos? − .* fallos? ÷ 3\) × 30/80 = .*'
+- scrollUntilVisible:
+    element: "Ver explicaciones"
+- tapOn: "Ver explicaciones"
+- assertVisible: "Fallos y en blanco.*"
 - setAirplaneMode: disabled

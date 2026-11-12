@@ -7,8 +7,15 @@ appId: com.javioller.aptiq
 - repeat:
     times: 10
     commands:
+      - scrollUntilVisible:
+          element: "Opción B, .*"
+          direction: UP
       - tapOn: "Opción B, .*"
+      - scrollUntilVisible:
+          element: "Confirmar"
       - tapOn: "Confirmar"
-      - assertVisible: "Truco: .*"
+      - assertVisible: "Truco"
+      - scrollUntilVisible:
+          element: "(Siguiente|Terminar sesión)"
       - tapOn: "(Siguiente|Terminar sesión)"
 - assertVisible: "Sesión de hoy"

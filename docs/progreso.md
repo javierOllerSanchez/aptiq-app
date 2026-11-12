@@ -214,3 +214,34 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
   - T10: comparar con los prototipos y revisar accesibilidad.
   - T11: cierre.
   - Que el propietario confirme el identificador de la app.
+
+**2026-11-12 · Fase 4 · T10 (prototipos, accesibilidad y `revisor-interfaz`)**
+
+- **Revisión:** `revisor-interfaz` encontró 7 problemas graves y 13 importantes. **Graves, todos corregidos:**
+  1. **Dejar en blanco (SIM-02):** `clear()` en el motor, con prueba, y botón en el simulacro.
+  2. **Fórmula visible (RES-01):** completa y con el resultado, «(0 aciertos − 1 fallo ÷ 3) × 30/80 = −0,13», con el singular y el signo menos tipográfico.
+  3. **Desglose (RES-02):** por aptitud y por tipo, con el total real (incluidas las de en blanco) y porcentaje; la aptitud a reforzar en rojo.
+  4. **Nivel estimado:** se muestra en Inicio, marcado como orientativo.
+  5. **Salida del simulacro:** pide confirmación con el botón cerrar, con Atrás de Android y al entregar (dice cuántas quedan en blanco y cuántas marcadas); sin gesto de deslizar.
+  6. **Campo de fecha:** estilo de texto correcto (`textStyle`) y validación del formato.
+  7. **Capturas:** rehechas, a tamaño normal y con el texto al 200 % (`docs/capturas/fase-4-texto-200/`).
+- **Importantes corregidos:**
+  - márgenes duplicados (ahora 20 de lado);
+  - `Timer` de cristal con reloj y anuncio por minutos;
+  - tipo de pregunta, penalización, nota de fuente y «Siguiente marcada» en el simulacro;
+  - `checked` y `radiogroup` para TalkBack y VoiceOver;
+  - fuente «la Guardia Civil» y formato leídos del perfil;
+  - repaso con los tres pasos, opciones correcta/fallo y una tarjeta por pregunta;
+  - un solo amarillo en Práctica tras corregir;
+  - test de nivel con 10 minutos, «No lo sé» y casillas;
+  - estados de carga.
+- **Al 200 %:** la letra de la burbuja ya no se corta (tamaño fijo, como un icono) y el nombre del tipo ya no se parte a mitad de palabra.
+- **Verificado:**
+  - los 4 flujos de Maestro en verde en el emulador (el simulacro llega a la pregunta 80 y entrega en modo avión);
+  - typecheck, lint y pruebas en verde: 224 del motor, 18 de `ui` y 15 de la app.
+- **Pendiente de decidir por el propietario (importantes que cambian la estructura):**
+  - barra de pestañas y filas de lista (`ListRow`) en Inicio;
+  - marca visible en las casillas de progreso;
+  - composición exacta de Resultado (nota con «/ 30» y sello al lado) y barras por aptitud;
+  - cuál es el botón amarillo de Inicio: he seguido el prototipo («Empezar simulacro»).
+- **Para revisar el propietario:** `SourceNote` dice «exámenes publicados por la Guardia Civil», pero la Guardia Civil solo publica la plantilla de respuestas de aptitudes, no el cuestionario.

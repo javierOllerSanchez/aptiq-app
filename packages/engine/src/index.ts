@@ -41,6 +41,7 @@ export {
   breakdown,
   type ReviewResult,
   type Breakdown,
+  type Tally,
   type Result,
 } from './review/review';
 export { estimateLevels, type LevelAnswer } from './level/estimate';
