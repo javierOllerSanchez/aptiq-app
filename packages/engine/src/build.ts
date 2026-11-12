@@ -15,6 +15,11 @@ export interface Draft<S extends Stem> {
   rule: string;
   /** Debe contener la respuesta: es el cálculo que lleva a ella. */
   apply: string;
+  /**
+   * El puesto por valor de la correcta ES la solución («¿qué palabra va primera?»): no se sortea,
+   * para no desequilibrar el sorteo de las demás preguntas del mismo nivel.
+   */
+  rankIsSolution?: boolean;
 }
 
 /**
@@ -72,22 +77,32 @@ export function buildItem<S extends Stem, F extends (rng: Rng) => Draft<S> | nul
     solver: Solver<S>;
     families: Families<F>;
     compare?: (a: string, b: string) => number;
+    /** Rechazar repartos con la correcta en el centro de los errores (por defecto, con números). */
+    avoidCenter?: boolean;
   },
   seed: string,
   level: Level,
   optionCount: OptionCount,
 ): Item<S> {
+  // Puesto por valor que debe ocupar la correcta: se sortea una vez por pregunta y se mantiene en
+  // los reintentos. (Sortearlo en cada intento favorecería los puestos centrales, que son posibles
+  // con más borradores.)
+  const need = optionCount - 1;
+  // Lo mismo con la familia: elegirla en cada intento favorecería a las que se descartan menos.
+  const fixed = createRng(`${spec.type}:${spec.version}:${seed}:${level}:${optionCount}:puesto`);
+  const target = fixed.int(0, need);
+  const [family, make] = fixed.pick(Object.entries(spec.families[level]));
   for (let n = 0; n <= MAX_RETRIES; n++) {
     const attemptSeed = n === 0 ? seed : `${seed}:retry:${n}`;
     const rng = createRng(`${spec.type}:${spec.version}:${attemptSeed}:${level}:${optionCount}`);
-    const [family, make] = rng.pick(Object.entries(spec.families[level]));
     const draft = make(rng);
     if (!draft) continue;
 
     const seen = new Set([draft.answer]);
     const candidates = draft.distractors.filter((d) => !seen.has(d.value) && seen.add(d.value));
-    const need = optionCount - 1;
-    const chosen = choose(candidates, draft.answer, need, rng, spec.compare);
+    const avoidCenter = spec.avoidCenter ?? spec.compare === byNumber;
+    const strict = n < STRICT_ATTEMPTS && !draft.rankIsSolution;
+    const chosen = choose(candidates, draft.answer, need, rng, spec.compare, strict ? target : null, avoidCenter);
     if (!chosen) continue;
 
     const options = rng.shuffle([{ value: draft.answer, error: '' }, ...chosen]);
@@ -122,6 +137,8 @@ export function buildItem<S extends Stem, F extends (rng: Rng) => Draft<S> | nul
 }
 
 const MAX_GENERIC = 2;
+/** Intentos en los que se exige el puesto sorteado para la correcta (de MAX_RETRIES). */
+const STRICT_ATTEMPTS = 15;
 
 /**
  * Elige `need` distractores con tres condiciones:
@@ -137,6 +154,9 @@ function choose(
   need: number,
   rng: Rng,
   compare?: (a: string, b: string) => number,
+  /** Puesto exigido para la correcta (cuántas opciones por debajo), o null si vale cualquiera. */
+  target: number | null = null,
+  avoidCenter = false,
 ): Distractor[] | null {
   const rule = candidates.filter((d) => !d.generic);
   const generic = rng.shuffle(candidates.filter((d) => d.generic));
@@ -147,26 +167,29 @@ function choose(
   const side = (xs: Distractor[], below: boolean) =>
     xs.filter((d) => (compare(d.value, answer) < 0) === below);
   const [rb, ra, gb, ga] = [side(rule, true), side(rule, false), side(generic, true), side(generic, false)];
-  const plans: Distractor[][] = [];
-  for (let k = 0; k <= need; k++) {
+  const planFor = (k: number) => {
     const up = need - k;
     const below = [...rb.slice(0, k), ...gb.slice(0, Math.max(0, k - rb.length))];
     const above = [...ra.slice(0, up), ...ga.slice(0, Math.max(0, up - ra.length))];
     const plan = [...below, ...above];
-    if (below.length !== k || above.length !== up) continue;
-    if (plan.filter((d) => d.generic).length > MAX_GENERIC) continue;
-    if (compare === byNumber && isUniqueCenter(answer, plan)) continue;
-    plans.push(plan);
-  }
+    if (below.length !== k || above.length !== up) return null;
+    if (plan.filter((d) => d.generic).length > MAX_GENERIC) return null;
+    if (avoidCenter && isUniqueCenter(answer, plan)) return null;
+    return plan;
+  };
+  // Con puesto exigido, si este borrador no lo permite se prueba otro (buildItem). Solo en los
+  // últimos intentos se acepta cualquier puesto posible.
+  if (target !== null) return planFor(target);
+  const plans = Array.from({ length: need + 1 }, (_, k) => planFor(k)).filter((p) => p !== null);
   return plans.length === 0 ? null : rng.pick(plans);
 }
 
-/** ¿Destaca la correcta (sola o empatada con otra) como la opción con más vecinas a 1, 2 o 10? */
+/** ¿Es la correcta la única opción con más vecinas a 1, 2 o 10 de distancia? */
 function isUniqueCenter(answer: string, plan: Distractor[]) {
   const values = [answer, ...plan.map((d) => d.value)].map(toNumber);
   const near = values.map((v) => values.filter((w) => [1, 2, 10].includes(Math.abs(v - w))).length);
   const best = Math.max(...near);
-  return best > 0 && near[0] === best && near.filter((n) => n === best).length <= 2;
+  return best > 0 && near[0] === best && near.filter((n) => n === best).length === 1;
 }
 
 /** Orden numérico de opciones como «1.250» o «12,5». */

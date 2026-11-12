@@ -5,7 +5,7 @@ import { levels, type Generator } from '../types';
 import { ALPHABET, letterAt, position } from './alphabet';
 import { letSerieSolver, type LetSerieStem } from './let-serie.solver';
 
-const VERSION = '2';
+const VERSION = '3';
 const TIP =
   'Escribe debajo de cada letra su posición en el alfabeto (A = 1… Z = 27) y trabaja con números. No olvides la Ñ, que va después de la N.';
 
@@ -76,7 +76,11 @@ const fixed =
       apply: `${named(l)} ${step(s)} = ${named(answer)} → ${letterAt(answer)}`,
       distractors: [
         { pos: l + 2 * s, error: `Aplicas el salto (${step(s)}) dos veces.` },
-        { pos: l - s, error: `Aplicas el salto en sentido contrario (${step(-s)}).` },
+        // Contar mal el salto (+3 en lugar de +4…): errores a los dos lados de la respuesta.
+        ...[-3, -2, -1, 1, 2]
+          .map((k) => s + Math.sign(s) * k)
+          .filter((t) => t !== 0 && Math.sign(t) === Math.sign(s))
+          .map((t) => ({ pos: l + t, error: `Cuentas mal el salto: ${step(t)} en lugar de ${step(s)}.` })),
         ...miscounts(answer, Math.sign(s)),
       ],
     };
@@ -174,11 +178,13 @@ const interleaved =
   };
 
 const families: Families<Family> = {
-  1: { saltoFijo: fixed(1, 3, false) },
-  2: { saltoFijoAmbosSentidos: fixed(2, 4, true) },
+  // Saltos fijos en los dos sentidos: con saltos de 1 en un solo sentido no caben errores entre la
+  // última letra y la respuesta, y la correcta se delataría por ser «la primera letra posible».
+  1: { saltoFijo: fixed(2, 4, true) },
+  2: { saltoFijoGrande: fixed(3, 6, true), saltosAlternos: alternating(false) },
   3: { saltoVariable: growing },
-  4: { saltosAlternos: alternating(false), intercaladas: interleaved(false) },
-  5: { intercaladasOpuestas: interleaved(true), saltosAlternosOpuestos: alternating(true) },
+  4: { intercaladas: interleaved(false), saltosAlternosOpuestos: alternating(true) },
+  5: { intercaladasOpuestas: interleaved(true) },
 };
 
 const drafts = finishFamilies(families, (raw: Raw) => {
@@ -193,7 +199,16 @@ const drafts = finishFamilies(families, (raw: Raw) => {
     ...raw.distractors,
   ].flatMap(({ pos, error }) => {
     const value = typeof pos === 'number' ? (pos >= 1 && pos <= L ? letterAt(pos) : undefined) : pos;
-    return value ? [{ value, error }] : [];
+    if (!value) return [];
+    // Fuera: letras ya visibles en la serie (si la respuesta no lo es) y, en una serie que solo
+    // avanza en un sentido, lo que va en sentido contrario. Se descartarían sin pensar.
+    const v = position(value);
+    if (!letters.includes(letterAt(raw.answer)!) && letters.includes(value)) return [];
+    const steps = [...raw.positions, raw.answer].slice(1).map((x, i) => x - raw.positions[i]!);
+    const last = raw.positions[raw.positions.length - 1]!;
+    if (steps.every((d) => d > 0) && v <= last) return [];
+    if (steps.every((d) => d < 0) && v >= last) return [];
+    return [{ value, error }];
   });
   return {
     stem: { text: `¿Qué letra continúa la serie? ${letters.join(', ')}, ?`, letters },

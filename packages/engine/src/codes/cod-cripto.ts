@@ -6,7 +6,7 @@ import { levels, type Generator } from '../types';
 
 import { codCriptoSolver, type CodCriptoStem } from './cod-cripto.solver';
 
-const VERSION = '2';
+const VERSION = '3';
 const TIP =
   'Escribe la clave antes de mirar las opciones: qué cifra o qué salto corresponde a cada letra. Después codifica letra a letra y compara con las opciones de izquierda a derecha.';
 
@@ -52,12 +52,29 @@ const digits =
         .join(', ')}.`,
       rule: `Sustituye cada letra de ${target} por su cifra, en el mismo orden.`,
       apply: `${[...target].join(' ')} → ${[...answer].join(' ')} = ${answer}`,
-      distractors: [
-        { value: swap(answer, i), error: 'Intercambias el orden de dos cifras seguidas.' },
-        { value: confused, error: `Confundes la cifra de la ${x} con la de la ${y}.` },
-        { value: [...answer].reverse().join(''), error: 'Escribes el código de derecha a izquierda.' },
-        { value: answer.slice(0, -1) + ((lastDigit + 1) % 10), error: 'Te equivocas en la cifra de la última letra.' },
-      ],
+      // Si todos los distractores fueran una sola modificación de la respuesta, esta sería «la que
+      // más se parece a las demás» y se adivinaría. La mitad de las veces se construyen alrededor
+      // de un error (confundir dos letras), que pasa a ser el centro.
+      distractors:
+        rng.next() < 0.5
+          ? [
+              { value: swap(answer, i), error: 'Intercambias el orden de dos cifras seguidas.' },
+              { value: confused, error: `Confundes la cifra de la ${x} con la de la ${y}.` },
+              { value: [...answer].reverse().join(''), error: 'Escribes el código de derecha a izquierda.' },
+              { value: answer.slice(0, -1) + ((lastDigit + 1) % 10), error: 'Te equivocas en la cifra de la última letra.' },
+            ]
+          : [
+              { value: confused, error: `Confundes la cifra de la ${x} con la de la ${y}.` },
+              {
+                value: swap(confused, i),
+                error: `Confundes la cifra de la ${x} con la de la ${y} y, además, intercambias dos cifras seguidas.`,
+              },
+              {
+                value: confused.slice(0, -1) + ((Number(confused[confused.length - 1]) + 1) % 10),
+                error: `Confundes la cifra de la ${x} con la de la ${y} y te equivocas en la última.`,
+              },
+              { value: swap(answer, i), error: 'Intercambias el orden de dos cifras seguidas.' },
+            ],
     };
   };
 

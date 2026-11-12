@@ -1,261 +1,261 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`VER.ORDEN v2 > nivel 1: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+exports[`VER.ORDEN v3 > nivel 1: instantánea de una semilla fija (si cambia, subir version) 1`] = `
 {
-  "answerIndex": 3,
+  "answerIndex": 2,
   "explanation": {
-    "apply": "Puesto 1: BRAZO (BRAZO < CARTERA)",
+    "apply": "Puesto 1: MERCADO (MERCADO < PEÑA)",
     "distractors": [
       {
-        "error": "Te equivocas al contar: tomas la palabra del puesto siguiente.",
+        "error": "SOMBRERO va detrás de MERCADO: en la 1.ª letra, S va después de M.",
         "optionIndex": 0,
       },
       {
-        "error": "ORILLA va detrás de BRAZO: en la 1.ª letra, O va después de B.",
+        "error": "Te equivocas al contar: tomas la palabra del puesto siguiente.",
         "optionIndex": 1,
       },
       {
         "error": "Cuentas los puestos desde el final de la lista ordenada.",
-        "optionIndex": 2,
+        "optionIndex": 3,
       },
     ],
-    "observe": "Compara letra a letra. Ordenadas: BRAZO, CARTERA, ORILLA, QUESO.",
+    "observe": "Compara letra a letra. Ordenadas: MERCADO, PEÑA, SOMBRERO, ZANAHORIA.",
     "rule": "Se ordena por la primera letra distinta, con la Ñ después de la N.",
     "tip": "Compara primero la letra inicial; si coincide, la segunda, y así sucesivamente. La Ñ va después de la N: CANAL va antes que CAÑA.",
   },
-  "id": "VER.ORDEN:2:muestra:1",
+  "id": "VER.ORDEN:3:muestra:1",
   "level": 1,
   "meta": {
     "expectedSeconds": 20,
     "family": "primeraSinPrefijo",
-    "generatorVersion": "2",
+    "generatorVersion": "3",
   },
   "options": [
-    "CARTERA",
-    "ORILLA",
-    "QUESO",
-    "BRAZO",
+    "SOMBRERO",
+    "PEÑA",
+    "MERCADO",
+    "ZANAHORIA",
   ],
   "seed": "muestra",
   "stem": {
     "position": 1,
-    "text": "¿Qué palabra va primera en orden alfabético? QUESO, CARTERA, BRAZO, ORILLA",
+    "text": "¿Qué palabra va primera en orden alfabético? PEÑA, ZANAHORIA, MERCADO, SOMBRERO",
     "words": [
-      "QUESO",
-      "CARTERA",
-      "BRAZO",
-      "ORILLA",
+      "PEÑA",
+      "ZANAHORIA",
+      "MERCADO",
+      "SOMBRERO",
     ],
   },
   "type": "VER.ORDEN",
 }
 `;
 
-exports[`VER.ORDEN v2 > nivel 2: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+exports[`VER.ORDEN v3 > nivel 2: instantánea de una semilla fija (si cambia, subir version) 1`] = `
 {
   "answerIndex": 1,
   "explanation": {
-    "apply": "Puesto 2: CLAVE (BALCON < CLAVE < PASTEL)",
+    "apply": "Puesto 1: NARANJA (NARANJA < NAVE)",
     "distractors": [
       {
-        "error": "Te equivocas al contar: tomas la palabra del puesto anterior.",
+        "error": "Cuentas los puestos desde el final de la lista ordenada.",
         "optionIndex": 0,
       },
       {
-        "error": "Cuentas los puestos desde el final de la lista ordenada.",
+        "error": "Te equivocas al contar: tomas la palabra del puesto siguiente.",
         "optionIndex": 2,
-      },
-      {
-        "error": "Te equivocas al contar: tomas la palabra del puesto siguiente.",
-        "optionIndex": 3,
-      },
-    ],
-    "observe": "Compara letra a letra. Ordenadas: BALCON, CLAVE, PASTEL, REGLA, SUELO.",
-    "rule": "Se ordena por la primera letra distinta, con la Ñ después de la N.",
-    "tip": "Compara primero la letra inicial; si coincide, la segunda, y así sucesivamente. La Ñ va después de la N: CANAL va antes que CAÑA.",
-  },
-  "id": "VER.ORDEN:2:muestra:2",
-  "level": 2,
-  "meta": {
-    "expectedSeconds": 25,
-    "family": "puestoSinPrefijo",
-    "generatorVersion": "2",
-  },
-  "options": [
-    "BALCON",
-    "CLAVE",
-    "REGLA",
-    "PASTEL",
-  ],
-  "seed": "muestra",
-  "stem": {
-    "position": 2,
-    "text": "¿Qué palabra ocupa el segundo lugar en orden alfabético? CLAVE, REGLA, BALCON, SUELO, PASTEL",
-    "words": [
-      "CLAVE",
-      "REGLA",
-      "BALCON",
-      "SUELO",
-      "PASTEL",
-    ],
-  },
-  "type": "VER.ORDEN",
-}
-`;
-
-exports[`VER.ORDEN v2 > nivel 3: instantánea de una semilla fija (si cambia, subir version) 1`] = `
-{
-  "answerIndex": 2,
-  "explanation": {
-    "apply": "Puesto 4: HORMIGA (HOGAR < HORMIGA < HUESO)",
-    "distractors": [
-      {
-        "error": "Cuentas los puestos desde el final de la lista ordenada.",
-        "optionIndex": 0,
-      },
-      {
-        "error": "Te equivocas al contar: tomas la palabra del puesto anterior.",
-        "optionIndex": 1,
-      },
-      {
-        "error": "Te equivocas al contar: tomas la palabra del puesto siguiente.",
-        "optionIndex": 3,
-      },
-    ],
-    "observe": "Compara letra a letra. Ordenadas: HELADO, HIERRO, HOGAR, HORMIGA, HUESO.",
-    "rule": "Se ordena por la primera letra distinta, con la Ñ después de la N.",
-    "tip": "Compara primero la letra inicial; si coincide, la segunda, y así sucesivamente. La Ñ va después de la N: CANAL va antes que CAÑA.",
-  },
-  "id": "VER.ORDEN:2:muestra:3",
-  "level": 3,
-  "meta": {
-    "expectedSeconds": 35,
-    "family": "puestoMismaInicial",
-    "generatorVersion": "2",
-  },
-  "options": [
-    "HIERRO",
-    "HOGAR",
-    "HORMIGA",
-    "HUESO",
-  ],
-  "seed": "muestra",
-  "stem": {
-    "position": 4,
-    "text": "¿Qué palabra ocupa el cuarto lugar en orden alfabético? HUESO, HELADO, HOGAR, HIERRO, HORMIGA",
-    "words": [
-      "HUESO",
-      "HELADO",
-      "HOGAR",
-      "HIERRO",
-      "HORMIGA",
-    ],
-  },
-  "type": "VER.ORDEN",
-}
-`;
-
-exports[`VER.ORDEN v2 > nivel 4: instantánea de una semilla fija (si cambia, subir version) 1`] = `
-{
-  "answerIndex": 3,
-  "explanation": {
-    "apply": "Puesto 5: MARTES (MARINO < MARTES < MARTILLO)",
-    "distractors": [
-      {
-        "error": "MARCA va delante de MARTES: en la 4.ª letra, C va antes de T.",
-        "optionIndex": 0,
-      },
-      {
-        "error": "Te equivocas al contar: tomas la palabra del puesto anterior.",
-        "optionIndex": 1,
-      },
-      {
-        "error": "Cuentas los puestos desde el final de la lista ordenada.",
-        "optionIndex": 2,
-      },
-    ],
-    "observe": "Compara letra a letra. Ordenadas: MARCA, MARCO, MAREA, MARINO, MARTES, MARTILLO.",
-    "rule": "Se ordena por la primera letra distinta, con la Ñ después de la N.",
-    "tip": "Compara primero la letra inicial; si coincide, la segunda, y así sucesivamente. La Ñ va después de la N: CANAL va antes que CAÑA.",
-  },
-  "id": "VER.ORDEN:2:muestra:4",
-  "level": 4,
-  "meta": {
-    "expectedSeconds": 45,
-    "family": "puestoTresLetras",
-    "generatorVersion": "2",
-  },
-  "options": [
-    "MARCA",
-    "MARINO",
-    "MARCO",
-    "MARTES",
-  ],
-  "seed": "muestra",
-  "stem": {
-    "position": 5,
-    "text": "¿Qué palabra ocupa el quinto lugar en orden alfabético? MARTILLO, MARTES, MAREA, MARCA, MARINO, MARCO",
-    "words": [
-      "MARTILLO",
-      "MARTES",
-      "MAREA",
-      "MARCA",
-      "MARINO",
-      "MARCO",
-    ],
-  },
-  "type": "VER.ORDEN",
-}
-`;
-
-exports[`VER.ORDEN v2 > nivel 5: instantánea de una semilla fija (si cambia, subir version) 1`] = `
-{
-  "answerIndex": 2,
-  "explanation": {
-    "apply": "Puesto 2: CARRERA (CARPETA < CARRERA < CARRO)",
-    "distractors": [
-      {
-        "error": "Cuentas los puestos desde el final de la lista ordenada.",
-        "optionIndex": 0,
-      },
-      {
-        "error": "Te equivocas al contar: tomas la palabra del puesto siguiente.",
-        "optionIndex": 1,
       },
       {
         "error": "Tomas la palabra que ocupa ese puesto en la lista sin ordenarla.",
         "optionIndex": 3,
       },
     ],
-    "observe": "Compara letra a letra. Ordenadas: CARPETA, CARRERA, CARRO, CARTA, CARTERA, ENERO, TAZA.",
+    "observe": "Compara letra a letra. Ordenadas: NARANJA, NAVE, NIÑO, NORMA, NOTA.",
     "rule": "Se ordena por la primera letra distinta, con la Ñ después de la N.",
     "tip": "Compara primero la letra inicial; si coincide, la segunda, y así sucesivamente. La Ñ va después de la N: CANAL va antes que CAÑA.",
   },
-  "id": "VER.ORDEN:2:muestra:5",
-  "level": 5,
+  "id": "VER.ORDEN:3:muestra:2",
+  "level": 2,
   "meta": {
-    "expectedSeconds": 55,
-    "family": "puestoTresLetrasSiete",
-    "generatorVersion": "2",
+    "expectedSeconds": 25,
+    "family": "primeraMismaInicial",
+    "generatorVersion": "3",
   },
   "options": [
-    "ENERO",
-    "CARRO",
-    "CARRERA",
-    "CARTERA",
+    "NOTA",
+    "NARANJA",
+    "NAVE",
+    "NORMA",
   ],
   "seed": "muestra",
   "stem": {
-    "position": 2,
-    "text": "¿Qué palabra ocupa el segundo lugar en orden alfabético? ENERO, CARTERA, TAZA, CARPETA, CARRO, CARRERA, CARTA",
+    "position": 1,
+    "text": "¿Qué palabra va primera en orden alfabético? NORMA, NOTA, NAVE, NIÑO, NARANJA",
     "words": [
-      "ENERO",
-      "CARTERA",
-      "TAZA",
-      "CARPETA",
-      "CARRO",
-      "CARRERA",
-      "CARTA",
+      "NORMA",
+      "NOTA",
+      "NAVE",
+      "NIÑO",
+      "NARANJA",
+    ],
+  },
+  "type": "VER.ORDEN",
+}
+`;
+
+exports[`VER.ORDEN v3 > nivel 3: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 3,
+  "explanation": {
+    "apply": "Puesto 5: PATIO (PARED < PATIO)",
+    "distractors": [
+      {
+        "error": "Te equivocas al contar: tomas la palabra del puesto anterior.",
+        "optionIndex": 0,
+      },
+      {
+        "error": "Tomas la palabra que ocupa ese puesto en la lista sin ordenarla.",
+        "optionIndex": 1,
+      },
+      {
+        "error": "Cuentas los puestos desde el final de la lista ordenada.",
+        "optionIndex": 2,
+      },
+    ],
+    "observe": "Compara letra a letra. Ordenadas: PALACIO, PALOMA, PANERA, PARED, PATIO.",
+    "rule": "Se ordena por la primera letra distinta, con la Ñ después de la N.",
+    "tip": "Compara primero la letra inicial; si coincide, la segunda, y así sucesivamente. La Ñ va después de la N: CANAL va antes que CAÑA.",
+  },
+  "id": "VER.ORDEN:3:muestra:3",
+  "level": 3,
+  "meta": {
+    "expectedSeconds": 35,
+    "family": "ultimaDosLetras",
+    "generatorVersion": "3",
+  },
+  "options": [
+    "PARED",
+    "PANERA",
+    "PALACIO",
+    "PATIO",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "position": 5,
+    "text": "¿Qué palabra va última en orden alfabético? PALACIO, PARED, PALOMA, PATIO, PANERA",
+    "words": [
+      "PALACIO",
+      "PARED",
+      "PALOMA",
+      "PATIO",
+      "PANERA",
+    ],
+  },
+  "type": "VER.ORDEN",
+}
+`;
+
+exports[`VER.ORDEN v3 > nivel 4: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 2,
+  "explanation": {
+    "apply": "Puesto 5: PALOMA (PALMERA < PALOMA < PARED)",
+    "distractors": [
+      {
+        "error": "Te equivocas al contar: tomas la palabra del puesto siguiente.",
+        "optionIndex": 0,
+      },
+      {
+        "error": "Cuentas los puestos desde el final de la lista ordenada.",
+        "optionIndex": 1,
+      },
+      {
+        "error": "Te equivocas al contar: tomas la palabra del puesto anterior.",
+        "optionIndex": 3,
+      },
+    ],
+    "observe": "Compara letra a letra. Ordenadas: PALA, PALACIO, PALCO, PALMERA, PALOMA, PARED.",
+    "rule": "Se ordena por la primera letra distinta, con la Ñ después de la N.",
+    "tip": "Compara primero la letra inicial; si coincide, la segunda, y así sucesivamente. La Ñ va después de la N: CANAL va antes que CAÑA.",
+  },
+  "id": "VER.ORDEN:3:muestra:4",
+  "level": 4,
+  "meta": {
+    "expectedSeconds": 45,
+    "family": "puestoTresLetras",
+    "generatorVersion": "3",
+  },
+  "options": [
+    "PARED",
+    "PALACIO",
+    "PALOMA",
+    "PALMERA",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "position": 5,
+    "text": "¿Qué palabra ocupa el quinto lugar en orden alfabético? PARED, PALA, PALCO, PALOMA, PALACIO, PALMERA",
+    "words": [
+      "PARED",
+      "PALA",
+      "PALCO",
+      "PALOMA",
+      "PALACIO",
+      "PALMERA",
+    ],
+  },
+  "type": "VER.ORDEN",
+}
+`;
+
+exports[`VER.ORDEN v3 > nivel 5: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 1,
+  "explanation": {
+    "apply": "Puesto 4: MAPA (MANTA < MAPA < MARCA)",
+    "distractors": [
+      {
+        "error": "Te equivocas al contar: tomas la palabra del puesto anterior.",
+        "optionIndex": 0,
+      },
+      {
+        "error": "MARCO va detrás de MAPA: en la 3.ª letra, R va después de P.",
+        "optionIndex": 2,
+      },
+      {
+        "error": "Te equivocas al contar: tomas la palabra del puesto siguiente.",
+        "optionIndex": 3,
+      },
+    ],
+    "observe": "Compara letra a letra. Ordenadas: MADERA, MALETA, MANTA, MAPA, MARCA, MARCO, MARTES.",
+    "rule": "Se ordena por la primera letra distinta, con la Ñ después de la N.",
+    "tip": "Compara primero la letra inicial; si coincide, la segunda, y así sucesivamente. La Ñ va después de la N: CANAL va antes que CAÑA.",
+  },
+  "id": "VER.ORDEN:3:muestra:5",
+  "level": 5,
+  "meta": {
+    "expectedSeconds": 55,
+    "family": "puestoDosLetrasSiete",
+    "generatorVersion": "3",
+  },
+  "options": [
+    "MANTA",
+    "MAPA",
+    "MARCO",
+    "MARCA",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "position": 4,
+    "text": "¿Qué palabra ocupa el cuarto lugar en orden alfabético? MARCO, MARTES, MADERA, MAPA, MARCA, MALETA, MANTA",
+    "words": [
+      "MARCO",
+      "MARTES",
+      "MADERA",
+      "MAPA",
+      "MARCA",
+      "MALETA",
+      "MANTA",
     ],
   },
   "type": "VER.ORDEN",

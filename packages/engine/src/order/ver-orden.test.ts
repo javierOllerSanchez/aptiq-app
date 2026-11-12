@@ -30,13 +30,20 @@ test('si el orden antiguo (LL como letra propia) cambia la respuesta, la pregunt
   expect(verOrdenSolver.validOptions(item)).toEqual([0, 1]);
 });
 
-test('en «puesto N» la correcta no es casi siempre la del medio alfabéticamente', () => {
-  const ranks = [0, 0, 0, 0];
-  const collator = new Intl.Collator('es');
-  for (let i = 0; i < 2_000; i++) {
-    const item = verOrden.generate(`r${i}`, 4, 4);
-    const answer = item.options[item.answerIndex]!;
-    ranks[item.options.filter((o) => collator.compare(o, answer) < 0).length]!++;
-  }
-  for (const r of ranks) expect(r).toBeGreaterThan(250);
-});
+test.each([2, 3, 4, 5] as const)(
+  'nivel %i: en «puesto N» la correcta no es casi siempre la del medio alfabéticamente',
+  (level) => {
+    const ranks = [0, 0, 0, 0];
+    const collator = new Intl.Collator('es');
+    for (let i = 0; i < 4_000; i++) {
+      const item = verOrden.generate(`r${i}`, level, 4);
+      const n = item.stem.position;
+      if (n === 1 || n === item.stem.words.length) continue; // primera o última: es la solución
+      const answer = item.options[item.answerIndex]!;
+      ranks[item.options.filter((o) => collator.compare(o, answer) < 0).length]!++;
+    }
+    const total = ranks.reduce((a, b) => a + b, 0);
+    // Los dos puestos centrales, como mucho un 60 % (al azar sería el 50 %).
+    expect((ranks[1]! + ranks[2]!) / total).toBeLessThan(0.6);
+  },
+);

@@ -5,7 +5,7 @@ import { levels, type Generator } from '../types';
 
 import { datComparaSolver, type DatComparaStem } from './dat-compara.solver';
 
-const VERSION = '2';
+const VERSION = '3';
 const TIP =
   'Compara de izquierda a derecha y por bloques cortos (tres o cuatro caracteres), señalando con el dedo. Los cambios más difíciles de ver son dos cifras que intercambian su lugar y las letras que se parecen a cifras (O y 0, I y 1, B y 8, S y 5).';
 
@@ -124,7 +124,16 @@ export const datCompara: Generator<DatComparaStem> = {
   compareOptions: byNumber,
   generate: (seed, level, optionCount) =>
     buildItem(
-      { type: 'DAT.COMPARA', version: VERSION, tip: TIP, solver: datComparaSolver, compare: byNumber, families },
+      {
+        type: 'DAT.COMPARA',
+        version: VERSION,
+        tip: TIP,
+        solver: datComparaSolver,
+        compare: byNumber,
+        // Las opciones son recuentos seguidos (0, 1, 2…): estar cerca de otras no delata nada.
+        avoidCenter: false,
+        families,
+      },
       seed,
       level,
       optionCount,

@@ -4,7 +4,7 @@ import { levels, type Generator } from '../types';
 
 import { numSerieSolver, type NumSerieStem } from './num-serie.solver';
 
-const VERSION = '2';
+const VERSION = '3';
 const TIP =
   'Calcula primero las diferencias entre términos seguidos. Si son iguales, es una suma constante; si crecen deprisa, prueba con multiplicaciones; si saltan arriba y abajo, mira las posiciones pares e impares por separado.';
 
@@ -84,8 +84,8 @@ const geometric: Family = (rng) => {
 /** x × a + b. */
 const affine: Family = (rng) => {
   const a = rng.pick([2, 3]);
-  const b = rng.pick([-3, -2, -1, 1, 2, 3, 4, 5]);
-  const start = rng.int(2, 6);
+  const b = rng.pick([-3, -2, -1, 1, 2, 3, 4, 5, 6, 7]);
+  const start = rng.int(2, 9);
   const terms = [start];
   for (let i = 1; i < 5; i++) terms.push(terms[i - 1]! * a + b);
   const l = terms[4]!;
@@ -102,6 +102,8 @@ const affine: Family = (rng) => {
       err((l + b) * a, `Cambias el orden: haces ${sign(b)} antes de multiplicar.`),
       err(l + lastDiff, `Sumas otra vez la última diferencia (${lastDiff}); no ves que se multiplica.`),
       err(l * (a + 1) + b, `Multiplicas por ${a + 1} en lugar de por ${a}.`),
+      err(l * a - b, `Haces ${sign(-b)} en lugar de ${sign(b)}.`),
+      err(l * a + 2 * b, `Aplicas el ${sign(b)} dos veces.`),
       ...slips(answer),
     ],
   };
@@ -109,9 +111,9 @@ const affine: Family = (rng) => {
 
 /** Diferencias que crecen de forma constante (segundas diferencias iguales). */
 const quadratic: Family = (rng) => {
-  const d0 = rng.int(1, 6);
-  const dd = rng.int(1, 4);
-  const start = rng.int(1, 30);
+  const d0 = rng.int(1, 9);
+  const dd = rng.int(1, 5);
+  const start = rng.int(1, 60);
   const terms = [start];
   for (let i = 1; i < 6; i++) terms.push(terms[i - 1]! + d0 + (i - 1) * dd);
   const l = terms[5]!;
@@ -127,6 +129,8 @@ const quadratic: Family = (rng) => {
     distractors: [
       err(l + lastDiff, `Repites la última diferencia (${lastDiff}) sin aumentarla.`),
       err(l + nextDiff + dd, `Aumentas la diferencia dos veces (${nextDiff + dd}).`),
+      err(l + lastDiff - dd, `Disminuyes la diferencia en lugar de aumentarla (${lastDiff - dd}).`),
+      err(l + 2 * lastDiff, `Duplicas la última diferencia (${2 * lastDiff}).`),
       ...slips(answer),
     ],
   };
@@ -201,6 +205,8 @@ const interleaved =
           ? [
               err(bLast + (bLast - bPrev), `Sumas la última diferencia de la serie par (${bLast - bPrev}) en vez de multiplicar.`),
               err(answer * ratio, `Multiplicas por ${ratio} dos veces.`),
+              err(bLast * (ratio + 1), `Multiplicas por ${ratio + 1} en lugar de por ${ratio}.`),
+              err(bLast + ratio, `Sumas ${ratio} en lugar de multiplicar por ${ratio}.`),
             ]
           : [
               err(bLast + 2 * sb, `Aplicas el paso de la serie par (${sign(sb)}) dos veces.`),
@@ -213,7 +219,7 @@ const interleaved =
 
 /** Cada término es la suma de los dos anteriores. */
 const fibonacci: Family = (rng) => {
-  const terms = [rng.int(1, 9), rng.int(1, 9)];
+  const terms = [rng.int(2, 15), rng.int(2, 15)];
   for (let i = 2; i < 6; i++) terms.push(terms[i - 1]! + terms[i - 2]!);
   const l = terms[5]!;
   const p = terms[4]!;
@@ -228,6 +234,8 @@ const fibonacci: Family = (rng) => {
       err(l + (l - p), `Sumas la última diferencia (${l - p}) en vez de sumar los dos anteriores.`),
       err(l * 2, 'Duplicas el último término.'),
       err(l + p + terms[3]!, 'Sumas los tres anteriores en lugar de los dos anteriores.'),
+      err(l + terms[3]!, 'Sumas el último y el antepenúltimo, saltándote uno.'),
+      err(p + p, 'Duplicas el penúltimo término.'),
       ...slips(answer),
     ],
   };
@@ -252,6 +260,8 @@ const alternating: Family = (rng) => {
       err(l + a, `Aplicas otra vez + ${a}; no ves que las operaciones se alternan.`),
       err(answer + a, 'Aplicas las dos operaciones en el mismo paso.'),
       err(answer * b, `Multiplicas por ${b} dos veces.`),
+      err(l + b, `Sumas ${b} en lugar de multiplicar por ${b}.`),
+      err(l * (b + 1), `Multiplicas por ${b + 1} en lugar de por ${b}.`),
       ...slips(answer),
     ],
   };

@@ -6,7 +6,7 @@ import { levels, type Generator } from '../types';
 
 import { verOrdenSolver, type VerOrdenStem } from './ver-orden.solver';
 
-const VERSION = '2';
+const VERSION = '3';
 const TIP =
   'Compara primero la letra inicial; si coincide, la segunda, y así sucesivamente. La Ñ va después de la N: CANAL va antes que CAÑA.';
 
@@ -47,12 +47,17 @@ function pickWords(rng: Rng, count: number, shared: number): string[] | null {
       ? [[...WORDS]]
       : [...groups.values()].filter((g) => g.length >= Math.min(count, 4));
   if (candidates.length === 0) return null;
+  if (shared === 0) {
+    // Sin prefijo común: palabras con iniciales distintas, elegidas directamente.
+    const byInitial = new Map<string, string>();
+    for (const w of rng.shuffle(WORDS)) if (!byInitial.has(w[0]!)) byInitial.set(w[0]!, w);
+    return rng.shuffle([...byInitial.values()]).slice(0, count);
+  }
   const group = rng.pick(candidates);
   // Si el grupo se queda corto, se completa con otras palabras del vocabulario.
   const chosen = rng.shuffle(group).slice(0, count);
   const rest = rng.shuffle(WORDS.filter((w) => !chosen.includes(w)));
   while (chosen.length < count) chosen.push(rest.pop()!);
-  if (shared === 0 && new Set(chosen.map((w) => w[0])).size < count) return null;
   return rng.shuffle(chosen);
 }
 
@@ -73,6 +78,7 @@ const question = (cfg: Config) => (rng: Rng): Draft<VerOrdenStem> | null => {
   const around = sorted.slice(Math.max(0, n - 2), n + 1);
   return {
     stem: { text: `${text} ${words.join(', ')}`, words, position: n },
+    rankIsSolution: cfg.ask !== 'nth',
     answer,
     distractors: [
       { value: sortNoÑ(words)[n - 1]!, error: 'Ordenas la Ñ como si fuera una N.' },

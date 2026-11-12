@@ -1,158 +1,158 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`DAT.COMPARA v2 > nivel 1: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+exports[`DAT.COMPARA v3 > nivel 1: instantánea de una semilla fija (si cambia, subir version) 1`] = `
 {
-  "answerIndex": 3,
+  "answerIndex": 1,
   "explanation": {
-    "apply": "Diferencias: fila 1: una cifra cambia (NKW8 / NKW9); fila 3: falta un carácter (56Y4 / 564); fila 4: falta un carácter (GAPT / GAT). Filas iguales: 4 − 3 = 1",
+    "apply": "Diferencias: fila 2: un carácter cambia por otro parecido (96713 / 66713); fila 3: falta un carácter (17807 / 1707); fila 4: dos caracteres seguidos cambian de lugar (52684 / 52648). Filas iguales: 4 − 3 = 1",
     "distractors": [
       {
-        "error": "Pasas por alto una de las diferencias y cuentas como igual una fila distinta.",
-        "optionIndex": 0,
-      },
-      {
         "error": "Cuentas las filas distintas en lugar de las iguales.",
-        "optionIndex": 1,
+        "optionIndex": 0,
       },
       {
         "error": "Pasas por alto tres diferencias.",
         "optionIndex": 2,
+      },
+      {
+        "error": "Pasas por alto una de las diferencias y cuentas como igual una fila distinta.",
+        "optionIndex": 3,
       },
     ],
     "observe": "Hay 4 filas. Compara cada pareja carácter a carácter.",
     "rule": "Una fila solo cuenta si las dos columnas son idénticas: un carácter cambiado, de menos o fuera de sitio ya la hace distinta.",
     "tip": "Compara de izquierda a derecha y por bloques cortos (tres o cuatro caracteres), señalando con el dedo. Los cambios más difíciles de ver son dos cifras que intercambian su lugar y las letras que se parecen a cifras (O y 0, I y 1, B y 8, S y 5).",
   },
-  "id": "DAT.COMPARA:2:muestra:1",
+  "id": "DAT.COMPARA:3:muestra:1",
   "level": 1,
   "meta": {
     "expectedSeconds": 20,
     "family": "cuatroFilas",
-    "generatorVersion": "2",
+    "generatorVersion": "3",
   },
   "options": [
-    "2",
     "3",
-    "4",
     "1",
+    "4",
+    "2",
   ],
   "seed": "muestra",
   "stem": {
     "rows": [
       {
-        "left": "NKW8",
-        "right": "NKW9",
+        "left": "11851",
+        "right": "11851",
       },
       {
-        "left": "XB1Y",
-        "right": "XB1Y",
+        "left": "96713",
+        "right": "66713",
       },
       {
-        "left": "56Y4",
-        "right": "564",
+        "left": "17807",
+        "right": "1707",
       },
       {
-        "left": "GAPT",
-        "right": "GAT",
+        "left": "52684",
+        "right": "52648",
       },
     ],
     "text": "¿Cuántas filas tienen exactamente los mismos datos en las dos columnas?
-1. NKW8 | NKW9
-2. XB1Y | XB1Y
-3. 56Y4 | 564
-4. GAPT | GAT",
+1. 11851 | 11851
+2. 96713 | 66713
+3. 17807 | 1707
+4. 52684 | 52648",
   },
   "type": "DAT.COMPARA",
 }
 `;
 
-exports[`DAT.COMPARA v2 > nivel 2: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+exports[`DAT.COMPARA v3 > nivel 2: instantánea de una semilla fija (si cambia, subir version) 1`] = `
 {
-  "answerIndex": 3,
+  "answerIndex": 2,
   "explanation": {
-    "apply": "Diferencias: fila 2: una cifra cambia (GEU1N / GEU4N); fila 4: dos caracteres seguidos cambian de lugar (EEMTF / EEMFT). Filas iguales: 5 − 2 = 3",
+    "apply": "Diferencias: fila 2: falta un carácter (F170X / F10X); fila 5: una cifra cambia (6W4TX / 2W4TX). Filas iguales: 5 − 2 = 3",
     "distractors": [
       {
         "error": "Ves tres diferencias donde no las hay.",
         "optionIndex": 0,
       },
       {
-        "error": "Ves dos diferencias donde no las hay.",
+        "error": "Ves una diferencia donde no la hay y descuentas una fila igual.",
         "optionIndex": 1,
       },
       {
-        "error": "Ves una diferencia donde no la hay y descuentas una fila igual.",
-        "optionIndex": 2,
+        "error": "Ves dos diferencias donde no las hay.",
+        "optionIndex": 3,
       },
     ],
     "observe": "Hay 5 filas. Compara cada pareja carácter a carácter.",
     "rule": "Una fila solo cuenta si las dos columnas son idénticas: un carácter cambiado, de menos o fuera de sitio ya la hace distinta.",
     "tip": "Compara de izquierda a derecha y por bloques cortos (tres o cuatro caracteres), señalando con el dedo. Los cambios más difíciles de ver son dos cifras que intercambian su lugar y las letras que se parecen a cifras (O y 0, I y 1, B y 8, S y 5).",
   },
-  "id": "DAT.COMPARA:2:muestra:2",
+  "id": "DAT.COMPARA:3:muestra:2",
   "level": 2,
   "meta": {
     "expectedSeconds": 30,
     "family": "cincoFilas",
-    "generatorVersion": "2",
+    "generatorVersion": "3",
   },
   "options": [
     "0",
-    "1",
     "2",
     "3",
+    "1",
   ],
   "seed": "muestra",
   "stem": {
     "rows": [
       {
-        "left": "BBCB5",
-        "right": "BBCB5",
+        "left": "4K5E4",
+        "right": "4K5E4",
       },
       {
-        "left": "GEU1N",
-        "right": "GEU4N",
+        "left": "F170X",
+        "right": "F10X",
       },
       {
-        "left": "1J72A",
-        "right": "1J72A",
+        "left": "HM54F",
+        "right": "HM54F",
       },
       {
-        "left": "EEMTF",
-        "right": "EEMFT",
+        "left": "1K8CP",
+        "right": "1K8CP",
       },
       {
-        "left": "PEEXJ",
-        "right": "PEEXJ",
+        "left": "6W4TX",
+        "right": "2W4TX",
       },
     ],
     "text": "¿Cuántas filas tienen exactamente los mismos datos en las dos columnas?
-1. BBCB5 | BBCB5
-2. GEU1N | GEU4N
-3. 1J72A | 1J72A
-4. EEMTF | EEMFT
-5. PEEXJ | PEEXJ",
+1. 4K5E4 | 4K5E4
+2. F170X | F10X
+3. HM54F | HM54F
+4. 1K8CP | 1K8CP
+5. 6W4TX | 2W4TX",
   },
   "type": "DAT.COMPARA",
 }
 `;
 
-exports[`DAT.COMPARA v2 > nivel 3: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+exports[`DAT.COMPARA v3 > nivel 3: instantánea de una semilla fija (si cambia, subir version) 1`] = `
 {
-  "answerIndex": 0,
+  "answerIndex": 1,
   "explanation": {
-    "apply": "Diferencias: fila 1: un carácter cambia por otro parecido (6109873 / 9109873); fila 3: dos caracteres seguidos cambian de lugar (3429357 / 3429375); fila 5: falta un carácter (7548135 / 754815). Filas iguales: 6 − 3 = 3",
+    "apply": "Diferencias: fila 1: falta un carácter (GARAJE 493 / GARAJE 93); fila 3: dos caracteres seguidos cambian de lugar (PATATA 423 / PTAATA 423); fila 5: un carácter cambia por otro parecido (MANZANA 643 / MAN2ANA 643). Filas iguales: 6 − 3 = 3",
     "distractors": [
       {
-        "error": "Pasas por alto tres diferencias.",
-        "optionIndex": 1,
+        "error": "Ves dos diferencias donde no las hay.",
+        "optionIndex": 0,
       },
       {
-        "error": "Pasas por alto una de las diferencias y cuentas como igual una fila distinta.",
+        "error": "Ves una diferencia donde no la hay y descuentas una fila igual.",
         "optionIndex": 2,
       },
       {
-        "error": "Pasas por alto dos diferencias.",
+        "error": "Ves tres diferencias donde no las hay.",
         "optionIndex": 3,
       },
     ],
@@ -160,156 +160,156 @@ exports[`DAT.COMPARA v2 > nivel 3: instantánea de una semilla fija (si cambia, 
     "rule": "Una fila solo cuenta si las dos columnas son idénticas: un carácter cambiado, de menos o fuera de sitio ya la hace distinta.",
     "tip": "Compara de izquierda a derecha y por bloques cortos (tres o cuatro caracteres), señalando con el dedo. Los cambios más difíciles de ver son dos cifras que intercambian su lugar y las letras que se parecen a cifras (O y 0, I y 1, B y 8, S y 5).",
   },
-  "id": "DAT.COMPARA:2:muestra:3",
+  "id": "DAT.COMPARA:3:muestra:3",
   "level": 3,
   "meta": {
     "expectedSeconds": 40,
     "family": "seisFilasSutiles",
-    "generatorVersion": "2",
+    "generatorVersion": "3",
   },
   "options": [
+    "1",
     "3",
-    "6",
-    "4",
-    "5",
+    "2",
+    "0",
   ],
   "seed": "muestra",
   "stem": {
     "rows": [
       {
-        "left": "6109873",
-        "right": "9109873",
+        "left": "GARAJE 493",
+        "right": "GARAJE 93",
       },
       {
-        "left": "3648744",
-        "right": "3648744",
+        "left": "AZUCAR 755",
+        "right": "AZUCAR 755",
       },
       {
-        "left": "3429357",
-        "right": "3429375",
+        "left": "PATATA 423",
+        "right": "PTAATA 423",
       },
       {
-        "left": "9254090",
-        "right": "9254090",
+        "left": "CAÑA 364",
+        "right": "CAÑA 364",
       },
       {
-        "left": "7548135",
-        "right": "754815",
+        "left": "MANZANA 643",
+        "right": "MAN2ANA 643",
       },
       {
-        "left": "1018041",
-        "right": "1018041",
+        "left": "MALETA 445",
+        "right": "MALETA 445",
       },
     ],
     "text": "¿Cuántas filas tienen exactamente los mismos datos en las dos columnas?
-1. 6109873 | 9109873
-2. 3648744 | 3648744
-3. 3429357 | 3429375
-4. 9254090 | 9254090
-5. 7548135 | 754815
-6. 1018041 | 1018041",
+1. GARAJE 493 | GARAJE 93
+2. AZUCAR 755 | AZUCAR 755
+3. PATATA 423 | PTAATA 423
+4. CAÑA 364 | CAÑA 364
+5. MANZANA 643 | MAN2ANA 643
+6. MALETA 445 | MALETA 445",
   },
   "type": "DAT.COMPARA",
 }
 `;
 
-exports[`DAT.COMPARA v2 > nivel 4: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+exports[`DAT.COMPARA v3 > nivel 4: instantánea de una semilla fija (si cambia, subir version) 1`] = `
 {
-  "answerIndex": 2,
+  "answerIndex": 3,
   "explanation": {
-    "apply": "Diferencias: fila 4: dos caracteres seguidos cambian de lugar (689758138 / 869758138). Filas iguales: 7 − 1 = 6",
+    "apply": "Diferencias: fila 1: un carácter cambia por otro parecido (5ED8E8A / 5ED8EBA). Filas iguales: 7 − 1 = 6",
     "distractors": [
       {
-        "error": "Cuentas las filas distintas en lugar de las iguales.",
+        "error": "Ves una diferencia donde no la hay y descuentas una fila igual.",
         "optionIndex": 0,
       },
       {
-        "error": "Ves una diferencia donde no la hay y descuentas una fila igual.",
+        "error": "Cuentas las filas distintas en lugar de las iguales.",
         "optionIndex": 1,
       },
       {
-        "error": "Pasas por alto una de las diferencias y cuentas como igual una fila distinta.",
-        "optionIndex": 3,
+        "error": "Ves dos diferencias donde no las hay.",
+        "optionIndex": 2,
       },
     ],
     "observe": "Hay 7 filas. Compara cada pareja carácter a carácter.",
     "rule": "Una fila solo cuenta si las dos columnas son idénticas: un carácter cambiado, de menos o fuera de sitio ya la hace distinta.",
     "tip": "Compara de izquierda a derecha y por bloques cortos (tres o cuatro caracteres), señalando con el dedo. Los cambios más difíciles de ver son dos cifras que intercambian su lugar y las letras que se parecen a cifras (O y 0, I y 1, B y 8, S y 5).",
   },
-  "id": "DAT.COMPARA:2:muestra:4",
+  "id": "DAT.COMPARA:3:muestra:4",
   "level": 4,
   "meta": {
     "expectedSeconds": 50,
     "family": "sieteFilasSutiles",
-    "generatorVersion": "2",
+    "generatorVersion": "3",
   },
   "options": [
-    "1",
     "5",
+    "1",
+    "4",
     "6",
-    "7",
   ],
   "seed": "muestra",
   "stem": {
     "rows": [
       {
-        "left": "568968142",
-        "right": "568968142",
+        "left": "5ED8E8A",
+        "right": "5ED8EBA",
       },
       {
-        "left": "934735439",
-        "right": "934735439",
+        "left": "UPVBVAN",
+        "right": "UPVBVAN",
       },
       {
-        "left": "670239160",
-        "right": "670239160",
+        "left": "XYUNHAT",
+        "right": "XYUNHAT",
       },
       {
-        "left": "689758138",
-        "right": "869758138",
+        "left": "PCK6G7V",
+        "right": "PCK6G7V",
       },
       {
-        "left": "436219129",
-        "right": "436219129",
+        "left": "KD3FDPG",
+        "right": "KD3FDPG",
       },
       {
-        "left": "865581435",
-        "right": "865581435",
+        "left": "5L6EFLL",
+        "right": "5L6EFLL",
       },
       {
-        "left": "757788750",
-        "right": "757788750",
+        "left": "3HH168C",
+        "right": "3HH168C",
       },
     ],
     "text": "¿Cuántas filas tienen exactamente los mismos datos en las dos columnas?
-1. 568968142 | 568968142
-2. 934735439 | 934735439
-3. 670239160 | 670239160
-4. 689758138 | 869758138
-5. 436219129 | 436219129
-6. 865581435 | 865581435
-7. 757788750 | 757788750",
+1. 5ED8E8A | 5ED8EBA
+2. UPVBVAN | UPVBVAN
+3. XYUNHAT | XYUNHAT
+4. PCK6G7V | PCK6G7V
+5. KD3FDPG | KD3FDPG
+6. 5L6EFLL | 5L6EFLL
+7. 3HH168C | 3HH168C",
   },
   "type": "DAT.COMPARA",
 }
 `;
 
-exports[`DAT.COMPARA v2 > nivel 5: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+exports[`DAT.COMPARA v3 > nivel 5: instantánea de una semilla fija (si cambia, subir version) 1`] = `
 {
-  "answerIndex": 2,
+  "answerIndex": 1,
   "explanation": {
-    "apply": "Diferencias: fila 1: dos caracteres seguidos cambian de lugar (N801O8B / N8018OB); fila 4: falta un carácter (JSKAHKL / JSAHKL); fila 5: un carácter cambia por otro parecido (58MIZCZ / 5BMIZCZ); fila 6: un carácter cambia por otro parecido (FMNSEKK / FMN5EKK). Filas iguales: 8 − 4 = 4",
+    "apply": "Diferencias: fila 1: un carácter cambia por otro parecido (8780693715 / 8780693115); fila 3: dos caracteres seguidos cambian de lugar (8767705107 / 8767750107); fila 4: un carácter cambia por otro parecido (2018168724 / 2018768724); fila 6: falta un carácter (4891197307 / 489119707); fila 8: dos caracteres seguidos cambian de lugar (4421205745 / 4422105745). Filas iguales: 8 − 5 = 3",
     "distractors": [
       {
         "error": "Ves una diferencia donde no la hay y descuentas una fila igual.",
         "optionIndex": 0,
       },
       {
-        "error": "Ves tres diferencias donde no las hay.",
-        "optionIndex": 1,
+        "error": "Ves dos diferencias donde no las hay.",
+        "optionIndex": 2,
       },
       {
-        "error": "Ves dos diferencias donde no las hay.",
+        "error": "Ves tres diferencias donde no las hay.",
         "optionIndex": 3,
       },
     ],
@@ -317,64 +317,64 @@ exports[`DAT.COMPARA v2 > nivel 5: instantánea de una semilla fija (si cambia, 
     "rule": "Una fila solo cuenta si las dos columnas son idénticas: un carácter cambiado, de menos o fuera de sitio ya la hace distinta.",
     "tip": "Compara de izquierda a derecha y por bloques cortos (tres o cuatro caracteres), señalando con el dedo. Los cambios más difíciles de ver son dos cifras que intercambian su lugar y las letras que se parecen a cifras (O y 0, I y 1, B y 8, S y 5).",
   },
-  "id": "DAT.COMPARA:2:muestra:5",
+  "id": "DAT.COMPARA:3:muestra:5",
   "level": 5,
   "meta": {
     "expectedSeconds": 60,
     "family": "ochoFilasParecidas",
-    "generatorVersion": "2",
+    "generatorVersion": "3",
   },
   "options": [
+    "2",
     "3",
     "1",
-    "4",
-    "2",
+    "0",
   ],
   "seed": "muestra",
   "stem": {
     "rows": [
       {
-        "left": "N801O8B",
-        "right": "N8018OB",
+        "left": "8780693715",
+        "right": "8780693115",
       },
       {
-        "left": "MZMCZJO",
-        "right": "MZMCZJO",
+        "left": "2822810060",
+        "right": "2822810060",
       },
       {
-        "left": "0CO2B2F",
-        "right": "0CO2B2F",
+        "left": "8767705107",
+        "right": "8767750107",
       },
       {
-        "left": "JSKAHKL",
-        "right": "JSAHKL",
+        "left": "2018168724",
+        "right": "2018768724",
       },
       {
-        "left": "58MIZCZ",
-        "right": "5BMIZCZ",
+        "left": "5495878937",
+        "right": "5495878937",
       },
       {
-        "left": "FMNSEKK",
-        "right": "FMN5EKK",
+        "left": "4891197307",
+        "right": "489119707",
       },
       {
-        "left": "FS51ESZ",
-        "right": "FS51ESZ",
+        "left": "8219462945",
+        "right": "8219462945",
       },
       {
-        "left": "KJ8KZ8H",
-        "right": "KJ8KZ8H",
+        "left": "4421205745",
+        "right": "4422105745",
       },
     ],
     "text": "¿Cuántas filas tienen exactamente los mismos datos en las dos columnas?
-1. N801O8B | N8018OB
-2. MZMCZJO | MZMCZJO
-3. 0CO2B2F | 0CO2B2F
-4. JSKAHKL | JSAHKL
-5. 58MIZCZ | 5BMIZCZ
-6. FMNSEKK | FMN5EKK
-7. FS51ESZ | FS51ESZ
-8. KJ8KZ8H | KJ8KZ8H",
+1. 8780693715 | 8780693115
+2. 2822810060 | 2822810060
+3. 8767705107 | 8767750107
+4. 2018168724 | 2018768724
+5. 5495878937 | 5495878937
+6. 4891197307 | 489119707
+7. 8219462945 | 8219462945
+8. 4421205745 | 4422105745",
   },
   "type": "DAT.COMPARA",
 }
