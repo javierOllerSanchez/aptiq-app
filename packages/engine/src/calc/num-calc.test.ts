@@ -33,3 +33,32 @@ test('formato español de números', () => {
   expect(fmt(12500)).toBe('12.500');
   expect(parseOption('12.500')).toBe(12500);
 });
+
+test('reglas de tres: «sumas» o «restas» la diferencia coincide con el valor de la opción', () => {
+  // Bloqueante del revisor de contenido (versión 3): el texto decía lo contrario la mitad de las veces.
+  let checked = 0;
+  let matched = 0;
+  for (let i = 0; i < 2_000; i++)
+    for (const level of [3, 4] as const) {
+      const item = numCalc.generate(`t${i}`, level, 4);
+      const d = item.stem.data;
+      if (d.kind !== 'rule3') continue;
+      checked += item.explanation.distractors.length;
+      for (const e of item.explanation.distractors) {
+        const m = e.error.match(
+          /^(Sumas|Restas) (?:a los días|al peso) la diferencia de (?:cajas|operarios) \((\d+)\)/,
+        );
+        if (!m) continue;
+        matched++;
+        const base = d.b;
+        const delta = Number(m[2]) * (m[1] === 'Sumas' ? 1 : -1);
+        expect(
+          Number(item.options[e.optionIndex]),
+          `semilla t${i}, nivel ${level}: ${e.error}`,
+        ).toBe(base + delta);
+      }
+    }
+  // La prueba debe haber comprobado de verdad textos de los dos tipos.
+  expect(matched).toBeGreaterThan(200);
+  expect(checked).toBeGreaterThan(matched);
+});

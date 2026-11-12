@@ -6,8 +6,8 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 | --- | --- | --- | --- | --- |
 | 0 · Base del proyecto | Cerrada (prueba en iPhone pendiente del propietario) | `fase-0-base` · PR #1 fusionado | 2026-11-12 | Sí, 2026-11-12 |
 | 1 · Sistema de diseño en código | Cerrada (VoiceOver en iPhone y `/review-animations` pendientes del propietario) | `fase-1-sistema-diseno` · PR #2 fusionado | 2026-11-12 | Sí, 2026-11-12 |
-| 2 · Motor de contenido v1 | Cerrada (rediseño de distractores pendiente para el inicio de la fase 3) | `fase-2-motor` (PR hacia `main`) | 2026-11-12 | |
-| 3 · Perfil de examen y puntuación | Pendiente | | | |
+| 2 · Motor de contenido v1 | Cerrada (rediseño de distractores pendiente para el inicio de la fase 3) | `fase-2-motor` · PR #3 fusionado | 2026-11-12 | Sí, 2026-11-12 |
+| 3 · Perfil de examen y puntuación | Cerrada (revisión del perfil por el propietario pendiente) | `fase-3-perfil` (PR hacia `main`) | 2026-11-12 | |
 | 4 · Práctica y simulacro sin conexión | Pendiente | | | |
 | 5 · Cuentas y sincronización | Pendiente | | | |
 | 6 · Progreso y adaptativo | Pendiente | | | |
@@ -119,3 +119,35 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
   - Variedad baja en LET.SERIE, nivel 3 (52 enunciados distintos por cada 1.000 semillas).
   - **Hasta resolverlo, las preguntas no se muestran a opositores (fase 4).**
 - **Debe hacer el propietario:** decidir quién revisa las 120 muestras de `docs/muestras/` y marcar las casillas «Revisada».
+
+**2026-11-12 · Fase 3**
+
+- **Hecho:**
+  - **Perfil `guardia-civil-2026`:** 80 preguntas, 55 minutos, 4 opciones, escala 0-30 y mínimo de 12, con la fórmula de la base 7.3 (BOE-A-2026-9982). Cada dato cita su apartado.
+  - **Proporción de tipos pendiente:** la Guardia Civil no publica el cuestionario de aptitudes, solo la plantilla de respuestas (`packages/engine/profiles/analysis/guardia-civil-2026.md`).
+  - **Validador de perfiles:** un dato con valor sin fuente oficial, o un dato nulo que no esté en `pendiente`, hace fallar las pruebas.
+  - **Puntuación (`score.ts`):** casos calculados a mano; la nota negativa se muestra sin recortar.
+  - **Rediseño de distractores, pendiente de la fase 2:**
+    - el montaje sortea la familia y el puesto de la correcta una vez por pregunta;
+    - como mucho dos errores genéricos;
+    - sin la correcta en el centro de los errores;
+    - sin opciones visibles ni en sentido contrario;
+    - en los códigos, sin la pista de «la que más se parece a las demás».
+  - **Generadores:** versión 4, salvo las series numéricas, que van en la 3. 198 pruebas del motor, también en estrés.
+- **Revisiones:**
+  - `verificador-fase`: el código cumple el criterio de aceptación; la revisión del propietario no es verificable aquí.
+  - `revisor-contenido`:
+    - **Perfil:** correcto contra el BOE y la plantilla oficial.
+    - **1 bloqueante, corregido:** el texto «sumas/restas la diferencia» invertido en las reglas de tres, ahora con prueba.
+    - **Corregidos además:** una opción que repetía la última letra en las series de letras, las palabras con tilde mostradas sin ella, los porcentajes con punto decimal, la cita del PDF corregido de plantillas y varios textos desfasados.
+- **Pendiente (importantes del revisor, anotados con su motivo):**
+  - **Nuevas pistas para adivinar, más sutiles:**
+    - la correcta en el punto medio de dos opciones a la misma distancia (multiplicación del nivel 1, diferencias de segundo orden, reglas de tres; 40-60 %);
+    - en porcentajes, la opción que tiene su doble o su mitad entre las opciones (57-62 %);
+    - en los códigos de cifras, un patrón en los distractores de dos errores (51-73 %).
+  - **Motivo:** cada arreglo de una pista ha hecho aparecer otra. Lo eficaz es validar con opositores reales (decisión del propietario) y añadir cada estrategia que se detecte a la batería común. Se retoma antes de la beta.
+  - **Series de letras:** muchos distractores son «cuentas una o dos letras de más o de menos».
+  - **Variedad baja en las series de letras:** 162, 167 y 52 enunciados distintos por cada 1.000 semillas en los niveles 1 a 3. Es una limitación del alfabeto de 27 letras, ya anotada en `docs/decisiones.md`.
+- **Debe hacer el propietario:**
+  - revisar el perfil contra el BOE y marcar la casilla de `packages/engine/profiles/analysis/guardia-civil-2026.md`;
+  - decidir si escribe a la Jefatura de Enseñanza.

@@ -14,6 +14,22 @@ const N = import.meta.env.MODE === 'stress' ? 10_000 : 1_000;
 const TIMEOUT = 600_000;
 
 /**
+ * Estrategia de un opositor que no resuelve: elegir la opción que tiene más opciones a 1, 2 o 10
+ * de distancia (si los distractores son errores de cálculo alrededor de la correcta, acierta).
+ * Devuelve la probabilidad de acertar con ella (con empates, se reparte; sin pistas, al azar).
+ * Solo se aplica cuando todas las opciones son números.
+ */
+function centerGuess(options: string[], answerIndex: number): number {
+  const values = options.map((o) => Number(o.replace(/\./g, '')));
+  if (values.some((v) => !Number.isFinite(v))) return 1 / options.length;
+  const near = values.map((v) => values.filter((w) => [1, 2, 10].includes(Math.abs(v - w))).length);
+  const best = Math.max(...near);
+  if (best === 0) return 1 / options.length;
+  const winners = near.flatMap((n, i) => (n === best ? [i] : []));
+  return winners.includes(answerIndex) ? 1 / winners.length : 0;
+}
+
+/**
  * Pruebas obligatorias de la skill aptiq-generator, iguales para todos los generadores:
  * unicidad, opciones, coherencia, distractores, posición uniforme, determinismo e instantáneas.
  */
@@ -29,6 +45,7 @@ export function generatorSuite<S extends Stem>(
         test(
           `nivel ${level}, ${oc} opciones: ${N} preguntas sin ambigüedad`,
           () => {
+            let guessed = 0; // aciertos de la estrategia «la opción rodeada de errores de cálculo»
             const positions = new Array<number>(oc).fill(0);
             const ranks = new Array<number>(oc).fill(0);
             const families = new Map<string, number>();
@@ -55,6 +72,7 @@ export function generatorSuite<S extends Stem>(
                 const answer = item.options[item.answerIndex]!;
                 ranks[item.options.filter((o) => gen.compareOptions!(o, answer) < 0).length]!++;
               }
+              guessed += centerGuess(item.options, item.answerIndex);
               families.set(item.meta.family, (families.get(item.meta.family) ?? 0) + 1);
               if (i < 1_000) stems.add(item.stem.text);
             }
@@ -66,6 +84,8 @@ export function generatorSuite<S extends Stem>(
                 expect(count, `la correcta ocupa el puesto ${r + 1} por valor en ${count} de ${N}`).toBeGreaterThan(
                   (N / oc) * 0.5,
                 );
+            // …ni por ser el centro de los errores de cálculo (opciones a 1, 2 o 10 de distancia).
+            expect(guessed / N, 'adivinar «la opción rodeada de errores» acierta demasiado').toBeLessThan(1.5 / oc);
             // Cada familia de reglas declarada aparece de verdad.
             const declared = gen.families[level];
             for (const f of declared)

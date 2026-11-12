@@ -1,120 +1,68 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`VER.ORDEN v2 > nivel 1: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+exports[`VER.ORDEN v4 > nivel 1: instantánea de una semilla fija (si cambia, subir version) 1`] = `
 {
-  "answerIndex": 3,
+  "answerIndex": 0,
   "explanation": {
-    "apply": "Puesto 1: BRAZO (BRAZO < CARTERA)",
+    "apply": "Puesto 1: ARENA (ARENA < DOCENA)",
     "distractors": [
       {
-        "error": "Te equivocas al contar: tomas la palabra del puesto siguiente.",
-        "optionIndex": 0,
-      },
-      {
-        "error": "ORILLA va detrás de BRAZO: en la 1.ª letra, O va después de B.",
+        "error": "Tomas la palabra que ocupa ese puesto en la lista sin ordenarla.",
         "optionIndex": 1,
       },
       {
-        "error": "Cuentas los puestos desde el final de la lista ordenada.",
+        "error": "Te equivocas al contar: tomas la palabra del puesto siguiente.",
         "optionIndex": 2,
       },
+      {
+        "error": "Cuentas los puestos desde el final de la lista ordenada.",
+        "optionIndex": 3,
+      },
     ],
-    "observe": "Compara letra a letra. Ordenadas: BRAZO, CARTERA, ORILLA, QUESO.",
+    "observe": "Compara letra a letra. Ordenadas: ARENA, DOCENA, LAGO, VIENTO.",
     "rule": "Se ordena por la primera letra distinta, con la Ñ después de la N.",
     "tip": "Compara primero la letra inicial; si coincide, la segunda, y así sucesivamente. La Ñ va después de la N: CANAL va antes que CAÑA.",
   },
-  "id": "VER.ORDEN:2:muestra:1",
+  "id": "VER.ORDEN:4:muestra:1",
   "level": 1,
   "meta": {
     "expectedSeconds": 20,
     "family": "primeraSinPrefijo",
-    "generatorVersion": "2",
+    "generatorVersion": "4",
   },
   "options": [
-    "CARTERA",
-    "ORILLA",
-    "QUESO",
-    "BRAZO",
+    "ARENA",
+    "LAGO",
+    "DOCENA",
+    "VIENTO",
   ],
   "seed": "muestra",
   "stem": {
     "position": 1,
-    "text": "¿Qué palabra va primera en orden alfabético? QUESO, CARTERA, BRAZO, ORILLA",
+    "text": "¿Qué palabra va primera en orden alfabético? LAGO, DOCENA, ARENA, VIENTO",
     "words": [
-      "QUESO",
-      "CARTERA",
-      "BRAZO",
-      "ORILLA",
+      "LAGO",
+      "DOCENA",
+      "ARENA",
+      "VIENTO",
     ],
   },
   "type": "VER.ORDEN",
 }
 `;
 
-exports[`VER.ORDEN v2 > nivel 2: instantánea de una semilla fija (si cambia, subir version) 1`] = `
-{
-  "answerIndex": 1,
-  "explanation": {
-    "apply": "Puesto 2: CLAVE (BALCON < CLAVE < PASTEL)",
-    "distractors": [
-      {
-        "error": "Te equivocas al contar: tomas la palabra del puesto anterior.",
-        "optionIndex": 0,
-      },
-      {
-        "error": "Cuentas los puestos desde el final de la lista ordenada.",
-        "optionIndex": 2,
-      },
-      {
-        "error": "Te equivocas al contar: tomas la palabra del puesto siguiente.",
-        "optionIndex": 3,
-      },
-    ],
-    "observe": "Compara letra a letra. Ordenadas: BALCON, CLAVE, PASTEL, REGLA, SUELO.",
-    "rule": "Se ordena por la primera letra distinta, con la Ñ después de la N.",
-    "tip": "Compara primero la letra inicial; si coincide, la segunda, y así sucesivamente. La Ñ va después de la N: CANAL va antes que CAÑA.",
-  },
-  "id": "VER.ORDEN:2:muestra:2",
-  "level": 2,
-  "meta": {
-    "expectedSeconds": 25,
-    "family": "puestoSinPrefijo",
-    "generatorVersion": "2",
-  },
-  "options": [
-    "BALCON",
-    "CLAVE",
-    "REGLA",
-    "PASTEL",
-  ],
-  "seed": "muestra",
-  "stem": {
-    "position": 2,
-    "text": "¿Qué palabra ocupa el segundo lugar en orden alfabético? CLAVE, REGLA, BALCON, SUELO, PASTEL",
-    "words": [
-      "CLAVE",
-      "REGLA",
-      "BALCON",
-      "SUELO",
-      "PASTEL",
-    ],
-  },
-  "type": "VER.ORDEN",
-}
-`;
-
-exports[`VER.ORDEN v2 > nivel 3: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+exports[`VER.ORDEN v4 > nivel 2: instantánea de una semilla fija (si cambia, subir version) 1`] = `
 {
   "answerIndex": 2,
   "explanation": {
-    "apply": "Puesto 4: HORMIGA (HOGAR < HORMIGA < HUESO)",
+    "apply": "Puesto 1: CADENA (CADENA < CAÑA)",
     "distractors": [
       {
         "error": "Cuentas los puestos desde el final de la lista ordenada.",
         "optionIndex": 0,
       },
       {
-        "error": "Te equivocas al contar: tomas la palabra del puesto anterior.",
+        "error": "CASTILLO va detrás de CADENA: en la 3.ª letra, S va después de D.",
         "optionIndex": 1,
       },
       {
@@ -122,140 +70,192 @@ exports[`VER.ORDEN v2 > nivel 3: instantánea de una semilla fija (si cambia, su
         "optionIndex": 3,
       },
     ],
-    "observe": "Compara letra a letra. Ordenadas: HELADO, HIERRO, HOGAR, HORMIGA, HUESO.",
+    "observe": "Compara letra a letra. Ordenadas: CADENA, CAÑA, CASTILLO, COCHE, CUERDA.",
     "rule": "Se ordena por la primera letra distinta, con la Ñ después de la N.",
     "tip": "Compara primero la letra inicial; si coincide, la segunda, y así sucesivamente. La Ñ va después de la N: CANAL va antes que CAÑA.",
   },
-  "id": "VER.ORDEN:2:muestra:3",
-  "level": 3,
+  "id": "VER.ORDEN:4:muestra:2",
+  "level": 2,
   "meta": {
-    "expectedSeconds": 35,
-    "family": "puestoMismaInicial",
-    "generatorVersion": "2",
+    "expectedSeconds": 25,
+    "family": "primeraMismaInicial",
+    "generatorVersion": "4",
   },
   "options": [
-    "HIERRO",
-    "HOGAR",
-    "HORMIGA",
-    "HUESO",
+    "CUERDA",
+    "CASTILLO",
+    "CADENA",
+    "CAÑA",
   ],
   "seed": "muestra",
   "stem": {
-    "position": 4,
-    "text": "¿Qué palabra ocupa el cuarto lugar en orden alfabético? HUESO, HELADO, HOGAR, HIERRO, HORMIGA",
+    "position": 1,
+    "text": "¿Qué palabra va primera en orden alfabético? CAÑA, CUERDA, CADENA, COCHE, CASTILLO",
     "words": [
-      "HUESO",
-      "HELADO",
-      "HOGAR",
-      "HIERRO",
-      "HORMIGA",
+      "CAÑA",
+      "CUERDA",
+      "CADENA",
+      "COCHE",
+      "CASTILLO",
     ],
   },
   "type": "VER.ORDEN",
 }
 `;
 
-exports[`VER.ORDEN v2 > nivel 4: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+exports[`VER.ORDEN v4 > nivel 3: instantánea de una semilla fija (si cambia, subir version) 1`] = `
 {
-  "answerIndex": 3,
+  "answerIndex": 2,
   "explanation": {
-    "apply": "Puesto 5: MARTES (MARINO < MARTES < MARTILLO)",
+    "apply": "Puesto 5: SOPA (SOMBRA < SOPA)",
     "distractors": [
       {
-        "error": "MARCA va delante de MARTES: en la 4.ª letra, C va antes de T.",
+        "error": "Tomas la palabra que ocupa ese puesto en la lista sin ordenarla.",
         "optionIndex": 0,
       },
       {
-        "error": "Te equivocas al contar: tomas la palabra del puesto anterior.",
+        "error": "Cuentas los puestos desde el final de la lista ordenada.",
         "optionIndex": 1,
       },
       {
-        "error": "Cuentas los puestos desde el final de la lista ordenada.",
-        "optionIndex": 2,
+        "error": "Te equivocas al contar: tomas la palabra del puesto anterior.",
+        "optionIndex": 3,
       },
     ],
-    "observe": "Compara letra a letra. Ordenadas: MARCA, MARCO, MAREA, MARINO, MARTES, MARTILLO.",
+    "observe": "Compara letra a letra. Ordenadas: SOBRE, SOLAR, SOLDADO, SOMBRA, SOPA.",
     "rule": "Se ordena por la primera letra distinta, con la Ñ después de la N.",
     "tip": "Compara primero la letra inicial; si coincide, la segunda, y así sucesivamente. La Ñ va después de la N: CANAL va antes que CAÑA.",
   },
-  "id": "VER.ORDEN:2:muestra:4",
-  "level": 4,
+  "id": "VER.ORDEN:4:muestra:3",
+  "level": 3,
   "meta": {
-    "expectedSeconds": 45,
-    "family": "puestoTresLetras",
-    "generatorVersion": "2",
+    "expectedSeconds": 35,
+    "family": "ultimaDosLetras",
+    "generatorVersion": "4",
   },
   "options": [
-    "MARCA",
-    "MARINO",
-    "MARCO",
-    "MARTES",
+    "SOLDADO",
+    "SOBRE",
+    "SOPA",
+    "SOMBRA",
   ],
   "seed": "muestra",
   "stem": {
     "position": 5,
-    "text": "¿Qué palabra ocupa el quinto lugar en orden alfabético? MARTILLO, MARTES, MAREA, MARCA, MARINO, MARCO",
+    "text": "¿Qué palabra va última en orden alfabético? SOBRE, SOPA, SOLAR, SOMBRA, SOLDADO",
     "words": [
-      "MARTILLO",
-      "MARTES",
-      "MAREA",
-      "MARCA",
-      "MARINO",
-      "MARCO",
+      "SOBRE",
+      "SOPA",
+      "SOLAR",
+      "SOMBRA",
+      "SOLDADO",
     ],
   },
   "type": "VER.ORDEN",
 }
 `;
 
-exports[`VER.ORDEN v2 > nivel 5: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+exports[`VER.ORDEN v4 > nivel 4: instantánea de una semilla fija (si cambia, subir version) 1`] = `
 {
-  "answerIndex": 2,
+  "answerIndex": 1,
   "explanation": {
-    "apply": "Puesto 2: CARRERA (CARPETA < CARRERA < CARRO)",
+    "apply": "Puesto 4: CANTO (CANTIDAD < CANTO < CARPETA)",
     "distractors": [
       {
-        "error": "Cuentas los puestos desde el final de la lista ordenada.",
+        "error": "CANAL va delante de CANTO: en la 4.ª letra, A va antes de T.",
         "optionIndex": 0,
       },
       {
-        "error": "Te equivocas al contar: tomas la palabra del puesto siguiente.",
-        "optionIndex": 1,
+        "error": "CANTERA va delante de CANTO: en la 5.ª letra, E va antes de O.",
+        "optionIndex": 2,
       },
       {
-        "error": "Tomas la palabra que ocupa ese puesto en la lista sin ordenarla.",
+        "error": "Cuentas los puestos desde el final de la lista ordenada.",
         "optionIndex": 3,
       },
     ],
-    "observe": "Compara letra a letra. Ordenadas: CARPETA, CARRERA, CARRO, CARTA, CARTERA, ENERO, TAZA.",
+    "observe": "Compara letra a letra. Ordenadas: CANAL, CANTERA, CANTIDAD, CANTO, CARPETA, SOMBRA.",
     "rule": "Se ordena por la primera letra distinta, con la Ñ después de la N.",
     "tip": "Compara primero la letra inicial; si coincide, la segunda, y así sucesivamente. La Ñ va después de la N: CANAL va antes que CAÑA.",
   },
-  "id": "VER.ORDEN:2:muestra:5",
+  "id": "VER.ORDEN:4:muestra:4",
+  "level": 4,
+  "meta": {
+    "expectedSeconds": 45,
+    "family": "puestoTresLetras",
+    "generatorVersion": "4",
+  },
+  "options": [
+    "CANAL",
+    "CANTO",
+    "CANTERA",
+    "CANTIDAD",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "position": 4,
+    "text": "¿Qué palabra ocupa el cuarto lugar en orden alfabético? CANTERA, CANTIDAD, CARPETA, CANTO, SOMBRA, CANAL",
+    "words": [
+      "CANTERA",
+      "CANTIDAD",
+      "CARPETA",
+      "CANTO",
+      "SOMBRA",
+      "CANAL",
+    ],
+  },
+  "type": "VER.ORDEN",
+}
+`;
+
+exports[`VER.ORDEN v4 > nivel 5: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 1,
+  "explanation": {
+    "apply": "Puesto 2: ESCALERA (ALCALDE < ESCALERA < ESCUDO)",
+    "distractors": [
+      {
+        "error": "Te equivocas al contar: tomas la palabra del puesto anterior.",
+        "optionIndex": 0,
+      },
+      {
+        "error": "Cuentas los puestos desde el final de la lista ordenada.",
+        "optionIndex": 2,
+      },
+      {
+        "error": "Te equivocas al contar: tomas la palabra del puesto siguiente.",
+        "optionIndex": 3,
+      },
+    ],
+    "observe": "Compara letra a letra. Ordenadas: ALCALDE, ESCALERA, ESCUDO, ESPEJO, ESTRELLA, GALLETA, SOPA.",
+    "rule": "Se ordena por la primera letra distinta, con la Ñ después de la N.",
+    "tip": "Compara primero la letra inicial; si coincide, la segunda, y así sucesivamente. La Ñ va después de la N: CANAL va antes que CAÑA.",
+  },
+  "id": "VER.ORDEN:4:muestra:5",
   "level": 5,
   "meta": {
     "expectedSeconds": 55,
-    "family": "puestoTresLetrasSiete",
-    "generatorVersion": "2",
+    "family": "puestoDosLetrasSiete",
+    "generatorVersion": "4",
   },
   "options": [
-    "ENERO",
-    "CARRO",
-    "CARRERA",
-    "CARTERA",
+    "ALCALDE",
+    "ESCALERA",
+    "GALLETA",
+    "ESCUDO",
   ],
   "seed": "muestra",
   "stem": {
     "position": 2,
-    "text": "¿Qué palabra ocupa el segundo lugar en orden alfabético? ENERO, CARTERA, TAZA, CARPETA, CARRO, CARRERA, CARTA",
+    "text": "¿Qué palabra ocupa el segundo lugar en orden alfabético? ALCALDE, ESTRELLA, GALLETA, ESCALERA, ESPEJO, ESCUDO, SOPA",
     "words": [
-      "ENERO",
-      "CARTERA",
-      "TAZA",
-      "CARPETA",
-      "CARRO",
-      "CARRERA",
-      "CARTA",
+      "ALCALDE",
+      "ESTRELLA",
+      "GALLETA",
+      "ESCALERA",
+      "ESPEJO",
+      "ESCUDO",
+      "SOPA",
     ],
   },
   "type": "VER.ORDEN",

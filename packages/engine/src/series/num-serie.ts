@@ -4,7 +4,7 @@ import { levels, type Generator } from '../types';
 
 import { numSerieSolver, type NumSerieStem } from './num-serie.solver';
 
-const VERSION = '2';
+const VERSION = '3';
 const TIP =
   'Calcula primero las diferencias entre términos seguidos. Si son iguales, es una suma constante; si crecen deprisa, prueba con multiplicaciones; si saltan arriba y abajo, mira las posiciones pares e impares por separado.';
 
@@ -15,14 +15,20 @@ const err = (value: number, error: string) => ({ value: String(value), error });
 const diffs = (t: number[]) => t.slice(1).map((x, i) => x - t[i]!);
 
 /** Errores de cálculo a ambos lados de la respuesta: completan cuando faltan errores de la regla. */
-const slips = (answer: number) => [
-  err(answer + 1, 'Error de cálculo de una unidad (una de más).'),
-  err(answer - 1, 'Error de cálculo de una unidad (una de menos).'),
-  err(answer + 10, 'Error de una decena al llevar (una de más).'),
-  err(answer - 10, 'Error de una decena al llevar (una de menos).'),
-  err(answer + 2, 'Error de cálculo de dos unidades (de más).'),
-  err(answer - 2, 'Error de cálculo de dos unidades (de menos).'),
-];
+const slips = (answer: number) =>
+  [
+    err(answer + 1, 'Error de cálculo: una unidad de más.'),
+    err(answer - 1, 'Error de cálculo: una unidad de menos.'),
+    err(answer + 10, 'Error de cálculo: una decena de más.'),
+    err(answer - 10, 'Error de cálculo: una decena de menos.'),
+  ].map((d) => ({ ...d, generic: true }));
+
+/** Errores al leer la diferencia (+4 en lugar de +5…), a los dos lados de la respuesta. */
+const misreads = (l: number, s: number) =>
+  [1, -1, 2, -2, 3, -3]
+    .map((k) => s + Math.sign(s) * k)
+    .filter((t) => t !== 0 && Math.sign(t) === Math.sign(s))
+    .map((t) => err(l + t, `Calculas mal la diferencia: ${sign(t)} en lugar de ${sign(s)}.`));
 
 type Raw = Omit<Draft<NumSerieStem>, 'stem' | 'answer'> & { terms: number[]; answer: number };
 type Family = (rng: Rng) => Raw;
@@ -45,7 +51,7 @@ const arithmetic =
       apply: `${l} ${sign(step)} = ${answer}`,
       distractors: [
         err(l + 2 * step, `Aplicas el paso ${sign(step)} dos veces seguidas.`),
-        err(l - step, `Aplicas el paso al revés (${sign(-step)}).`),
+        ...misreads(l, step),
         ...slips(answer),
       ],
     };
@@ -78,8 +84,8 @@ const geometric: Family = (rng) => {
 /** x × a + b. */
 const affine: Family = (rng) => {
   const a = rng.pick([2, 3]);
-  const b = rng.pick([-3, -2, -1, 1, 2, 3, 4, 5]);
-  const start = rng.int(2, 6);
+  const b = rng.pick([-3, -2, -1, 1, 2, 3, 4, 5, 6, 7]);
+  const start = rng.int(2, 9);
   const terms = [start];
   for (let i = 1; i < 5; i++) terms.push(terms[i - 1]! * a + b);
   const l = terms[4]!;
@@ -96,6 +102,8 @@ const affine: Family = (rng) => {
       err((l + b) * a, `Cambias el orden: haces ${sign(b)} antes de multiplicar.`),
       err(l + lastDiff, `Sumas otra vez la última diferencia (${lastDiff}); no ves que se multiplica.`),
       err(l * (a + 1) + b, `Multiplicas por ${a + 1} en lugar de por ${a}.`),
+      err(l * a - b, `Haces ${sign(-b)} en lugar de ${sign(b)}.`),
+      err(l * a + 2 * b, `Aplicas el ${sign(b)} dos veces.`),
       ...slips(answer),
     ],
   };
@@ -103,9 +111,9 @@ const affine: Family = (rng) => {
 
 /** Diferencias que crecen de forma constante (segundas diferencias iguales). */
 const quadratic: Family = (rng) => {
-  const d0 = rng.int(1, 6);
-  const dd = rng.int(1, 4);
-  const start = rng.int(1, 30);
+  const d0 = rng.int(1, 9);
+  const dd = rng.int(1, 5);
+  const start = rng.int(1, 60);
   const terms = [start];
   for (let i = 1; i < 6; i++) terms.push(terms[i - 1]! + d0 + (i - 1) * dd);
   const l = terms[5]!;
@@ -121,6 +129,8 @@ const quadratic: Family = (rng) => {
     distractors: [
       err(l + lastDiff, `Repites la última diferencia (${lastDiff}) sin aumentarla.`),
       err(l + nextDiff + dd, `Aumentas la diferencia dos veces (${nextDiff + dd}).`),
+      err(l + lastDiff - dd, `Disminuyes la diferencia en lugar de aumentarla (${lastDiff - dd}).`),
+      err(l + 2 * lastDiff, `Duplicas la última diferencia (${2 * lastDiff}).`),
       ...slips(answer),
     ],
   };
@@ -195,10 +205,12 @@ const interleaved =
           ? [
               err(bLast + (bLast - bPrev), `Sumas la última diferencia de la serie par (${bLast - bPrev}) en vez de multiplicar.`),
               err(answer * ratio, `Multiplicas por ${ratio} dos veces.`),
+              err(bLast * (ratio + 1), `Multiplicas por ${ratio + 1} en lugar de por ${ratio}.`),
+              err(bLast + ratio, `Sumas ${ratio} en lugar de multiplicar por ${ratio}.`),
             ]
           : [
               err(bLast + 2 * sb, `Aplicas el paso de la serie par (${sign(sb)}) dos veces.`),
-              err(bLast - sb, `Aplicas el paso de la serie par al revés (${sign(-sb)}).`),
+              ...misreads(bLast, sb),
             ]),
         ...slips(answer),
       ],
@@ -207,7 +219,7 @@ const interleaved =
 
 /** Cada término es la suma de los dos anteriores. */
 const fibonacci: Family = (rng) => {
-  const terms = [rng.int(1, 9), rng.int(1, 9)];
+  const terms = [rng.int(2, 15), rng.int(2, 15)];
   for (let i = 2; i < 6; i++) terms.push(terms[i - 1]! + terms[i - 2]!);
   const l = terms[5]!;
   const p = terms[4]!;
@@ -222,6 +234,8 @@ const fibonacci: Family = (rng) => {
       err(l + (l - p), `Sumas la última diferencia (${l - p}) en vez de sumar los dos anteriores.`),
       err(l * 2, 'Duplicas el último término.'),
       err(l + p + terms[3]!, 'Sumas los tres anteriores en lugar de los dos anteriores.'),
+      err(l + terms[3]!, 'Sumas el último y el antepenúltimo, saltándote uno.'),
+      err(p + p, 'Duplicas el penúltimo término.'),
       ...slips(answer),
     ],
   };
@@ -246,6 +260,8 @@ const alternating: Family = (rng) => {
       err(l + a, `Aplicas otra vez + ${a}; no ves que las operaciones se alternan.`),
       err(answer + a, 'Aplicas las dos operaciones en el mismo paso.'),
       err(answer * b, `Multiplicas por ${b} dos veces.`),
+      err(l + b, `Sumas ${b} en lugar de multiplicar por ${b}.`),
+      err(l * (b + 1), `Multiplicas por ${b + 1} en lugar de por ${b}.`),
       ...slips(answer),
     ],
   };
@@ -265,8 +281,17 @@ const drafts = finishFamilies(families, ({ terms, answer, distractors, ...rest }
   return {
     ...rest,
     answer: String(answer),
-    // Sin negativos ni números enormes: delatarían el error.
-    distractors: distractors.filter((d) => Number(d.value) >= 0 && Number(d.value) <= MAX),
+    // Fuera: negativos, números enormes, términos ya visibles y, en una serie que solo sube (o solo
+    // baja), lo que no sigue ese sentido. Se descartarían sin pensar.
+    distractors: distractors.filter((d) => {
+      const v = Number(d.value);
+      if (v < 0 || v > MAX) return false;
+      if (!terms.includes(answer) && terms.includes(v)) return false;
+      const ds = diffs([...terms, answer]);
+      if (ds.every((x) => x > 0) && v <= terms[terms.length - 1]!) return false;
+      if (ds.every((x) => x < 0) && v >= terms[terms.length - 1]!) return false;
+      return true;
+    }),
     stem: { text: `¿Qué número continúa la serie? ${list(terms)}, ?`, terms },
   };
 });

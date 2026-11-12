@@ -25,3 +25,23 @@ test('desplazamiento alterno +2 / −1', () => {
 test('si la palabra usa una letra que no aparece en el ejemplo, la sustitución no la adivina', () => {
   expect(predictCodes([{ plain: 'CASA', code: '3121' }], 'COSA').size).toBe(0);
 });
+
+test.each([1, 2, 3] as const)(
+  'nivel %i: la correcta no se adivina por ser «la que más se parece a las demás»',
+  (level) => {
+    // Estrategia de quien no resuelve: elegir la opción con más caracteres en la misma posición
+    // que las demás (si todos los distractores son una sola modificación de la correcta, acierta).
+    let hits = 0;
+    const N = 3_000;
+    for (let i = 0; i < N; i++) {
+      const item = codCripto.generate(`k${i}`, level, 4);
+      const score = item.options.map((o) =>
+        item.options.reduce((acc, p) => acc + [...o].filter((c, j) => p[j] === c).length, 0),
+      );
+      const best = Math.max(...score);
+      const winners = score.flatMap((s, j) => (s === best ? [j] : []));
+      if (winners.includes(item.answerIndex)) hits += 1 / winners.length;
+    }
+    expect(hits / N).toBeLessThan(1.5 / 4);
+  },
+);

@@ -55,8 +55,10 @@ const interleaved: MultiRule = (t) => {
   if (t.length < 6) return null;
   const sub = t.filter((_, i) => i % 2 === t.length % 2);
   const other = t.filter((_, i) => i % 2 !== t.length % 2);
-  // Las subseries son cortas (3 a 5 términos): se aceptan reglas con menos confirmación.
-  const otherFits = shortRules.some((r) => r(other) !== null);
+  // Las subseries son cortas (3 a 5 términos). La otra mitad debe seguir una regla confirmada:
+  // con solo 3 términos, «diferencias crecientes» encaja con cualquier cosa y no confirma nada.
+  const otherFits = [shortArithmetic, shortGeometric].some((r) => r(other) !== null) ||
+    (other.length >= 4 && shortQuadratic(other) !== null);
   const preds = new Set(shortRules.map((r) => r(sub)).filter((x): x is number => x !== null));
   // Varias lecturas razonables de la subserie: se devuelven todas para que la pregunta se descarte.
   return otherFits && preds.size > 0 ? [...preds] : null;

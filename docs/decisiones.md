@@ -26,8 +26,8 @@
 | 2026-11-12 | Simulación mínima de Reanimated en Jest (`packages/ui/jest.setup.js`) | La simulación oficial de Reanimated 4 choca con jest-expo en este monorepo |
 | 2026-11-12 | `review-animations` se aplica a mano (la skill solo se puede invocar desde el chat) | Su criterio llevó a la curva ease-out marcada y a mantener el fundido con «reducir movimiento» |
 | 2026-11-12 | La animación de avance de `ProgressTicks` llega en la fase 4, con el Simulacro | Solo tiene sentido con la navegación entre preguntas |
-| 2026-11-12 | Familias de reglas del motor: las habituales de los psicotécnicos; se contrastan con los cuestionarios oficiales en la fase 3 | Decisión del propietario; no son datos de la oposición, solo tipos de ejercicio |
-| 2026-11-12 | Series de letras con el alfabeto español de 27 letras (con Ñ, sin CH ni LL) y sin dar la vuelta (después de la Z no viene la A) | Decisión del propietario; se confirma con las instrucciones oficiales en la fase 3. Sin vuelta se evitan respuestas discutibles |
+| 2026-11-12 | Familias de reglas del motor: las habituales de los psicotécnicos; no se han podido contrastar: la Guardia Civil no publica el cuestionario de aptitudes (fase 3) | Decisión del propietario; no son datos de la oposición, solo tipos de ejercicio |
+| 2026-11-12 | Series de letras con el alfabeto español de 27 letras (con Ñ, sin CH ni LL) y sin dar la vuelta (después de la Z no viene la A) | Decisión del propietario; no se ha podido confirmar con fuente oficial (el cuestionario no se publica). Sin vuelta se evitan respuestas discutibles |
 | 2026-11-12 | Muestras para revisión humana: 20 por tipo (4 por nivel) en `docs/muestras/` | Decisión del propietario; la skill pedía 20 por nivel (600), demasiadas para revisar con atención |
 | 2026-11-12 | Las muestras se exportan con Vitest (`--mode muestras`), no con un script de Node | Node no ejecuta directamente los imports sin extensión del motor; así no hace falta ninguna dependencia nueva |
 | 2026-11-12 | `@types/node` como dependencia de desarrollo de `packages/engine` | Solo para el exportador de muestras; el código del motor no usa Node |
@@ -36,11 +36,19 @@
 | 2026-11-12 | Ordenación alfabética: se descarta toda pregunta cuya respuesta cambie con el orden antiguo (CH y LL como letras propias) | Muchos opositores aprendieron ese orden; la pregunta sería discutible |
 | 2026-11-12 | Cada pregunta guarda la familia de reglas con la que se generó (`meta.family`) | Para calibrar la dificultad por familia con datos de uso |
 | 2026-11-12 | Limitación conocida: las series de letras de los niveles 1 a 3 tienen pocas combinaciones (126, 161 y 52 enunciados distintos por cada 1.000 semillas, versión 2) | Con 27 letras y reglas sencillas no hay más; un opositor que practique mucho ese tipo verá repeticiones. Se puede ampliar en la fase 3 si los exámenes oficiales usan otras variantes |
+| 2026-11-12 | Perfil `guardia-civil-2026` con datos del BOE-A-2026-9982 (80 preguntas, 55 minutos, 4 opciones, fórmula de la base 7.3, 0-30, mínimo 12) y la proporción de tipos pendiente | La Guardia Civil no publica el cuestionario de aptitudes, solo la plantilla de respuestas |
+| 2026-11-12 | Simulacro con el formato oficial y una «mezcla de entrenamiento» con los tipos a partes iguales, con aviso visible de que la proporción no es oficial | Decisión del propietario mientras no haya fuente oficial |
+| 2026-11-12 | La nota negativa se muestra sin recortar, con la fórmula, como «pendiente de confirmar» | Decisión del propietario; las bases no dicen qué pasa con una nota negativa |
+| 2026-11-12 | Distractores validados con pruebas automáticas de pistas (puesto por valor, centro de errores, consenso) y, después, con opositores en la beta | Decisión del propietario: no hay exámenes oficiales de aptitudes como referencia |
+| 2026-11-12 | El montaje común sortea una vez por pregunta la familia y el puesto por valor de la correcta | Sortearlos en cada reintento favorecía los puestos centrales y las familias que se descartan menos |
+| 2026-11-12 | Palabras de las preguntas sin ninguna que lleve tilde (se muestran en mayúsculas sin ella) | La oposición evalúa la ortografía: no se debe enseñar «JARDIN» o «VOLCAN» |
+| 2026-11-12 | Esquema de perfil con `format.puntuacion.{maxima, minima}` y la fórmula Y/T/N del BOE; la skill `aptiq-exam-profile` se actualiza a este esquema | El esquema de ejemplo de la skill era anterior a leer las bases |
 
 ## Pendientes (las decide el propietario)
 
 - [x] Logotipo: p marcada (decidido el 2026-11-12)
-- [ ] Confirmar en las bases vigentes del BOE: número de preguntas, tiempo, opciones, penalización y nota mínima de Guardia Civil
+- [x] Confirmar en las bases vigentes del BOE: número de preguntas, tiempo, opciones, penalización y nota mínima de Guardia Civil (hecho en la fase 3, BOE-A-2026-9982; falta tu revisión del perfil)
+- [ ] Preguntar a la Jefatura de Enseñanza si publica o facilita los tipos de ejercicio de la prueba de aptitudes (lo envía el propietario)
 - [ ] Cuentas: Expo/EAS, Apple Developer, Google Play Console, Supabase (región UE), RevenueCat, PostHog, Sentry
 - [ ] Psicólogo o preparador que revise el contenido
 - [ ] Precios definitivos y prueba con 5–8 opositores

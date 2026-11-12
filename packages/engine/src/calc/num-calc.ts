@@ -4,7 +4,7 @@ import { levels, type Generator } from '../types';
 
 import { numCalcSolver, type CalcData, type NumCalcStem } from './num-calc.solver';
 
-const VERSION = '2';
+const VERSION = '4';
 const TIP =
   'Antes de calcular, estima el resultado (redondea los datos). Si una opción está muy lejos de tu estimación, descártala. En operaciones combinadas, primero multiplicaciones y divisiones; después sumas y restas.';
 
@@ -19,19 +19,18 @@ type Raw = Omit<Draft<NumCalcStem>, 'stem' | 'answer' | 'distractors'> & {
   answer: number;
   /** Valor máximo con sentido (p. ej. el total en un porcentaje): lo que lo supera se descarta. */
   max?: number;
-  distractors: { value: number; error: string }[];
+  distractors: { value: number; error: string; generic?: boolean }[];
 };
 type Family = (rng: Rng) => Raw | null;
 
 /** Errores de cálculo a ambos lados: completan cuando faltan errores de la regla. */
-const slips = (answer: number) => [
-  { value: answer + 1, error: 'Error de cálculo de una unidad (una de más).' },
-  { value: answer - 1, error: 'Error de cálculo de una unidad (una de menos).' },
-  { value: answer + 10, error: 'Error de una decena al llevar (una de más).' },
-  { value: answer - 10, error: 'Error de una decena al llevar (una de menos).' },
-  { value: answer + 2, error: 'Error de cálculo de dos unidades (de más).' },
-  { value: answer - 2, error: 'Error de cálculo de dos unidades (de menos).' },
-];
+const slips = (answer: number) =>
+  [
+    { value: answer + 1, error: 'Error de cálculo: una unidad de más.' },
+    { value: answer - 1, error: 'Error de cálculo: una unidad de menos.' },
+    { value: answer + 10, error: 'Error de cálculo: una decena de más.' },
+    { value: answer - 10, error: 'Error de cálculo: una decena de menos.' },
+  ].map((d) => ({ ...d, generic: true }));
 
 const addSub: Family = (rng) => {
   const a = rng.int(20, 99);
@@ -49,6 +48,9 @@ const addSub: Family = (rng) => {
     distractors: [
       { value: a + b + c, error: `Sumas ${c} en lugar de restarlo.` },
       { value: a - b + c, error: `Restas ${b} y sumas ${c}: cambias los signos.` },
+      { value: a + b, error: `Olvidas restar ${c}.` },
+      { value: a - c, error: `Olvidas sumar ${b}.` },
+      { value: b + c - a, error: 'Restas el primer número en lugar del último.' },
       ...slips(answer),
     ],
   };
@@ -72,6 +74,9 @@ const product: Family = (rng) => {
       { value: answer + a, error: `Multiplicas por ${b + 1} en lugar de por ${b}.` },
       { value: answer - a, error: `Multiplicas por ${b - 1} en lugar de por ${b}.` },
       { value: a * tens + (b % 10), error: `Sumas las unidades (${b % 10}) en vez de multiplicarlas por ${a}.` },
+      { value: a * tens, error: `Olvidas multiplicar las unidades (${b % 10}).` },
+      { value: (a + 1) * b, error: `Multiplicas por ${a + 1} en lugar de por ${a}.` },
+      { value: (a - 1) * b, error: `Multiplicas por ${a - 1} en lugar de por ${a}.` },
       ...slips(answer),
     ],
   };
@@ -98,6 +103,9 @@ const precedence =
           { value: (a + b) * c - d, error: 'Operas de izquierda a derecha sin dar prioridad a la multiplicación.' },
           { value: a + b * c + d, error: `Sumas ${d} en lugar de restarlo.` },
           { value: a + b * (c - d), error: 'Restas antes de multiplicar.' },
+          { value: a + b * c, error: `Olvidas restar ${d}.` },
+          { value: b * c - d, error: `Olvidas sumar ${a}.` },
+          { value: a + b + c - d, error: 'Sumas en lugar de multiplicar.' },
           ...slips(answer),
         ],
       };
@@ -121,6 +129,9 @@ const precedence =
         { value: a + (b * c) / d, error: 'Ignoras el paréntesis y multiplicas antes de sumar.' },
         { value: (a + b) * c, error: `Olvidas dividir entre ${d}.` },
         { value: (a + b) / d, error: `Olvidas multiplicar por ${c}.` },
+        { value: ((a + b) * (c - 1)) / d, error: `Multiplicas por ${c - 1} en lugar de por ${c}.` },
+        { value: ((a + b) * (c + 1)) / d, error: `Multiplicas por ${c + 1} en lugar de por ${c}.` },
+        { value: (a * c) / d + b, error: 'Solo aplicas la multiplicación y la división al primer sumando.' },
         { value: answer + c, error: `Error al multiplicar: sumas ${c} de más.` },
         ...slips(answer),
       ],
@@ -146,6 +157,10 @@ const percent =
         { value: (n * p) / 1000, error: 'Corres la coma un lugar de más al dividir.' },
         { value: n - answer, error: `Calculas el ${100 - p} % (lo que queda) en vez del ${p} %.` },
         { value: (n * p) / 10, error: 'Divides entre 10 en vez de entre 100.' },
+        { value: answer * 2, error: `Calculas el ${2 * p} % en lugar del ${p} %.` },
+        { value: answer / 2, error: `Calculas la mitad del porcentaje (el ${String(p / 2).replace('.', ',')} %).` },
+        { value: (n * (p + 10)) / 100, error: `Calculas el ${p + 10} % en lugar del ${p} %.` },
+        { value: (n * (p - 5)) / 100, error: `Calculas el ${p - 5} % en lugar del ${p} %.` },
         ...slips(answer),
       ],
     };
@@ -194,7 +209,13 @@ const rule3 =
         rule: `Peso = ${c} × (${b} ÷ ${a}).`,
         apply: `${b} ÷ ${a} = ${k} kg por caja; ${c} × ${k} = ${answer}`,
         distractors: [
-          { value: b + (c - a), error: 'Sumas la diferencia de cajas en lugar de multiplicar.' },
+          {
+            value: b + (c - a),
+            error:
+              c > a
+                ? `Sumas al peso la diferencia de cajas (${c - a}) en lugar de calcular la proporción.`
+                : `Restas al peso la diferencia de cajas (${a - c}) en lugar de calcular la proporción.`,
+          },
           { value: answer + k, error: 'Cuentas una caja de más.' },
           { value: answer - k, error: 'Cuentas una caja de menos.' },
           ...slips(answer),
@@ -217,8 +238,22 @@ const rule3 =
       apply: `${a} × ${b} = ${total}; ${total} ÷ ${c} = ${answer}`,
       distractors: [
         { value: (b * c) / a, error: 'Aplicas una regla de tres directa: más operarios no significa más días.' },
-        { value: b + (a - c), error: 'Sumas la diferencia de operarios a los días.' },
-        { value: b - (a - c), error: 'Restas la diferencia de operarios a los días.' },
+        {
+          value: b + (a - c),
+          error:
+            a > c
+              ? `Sumas a los días la diferencia de operarios (${a - c}).`
+              : `Restas a los días la diferencia de operarios (${c - a}).`,
+        },
+        {
+          value: b - (a - c),
+          error:
+            a > c
+              ? `Restas a los días la diferencia de operarios (${a - c}).`
+              : `Sumas a los días la diferencia de operarios (${c - a}).`,
+        },
+        { value: b, error: 'Crees que los días no cambian con el número de operarios.' },
+        { value: total, error: `Te quedas con el trabajo total (${a} × ${b}) y no lo divides.` },
         ...slips(answer),
       ],
     };
@@ -242,6 +277,8 @@ const change: Family = (rng) => {
       { value: up ? n - delta : n + delta, error: `Aplicas una ${up ? 'bajada' : 'subida'} en lugar de una ${up ? 'subida' : 'bajada'}.` },
       { value: up ? n + p : n - p, error: `${up ? 'Sumas' : 'Restas'} ${p} euros en lugar del ${p} %.` },
       { value: delta, error: `Te quedas con el ${p} % y no lo ${up ? 'sumas al' : 'restas del'} precio.` },
+      { value: n, error: 'Olvidas aplicar el cambio de precio.' },
+      { value: up ? n + 2 * delta : n - 2 * delta, error: `Aplicas el ${p} % dos veces.` },
       ...slips(answer),
     ],
   };
@@ -265,6 +302,8 @@ const chain: Family = (rng) => {
       { value: mid, error: 'Olvidas aplicar la bajada.' },
       { value: (n * (100 - p2)) / 100, error: 'Olvidas aplicar la subida.' },
       { value: n, error: 'Crees que subir y bajar un porcentaje deja el precio igual.' },
+      { value: (mid * (100 + p2)) / 100, error: `Aplicas una subida del ${p2} % en lugar de una bajada.` },
+      { value: (n * (100 - p1)) / 100 , error: `Aplicas una bajada del ${p1} % en lugar de una subida.` },
       ...slips(answer),
     ],
   };
@@ -288,6 +327,7 @@ const reverse: Family = (rng) => {
       { value: wrong, error: `${up ? 'Restas' : 'Sumas'} el ${p} % del precio final: el porcentaje se aplicó sobre el precio de antes.` },
       { value: up ? final - p : final + p, error: `${up ? 'Restas' : 'Sumas'} ${p} euros en lugar de deshacer el ${p} %.` },
       { value: (final * (100 + (up ? p : -p))) / 100, error: `Aplicas otra vez el cambio en lugar de deshacerlo.` },
+      { value: final, error: 'Das el precio final como precio de antes: no deshaces el cambio.' },
       ...slips(n),
     ],
   };
@@ -314,7 +354,7 @@ const drafts = finishFamilies(families, (raw: Raw) => {
     // delatarían el error sin calcular.
     distractors: raw.distractors
       .filter((d) => Number.isInteger(d.value) && d.value > 0 && (raw.max === undefined || d.value < raw.max))
-      .map((d) => ({ value: fmt(d.value), error: d.error })),
+      .map((d) => ({ value: fmt(d.value), error: d.error, ...(d.generic && { generic: true }) })),
     observe: raw.observe,
     rule: raw.rule,
     apply: raw.apply,
