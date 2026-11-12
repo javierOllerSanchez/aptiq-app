@@ -171,3 +171,9 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 
 - **Hecho:** hook `useExamClock` (`apps/mobile/src/hooks/use-exam-clock.ts`): recalcula con el reloj cada segundo y al volver a primer plano; recibe el estado del simulacro (no inicio y duración, como decía el plan) para no repetir la lógica del motor. La app depende de `@aptiq/engine`. Pruebas en verde.
 - **Pendiente de la fase:** T5 a T11. Pendiente en dispositivo: pasar el móvil a segundo plano 2 minutos y comprobar el cronómetro.
+
+**2026-11-12 · Fase 4 · T5**
+
+- **Hecho:** almacenamiento local: contrato `Store` (ajustes, semillas usadas, sesiones, intentos), implementación en memoria para pruebas y la de SQLite con Drizzle (`expo-sqlite` y `drizzle-orm`). Las tablas se crean con SQL al abrir la base, sin drizzle-kit por ahora. 4 pruebas del contrato en verde.
+- **Pendiente en dispositivo (T9):** la implementación de SQLite no se puede probar con Jest (módulo nativo); se comprueba al abrir la app.
+- **Dependencias nuevas:** `expo-sqlite` (SDK 58, del stack) y `drizzle-orm` (del stack). Se anotan en `docs/decisiones.md` al cerrar la fase.
