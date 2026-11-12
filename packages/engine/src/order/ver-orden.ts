@@ -6,7 +6,7 @@ import { levels, type Generator } from '../types';
 
 import { verOrdenSolver, type VerOrdenStem } from './ver-orden.solver';
 
-const VERSION = '3';
+const VERSION = '4';
 const TIP =
   'Compara primero la letra inicial; si coincide, la segunda, y así sucesivamente. La Ñ va después de la N: CANAL va antes que CAÑA.';
 

@@ -7,7 +7,7 @@ Consultado el 2026-11-12. Este documento no reproduce ninguna pregunta ni respue
 | Fuente | Qué aporta |
 | --- | --- |
 | [BOE-A-2026-9982](https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-9982), bases 6.1.2.a, 7.3, 7.8 y 7.10 | 80 preguntas, 55 minutos, 4 opciones, penalización (fórmula Y/T × (A − E/(N − 1))), escala de 0 a 30, mínimo de 12 (eliminatorio), criterio de desempate |
-| [Plantillas de respuestas del 11/07/2026](https://web.guardiacivil.es/export/sites/guardiaCivil/documentos/pdfs/2026/Procesos_Selectivos_2026/PLANTILLAS-INGRESO-CABOS-Y-GUARDIAS.-2026.pdf), página 3 | Confirma 80 ítems por modelo (A y B), con las respuestas A, B, C y D. Solo se han usado la cabecera y el recuento |
+| [Plantillas de respuestas del 11/07/2026](https://web.guardiacivil.es/export/sites/guardiaCivil/documentos/pdfs/2026/PLANTILLAS-INGRESO_CABOS_-Y_GUARDIAS.-2026-2.pdf), página 3 | Confirma 80 ítems por modelo (A y B), con las respuestas A, B, C y D. Solo se han usado la cabecera y el recuento |
 | [Página oficial de ingreso](https://web.guardiacivil.es/es/tramites/ingresos/ingresocuerpo/) | Enlaza las plantillas de respuestas y los resultados; **no enlaza el cuestionario de aptitudes** |
 
 ## Proporción de tipos (`mix`): pendiente

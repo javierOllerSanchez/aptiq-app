@@ -24,7 +24,7 @@ export interface Draft<S extends Stem> {
 
 /**
  * `generic`: error de cálculo genérico (una unidad, una decena…), no ligado a la regla. Se usa
- * como mucho uno por pregunta: varios alrededor de la respuesta la delatarían por estar en medio.
+ * como mucho dos por pregunta: más alrededor de la respuesta la delatarían por estar en medio.
  */
 export type Distractor = { value: string; error: string; generic?: boolean };
 

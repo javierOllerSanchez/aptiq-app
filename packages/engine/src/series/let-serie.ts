@@ -5,7 +5,7 @@ import { levels, type Generator } from '../types';
 import { ALPHABET, letterAt, position } from './alphabet';
 import { letSerieSolver, type LetSerieStem } from './let-serie.solver';
 
-const VERSION = '3';
+const VERSION = '4';
 const TIP =
   'Escribe debajo de cada letra su posición en el alfabeto (A = 1… Z = 27) y trabaja con números. No olvides la Ñ, que va después de la N.';
 
@@ -204,6 +204,7 @@ const drafts = finishFamilies(families, (raw: Raw) => {
     // avanza en un sentido, lo que va en sentido contrario. Se descartarían sin pensar.
     const v = position(value);
     if (!letters.includes(letterAt(raw.answer)!) && letters.includes(value)) return [];
+    if (value === letters[letters.length - 1]) return []; // repetir la última letra no es un error creíble
     const steps = [...raw.positions, raw.answer].slice(1).map((x, i) => x - raw.positions[i]!);
     const last = raw.positions[raw.positions.length - 1]!;
     if (steps.every((d) => d > 0) && v <= last) return [];

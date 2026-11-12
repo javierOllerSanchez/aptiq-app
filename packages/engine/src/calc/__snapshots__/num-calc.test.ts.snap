@@ -1,65 +1,65 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`NUM.CALC v3 > nivel 1: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+exports[`NUM.CALC v4 > nivel 1: instantánea de una semilla fija (si cambia, subir version) 1`] = `
 {
   "answerIndex": 0,
   "explanation": {
-    "apply": "49 + 95 = 144; 144 − 34 = 110",
+    "apply": "140 + 49 = 189",
     "distractors": [
       {
-        "error": "Sumas 34 en lugar de restarlo.",
+        "error": "Multiplicas por 28 en lugar de por 27.",
         "optionIndex": 1,
       },
       {
-        "error": "Restas el primer número en lugar del último.",
+        "error": "Multiplicas por 8 en lugar de por 7.",
         "optionIndex": 2,
       },
       {
-        "error": "Olvidas sumar 95.",
+        "error": "Error de cálculo: una unidad de más.",
         "optionIndex": 3,
       },
     ],
-    "observe": "Solo hay sumas y restas: se hacen de izquierda a derecha.",
-    "rule": "Suma los dos primeros números y resta el tercero.",
+    "observe": "Descompón 27 en decenas y unidades para multiplicar de cabeza.",
+    "rule": "7 × 27 = 7 × 20 + 7 × 7.",
     "tip": "Antes de calcular, estima el resultado (redondea los datos). Si una opción está muy lejos de tu estimación, descártala. En operaciones combinadas, primero multiplicaciones y divisiones; después sumas y restas.",
   },
-  "id": "NUM.CALC:3:muestra:1",
+  "id": "NUM.CALC:4:muestra:1",
   "level": 1,
   "meta": {
     "expectedSeconds": 20,
-    "family": "sumasYRestas",
-    "generatorVersion": "3",
+    "family": "multiplicacion",
+    "generatorVersion": "4",
   },
   "options": [
-    "110",
-    "178",
-    "80",
-    "15",
+    "189",
+    "196",
+    "216",
+    "190",
   ],
   "seed": "muestra",
   "stem": {
     "data": {
-      "expr": "49 + 95 - 34",
+      "expr": "7 × 27",
       "kind": "expr",
     },
-    "text": "¿Cuál es el resultado de 49 + 95 − 34?",
+    "text": "¿Cuál es el resultado de 7 × 27?",
   },
   "type": "NUM.CALC",
 }
 `;
 
-exports[`NUM.CALC v3 > nivel 2: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+exports[`NUM.CALC v4 > nivel 2: instantánea de una semilla fija (si cambia, subir version) 1`] = `
 {
   "answerIndex": 1,
   "explanation": {
-    "apply": "3 × 9 = 27; 5 + 27 − 20 = 12",
+    "apply": "8 × 5 = 40; 14 + 40 − 12 = 42",
     "distractors": [
       {
-        "error": "Olvidas sumar 5.",
+        "error": "Sumas 12 en lugar de restarlo.",
         "optionIndex": 0,
       },
       {
-        "error": "Olvidas restar 20.",
+        "error": "Olvidas sumar 14.",
         "optionIndex": 2,
       },
       {
@@ -71,178 +71,175 @@ exports[`NUM.CALC v3 > nivel 2: instantánea de una semilla fija (si cambia, sub
     "rule": "Primero multiplicaciones y divisiones; después sumas y restas, de izquierda a derecha.",
     "tip": "Antes de calcular, estima el resultado (redondea los datos). Si una opción está muy lejos de tu estimación, descártala. En operaciones combinadas, primero multiplicaciones y divisiones; después sumas y restas.",
   },
-  "id": "NUM.CALC:3:muestra:2",
+  "id": "NUM.CALC:4:muestra:2",
   "level": 2,
   "meta": {
     "expectedSeconds": 30,
     "family": "prioridad",
-    "generatorVersion": "3",
+    "generatorVersion": "4",
   },
   "options": [
-    "7",
-    "12",
-    "32",
-    "52",
+    "66",
+    "42",
+    "28",
+    "98",
   ],
   "seed": "muestra",
   "stem": {
     "data": {
-      "expr": "5 + 3 × 9 - 20",
+      "expr": "14 + 8 × 5 - 12",
       "kind": "expr",
     },
-    "text": "¿Cuál es el resultado de 5 + 3 × 9 − 20?",
+    "text": "¿Cuál es el resultado de 14 + 8 × 5 − 12?",
   },
   "type": "NUM.CALC",
 }
 `;
 
-exports[`NUM.CALC v3 > nivel 3: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+exports[`NUM.CALC v4 > nivel 3: instantánea de una semilla fija (si cambia, subir version) 1`] = `
 {
-  "answerIndex": 0,
+  "answerIndex": 2,
   "explanation": {
-    "apply": "112 ÷ 8 = 14 kg por caja; 11 × 14 = 154",
+    "apply": "66 ÷ 6 = 11 kg por caja; 12 × 11 = 132",
     "distractors": [
       {
-        "error": "Cuentas una caja de menos.",
-        "optionIndex": 1,
+        "error": "Sumas al peso la diferencia de cajas (6) en lugar de calcular la proporción.",
+        "optionIndex": 0,
       },
       {
         "error": "Error de cálculo: una decena de menos.",
-        "optionIndex": 2,
+        "optionIndex": 1,
       },
       {
-        "error": "Sumas la diferencia de cajas en lugar de multiplicar.",
+        "error": "Cuentas una caja de menos.",
         "optionIndex": 3,
       },
     ],
     "observe": "A más cajas, más peso, en la misma proporción: regla de tres directa.",
-    "rule": "Peso = 11 × (112 ÷ 8).",
+    "rule": "Peso = 12 × (66 ÷ 6).",
     "tip": "Antes de calcular, estima el resultado (redondea los datos). Si una opción está muy lejos de tu estimación, descártala. En operaciones combinadas, primero multiplicaciones y divisiones; después sumas y restas.",
   },
-  "id": "NUM.CALC:3:muestra:3",
+  "id": "NUM.CALC:4:muestra:3",
   "level": 3,
   "meta": {
     "expectedSeconds": 40,
     "family": "reglaDeTres",
-    "generatorVersion": "3",
+    "generatorVersion": "4",
   },
   "options": [
-    "154",
-    "140",
-    "144",
-    "115",
+    "72",
+    "122",
+    "132",
+    "121",
   ],
   "seed": "muestra",
   "stem": {
     "data": {
-      "a": 8,
-      "b": 112,
-      "c": 11,
+      "a": 6,
+      "b": 66,
+      "c": 12,
       "inverse": false,
       "kind": "rule3",
     },
-    "text": "Si 8 cajas iguales pesan 112 kg, ¿cuántos kg pesan 11 cajas?",
+    "text": "Si 6 cajas iguales pesan 66 kg, ¿cuántos kg pesan 12 cajas?",
   },
   "type": "NUM.CALC",
 }
 `;
 
-exports[`NUM.CALC v3 > nivel 4: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+exports[`NUM.CALC v4 > nivel 4: instantánea de una semilla fija (si cambia, subir version) 1`] = `
 {
-  "answerIndex": 1,
+  "answerIndex": 3,
   "explanation": {
-    "apply": "12 × 2 = 24; 24 ÷ 8 = 3",
+    "apply": "14 + 28 = 42; 42 × 2 = 84; 84 ÷ 3 = 28",
     "distractors": [
       {
-        "error": "Sumas la diferencia de operarios a los días.",
+        "error": "Olvidas multiplicar por 2.",
         "optionIndex": 0,
       },
       {
-        "error": "Te quedas con el trabajo total (12 × 2) y no lo divides.",
-        "optionIndex": 2,
-      },
-      {
-        "error": "Crees que los días no cambian con el número de operarios.",
-        "optionIndex": 3,
-      },
-    ],
-    "observe": "A más operarios, menos días: es una regla de tres inversa.",
-    "rule": "Días = 12 × 2 ÷ 8 (el trabajo total, 12 × 2, no cambia).",
-    "tip": "Antes de calcular, estima el resultado (redondea los datos). Si una opción está muy lejos de tu estimación, descártala. En operaciones combinadas, primero multiplicaciones y divisiones; después sumas y restas.",
-  },
-  "id": "NUM.CALC:3:muestra:4",
-  "level": 4,
-  "meta": {
-    "expectedSeconds": 55,
-    "family": "reglaDeTresInversa",
-    "generatorVersion": "3",
-  },
-  "options": [
-    "6",
-    "3",
-    "24",
-    "2",
-  ],
-  "seed": "muestra",
-  "stem": {
-    "data": {
-      "a": 12,
-      "b": 2,
-      "c": 8,
-      "inverse": true,
-      "kind": "rule3",
-    },
-    "text": "12 operarios tardan 2 días en terminar una obra. Al mismo ritmo, ¿cuántos días tardarían 8 operarios?",
-  },
-  "type": "NUM.CALC",
-}
-`;
-
-exports[`NUM.CALC v3 > nivel 5: instantánea de una semilla fija (si cambia, subir version) 1`] = `
-{
-  "answerIndex": 2,
-  "explanation": {
-    "apply": "63 × 100 ÷ 75 = 84",
-    "distractors": [
-      {
-        "error": "Das el precio final como precio de antes: no deshaces el cambio.",
-        "optionIndex": 0,
-      },
-      {
-        "error": "Sumas 25 euros en lugar de deshacer el 25 %.",
+        "error": "Olvidas dividir entre 3.",
         "optionIndex": 1,
       },
       {
-        "error": "Error de cálculo: una unidad de más.",
-        "optionIndex": 3,
+        "error": "Error de cálculo: una unidad de menos.",
+        "optionIndex": 2,
       },
     ],
-    "observe": "63 euros es el 75 % del precio de antes, no el 100 %.",
-    "rule": "Precio de antes = 63 × 100 ÷ 75.",
+    "observe": "Hay un paréntesis: se resuelve antes que nada.",
+    "rule": "Paréntesis primero; después multiplicaciones y divisiones de izquierda a derecha.",
     "tip": "Antes de calcular, estima el resultado (redondea los datos). Si una opción está muy lejos de tu estimación, descártala. En operaciones combinadas, primero multiplicaciones y divisiones; después sumas y restas.",
   },
-  "id": "NUM.CALC:3:muestra:5",
-  "level": 5,
+  "id": "NUM.CALC:4:muestra:4",
+  "level": 4,
   "meta": {
-    "expectedSeconds": 70,
-    "family": "porcentajeInverso",
-    "generatorVersion": "3",
+    "expectedSeconds": 55,
+    "family": "parentesis",
+    "generatorVersion": "4",
   },
   "options": [
-    "63",
-    "88",
+    "14",
     "84",
-    "85",
+    "27",
+    "28",
   ],
   "seed": "muestra",
   "stem": {
     "data": {
-      "final": 63,
-      "kind": "reverse",
-      "p": 25,
-      "up": false,
+      "expr": "(14 + 28) × 2 ÷ 3",
+      "kind": "expr",
     },
-    "text": "Después de bajar un 25 %, un artículo cuesta 63 euros. ¿Cuántos euros costaba antes?",
+    "text": "¿Cuál es el resultado de (14 + 28) × 2 ÷ 3?",
+  },
+  "type": "NUM.CALC",
+}
+`;
+
+exports[`NUM.CALC v4 > nivel 5: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 3,
+  "explanation": {
+    "apply": "3200 + 50 % = 4800; 4800 − 50 % = 2400",
+    "distractors": [
+      {
+        "error": "Olvidas aplicar la subida.",
+        "optionIndex": 0,
+      },
+      {
+        "error": "Error de cálculo: una unidad de menos.",
+        "optionIndex": 1,
+      },
+      {
+        "error": "Sumas y restas los porcentajes sobre el precio original.",
+        "optionIndex": 2,
+      },
+    ],
+    "observe": "La bajada se calcula sobre el precio ya subido, no sobre el original.",
+    "rule": "Aplica cada porcentaje sobre el resultado del anterior.",
+    "tip": "Antes de calcular, estima el resultado (redondea los datos). Si una opción está muy lejos de tu estimación, descártala. En operaciones combinadas, primero multiplicaciones y divisiones; después sumas y restas.",
+  },
+  "id": "NUM.CALC:4:muestra:5",
+  "level": 5,
+  "meta": {
+    "expectedSeconds": 70,
+    "family": "porcentajesEncadenados",
+    "generatorVersion": "4",
+  },
+  "options": [
+    "1600",
+    "2399",
+    "3200",
+    "2400",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "data": {
+      "kind": "chain",
+      "n": 3200,
+      "p1": 50,
+      "p2": 50,
+    },
+    "text": "Un precio de 3200 euros sube un 50 % y después baja un 50 %. ¿Cuál es el precio final, en euros?",
   },
   "type": "NUM.CALC",
 }

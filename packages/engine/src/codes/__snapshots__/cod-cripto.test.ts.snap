@@ -1,255 +1,255 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`COD.CRIPTO v3 > nivel 1: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+exports[`COD.CRIPTO v4 > nivel 1: instantánea de una semilla fija (si cambia, subir version) 1`] = `
 {
-  "answerIndex": 2,
+  "answerIndex": 0,
   "explanation": {
-    "apply": "U M U R → 9 7 9 2 = 9792",
+    "apply": "O N N L → 4 9 9 2 = 4992",
     "distractors": [
       {
-        "error": "Confundes la cifra de la U con la de la R.",
-        "optionIndex": 0,
-      },
-      {
-        "error": "Confundes la cifra de la U con la de la R y, además, intercambias dos cifras seguidas.",
+        "error": "Intercambias el orden de dos cifras seguidas.",
         "optionIndex": 1,
       },
       {
-        "error": "Confundes la cifra de la U con la de la R y te equivocas en la última.",
+        "error": "Confundes la cifra de la L con la de la N.",
+        "optionIndex": 2,
+      },
+      {
+        "error": "Escribes el código de derecha a izquierda.",
         "optionIndex": 3,
       },
     ],
-    "observe": "Cada letra se escribe siempre con la misma cifra: M = 7, U = 9, R = 2.",
-    "rule": "Sustituye cada letra de UMUR por su cifra, en el mismo orden.",
+    "observe": "Cada letra se escribe siempre con la misma cifra: O = 4, L = 2, N = 9.",
+    "rule": "Sustituye cada letra de ONNL por su cifra, en el mismo orden.",
     "tip": "Escribe la clave antes de mirar las opciones: qué cifra o qué salto corresponde a cada letra. Después codifica letra a letra y compara con las opciones de izquierda a derecha.",
   },
-  "id": "COD.CRIPTO:3:muestra:1",
+  "id": "COD.CRIPTO:4:muestra:1",
   "level": 1,
   "meta": {
     "expectedSeconds": 25,
     "family": "cifras",
-    "generatorVersion": "3",
+    "generatorVersion": "4",
   },
   "options": [
-    "2729",
-    "7229",
-    "9792",
-    "2720",
+    "4992",
+    "9492",
+    "4229",
+    "2994",
   ],
   "seed": "muestra",
   "stem": {
     "examples": [
       {
-        "code": "7921",
-        "plain": "MURO",
+        "code": "042194",
+        "plain": "MOLINO",
       },
     ],
-    "target": "UMUR",
-    "text": "En un código, MURO se escribe 7921. Con la misma clave, ¿cómo se escribe UMUR?",
+    "target": "ONNL",
+    "text": "En un código, MOLINO se escribe 042194. Con la misma clave, ¿cómo se escribe ONNL?",
   },
   "type": "COD.CRIPTO",
 }
 `;
 
-exports[`COD.CRIPTO v3 > nivel 2: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+exports[`COD.CRIPTO v4 > nivel 2: instantánea de una semilla fija (si cambia, subir version) 1`] = `
 {
-  "answerIndex": 2,
+  "answerIndex": 1,
   "explanation": {
-    "apply": "M +1 = N, U +1 = V, R +1 = S, O +1 = P → NVSP",
+    "apply": "F R A L A → 5 6 8 9 8 = 56898",
     "distractors": [
       {
-        "error": "Desplazas una posición de más.",
+        "error": "Escribes el código de derecha a izquierda.",
         "optionIndex": 0,
       },
       {
-        "error": "Olvidas codificar la última letra.",
-        "optionIndex": 1,
+        "error": "Intercambias el orden de dos cifras seguidas.",
+        "optionIndex": 2,
       },
       {
-        "error": "Desplazas hacia el lado contrario del alfabeto.",
+        "error": "Confundes la cifra de la L con la de la A.",
         "optionIndex": 3,
       },
     ],
-    "observe": "Compara letra a letra: O→P, L→M, I→J… Todas se desplazan lo mismo.",
-    "rule": "Cada letra se sustituye por la que está 1 posición después en el alfabeto (con Ñ).",
+    "observe": "Cada letra se escribe siempre con la misma cifra: F = 5, A = 8, R = 6, L = 9.",
+    "rule": "Sustituye cada letra de FRALA por su cifra, en el mismo orden.",
     "tip": "Escribe la clave antes de mirar las opciones: qué cifra o qué salto corresponde a cada letra. Después codifica letra a letra y compara con las opciones de izquierda a derecha.",
   },
-  "id": "COD.CRIPTO:3:muestra:2",
+  "id": "COD.CRIPTO:4:muestra:2",
   "level": 2,
   "meta": {
     "expectedSeconds": 35,
-    "family": "desplazamientoDeUno",
-    "generatorVersion": "3",
+    "family": "cifrasLargas",
+    "generatorVersion": "4",
   },
   "options": [
-    "ÑWTQ",
-    "NVSO",
-    "NVSP",
-    "LTQÑ",
+    "89865",
+    "56898",
+    "58698",
+    "56989",
   ],
   "seed": "muestra",
   "stem": {
     "examples": [
       {
-        "code": "PMJWP",
-        "plain": "OLIVO",
+        "code": "58639",
+        "plain": "FAROL",
       },
     ],
-    "target": "MURO",
-    "text": "En un código, OLIVO se escribe PMJWP. Con la misma clave, ¿cómo se escribe MURO?",
+    "target": "FRALA",
+    "text": "En un código, FAROL se escribe 58639. Con la misma clave, ¿cómo se escribe FRALA?",
   },
   "type": "COD.CRIPTO",
 }
 `;
 
-exports[`COD.CRIPTO v3 > nivel 3: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+exports[`COD.CRIPTO v4 > nivel 3: instantánea de una semilla fija (si cambia, subir version) 1`] = `
 {
-  "answerIndex": 2,
+  "answerIndex": 0,
   "explanation": {
-    "apply": "N −2 = L, I −2 = G, D −2 = B, O −2 = N → LGBN",
+    "apply": "B +2 = D, A +2 = C, N +2 = O, C +2 = E, O +2 = Q → DCOEQ",
     "distractors": [
       {
-        "error": "Desplazas hacia el lado contrario del alfabeto.",
-        "optionIndex": 0,
-      },
-      {
-        "error": "Desplazas una posición de más.",
+        "error": "Olvidas la Ñ al contar las posiciones.",
         "optionIndex": 1,
       },
       {
-        "error": "Olvidas la Ñ al contar las posiciones.",
+        "error": "Olvidas codificar la última letra.",
+        "optionIndex": 2,
+      },
+      {
+        "error": "Desplazas una posición de más.",
         "optionIndex": 3,
       },
     ],
-    "observe": "Compara letra a letra: D→B, U→S, E→C… Todas se desplazan lo mismo.",
-    "rule": "Cada letra se sustituye por la que está 2 posiciones antes en el alfabeto (con Ñ).",
+    "observe": "Compara letra a letra: D→F, I→K, E→G… Todas se desplazan lo mismo.",
+    "rule": "Cada letra se sustituye por la que está 2 posiciones después en el alfabeto (con Ñ).",
     "tip": "Escribe la clave antes de mirar las opciones: qué cifra o qué salto corresponde a cada letra. Después codifica letra a letra y compara con las opciones de izquierda a derecha.",
   },
-  "id": "COD.CRIPTO:3:muestra:3",
+  "id": "COD.CRIPTO:4:muestra:3",
   "level": 3,
   "meta": {
     "expectedSeconds": 45,
     "family": "desplazamientoCorto",
-    "generatorVersion": "3",
+    "generatorVersion": "4",
   },
   "options": [
-    "OKFQ",
-    "KFAM",
-    "LGBN",
-    "LGBM",
+    "DCOEQ",
+    "DCPEQ",
+    "DCOEO",
+    "EDPFR",
   ],
   "seed": "muestra",
   "stem": {
     "examples": [
       {
-        "code": "BSCLBC",
-        "plain": "DUENDE",
+        "code": "FKGOVG",
+        "plain": "DIENTE",
       },
     ],
-    "target": "NIDO",
-    "text": "En un código, DUENDE se escribe BSCLBC. Con la misma clave, ¿cómo se escribe NIDO?",
+    "target": "BANCO",
+    "text": "En un código, DIENTE se escribe FKGOVG. Con la misma clave, ¿cómo se escribe BANCO?",
   },
   "type": "COD.CRIPTO",
 }
 `;
 
-exports[`COD.CRIPTO v3 > nivel 4: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+exports[`COD.CRIPTO v4 > nivel 4: instantánea de una semilla fija (si cambia, subir version) 1`] = `
 {
-  "answerIndex": 1,
+  "answerIndex": 3,
   "explanation": {
-    "apply": "N −3 = K, I −3 = F, E −3 = B, V −3 = S, E −3 = B → KFBSB",
+    "apply": "Y −3 = V, U −3 = R, N −3 = K, Q −3 = Ñ, U −3 = R, E −3 = B → VRKÑRB",
     "distractors": [
       {
-        "error": "Desplazas hacia el lado contrario del alfabeto.",
+        "error": "Olvidas codificar la última letra.",
         "optionIndex": 0,
       },
       {
         "error": "Desplazas una posición de más.",
-        "optionIndex": 2,
+        "optionIndex": 1,
       },
       {
-        "error": "Olvidas codificar la última letra.",
-        "optionIndex": 3,
+        "error": "Olvidas la Ñ al contar las posiciones.",
+        "optionIndex": 2,
       },
     ],
-    "observe": "Compara letra a letra: V→S, I→F, Ñ→L… Todas se desplazan lo mismo.",
+    "observe": "Compara letra a letra: S→P, U→R, E→B… Todas se desplazan lo mismo.",
     "rule": "Cada letra se sustituye por la que está 3 posiciones antes en el alfabeto (con Ñ).",
     "tip": "Escribe la clave antes de mirar las opciones: qué cifra o qué salto corresponde a cada letra. Después codifica letra a letra y compara con las opciones de izquierda a derecha.",
   },
-  "id": "COD.CRIPTO:3:muestra:4",
+  "id": "COD.CRIPTO:4:muestra:4",
   "level": 4,
   "meta": {
     "expectedSeconds": 55,
     "family": "desplazamientoLargo",
-    "generatorVersion": "3",
+    "generatorVersion": "4",
   },
   "options": [
-    "PLHYH",
-    "KFBSB",
-    "JEARA",
-    "KFBSE",
+    "VRKÑRE",
+    "UQJNQA",
+    "VRKNRB",
+    "VRKÑRB",
   ],
   "seed": "muestra",
   "stem": {
     "examples": [
       {
-        "code": "SFLBAM",
-        "plain": "VIÑEDO",
+        "code": "PRBIM",
+        "plain": "SUELO",
       },
     ],
-    "target": "NIEVE",
-    "text": "En un código, VIÑEDO se escribe SFLBAM. Con la misma clave, ¿cómo se escribe NIEVE?",
+    "target": "YUNQUE",
+    "text": "En un código, SUELO se escribe PRBIM. Con la misma clave, ¿cómo se escribe YUNQUE?",
   },
   "type": "COD.CRIPTO",
 }
 `;
 
-exports[`COD.CRIPTO v3 > nivel 5: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+exports[`COD.CRIPTO v4 > nivel 5: instantánea de una semilla fija (si cambia, subir version) 1`] = `
 {
   "answerIndex": 2,
   "explanation": {
-    "apply": "S +2 = U, O −2 = N, N +2 = O, I −2 = G, D +2 = F, O −2 = N → UNOGFN",
+    "apply": "A +1 = B, L −1 = K, U +1 = V, M −1 = L, N +1 = Ñ, O −1 = Ñ → BKVLÑÑ",
     "distractors": [
       {
-        "error": "Olvidas la Ñ al contar las posiciones.",
+        "error": "Desplazas una posición de más.",
         "optionIndex": 0,
       },
       {
-        "error": "Desplazas hacia el lado contrario del alfabeto.",
+        "error": "Olvidas la Ñ al contar las posiciones.",
         "optionIndex": 1,
       },
       {
-        "error": "Aplicas +2 a todas las letras, sin alternar.",
+        "error": "Aplicas +1 a todas las letras, sin alternar.",
         "optionIndex": 3,
       },
     ],
-    "observe": "Compara letra a letra: A→C, S→Q, I→K… El salto cambia según la posición.",
-    "rule": "Cada letra se sustituye por la que está 2 posiciones después y 2 posiciones antes, alternando en el alfabeto (con Ñ).",
+    "observe": "Compara letra a letra: P→Q, L→K, U→V… El salto cambia según la posición.",
+    "rule": "Cada letra se sustituye por la que está 1 posición después y 1 posición antes, alternando en el alfabeto (con Ñ).",
     "tip": "Escribe la clave antes de mirar las opciones: qué cifra o qué salto corresponde a cada letra. Después codifica letra a letra y compara con las opciones de izquierda a derecha.",
   },
-  "id": "COD.CRIPTO:3:muestra:5",
+  "id": "COD.CRIPTO:4:muestra:5",
   "level": 5,
   "meta": {
     "expectedSeconds": 70,
     "family": "desplazamientoAlternoOpuesto",
-    "generatorVersion": "3",
+    "generatorVersion": "4",
   },
   "options": [
-    "UMPGFM",
-    "QQLKBQ",
-    "UNOGFN",
-    "UQOKFQ",
+    "CJWKON",
+    "BKVLON",
+    "BKVLÑÑ",
+    "BMVNÑP",
   ],
   "seed": "muestra",
   "stem": {
     "examples": [
       {
-        "code": "CQKCORQ",
-        "plain": "ASIENTO",
+        "code": "QKVLB",
+        "plain": "PLUMA",
       },
     ],
-    "target": "SONIDO",
-    "text": "En un código, ASIENTO se escribe CQKCORQ. Con la misma clave, ¿cómo se escribe SONIDO?",
+    "target": "ALUMNO",
+    "text": "En un código, PLUMA se escribe QKVLB. Con la misma clave, ¿cómo se escribe ALUMNO?",
   },
   "type": "COD.CRIPTO",
 }

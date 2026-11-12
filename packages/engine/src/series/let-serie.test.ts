@@ -46,8 +46,21 @@ test('en las series hacia atrás, «una letra de más» y «de menos» siguen el
     const answer = position(item.options[item.answerIndex]!);
     for (const d of item.explanation.distractors) {
       const v = position(item.options[d.optionIndex]!);
-      if (d.error === 'Cuentas una letra de más.') expect(v - answer, `semilla b${i}`).toBe(Math.sign(s));
-      if (d.error === 'Cuentas una letra de menos.') expect(v - answer, `semilla b${i}`).toBe(-Math.sign(s));
+      if (d.error === 'Cuentas una letra de más.')
+        expect(v - answer, `semilla b${i}`).toBe(Math.sign(s));
+      if (d.error === 'Cuentas una letra de menos.')
+        expect(v - answer, `semilla b${i}`).toBe(-Math.sign(s));
     }
   }
+});
+
+test('ninguna opción repite la última letra de la serie', () => {
+  for (let i = 0; i < 3_000; i++)
+    for (const level of [4, 5] as const) {
+      const item = letSerie.generate(`u${i}`, level, 4);
+      const last = item.stem.letters[item.stem.letters.length - 1];
+      item.explanation.distractors.forEach((d) =>
+        expect(item.options[d.optionIndex], `semilla u${i}, nivel ${level}`).not.toBe(last),
+      );
+    }
 });

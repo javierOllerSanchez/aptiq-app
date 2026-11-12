@@ -31,14 +31,16 @@ Blogs y academias solo sirven como pista para encontrar la fuente oficial, nunca
     "preguntas": null,
     "minutos": null,
     "opciones": 4,
-    "penalizacion": { "fallosRestanUnAcierto": 3 },
-    "nota": { "escala": [0, 30], "minimo": 12 }
+    "puntuacion": { "maxima": 30, "minima": 12 }
   },
-  "mix": [ { "type": "NUM.SERIE.ARIT", "proporcion": 0.08 } ],
-  "fieldSources": { "format.opciones": 0, "format.penalizacion": 0 },
-  "pendiente": ["format.preguntas", "format.minutos"]
+  "mix": null,
+  "fieldSources": { "format.opciones": 0, "format.puntuacion.maxima": 0, "format.puntuacion.minima": 0 },
+  "pendiente": ["format.preguntas", "format.minutos", "mix"],
+  "notas": { "mix": "Por qué está pendiente." }
 }
 ```
+
+Esquema y validador en `packages/engine/src/profile.ts`; perfil de referencia: `profiles/guardia-civil-2026.json`.
 
 - `fieldSources`: qué fuente (índice en `sources`) respalda cada dato.
 - **Dato sin fuente oficial:** va a `null` y se lista en `pendiente`. La app muestra «Pendiente de confirmar».
@@ -47,7 +49,7 @@ Blogs y academias solo sirven como pista para encontrar la fuente oficial, nunca
 
 ## Puntuación
 
-Nota neta = A − E / (n − 1). A son los aciertos, E los errores y n las opciones por pregunta; las respuestas en blanco no restan. Si las bases dan otra fórmula o escala, se usa la de las bases y se cita. Las pruebas incluyen casos calculados a mano.
+Fórmula de las bases (BOE-A-2026-9982, base 7.3): P = Y/T × (A − E/(N − 1)). Y es la puntuación máxima (`puntuacion.maxima`), T el número de preguntas, A los aciertos, E los errores y N las opciones; las respuestas en blanco no restan. Implementada en `packages/engine/src/score.ts`, con casos calculados a mano en sus pruebas. Si unas bases dan otra fórmula, se usa la de las bases y se cita.
 
 ## Proporción de tipos (`mix`)
 
@@ -57,14 +59,9 @@ Nota neta = A − E / (n − 1). A son los aciertos, E los errores y n las opcio
 4. La proporción es la media de las convocatorias analizadas. Si varía mucho entre años, se indica.
 5. Un tipo sin generador todavía se marca como no cubierto, y el simulacro avisa.
 
-## Datos de Guardia Civil a confirmar
+## Guardia Civil (convocatoria 2026)
 
-Según fuentes no oficiales:
-- 4 opciones por pregunta.
-- 3 fallos restan 1 acierto.
-- Nota de 0 a 30, con mínimo de 12.
-
-Número de preguntas y tiempo: sin confirmar. Todo debe verificarse en las bases vigentes del BOE antes de quitarlo de `pendiente`.
+Confirmado en el BOE (fase 3): 80 preguntas, 55 minutos, 4 opciones, fórmula de la base 7.3, escala 0-30 y mínimo de 12. La Guardia Civil **no publica el cuestionario de aptitudes** (solo la plantilla de respuestas), así que el paso de «Proporción de tipos» no se puede hacer: `mix` queda pendiente. Detalle en `profiles/analysis/guardia-civil-2026.md`.
 
 ## Revisión
 

@@ -5,7 +5,7 @@ import { levels, type Generator } from '../types';
 
 import { datComparaSolver, type DatComparaStem } from './dat-compara.solver';
 
-const VERSION = '3';
+const VERSION = '4';
 const TIP =
   'Compara de izquierda a derecha y por bloques cortos (tres o cuatro caracteres), señalando con el dedo. Los cambios más difíciles de ver son dos cifras que intercambian su lugar y las letras que se parecen a cifras (O y 0, I y 1, B y 8, S y 5).';
 

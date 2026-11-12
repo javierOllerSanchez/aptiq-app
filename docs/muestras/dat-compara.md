@@ -1,4 +1,4 @@
-# Muestras · Comparación de datos (`DAT.COMPARA`, versión 3)
+# Muestras · Comparación de datos (`DAT.COMPARA`, versión 4)
 
 Contar cuántas filas de dos columnas son exactamente iguales.
 
@@ -14,20 +14,20 @@ Generadas automáticamente para revisión humana. Para cada pregunta, comprueba:
 
 ```
 ¿Cuántas filas tienen exactamente los mismos datos en las dos columnas?
-1. 48615 | 48915
-2. 65207 | 56207
-3. 17295 | 17295
-4. 68265 | 68625
+1. 0DUD | 0DUD
+2. V0KW | VOKW
+3. W52N | W2N
+4. C4WB | C4WB
 ```
 
-- **A)** 3 — Cuentas las filas distintas en lugar de las iguales.
-- **B)** 2 — Pasas por alto una de las diferencias y cuentas como igual una fila distinta.
-- **C)** 4 — Pasas por alto tres diferencias.
-- **D)** 1 ✔ correcta
+- **A)** 3 — Pasas por alto una de las diferencias y cuentas como igual una fila distinta.
+- **B)** 1 — Ves una diferencia donde no la hay y descuentas una fila igual.
+- **C)** 2 ✔ correcta
+- **D)** 4 — Pasas por alto dos diferencias.
 
 1. **Observa:** Hay 4 filas. Compara cada pareja carácter a carácter.
 2. **Regla:** Una fila solo cuenta si las dos columnas son idénticas: un carácter cambiado, de menos o fuera de sitio ya la hace distinta.
-3. **Aplica:** Diferencias: fila 1: un carácter cambia por otro parecido (48615 / 48915); fila 2: dos caracteres seguidos cambian de lugar (65207 / 56207); fila 4: dos caracteres seguidos cambian de lugar (68265 / 68625). Filas iguales: 4 − 3 = 1
+3. **Aplica:** Diferencias: fila 2: un carácter cambia por otro parecido (V0KW / VOKW); fila 3: falta un carácter (W52N / W2N). Filas iguales: 4 − 2 = 2
 
 - [ ] Revisada · Comentarios:
 
@@ -35,20 +35,20 @@ Generadas automáticamente para revisión humana. Para cada pregunta, comprueba:
 
 ```
 ¿Cuántas filas tienen exactamente los mismos datos en las dos columnas?
-1. C9JR | CJ9R
-2. B4LN | B4LN
-3. TN53 | TN3
-4. GYTB | GYTB
+1. CULF | CULF
+2. 3R9M | 3R9M
+3. V56K | V5K
+4. HWG1 | HW1G
 ```
 
 - **A)** 3 — Pasas por alto una de las diferencias y cuentas como igual una fila distinta.
-- **B)** 2 ✔ correcta
-- **C)** 0 — Ves dos diferencias donde no las hay.
+- **B)** 4 — Pasas por alto dos diferencias.
+- **C)** 2 ✔ correcta
 - **D)** 1 — Ves una diferencia donde no la hay y descuentas una fila igual.
 
 1. **Observa:** Hay 4 filas. Compara cada pareja carácter a carácter.
 2. **Regla:** Una fila solo cuenta si las dos columnas son idénticas: un carácter cambiado, de menos o fuera de sitio ya la hace distinta.
-3. **Aplica:** Diferencias: fila 1: dos caracteres seguidos cambian de lugar (C9JR / CJ9R); fila 3: falta un carácter (TN53 / TN3). Filas iguales: 4 − 2 = 2
+3. **Aplica:** Diferencias: fila 3: falta un carácter (V56K / V5K); fila 4: dos caracteres seguidos cambian de lugar (HWG1 / HW1G). Filas iguales: 4 − 2 = 2
 
 - [ ] Revisada · Comentarios:
 
@@ -56,20 +56,20 @@ Generadas automáticamente para revisión humana. Para cada pregunta, comprueba:
 
 ```
 ¿Cuántas filas tienen exactamente los mismos datos en las dos columnas?
-1. 41816 | 14816
-2. 24096 | 24069
-3. 65626 | 65662
-4. 23694 | 23694
+1. 49273 | 49273
+2. 45454 | 45454
+3. 68547 | 65847
+4. 72650 | 12650
 ```
 
-- **A)** 3 — Cuentas las filas distintas en lugar de las iguales.
-- **B)** 0 — Ves una diferencia donde no la hay y descuentas una fila igual.
-- **C)** 2 — Pasas por alto una de las diferencias y cuentas como igual una fila distinta.
-- **D)** 1 ✔ correcta
+- **A)** 2 ✔ correcta
+- **B)** 1 — Ves una diferencia donde no la hay y descuentas una fila igual.
+- **C)** 3 — Pasas por alto una de las diferencias y cuentas como igual una fila distinta.
+- **D)** 4 — Pasas por alto dos diferencias.
 
 1. **Observa:** Hay 4 filas. Compara cada pareja carácter a carácter.
 2. **Regla:** Una fila solo cuenta si las dos columnas son idénticas: un carácter cambiado, de menos o fuera de sitio ya la hace distinta.
-3. **Aplica:** Diferencias: fila 1: dos caracteres seguidos cambian de lugar (41816 / 14816); fila 2: dos caracteres seguidos cambian de lugar (24096 / 24069); fila 3: dos caracteres seguidos cambian de lugar (65626 / 65662). Filas iguales: 4 − 3 = 1
+3. **Aplica:** Diferencias: fila 3: dos caracteres seguidos cambian de lugar (68547 / 65847); fila 4: un carácter cambia por otro parecido (72650 / 12650). Filas iguales: 4 − 2 = 2
 
 - [ ] Revisada · Comentarios:
 
@@ -77,20 +77,20 @@ Generadas automáticamente para revisión humana. Para cada pregunta, comprueba:
 
 ```
 ¿Cuántas filas tienen exactamente los mismos datos en las dos columnas?
-1. R63V | 6R3V
-2. AJJU | AJUJ
-3. 54MD | 54MD
-4. 2JE6 | 2JE1
+1. AC5J | AC5J
+2. GXKK | GXKK
+3. 1A4Y | 1A4Y
+4. JCLX | JCXL
 ```
 
-- **A)** 2 — Pasas por alto una de las diferencias y cuentas como igual una fila distinta.
-- **B)** 3 — Cuentas las filas distintas en lugar de las iguales.
-- **C)** 1 ✔ correcta
-- **D)** 0 — Ves una diferencia donde no la hay y descuentas una fila igual.
+- **A)** 3 ✔ correcta
+- **B)** 0 — Ves tres diferencias donde no las hay.
+- **C)** 1 — Cuentas las filas distintas en lugar de las iguales.
+- **D)** 2 — Ves una diferencia donde no la hay y descuentas una fila igual.
 
 1. **Observa:** Hay 4 filas. Compara cada pareja carácter a carácter.
 2. **Regla:** Una fila solo cuenta si las dos columnas son idénticas: un carácter cambiado, de menos o fuera de sitio ya la hace distinta.
-3. **Aplica:** Diferencias: fila 1: dos caracteres seguidos cambian de lugar (R63V / 6R3V); fila 2: dos caracteres seguidos cambian de lugar (AJJU / AJUJ); fila 4: una cifra cambia (2JE6 / 2JE1). Filas iguales: 4 − 3 = 1
+3. **Aplica:** Diferencias: fila 4: dos caracteres seguidos cambian de lugar (JCLX / JCXL). Filas iguales: 4 − 1 = 3
 
 - [ ] Revisada · Comentarios:
 
@@ -98,21 +98,21 @@ Generadas automáticamente para revisión humana. Para cada pregunta, comprueba:
 
 ```
 ¿Cuántas filas tienen exactamente los mismos datos en las dos columnas?
-1. 174057 | 174057
-2. 492065 | 432065
-3. 726404 | 726404
-4. 549813 | 549818
-5. 926891 | 92891
+1. PASILLO 524 | PASILLO 520
+2. VALLE 548 | VALLE S48
+3. FAROL 856 | FAROL 856
+4. AVENIDA 301 | AVENIDA 301
+5. MESA 709 | MESA 790
 ```
 
-- **A)** 5 — Pasas por alto tres diferencias.
-- **B)** 4 — Pasas por alto dos diferencias.
-- **C)** 3 — Pasas por alto una de las diferencias y cuentas como igual una fila distinta.
-- **D)** 2 ✔ correcta
+- **A)** 4 — Pasas por alto dos diferencias.
+- **B)** 3 — Pasas por alto una de las diferencias y cuentas como igual una fila distinta.
+- **C)** 2 ✔ correcta
+- **D)** 5 — Pasas por alto tres diferencias.
 
 1. **Observa:** Hay 5 filas. Compara cada pareja carácter a carácter.
 2. **Regla:** Una fila solo cuenta si las dos columnas son idénticas: un carácter cambiado, de menos o fuera de sitio ya la hace distinta.
-3. **Aplica:** Diferencias: fila 2: una cifra cambia (492065 / 432065); fila 4: una cifra cambia (549813 / 549818); fila 5: falta un carácter (926891 / 92891). Filas iguales: 5 − 3 = 2
+3. **Aplica:** Diferencias: fila 1: una cifra cambia (PASILLO 524 / PASILLO 520); fila 2: un carácter cambia por otro parecido (VALLE 548 / VALLE S48); fila 5: dos caracteres seguidos cambian de lugar (MESA 709 / MESA 790). Filas iguales: 5 − 3 = 2
 
 - [ ] Revisada · Comentarios:
 
@@ -120,21 +120,21 @@ Generadas automáticamente para revisión humana. Para cada pregunta, comprueba:
 
 ```
 ¿Cuántas filas tienen exactamente los mismos datos en las dos columnas?
-1. UBT2U | UBT2U
-2. U52PT | US2PT
-3. X72U9 | X27U9
-4. 1LFBB | 1LFBB
-5. 2M6F4 | ZM6F4
+1. 59JAU | 59JAU
+2. 9MXB4 | 9MXB4
+3. 7G803 | 4G803
+4. NVM52 | NM52
+5. 62EM8 | 62E8M
 ```
 
-- **A)** 4 — Pasas por alto dos diferencias.
-- **B)** 2 ✔ correcta
-- **C)** 3 — Pasas por alto una de las diferencias y cuentas como igual una fila distinta.
+- **A)** 2 ✔ correcta
+- **B)** 3 — Pasas por alto una de las diferencias y cuentas como igual una fila distinta.
+- **C)** 4 — Pasas por alto dos diferencias.
 - **D)** 1 — Ves una diferencia donde no la hay y descuentas una fila igual.
 
 1. **Observa:** Hay 5 filas. Compara cada pareja carácter a carácter.
 2. **Regla:** Una fila solo cuenta si las dos columnas son idénticas: un carácter cambiado, de menos o fuera de sitio ya la hace distinta.
-3. **Aplica:** Diferencias: fila 2: un carácter cambia por otro parecido (U52PT / US2PT); fila 3: dos caracteres seguidos cambian de lugar (X72U9 / X27U9); fila 5: un carácter cambia por otro parecido (2M6F4 / ZM6F4). Filas iguales: 5 − 3 = 2
+3. **Aplica:** Diferencias: fila 3: una cifra cambia (7G803 / 4G803); fila 4: falta un carácter (NVM52 / NM52); fila 5: dos caracteres seguidos cambian de lugar (62EM8 / 62E8M). Filas iguales: 5 − 3 = 2
 
 - [ ] Revisada · Comentarios:
 
@@ -142,21 +142,21 @@ Generadas automáticamente para revisión humana. Para cada pregunta, comprueba:
 
 ```
 ¿Cuántas filas tienen exactamente los mismos datos en las dos columnas?
-1. TEAL5 | TEL5
-2. 4D9ER | 4D9ER
-3. 5XBBF | 5XBBF
-4. 183TN | 183TN
-5. MUJ4A | MUJA
+1. TAZA 396 | TZAA 396
+2. PASTEL 463 | PASTEL 463
+3. TECHO 435 | TECHO 035
+4. VENTANA 165 | VENTANA 165
+5. YEGUA 361 | YEGUA 36I
 ```
 
-- **A)** 3 ✔ correcta
-- **B)** 2 — Ves una diferencia donde no la hay y descuentas una fila igual.
-- **C)** 5 — Pasas por alto dos diferencias.
-- **D)** 4 — Pasas por alto una de las diferencias y cuentas como igual una fila distinta.
+- **A)** 1 — Ves una diferencia donde no la hay y descuentas una fila igual.
+- **B)** 2 ✔ correcta
+- **C)** 3 — Pasas por alto una de las diferencias y cuentas como igual una fila distinta.
+- **D)** 0 — Ves dos diferencias donde no las hay.
 
 1. **Observa:** Hay 5 filas. Compara cada pareja carácter a carácter.
 2. **Regla:** Una fila solo cuenta si las dos columnas son idénticas: un carácter cambiado, de menos o fuera de sitio ya la hace distinta.
-3. **Aplica:** Diferencias: fila 1: falta un carácter (TEAL5 / TEL5); fila 5: falta un carácter (MUJ4A / MUJA). Filas iguales: 5 − 2 = 3
+3. **Aplica:** Diferencias: fila 1: dos caracteres seguidos cambian de lugar (TAZA 396 / TZAA 396); fila 3: una cifra cambia (TECHO 435 / TECHO 035); fila 5: un carácter cambia por otro parecido (YEGUA 361 / YEGUA 36I). Filas iguales: 5 − 3 = 2
 
 - [ ] Revisada · Comentarios:
 
@@ -164,21 +164,21 @@ Generadas automáticamente para revisión humana. Para cada pregunta, comprueba:
 
 ```
 ¿Cuántas filas tienen exactamente los mismos datos en las dos columnas?
-1. 290047 | 290041
-2. 177500 | 177300
-3. 700318 | 700313
-4. 348537 | 348537
-5. 474220 | 44220
+1. 961512 | 991512
+2. 244436 | 24436
+3. 627358 | 627358
+4. 594854 | 594854
+5. 937704 | 937704
 ```
 
-- **A)** 3 — Pasas por alto dos diferencias.
-- **B)** 4 — Cuentas las filas distintas en lugar de las iguales.
-- **C)** 2 — Pasas por alto una de las diferencias y cuentas como igual una fila distinta.
-- **D)** 1 ✔ correcta
+- **A)** 3 ✔ correcta
+- **B)** 5 — Pasas por alto dos diferencias.
+- **C)** 4 — Pasas por alto una de las diferencias y cuentas como igual una fila distinta.
+- **D)** 2 — Ves una diferencia donde no la hay y descuentas una fila igual.
 
 1. **Observa:** Hay 5 filas. Compara cada pareja carácter a carácter.
 2. **Regla:** Una fila solo cuenta si las dos columnas son idénticas: un carácter cambiado, de menos o fuera de sitio ya la hace distinta.
-3. **Aplica:** Diferencias: fila 1: un carácter cambia por otro parecido (290047 / 290041); fila 2: una cifra cambia (177500 / 177300); fila 3: un carácter cambia por otro parecido (700318 / 700313); fila 5: falta un carácter (474220 / 44220). Filas iguales: 5 − 4 = 1
+3. **Aplica:** Diferencias: fila 1: un carácter cambia por otro parecido (961512 / 991512); fila 2: falta un carácter (244436 / 24436). Filas iguales: 5 − 2 = 3
 
 - [ ] Revisada · Comentarios:
 
@@ -186,22 +186,22 @@ Generadas automáticamente para revisión humana. Para cada pregunta, comprueba:
 
 ```
 ¿Cuántas filas tienen exactamente los mismos datos en las dos columnas?
-1. AGUJA 728 | AGUJA 7Z8
-2. ROBLE 583 | ROBLE S83
-3. MAREA 258 | MAREA 258
-4. PALCO 761 | PALC0 761
-5. ALCALDE 422 | ALCALDE 422
-6. MARCA 67 | MARCA 67
+1. OBRERO 879 | OBRERO 879
+2. DEDAL 940 | DEDAL 940
+3. MANTA 495 | MANTA 49S
+4. SONIDO 173 | SNIDO 173
+5. ASIENTO 670 | ASIETNO 670
+6. SOMBRERO 605 | SOM8RERO 605
 ```
 
-- **A)** 4 — Pasas por alto una de las diferencias y cuentas como igual una fila distinta.
-- **B)** 2 — Ves una diferencia donde no la hay y descuentas una fila igual.
-- **C)** 3 ✔ correcta
-- **D)** 5 — Pasas por alto dos diferencias.
+- **A)** 2 ✔ correcta
+- **B)** 3 — Pasas por alto una de las diferencias y cuentas como igual una fila distinta.
+- **C)** 1 — Ves una diferencia donde no la hay y descuentas una fila igual.
+- **D)** 4 — Cuentas las filas distintas en lugar de las iguales.
 
 1. **Observa:** Hay 6 filas. Compara cada pareja carácter a carácter.
 2. **Regla:** Una fila solo cuenta si las dos columnas son idénticas: un carácter cambiado, de menos o fuera de sitio ya la hace distinta.
-3. **Aplica:** Diferencias: fila 1: un carácter cambia por otro parecido (AGUJA 728 / AGUJA 7Z8); fila 2: un carácter cambia por otro parecido (ROBLE 583 / ROBLE S83); fila 4: un carácter cambia por otro parecido (PALCO 761 / PALC0 761). Filas iguales: 6 − 3 = 3
+3. **Aplica:** Diferencias: fila 3: un carácter cambia por otro parecido (MANTA 495 / MANTA 49S); fila 4: falta un carácter (SONIDO 173 / SNIDO 173); fila 5: dos caracteres seguidos cambian de lugar (ASIENTO 670 / ASIETNO 670); fila 6: un carácter cambia por otro parecido (SOMBRERO 605 / SOM8RERO 605). Filas iguales: 6 − 4 = 2
 
 - [ ] Revisada · Comentarios:
 
@@ -209,22 +209,22 @@ Generadas automáticamente para revisión humana. Para cada pregunta, comprueba:
 
 ```
 ¿Cuántas filas tienen exactamente los mismos datos en las dos columnas?
-1. G23ETB | G2E3TB
-2. D3C9UN | D3C9UN
-3. 2DJ8JJ | 2D8JJJ
-4. XTKRBC | XTKR8C
-5. VUH428 | UVH428
-6. AMBTEY | AMBTEY
+1. 3486977 | 3486977
+2. 1097708 | 1097708
+3. 6030871 | 6030871
+4. 1456755 | 1456755
+5. 5444933 | 544933
+6. 5702084 | 5702084
 ```
 
-- **A)** 0 — Ves dos diferencias donde no las hay.
-- **B)** 3 — Pasas por alto una de las diferencias y cuentas como igual una fila distinta.
-- **C)** 1 — Ves una diferencia donde no la hay y descuentas una fila igual.
-- **D)** 2 ✔ correcta
+- **A)** 3 — Ves dos diferencias donde no las hay.
+- **B)** 1 — Cuentas las filas distintas en lugar de las iguales.
+- **C)** 5 ✔ correcta
+- **D)** 4 — Ves una diferencia donde no la hay y descuentas una fila igual.
 
 1. **Observa:** Hay 6 filas. Compara cada pareja carácter a carácter.
 2. **Regla:** Una fila solo cuenta si las dos columnas son idénticas: un carácter cambiado, de menos o fuera de sitio ya la hace distinta.
-3. **Aplica:** Diferencias: fila 1: dos caracteres seguidos cambian de lugar (G23ETB / G2E3TB); fila 3: dos caracteres seguidos cambian de lugar (2DJ8JJ / 2D8JJJ); fila 4: un carácter cambia por otro parecido (XTKRBC / XTKR8C); fila 5: dos caracteres seguidos cambian de lugar (VUH428 / UVH428). Filas iguales: 6 − 4 = 2
+3. **Aplica:** Diferencias: fila 5: falta un carácter (5444933 / 544933). Filas iguales: 6 − 1 = 5
 
 - [ ] Revisada · Comentarios:
 
@@ -232,22 +232,22 @@ Generadas automáticamente para revisión humana. Para cada pregunta, comprueba:
 
 ```
 ¿Cuántas filas tienen exactamente los mismos datos en las dos columnas?
-1. G0C6PU | GOC6PU
-2. AWY8T7 | AWY8T7
-3. LPCHY0 | PLCHY0
-4. GGLG85 | GGL85
-5. DFFRU5 | DFFRU5
-6. MGYNH9 | MGNYH9
+1. 9537929 | 9537929
+2. 9792914 | 9729914
+3. 1430779 | 130779
+4. 3986117 | 3986717
+5. 1167559 | 1167659
+6. 7389128 | 738128
 ```
 
-- **A)** 2 ✔ correcta
-- **B)** 0 — Ves dos diferencias donde no las hay.
-- **C)** 1 — Ves una diferencia donde no la hay y descuentas una fila igual.
-- **D)** 3 — Pasas por alto una de las diferencias y cuentas como igual una fila distinta.
+- **A)** 5 — Cuentas las filas distintas en lugar de las iguales.
+- **B)** 3 — Pasas por alto dos diferencias.
+- **C)** 1 ✔ correcta
+- **D)** 2 — Pasas por alto una de las diferencias y cuentas como igual una fila distinta.
 
 1. **Observa:** Hay 6 filas. Compara cada pareja carácter a carácter.
 2. **Regla:** Una fila solo cuenta si las dos columnas son idénticas: un carácter cambiado, de menos o fuera de sitio ya la hace distinta.
-3. **Aplica:** Diferencias: fila 1: un carácter cambia por otro parecido (G0C6PU / GOC6PU); fila 3: dos caracteres seguidos cambian de lugar (LPCHY0 / PLCHY0); fila 4: falta un carácter (GGLG85 / GGL85); fila 6: dos caracteres seguidos cambian de lugar (MGYNH9 / MGNYH9). Filas iguales: 6 − 4 = 2
+3. **Aplica:** Diferencias: fila 2: dos caracteres seguidos cambian de lugar (9792914 / 9729914); fila 3: falta un carácter (1430779 / 130779); fila 4: un carácter cambia por otro parecido (3986117 / 3986717); fila 5: un carácter cambia por otro parecido (1167559 / 1167659); fila 6: falta un carácter (7389128 / 738128). Filas iguales: 6 − 5 = 1
 
 - [ ] Revisada · Comentarios:
 
@@ -255,22 +255,22 @@ Generadas automáticamente para revisión humana. Para cada pregunta, comprueba:
 
 ```
 ¿Cuántas filas tienen exactamente los mismos datos en las dos columnas?
-1. ANCLA 197 | ANLA 197
-2. RINCON 819 | RINCON 819
-3. DIBUJO 341 | DIBUJO 341
-4. ÑANDU 977 | AÑNDU 977
-5. DADO 822 | DADO 822
-6. MARTES 224 | MARTS 224
+1. DUENDE 339 | UDENDE 339
+2. DINERO 911 | DINEO 911
+3. GORRA 55 | G0RRA 55
+4. CARPETA 846 | CAREPTA 846
+5. PATATA 518 | PATATA 518
+6. GUANTE 823 | GUANTE 823
 ```
 
-- **A)** 4 — Pasas por alto una de las diferencias y cuentas como igual una fila distinta.
-- **B)** 6 — Pasas por alto tres diferencias.
-- **C)** 3 ✔ correcta
-- **D)** 5 — Pasas por alto dos diferencias.
+- **A)** 2 ✔ correcta
+- **B)** 5 — Pasas por alto tres diferencias.
+- **C)** 3 — Pasas por alto una de las diferencias y cuentas como igual una fila distinta.
+- **D)** 4 — Cuentas las filas distintas en lugar de las iguales.
 
 1. **Observa:** Hay 6 filas. Compara cada pareja carácter a carácter.
 2. **Regla:** Una fila solo cuenta si las dos columnas son idénticas: un carácter cambiado, de menos o fuera de sitio ya la hace distinta.
-3. **Aplica:** Diferencias: fila 1: falta un carácter (ANCLA 197 / ANLA 197); fila 4: dos caracteres seguidos cambian de lugar (ÑANDU 977 / AÑNDU 977); fila 6: falta un carácter (MARTES 224 / MARTS 224). Filas iguales: 6 − 3 = 3
+3. **Aplica:** Diferencias: fila 1: dos caracteres seguidos cambian de lugar (DUENDE 339 / UDENDE 339); fila 2: falta un carácter (DINERO 911 / DINEO 911); fila 3: un carácter cambia por otro parecido (GORRA 55 / G0RRA 55); fila 4: dos caracteres seguidos cambian de lugar (CARPETA 846 / CAREPTA 846). Filas iguales: 6 − 4 = 2
 
 - [ ] Revisada · Comentarios:
 
@@ -278,23 +278,23 @@ Generadas automáticamente para revisión humana. Para cada pregunta, comprueba:
 
 ```
 ¿Cuántas filas tienen exactamente los mismos datos en las dos columnas?
-1. 6AH0YA3 | A6H0YA3
-2. 6KXG7V0 | 6KXG7V0
-3. WUJ719E | WUJ719E
-4. UCNYU4Y | UCNYUY
-5. 8Y4V2KT | 8YV42KT
-6. KG05WF0 | KG05WF0
-7. 8C3X5TY | 8C3XSTY
+1. 7678KUT | 7678KUT
+2. HRU1PJ2 | HRU1PJ2
+3. 6P87WBA | 68P7WBA
+4. N7UGARA | N7UGARA
+5. 0WT30R2 | 0WT302
+6. 1JE3MP9 | 1JE3MP9
+7. 5J14XVB | 5J14XVB
 ```
 
-- **A)** 2 — Ves una diferencia donde no la hay y descuentas una fila igual.
-- **B)** 3 ✔ correcta
-- **C)** 4 — Pasas por alto una de las diferencias y cuentas como igual una fila distinta.
-- **D)** 1 — Ves dos diferencias donde no las hay.
+- **A)** 4 — Ves una diferencia donde no la hay y descuentas una fila igual.
+- **B)** 2 — Cuentas las filas distintas en lugar de las iguales.
+- **C)** 6 — Pasas por alto una de las diferencias y cuentas como igual una fila distinta.
+- **D)** 5 ✔ correcta
 
 1. **Observa:** Hay 7 filas. Compara cada pareja carácter a carácter.
 2. **Regla:** Una fila solo cuenta si las dos columnas son idénticas: un carácter cambiado, de menos o fuera de sitio ya la hace distinta.
-3. **Aplica:** Diferencias: fila 1: dos caracteres seguidos cambian de lugar (6AH0YA3 / A6H0YA3); fila 4: falta un carácter (UCNYU4Y / UCNYUY); fila 5: dos caracteres seguidos cambian de lugar (8Y4V2KT / 8YV42KT); fila 7: un carácter cambia por otro parecido (8C3X5TY / 8C3XSTY). Filas iguales: 7 − 4 = 3
+3. **Aplica:** Diferencias: fila 3: dos caracteres seguidos cambian de lugar (6P87WBA / 68P7WBA); fila 5: falta un carácter (0WT30R2 / 0WT302). Filas iguales: 7 − 2 = 5
 
 - [ ] Revisada · Comentarios:
 
@@ -302,23 +302,23 @@ Generadas automáticamente para revisión humana. Para cada pregunta, comprueba:
 
 ```
 ¿Cuántas filas tienen exactamente los mismos datos en las dos columnas?
-1. BVJHEMX | BVJHEMX
-2. 4L9J7RT | 4L97RT
-3. K033KPY | K033KPY
-4. K9J67MT | K96J7MT
-5. C3563G7 | C353G7
-6. 1ELG3EA | 1ELG3EA
-7. 9T8YYXC | 9TY8YXC
+1. DA0VY44 | DA0VY44
+2. FEU1DLE | FEUIDLE
+3. 6VJFLFV | V6JFLFV
+4. V2190B4 | V2190B4
+5. 3KUY579 | 3KUYS79
+6. JNFDEXF | JNFDEXF
+7. 740YC3R | 740YC3R
 ```
 
-- **A)** 3 ✔ correcta
-- **B)** 5 — Pasas por alto dos diferencias.
-- **C)** 6 — Pasas por alto tres diferencias.
-- **D)** 4 — Pasas por alto una de las diferencias y cuentas como igual una fila distinta.
+- **A)** 1 — Ves tres diferencias donde no las hay.
+- **B)** 2 — Ves dos diferencias donde no las hay.
+- **C)** 4 ✔ correcta
+- **D)** 3 — Ves una diferencia donde no la hay y descuentas una fila igual.
 
 1. **Observa:** Hay 7 filas. Compara cada pareja carácter a carácter.
 2. **Regla:** Una fila solo cuenta si las dos columnas son idénticas: un carácter cambiado, de menos o fuera de sitio ya la hace distinta.
-3. **Aplica:** Diferencias: fila 2: falta un carácter (4L9J7RT / 4L97RT); fila 4: dos caracteres seguidos cambian de lugar (K9J67MT / K96J7MT); fila 5: falta un carácter (C3563G7 / C353G7); fila 7: dos caracteres seguidos cambian de lugar (9T8YYXC / 9TY8YXC). Filas iguales: 7 − 4 = 3
+3. **Aplica:** Diferencias: fila 2: un carácter cambia por otro parecido (FEU1DLE / FEUIDLE); fila 3: dos caracteres seguidos cambian de lugar (6VJFLFV / V6JFLFV); fila 5: un carácter cambia por otro parecido (3KUY579 / 3KUYS79). Filas iguales: 7 − 3 = 4
 
 - [ ] Revisada · Comentarios:
 
@@ -326,23 +326,23 @@ Generadas automáticamente para revisión humana. Para cada pregunta, comprueba:
 
 ```
 ¿Cuántas filas tienen exactamente los mismos datos en las dos columnas?
-1. 749955212 | 749955212
-2. 620447409 | 620474409
-3. 217561346 | 217561346
-4. 323790950 | 323790950
-5. 441893780 | 41893780
-6. 556572262 | 556752262
-7. 738747477 | 738747477
+1. AB8R1VJ | AB81RVJ
+2. 6LLU761 | 6LLU761
+3. YW070R2 | YW07R02
+4. 0FHDH04 | F0HDH04
+5. J0AJ9CR | JA0J9CR
+6. GE78GBW | GE7G8BW
+7. FM6AMKJ | FM6AMKJ
 ```
 
-- **A)** 2 — Ves dos diferencias donde no las hay.
-- **B)** 5 — Pasas por alto una de las diferencias y cuentas como igual una fila distinta.
-- **C)** 4 ✔ correcta
-- **D)** 3 — Ves una diferencia donde no la hay y descuentas una fila igual.
+- **A)** 5 — Cuentas las filas distintas en lugar de las iguales.
+- **B)** 3 — Pasas por alto una de las diferencias y cuentas como igual una fila distinta.
+- **C)** 4 — Pasas por alto dos diferencias.
+- **D)** 2 ✔ correcta
 
 1. **Observa:** Hay 7 filas. Compara cada pareja carácter a carácter.
 2. **Regla:** Una fila solo cuenta si las dos columnas son idénticas: un carácter cambiado, de menos o fuera de sitio ya la hace distinta.
-3. **Aplica:** Diferencias: fila 2: dos caracteres seguidos cambian de lugar (620447409 / 620474409); fila 5: falta un carácter (441893780 / 41893780); fila 6: dos caracteres seguidos cambian de lugar (556572262 / 556752262). Filas iguales: 7 − 3 = 4
+3. **Aplica:** Diferencias: fila 1: dos caracteres seguidos cambian de lugar (AB8R1VJ / AB81RVJ); fila 3: dos caracteres seguidos cambian de lugar (YW070R2 / YW07R02); fila 4: dos caracteres seguidos cambian de lugar (0FHDH04 / F0HDH04); fila 5: dos caracteres seguidos cambian de lugar (J0AJ9CR / JA0J9CR); fila 6: dos caracteres seguidos cambian de lugar (GE78GBW / GE7G8BW). Filas iguales: 7 − 5 = 2
 
 - [ ] Revisada · Comentarios:
 
@@ -350,23 +350,23 @@ Generadas automáticamente para revisión humana. Para cada pregunta, comprueba:
 
 ```
 ¿Cuántas filas tienen exactamente los mismos datos en las dos columnas?
-1. 2E74ANF | 2E74ANF
-2. 3348EWN | 3438EWN
-3. R80H3JB | R80H3J8
-4. N8PEW8L | 8NPEW8L
-5. VXV8H96 | VXVBH96
-6. 62CPVM5 | 62CPVM5
-7. 4J5Y16V | 4JSY16V
+1. 427479712 | 427479712
+2. 139073754 | 13903754
+3. 755919198 | 755919198
+4. 880169736 | 880199736
+5. 786771030 | 76771030
+6. 526501154 | 562501154
+7. 248344547 | 248844547
 ```
 
-- **A)** 2 ✔ correcta
-- **B)** 4 — Pasas por alto dos diferencias.
-- **C)** 3 — Pasas por alto una de las diferencias y cuentas como igual una fila distinta.
-- **D)** 5 — Cuentas las filas distintas en lugar de las iguales.
+- **A)** 5 — Cuentas las filas distintas en lugar de las iguales.
+- **B)** 2 ✔ correcta
+- **C)** 1 — Ves una diferencia donde no la hay y descuentas una fila igual.
+- **D)** 3 — Pasas por alto una de las diferencias y cuentas como igual una fila distinta.
 
 1. **Observa:** Hay 7 filas. Compara cada pareja carácter a carácter.
 2. **Regla:** Una fila solo cuenta si las dos columnas son idénticas: un carácter cambiado, de menos o fuera de sitio ya la hace distinta.
-3. **Aplica:** Diferencias: fila 2: dos caracteres seguidos cambian de lugar (3348EWN / 3438EWN); fila 3: un carácter cambia por otro parecido (R80H3JB / R80H3J8); fila 4: dos caracteres seguidos cambian de lugar (N8PEW8L / 8NPEW8L); fila 5: un carácter cambia por otro parecido (VXV8H96 / VXVBH96); fila 7: un carácter cambia por otro parecido (4J5Y16V / 4JSY16V). Filas iguales: 7 − 5 = 2
+3. **Aplica:** Diferencias: fila 2: falta un carácter (139073754 / 13903754); fila 4: un carácter cambia por otro parecido (880169736 / 880199736); fila 5: falta un carácter (786771030 / 76771030); fila 6: dos caracteres seguidos cambian de lugar (526501154 / 562501154); fila 7: un carácter cambia por otro parecido (248344547 / 248844547). Filas iguales: 7 − 5 = 2
 
 - [ ] Revisada · Comentarios:
 
@@ -374,24 +374,24 @@ Generadas automáticamente para revisión humana. Para cada pregunta, comprueba:
 
 ```
 ¿Cuántas filas tienen exactamente los mismos datos en las dos columnas?
-1. 0EC2J5I | 0EC2J5I
-2. JHCMNH2 | JHCMNHZ
-3. 0NIJGB5 | 0NIJGB5
-4. AOFJGIL | AOFJGIL
-5. BD2EKSC | BD2EKSC
-6. AMIEOG2 | AMIOEG2
-7. 10I55BI | 10I55BI
-8. H2HOIJ1 | H2H0IJ1
+1. HZGGDDB | HZGGDDB
+2. A5A2BNM | ASA2BNM
+3. OHB5FFD | OHB5FFD
+4. 8N8IEO5 | 8N8IEO5
+5. O5JBOBS | O5JBOBS
+6. IHNMLKE | IHNMLKE
+7. Z8JB1Z1 | Z8JBIZ1
+8. 8L2GDB1 | 8L2GDB1
 ```
 
-- **A)** 5 ✔ correcta
-- **B)** 4 — Ves una diferencia donde no la hay y descuentas una fila igual.
-- **C)** 6 — Pasas por alto una de las diferencias y cuentas como igual una fila distinta.
-- **D)** 3 — Cuentas las filas distintas en lugar de las iguales.
+- **A)** 7 — Pasas por alto una de las diferencias y cuentas como igual una fila distinta.
+- **B)** 5 — Ves una diferencia donde no la hay y descuentas una fila igual.
+- **C)** 8 — Pasas por alto dos diferencias.
+- **D)** 6 ✔ correcta
 
 1. **Observa:** Hay 8 filas. Compara cada pareja carácter a carácter.
 2. **Regla:** Una fila solo cuenta si las dos columnas son idénticas: un carácter cambiado, de menos o fuera de sitio ya la hace distinta.
-3. **Aplica:** Diferencias: fila 2: un carácter cambia por otro parecido (JHCMNH2 / JHCMNHZ); fila 6: dos caracteres seguidos cambian de lugar (AMIEOG2 / AMIOEG2); fila 8: un carácter cambia por otro parecido (H2HOIJ1 / H2H0IJ1). Filas iguales: 8 − 3 = 5
+3. **Aplica:** Diferencias: fila 2: un carácter cambia por otro parecido (A5A2BNM / ASA2BNM); fila 7: un carácter cambia por otro parecido (Z8JB1Z1 / Z8JBIZ1). Filas iguales: 8 − 2 = 6
 
 - [ ] Revisada · Comentarios:
 
@@ -399,24 +399,24 @@ Generadas automáticamente para revisión humana. Para cada pregunta, comprueba:
 
 ```
 ¿Cuántas filas tienen exactamente los mismos datos en las dos columnas?
-1. 4322885624 | 4822885624
-2. 4969946822 | 4969946282
-3. 5030549038 | 5030549038
-4. 6960712856 | 6960712856
-5. 3953655911 | 3963655911
-6. 8564114239 | 8564114239
-7. 9657333978 | 957333978
-8. 1966549660 | 1966546960
+1. 6841484380 | 6841484380
+2. 6579009702 | 6579009702
+3. 4046287008 | 404628708
+4. 5003935168 | 5003935168
+5. 8242423736 | 8242423736
+6. 6194161701 | 6194161701
+7. 5066809503 | 5066809503
+8. 5376795736 | 5376795736
 ```
 
-- **A)** 5 — Cuentas las filas distintas en lugar de las iguales.
-- **B)** 6 — Pasas por alto tres diferencias.
-- **C)** 3 ✔ correcta
-- **D)** 4 — Pasas por alto una de las diferencias y cuentas como igual una fila distinta.
+- **A)** 1 — Cuentas las filas distintas en lugar de las iguales.
+- **B)** 6 — Ves una diferencia donde no la hay y descuentas una fila igual.
+- **C)** 7 ✔ correcta
+- **D)** 5 — Ves dos diferencias donde no las hay.
 
 1. **Observa:** Hay 8 filas. Compara cada pareja carácter a carácter.
 2. **Regla:** Una fila solo cuenta si las dos columnas son idénticas: un carácter cambiado, de menos o fuera de sitio ya la hace distinta.
-3. **Aplica:** Diferencias: fila 1: un carácter cambia por otro parecido (4322885624 / 4822885624); fila 2: dos caracteres seguidos cambian de lugar (4969946822 / 4969946282); fila 5: un carácter cambia por otro parecido (3953655911 / 3963655911); fila 7: falta un carácter (9657333978 / 957333978); fila 8: dos caracteres seguidos cambian de lugar (1966549660 / 1966546960). Filas iguales: 8 − 5 = 3
+3. **Aplica:** Diferencias: fila 3: falta un carácter (4046287008 / 404628708). Filas iguales: 8 − 1 = 7
 
 - [ ] Revisada · Comentarios:
 
@@ -424,24 +424,24 @@ Generadas automáticamente para revisión humana. Para cada pregunta, comprueba:
 
 ```
 ¿Cuántas filas tienen exactamente los mismos datos en las dos columnas?
-1. ICN0G2J | ICNOG2J
-2. 822EECG | B22EECG
-3. C20AABE | C20AAEB
-4. CK1FAOS | C1KFAOS
-5. E8KZD2D | EKZD2D
-6. KMCIHME | KMCIHME
-7. ZNBZOZN | ZNBZZN
-8. DGMC1KS | DGMC1K5
+1. MOEEB0N | MOEEB0N
+2. IGMO2KM | 1GMO2KM
+3. HNJMKCS | HNJMKCS
+4. IAGF0GB | IAGF0GB
+5. 5ECOB8G | 5ECOB8G
+6. BI2GNJG | BI2GNJG
+7. BLDZ8B1 | BLDZ8B1
+8. G8NZS58 | G8NZS58
 ```
 
-- **A)** 0 — Ves una diferencia donde no la hay y descuentas una fila igual.
-- **B)** 7 — Cuentas las filas distintas en lugar de las iguales.
-- **C)** 1 ✔ correcta
-- **D)** 2 — Pasas por alto una de las diferencias y cuentas como igual una fila distinta.
+- **A)** 5 — Ves dos diferencias donde no las hay.
+- **B)** 1 — Cuentas las filas distintas en lugar de las iguales.
+- **C)** 6 — Ves una diferencia donde no la hay y descuentas una fila igual.
+- **D)** 7 ✔ correcta
 
 1. **Observa:** Hay 8 filas. Compara cada pareja carácter a carácter.
 2. **Regla:** Una fila solo cuenta si las dos columnas son idénticas: un carácter cambiado, de menos o fuera de sitio ya la hace distinta.
-3. **Aplica:** Diferencias: fila 1: un carácter cambia por otro parecido (ICN0G2J / ICNOG2J); fila 2: un carácter cambia por otro parecido (822EECG / B22EECG); fila 3: dos caracteres seguidos cambian de lugar (C20AABE / C20AAEB); fila 4: dos caracteres seguidos cambian de lugar (CK1FAOS / C1KFAOS); fila 5: falta un carácter (E8KZD2D / EKZD2D); fila 7: falta un carácter (ZNBZOZN / ZNBZZN); fila 8: un carácter cambia por otro parecido (DGMC1KS / DGMC1K5). Filas iguales: 8 − 7 = 1
+3. **Aplica:** Diferencias: fila 2: un carácter cambia por otro parecido (IGMO2KM / 1GMO2KM). Filas iguales: 8 − 1 = 7
 
 - [ ] Revisada · Comentarios:
 
@@ -449,23 +449,23 @@ Generadas automáticamente para revisión humana. Para cada pregunta, comprueba:
 
 ```
 ¿Cuántas filas tienen exactamente los mismos datos en las dos columnas?
-1. 6004119555 | 6004119556
-2. 8426453961 | 8426453961
-3. 1668180097 | 166818097
-4. 9526706507 | 952670507
-5. 3774969375 | 3774969375
-6. 1793315969 | 1793315969
-7. 3811574269 | 381157429
-8. 2104421101 | 2104421101
+1. 9537796481 | 9537796487
+2. 7766550902 | 1766550902
+3. 9591105575 | 959115575
+4. 3522224102 | 3522224102
+5. 5269097930 | 5269097390
+6. 8463836337 | 8463833637
+7. 6919686470 | 6991686470
+8. 2057180118 | 2057130118
 ```
 
-- **A)** 1 — Ves tres diferencias donde no las hay.
-- **B)** 3 — Ves una diferencia donde no la hay y descuentas una fila igual.
-- **C)** 2 — Ves dos diferencias donde no las hay.
-- **D)** 4 ✔ correcta
+- **A)** 2 — Pasas por alto una de las diferencias y cuentas como igual una fila distinta.
+- **B)** 1 ✔ correcta
+- **C)** 0 — Ves una diferencia donde no la hay y descuentas una fila igual.
+- **D)** 7 — Cuentas las filas distintas en lugar de las iguales.
 
 1. **Observa:** Hay 8 filas. Compara cada pareja carácter a carácter.
 2. **Regla:** Una fila solo cuenta si las dos columnas son idénticas: un carácter cambiado, de menos o fuera de sitio ya la hace distinta.
-3. **Aplica:** Diferencias: fila 1: un carácter cambia por otro parecido (6004119555 / 6004119556); fila 3: falta un carácter (1668180097 / 166818097); fila 4: falta un carácter (9526706507 / 952670507); fila 7: falta un carácter (3811574269 / 381157429). Filas iguales: 8 − 4 = 4
+3. **Aplica:** Diferencias: fila 1: un carácter cambia por otro parecido (9537796481 / 9537796487); fila 2: un carácter cambia por otro parecido (7766550902 / 1766550902); fila 3: falta un carácter (9591105575 / 959115575); fila 5: dos caracteres seguidos cambian de lugar (5269097930 / 5269097390); fila 6: dos caracteres seguidos cambian de lugar (8463836337 / 8463833637); fila 7: dos caracteres seguidos cambian de lugar (6919686470 / 6991686470); fila 8: un carácter cambia por otro parecido (2057180118 / 2057130118). Filas iguales: 8 − 7 = 1
 
 - [ ] Revisada · Comentarios:

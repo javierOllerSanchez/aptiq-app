@@ -1,4 +1,4 @@
-# Muestras · Cálculo y porcentajes (`NUM.CALC`, versión 3)
+# Muestras · Cálculo y porcentajes (`NUM.CALC`, versión 4)
 
 Resolver operaciones, porcentajes, reglas de tres y fracciones.
 
@@ -12,300 +12,300 @@ Generadas automáticamente para revisión humana. Para cada pregunta, comprueba:
 
 ### 1. Nivel 1 · semilla `muestra-1-1`
 
-> ¿Cuál es el resultado de 9 × 28?
+> ¿Cuál es el resultado de 36 + 94 − 5?
 
-- **A)** 243 — Multiplicas por 27 en lugar de por 28.
-- **B)** 252 ✔ correcta
-- **C)** 261 — Multiplicas por 29 en lugar de por 28.
-- **D)** 280 — Multiplicas por 10 en lugar de por 9.
+- **A)** 125 ✔ correcta
+- **B)** 63 — Restas el primer número en lugar del último.
+- **C)** 31 — Olvidas sumar 94.
+- **D)** 135 — Sumas 5 en lugar de restarlo.
 
-1. **Observa:** Descompón 28 en decenas y unidades para multiplicar de cabeza.
-2. **Regla:** 9 × 28 = 9 × 20 + 9 × 8.
-3. **Aplica:** 180 + 72 = 252
+1. **Observa:** Solo hay sumas y restas: se hacen de izquierda a derecha.
+2. **Regla:** Suma los dos primeros números y resta el tercero.
+3. **Aplica:** 36 + 94 = 130; 130 − 5 = 125
 
 - [ ] Revisada · Comentarios:
 
 ### 2. Nivel 1 · semilla `muestra-1-2`
 
-> ¿Cuál es el resultado de 98 + 26 − 56?
+> ¿Cuál es el resultado de 4 × 12?
 
-- **A)** 180 — Sumas 56 en lugar de restarlo.
-- **B)** 68 ✔ correcta
-- **C)** 42 — Olvidas sumar 26.
-- **D)** 128 — Restas 26 y sumas 56: cambias los signos.
+- **A)** 48 ✔ correcta
+- **B)** 44 — Multiplicas por 11 en lugar de por 12.
+- **C)** 42 — Sumas las unidades (2) en vez de multiplicarlas por 4.
+- **D)** 40 — Olvidas multiplicar las unidades (2).
 
-1. **Observa:** Solo hay sumas y restas: se hacen de izquierda a derecha.
-2. **Regla:** Suma los dos primeros números y resta el tercero.
-3. **Aplica:** 98 + 26 = 124; 124 − 56 = 68
+1. **Observa:** Descompón 12 en decenas y unidades para multiplicar de cabeza.
+2. **Regla:** 4 × 12 = 4 × 10 + 4 × 2.
+3. **Aplica:** 40 + 8 = 48
 
 - [ ] Revisada · Comentarios:
 
 ### 3. Nivel 1 · semilla `muestra-1-3`
 
-> ¿Cuál es el resultado de 87 + 67 − 53?
+> ¿Cuál es el resultado de 78 + 59 − 35?
 
-- **A)** 207 — Sumas 53 en lugar de restarlo.
-- **B)** 102 — Error de cálculo: una unidad de más.
-- **C)** 101 ✔ correcta
-- **D)** 154 — Olvidas restar 53.
+- **A)** 102 ✔ correcta
+- **B)** 43 — Olvidas sumar 59.
+- **C)** 16 — Restas el primer número en lugar del último.
+- **D)** 54 — Restas 59 y sumas 35: cambias los signos.
 
 1. **Observa:** Solo hay sumas y restas: se hacen de izquierda a derecha.
 2. **Regla:** Suma los dos primeros números y resta el tercero.
-3. **Aplica:** 87 + 67 = 154; 154 − 53 = 101
+3. **Aplica:** 78 + 59 = 137; 137 − 35 = 102
 
 - [ ] Revisada · Comentarios:
 
 ### 4. Nivel 1 · semilla `muestra-1-4`
 
-> ¿Cuál es el resultado de 30 + 52 − 12?
+> ¿Cuál es el resultado de 92 + 52 − 26?
 
-- **A)** 34 — Restas el primer número en lugar del último.
-- **B)** 70 ✔ correcta
-- **C)** 18 — Olvidas sumar 52.
-- **D)** 60 — Error de cálculo: una decena de menos.
+- **A)** 144 — Olvidas restar 26.
+- **B)** 118 ✔ correcta
+- **C)** 170 — Sumas 26 en lugar de restarlo.
+- **D)** 66 — Restas 52 y sumas 26: cambias los signos.
 
 1. **Observa:** Solo hay sumas y restas: se hacen de izquierda a derecha.
 2. **Regla:** Suma los dos primeros números y resta el tercero.
-3. **Aplica:** 30 + 52 = 82; 82 − 12 = 70
+3. **Aplica:** 92 + 52 = 144; 144 − 26 = 118
 
 - [ ] Revisada · Comentarios:
 
 ### 5. Nivel 2 · semilla `muestra-2-1`
 
-> ¿Cuál es el resultado de 34 + 6 × 12 − 10?
+> ¿Cuánto es el 25 % de 144?
 
-- **A)** 42 — Sumas en lugar de multiplicar.
-- **B)** 96 ✔ correcta
-- **C)** 62 — Olvidas sumar 34.
-- **D)** 46 — Restas antes de multiplicar.
+- **A)** 108 — Calculas el 75 % (lo que queda) en vez del 25 %.
+- **B)** 35 — Error de cálculo: una unidad de menos.
+- **C)** 36 ✔ correcta
+- **D)** 18 — Calculas la mitad del porcentaje (el 12,5 %).
 
-1. **Observa:** Hay una multiplicación entre sumas y restas: va primero.
-2. **Regla:** Primero multiplicaciones y divisiones; después sumas y restas, de izquierda a derecha.
-3. **Aplica:** 6 × 12 = 72; 34 + 72 − 10 = 96
+1. **Observa:** El 25 % significa 25 de cada 100.
+2. **Regla:** Multiplica 144 por 25 y divide entre 100.
+3. **Aplica:** 144 × 25 ÷ 100 = 36
 
 - [ ] Revisada · Comentarios:
 
 ### 6. Nivel 2 · semilla `muestra-2-2`
 
-> ¿Cuál es el resultado de 33 + 7 × 11 − 9?
+> ¿Cuánto es el 20 % de 300?
 
-- **A)** 431 — Operas de izquierda a derecha sin dar prioridad a la multiplicación.
-- **B)** 68 — Olvidas sumar 33.
-- **C)** 101 ✔ correcta
-- **D)** 47 — Restas antes de multiplicar.
+- **A)** 45 — Calculas el 15 % en lugar del 20 %.
+- **B)** 60 ✔ correcta
+- **C)** 6 — Corres la coma un lugar de más al dividir.
+- **D)** 30 — Calculas la mitad del porcentaje (el 10 %).
 
-1. **Observa:** Hay una multiplicación entre sumas y restas: va primero.
-2. **Regla:** Primero multiplicaciones y divisiones; después sumas y restas, de izquierda a derecha.
-3. **Aplica:** 7 × 11 = 77; 33 + 77 − 9 = 101
+1. **Observa:** El 20 % significa 20 de cada 100.
+2. **Regla:** Multiplica 300 por 20 y divide entre 100.
+3. **Aplica:** 300 × 20 ÷ 100 = 60
 
 - [ ] Revisada · Comentarios:
 
 ### 7. Nivel 2 · semilla `muestra-2-3`
 
-> ¿Cuánto es el 20 % de 40?
+> ¿Cuánto es el 20 % de 465?
 
-- **A)** 16 — Calculas el 40 % en lugar del 20 %.
-- **B)** 12 — Calculas el 30 % en lugar del 20 %.
-- **C)** 8 ✔ correcta
-- **D)** 32 — Calculas el 80 % (lo que queda) en vez del 20 %.
+- **A)** 83 — Error de cálculo: una decena de menos.
+- **B)** 93 ✔ correcta
+- **C)** 372 — Calculas el 80 % (lo que queda) en vez del 20 %.
+- **D)** 186 — Calculas el 40 % en lugar del 20 %.
 
 1. **Observa:** El 20 % significa 20 de cada 100.
-2. **Regla:** Multiplica 40 por 20 y divide entre 100.
-3. **Aplica:** 40 × 20 ÷ 100 = 8
+2. **Regla:** Multiplica 465 por 20 y divide entre 100.
+3. **Aplica:** 465 × 20 ÷ 100 = 93
 
 - [ ] Revisada · Comentarios:
 
 ### 8. Nivel 2 · semilla `muestra-2-4`
 
-> ¿Cuánto es el 20 % de 140?
+> ¿Cuánto es el 10 % de 120?
 
-- **A)** 14 — Calculas la mitad del porcentaje (el 10 %).
-- **B)** 28 ✔ correcta
-- **C)** 18 — Error de cálculo: una decena de menos.
-- **D)** 21 — Calculas el 15 % en lugar del 20 %.
+- **A)** 24 — Calculas el 20 % en lugar del 10 %.
+- **B)** 12 ✔ correcta
+- **C)** 13 — Error de cálculo: una unidad de más.
+- **D)** 108 — Calculas el 90 % (lo que queda) en vez del 10 %.
 
-1. **Observa:** El 20 % significa 20 de cada 100.
-2. **Regla:** Multiplica 140 por 20 y divide entre 100.
-3. **Aplica:** 140 × 20 ÷ 100 = 28
+1. **Observa:** El 10 % significa 10 de cada 100.
+2. **Regla:** Multiplica 120 por 10 y divide entre 100.
+3. **Aplica:** 120 × 10 ÷ 100 = 12
 
 - [ ] Revisada · Comentarios:
 
 ### 9. Nivel 3 · semilla `muestra-3-1`
 
-> ¿Cuánto son los 3/4 de 172?
+> ¿Cuánto son los 2/5 de 190?
 
-- **A)** 86 — Multiplicas por 2 en lugar de por 3.
-- **B)** 129 ✔ correcta
-- **C)** 43 — Calculas solo 1/4: olvidas multiplicar por 3.
-- **D)** 130 — Error de cálculo: una unidad de más.
+- **A)** 75 — Error de cálculo: una unidad de menos.
+- **B)** 38 — Calculas solo 1/5: olvidas multiplicar por 2.
+- **C)** 114 — Calculas la parte que queda (3/5).
+- **D)** 76 ✔ correcta
 
-1. **Observa:** Primero se calcula una de las 4 partes iguales.
-2. **Regla:** Divide entre 4 y multiplica por 3.
-3. **Aplica:** 172 ÷ 4 = 43; 43 × 3 = 129
+1. **Observa:** Primero se calcula una de las 5 partes iguales.
+2. **Regla:** Divide entre 5 y multiplica por 2.
+3. **Aplica:** 190 ÷ 5 = 38; 38 × 2 = 76
 
 - [ ] Revisada · Comentarios:
 
 ### 10. Nivel 3 · semilla `muestra-3-2`
 
-> Si 4 cajas iguales pesan 12 kg, ¿cuántos kg pesan 3 cajas?
+> Si 5 cajas iguales pesan 30 kg, ¿cuántos kg pesan 12 cajas?
 
-- **A)** 11 — Sumas la diferencia de cajas en lugar de multiplicar.
-- **B)** 9 ✔ correcta
-- **C)** 6 — Cuentas una caja de menos.
-- **D)** 8 — Error de cálculo: una unidad de menos.
+- **A)** 37 — Sumas al peso la diferencia de cajas (7) en lugar de calcular la proporción.
+- **B)** 62 — Error de cálculo: una decena de menos.
+- **C)** 66 — Cuentas una caja de menos.
+- **D)** 72 ✔ correcta
 
 1. **Observa:** A más cajas, más peso, en la misma proporción: regla de tres directa.
-2. **Regla:** Peso = 3 × (12 ÷ 4).
-3. **Aplica:** 12 ÷ 4 = 3 kg por caja; 3 × 3 = 9
+2. **Regla:** Peso = 12 × (30 ÷ 5).
+3. **Aplica:** 30 ÷ 5 = 6 kg por caja; 12 × 6 = 72
 
 - [ ] Revisada · Comentarios:
 
 ### 11. Nivel 3 · semilla `muestra-3-3`
 
-> ¿Cuánto es el 30 % de 430?
+> ¿Cuánto son los 3/4 de 264?
 
-- **A)** 172 — Calculas el 40 % en lugar del 30 %.
-- **B)** 258 — Calculas el 60 % en lugar del 30 %.
-- **C)** 301 — Calculas el 70 % (lo que queda) en vez del 30 %.
-- **D)** 129 ✔ correcta
+- **A)** 197 — Error de cálculo: una unidad de menos.
+- **B)** 132 — Multiplicas por 2 en lugar de por 3.
+- **C)** 198 ✔ correcta
+- **D)** 66 — Calculas solo 1/4: olvidas multiplicar por 3.
 
-1. **Observa:** El 30 % significa 30 de cada 100.
-2. **Regla:** Multiplica 430 por 30 y divide entre 100.
-3. **Aplica:** 430 × 30 ÷ 100 = 129
+1. **Observa:** Primero se calcula una de las 4 partes iguales.
+2. **Regla:** Divide entre 4 y multiplica por 3.
+3. **Aplica:** 264 ÷ 4 = 66; 66 × 3 = 198
 
 - [ ] Revisada · Comentarios:
 
 ### 12. Nivel 3 · semilla `muestra-3-4`
 
-> ¿Cuánto son los 5/7 de 462?
+> ¿Cuánto es el 30 % de 370?
 
-- **A)** 264 — Multiplicas por 4 en lugar de por 5.
-- **B)** 66 — Calculas solo 1/7: olvidas multiplicar por 5.
-- **C)** 330 ✔ correcta
-- **D)** 132 — Calculas la parte que queda (2/7).
+- **A)** 111 ✔ correcta
+- **B)** 222 — Calculas el 60 % en lugar del 30 %.
+- **C)** 148 — Calculas el 40 % en lugar del 30 %.
+- **D)** 259 — Calculas el 70 % (lo que queda) en vez del 30 %.
 
-1. **Observa:** Primero se calcula una de las 7 partes iguales.
-2. **Regla:** Divide entre 7 y multiplica por 5.
-3. **Aplica:** 462 ÷ 7 = 66; 66 × 5 = 330
+1. **Observa:** El 30 % significa 30 de cada 100.
+2. **Regla:** Multiplica 370 por 30 y divide entre 100.
+3. **Aplica:** 370 × 30 ÷ 100 = 111
 
 - [ ] Revisada · Comentarios:
 
 ### 13. Nivel 4 · semilla `muestra-4-1`
 
-> 6 operarios tardan 5 días en terminar una obra. Al mismo ritmo, ¿cuántos días tardarían 2 operarios?
+> 6 operarios tardan 5 días en terminar una obra. Al mismo ritmo, ¿cuántos días tardarían 3 operarios?
 
-- **A)** 16 — Error de cálculo: una unidad de más.
-- **B)** 15 ✔ correcta
-- **C)** 30 — Te quedas con el trabajo total (6 × 5) y no lo divides.
-- **D)** 9 — Sumas la diferencia de operarios a los días.
+- **A)** 20 — Error de cálculo: una decena de más.
+- **B)** 10 ✔ correcta
+- **C)** 11 — Error de cálculo: una unidad de más.
+- **D)** 30 — Te quedas con el trabajo total (6 × 5) y no lo divides.
 
 1. **Observa:** A más operarios, menos días: es una regla de tres inversa.
-2. **Regla:** Días = 6 × 5 ÷ 2 (el trabajo total, 6 × 5, no cambia).
-3. **Aplica:** 6 × 5 = 30; 30 ÷ 2 = 15
+2. **Regla:** Días = 6 × 5 ÷ 3 (el trabajo total, 6 × 5, no cambia).
+3. **Aplica:** 6 × 5 = 30; 30 ÷ 3 = 10
 
 - [ ] Revisada · Comentarios:
 
 ### 14. Nivel 4 · semilla `muestra-4-2`
 
-> ¿Cuál es el resultado de (6 + 6) × 6 ÷ 3?
+> ¿Cuál es el resultado de (16 + 29) × 3 ÷ 5?
 
-- **A)** 24 ✔ correcta
-- **B)** 4 — Olvidas multiplicar por 6.
-- **C)** 20 — Multiplicas por 5 en lugar de por 6.
-- **D)** 18 — Ignoras el paréntesis y multiplicas antes de sumar.
+- **A)** 30 — Error al multiplicar: sumas 3 de más.
+- **B)** 27 ✔ correcta
+- **C)** 135 — Olvidas dividir entre 5.
+- **D)** 36 — Multiplicas por 4 en lugar de por 3.
 
 1. **Observa:** Hay un paréntesis: se resuelve antes que nada.
 2. **Regla:** Paréntesis primero; después multiplicaciones y divisiones de izquierda a derecha.
-3. **Aplica:** 6 + 6 = 12; 12 × 6 = 72; 72 ÷ 3 = 24
+3. **Aplica:** 16 + 29 = 45; 45 × 3 = 135; 135 ÷ 5 = 27
 
 - [ ] Revisada · Comentarios:
 
 ### 15. Nivel 4 · semilla `muestra-4-3`
 
-> 2 operarios tardan 24 días en terminar una obra. Al mismo ritmo, ¿cuántos días tardarían 3 operarios?
+> ¿Cuál es el resultado de (24 + 21) × 3 ÷ 5?
 
-- **A)** 23 — Sumas la diferencia de operarios a los días.
-- **B)** 16 ✔ correcta
-- **C)** 36 — Aplicas una regla de tres directa: más operarios no significa más días.
-- **D)** 25 — Restas la diferencia de operarios a los días.
+- **A)** 27 ✔ correcta
+- **B)** 9 — Olvidas multiplicar por 3.
+- **C)** 135 — Olvidas dividir entre 5.
+- **D)** 18 — Multiplicas por 2 en lugar de por 3.
 
-1. **Observa:** A más operarios, menos días: es una regla de tres inversa.
-2. **Regla:** Días = 2 × 24 ÷ 3 (el trabajo total, 2 × 24, no cambia).
-3. **Aplica:** 2 × 24 = 48; 48 ÷ 3 = 16
+1. **Observa:** Hay un paréntesis: se resuelve antes que nada.
+2. **Regla:** Paréntesis primero; después multiplicaciones y divisiones de izquierda a derecha.
+3. **Aplica:** 24 + 21 = 45; 45 × 3 = 135; 135 ÷ 5 = 27
 
 - [ ] Revisada · Comentarios:
 
 ### 16. Nivel 4 · semilla `muestra-4-4`
 
-> 6 operarios tardan 4 días en terminar una obra. Al mismo ritmo, ¿cuántos días tardarían 8 operarios?
+> Un artículo cuesta 236 euros. Si su precio baja un 25 %, ¿cuántos euros cuesta ahora?
 
-- **A)** 24 — Te quedas con el trabajo total (6 × 4) y no lo divides.
-- **B)** 6 — Restas la diferencia de operarios a los días.
-- **C)** 3 ✔ correcta
-- **D)** 4 — Crees que los días no cambian con el número de operarios.
+- **A)** 295 — Aplicas una subida en lugar de una bajada.
+- **B)** 211 — Restas 25 euros en lugar del 25 %.
+- **C)** 59 — Te quedas con el 25 % y no lo restas del precio.
+- **D)** 177 ✔ correcta
 
-1. **Observa:** A más operarios, menos días: es una regla de tres inversa.
-2. **Regla:** Días = 6 × 4 ÷ 8 (el trabajo total, 6 × 4, no cambia).
-3. **Aplica:** 6 × 4 = 24; 24 ÷ 8 = 3
+1. **Observa:** Hay que calcular el 25 % y restarlo del precio.
+2. **Regla:** Precio nuevo = precio − 25 % del precio.
+3. **Aplica:** 25 % de 236 = 59; 236 − 59 = 177
 
 - [ ] Revisada · Comentarios:
 
 ### 17. Nivel 5 · semilla `muestra-5-1`
 
-> Después de bajar un 50 %, un artículo cuesta 13 euros. ¿Cuántos euros costaba antes?
+> Un precio de 1500 euros sube un 10 % y después baja un 50 %. ¿Cuál es el precio final, en euros?
 
-- **A)** 63 — Sumas 50 euros en lugar de deshacer el 50 %.
-- **B)** 13 — Das el precio final como precio de antes: no deshaces el cambio.
-- **C)** 25 — Error de cálculo: una unidad de menos.
-- **D)** 26 ✔ correcta
+- **A)** 750 — Olvidas aplicar la subida.
+- **B)** 900 — Sumas y restas los porcentajes sobre el precio original.
+- **C)** 815 — Error de cálculo: una decena de menos.
+- **D)** 825 ✔ correcta
 
-1. **Observa:** 13 euros es el 50 % del precio de antes, no el 100 %.
-2. **Regla:** Precio de antes = 13 × 100 ÷ 50.
-3. **Aplica:** 13 × 100 ÷ 50 = 26
+1. **Observa:** La bajada se calcula sobre el precio ya subido, no sobre el original.
+2. **Regla:** Aplica cada porcentaje sobre el resultado del anterior.
+3. **Aplica:** 1500 + 10 % = 1650; 1650 − 50 % = 825
 
 - [ ] Revisada · Comentarios:
 
 ### 18. Nivel 5 · semilla `muestra-5-2`
 
-> Después de subir un 25 %, un artículo cuesta 85 euros. ¿Cuántos euros costaba antes?
+> Después de bajar un 25 %, un artículo cuesta 108 euros. ¿Cuántos euros costaba antes?
 
-- **A)** 60 — Restas 25 euros en lugar de deshacer el 25 %.
-- **B)** 68 ✔ correcta
-- **C)** 58 — Error de cálculo: una decena de menos.
-- **D)** 67 — Error de cálculo: una unidad de menos.
+- **A)** 144 ✔ correcta
+- **B)** 135 — Sumas el 25 % del precio final: el porcentaje se aplicó sobre el precio de antes.
+- **C)** 81 — Aplicas otra vez el cambio en lugar de deshacerlo.
+- **D)** 133 — Sumas 25 euros en lugar de deshacer el 25 %.
 
-1. **Observa:** 85 euros es el 125 % del precio de antes, no el 100 %.
-2. **Regla:** Precio de antes = 85 × 100 ÷ 125.
-3. **Aplica:** 85 × 100 ÷ 125 = 68
+1. **Observa:** 108 euros es el 75 % del precio de antes, no el 100 %.
+2. **Regla:** Precio de antes = 108 × 100 ÷ 75.
+3. **Aplica:** 108 × 100 ÷ 75 = 144
 
 - [ ] Revisada · Comentarios:
 
 ### 19. Nivel 5 · semilla `muestra-5-3`
 
-> Un precio de 3400 euros sube un 50 % y después baja un 25 %. ¿Cuál es el precio final, en euros?
+> Después de bajar un 10 %, un artículo cuesta 378 euros. ¿Cuántos euros costaba antes?
 
-- **A)** 2550 — Olvidas aplicar la subida.
-- **B)** 5100 — Olvidas aplicar la bajada.
-- **C)** 3825 ✔ correcta
-- **D)** 4250 — Sumas y restas los porcentajes sobre el precio original.
+- **A)** 420 ✔ correcta
+- **B)** 421 — Error de cálculo: una unidad de más.
+- **C)** 388 — Sumas 10 euros en lugar de deshacer el 10 %.
+- **D)** 378 — Das el precio final como precio de antes: no deshaces el cambio.
 
-1. **Observa:** La bajada se calcula sobre el precio ya subido, no sobre el original.
-2. **Regla:** Aplica cada porcentaje sobre el resultado del anterior.
-3. **Aplica:** 3400 + 50 % = 5100; 5100 − 25 % = 3825
+1. **Observa:** 378 euros es el 90 % del precio de antes, no el 100 %.
+2. **Regla:** Precio de antes = 378 × 100 ÷ 90.
+3. **Aplica:** 378 × 100 ÷ 90 = 420
 
 - [ ] Revisada · Comentarios:
 
 ### 20. Nivel 5 · semilla `muestra-5-4`
 
-> Un precio de 4500 euros sube un 25 % y después baja un 20 %. ¿Cuál es el precio final, en euros?
+> Después de subir un 50 %, un artículo cuesta 165 euros. ¿Cuántos euros costaba antes?
 
-- **A)** 6750 — Aplicas una subida del 20 % en lugar de una bajada.
-- **B)** 5625 — Olvidas aplicar la bajada.
-- **C)** 4500 ✔ correcta
-- **D)** 4725 — Sumas y restas los porcentajes sobre el precio original.
+- **A)** 165 — Das el precio final como precio de antes: no deshaces el cambio.
+- **B)** 120 — Error de cálculo: una decena de más.
+- **C)** 110 ✔ correcta
+- **D)** 115 — Restas 50 euros en lugar de deshacer el 50 %.
 
-1. **Observa:** La bajada se calcula sobre el precio ya subido, no sobre el original.
-2. **Regla:** Aplica cada porcentaje sobre el resultado del anterior.
-3. **Aplica:** 4500 + 25 % = 5625; 5625 − 20 % = 4500
+1. **Observa:** 165 euros es el 150 % del precio de antes, no el 100 %.
+2. **Regla:** Precio de antes = 165 × 100 ÷ 150.
+3. **Aplica:** 165 × 100 ÷ 150 = 110
 
 - [ ] Revisada · Comentarios:

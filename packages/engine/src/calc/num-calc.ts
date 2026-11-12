@@ -4,7 +4,7 @@ import { levels, type Generator } from '../types';
 
 import { numCalcSolver, type CalcData, type NumCalcStem } from './num-calc.solver';
 
-const VERSION = '3';
+const VERSION = '4';
 const TIP =
   'Antes de calcular, estima el resultado (redondea los datos). Si una opción está muy lejos de tu estimación, descártala. En operaciones combinadas, primero multiplicaciones y divisiones; después sumas y restas.';
 
@@ -158,7 +158,7 @@ const percent =
         { value: n - answer, error: `Calculas el ${100 - p} % (lo que queda) en vez del ${p} %.` },
         { value: (n * p) / 10, error: 'Divides entre 10 en vez de entre 100.' },
         { value: answer * 2, error: `Calculas el ${2 * p} % en lugar del ${p} %.` },
-        { value: answer / 2, error: `Calculas la mitad del porcentaje (el ${p / 2} %).` },
+        { value: answer / 2, error: `Calculas la mitad del porcentaje (el ${String(p / 2).replace('.', ',')} %).` },
         { value: (n * (p + 10)) / 100, error: `Calculas el ${p + 10} % en lugar del ${p} %.` },
         { value: (n * (p - 5)) / 100, error: `Calculas el ${p - 5} % en lugar del ${p} %.` },
         ...slips(answer),
@@ -209,7 +209,13 @@ const rule3 =
         rule: `Peso = ${c} × (${b} ÷ ${a}).`,
         apply: `${b} ÷ ${a} = ${k} kg por caja; ${c} × ${k} = ${answer}`,
         distractors: [
-          { value: b + (c - a), error: 'Sumas la diferencia de cajas en lugar de multiplicar.' },
+          {
+            value: b + (c - a),
+            error:
+              c > a
+                ? `Sumas al peso la diferencia de cajas (${c - a}) en lugar de calcular la proporción.`
+                : `Restas al peso la diferencia de cajas (${a - c}) en lugar de calcular la proporción.`,
+          },
           { value: answer + k, error: 'Cuentas una caja de más.' },
           { value: answer - k, error: 'Cuentas una caja de menos.' },
           ...slips(answer),
@@ -232,8 +238,20 @@ const rule3 =
       apply: `${a} × ${b} = ${total}; ${total} ÷ ${c} = ${answer}`,
       distractors: [
         { value: (b * c) / a, error: 'Aplicas una regla de tres directa: más operarios no significa más días.' },
-        { value: b + (a - c), error: 'Sumas la diferencia de operarios a los días.' },
-        { value: b - (a - c), error: 'Restas la diferencia de operarios a los días.' },
+        {
+          value: b + (a - c),
+          error:
+            a > c
+              ? `Sumas a los días la diferencia de operarios (${a - c}).`
+              : `Restas a los días la diferencia de operarios (${c - a}).`,
+        },
+        {
+          value: b - (a - c),
+          error:
+            a > c
+              ? `Restas a los días la diferencia de operarios (${a - c}).`
+              : `Sumas a los días la diferencia de operarios (${c - a}).`,
+        },
         { value: b, error: 'Crees que los días no cambian con el número de operarios.' },
         { value: total, error: `Te quedas con el trabajo total (${a} × ${b}) y no lo divides.` },
         ...slips(answer),

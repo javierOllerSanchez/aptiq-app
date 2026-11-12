@@ -6,7 +6,7 @@ import { levels, type Generator } from '../types';
 
 import { codCriptoSolver, type CodCriptoStem } from './cod-cripto.solver';
 
-const VERSION = '3';
+const VERSION = '4';
 const TIP =
   'Escribe la clave antes de mirar las opciones: qué cifra o qué salto corresponde a cada letra. Después codifica letra a letra y compara con las opciones de izquierda a derecha.';
 
