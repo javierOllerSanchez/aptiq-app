@@ -1,0 +1,242 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NUM.CALC v1 > nivel 1: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 1,
+  "explanation": {
+    "apply": "90 + 18 = 108",
+    "distractors": [
+      {
+        "error": "Multiplicas por 37 en lugar de por 36.",
+        "optionIndex": 0,
+      },
+      {
+        "error": "Multiplicas por 35 en lugar de por 36.",
+        "optionIndex": 2,
+      },
+      {
+        "error": "Error de una decena al sumar las partes.",
+        "optionIndex": 3,
+      },
+    ],
+    "observe": "Descompón 36 en decenas y unidades para multiplicar de cabeza.",
+    "rule": "3 × 36 = 3 × 30 + 3 × 6.",
+    "tip": "Antes de calcular, estima el resultado (redondea los datos). Si una opción está muy lejos de tu estimación, descártala. En operaciones combinadas, primero multiplicaciones y divisiones; después sumas y restas.",
+  },
+  "id": "NUM.CALC:1:muestra:1",
+  "level": 1,
+  "meta": {
+    "expectedSeconds": 20,
+    "generatorVersion": "1",
+  },
+  "options": [
+    "111",
+    "108",
+    "105",
+    "118",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "data": {
+      "expr": "3 × 36",
+      "kind": "expr",
+    },
+    "text": "¿Cuál es el resultado de 3 × 36?",
+  },
+  "type": "NUM.CALC",
+}
+`;
+
+exports[`NUM.CALC v1 > nivel 2: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 0,
+  "explanation": {
+    "apply": "4 × 9 = 36; 15 + 36 − 10 = 41",
+    "distractors": [
+      {
+        "error": "Operas de izquierda a derecha sin dar prioridad a la multiplicación.",
+        "optionIndex": 1,
+      },
+      {
+        "error": "Restas antes de multiplicar.",
+        "optionIndex": 2,
+      },
+      {
+        "error": "Sumas 10 en lugar de restarlo.",
+        "optionIndex": 3,
+      },
+    ],
+    "observe": "Hay una multiplicación entre sumas y restas: va primero.",
+    "rule": "Primero multiplicaciones y divisiones; después sumas y restas, de izquierda a derecha.",
+    "tip": "Antes de calcular, estima el resultado (redondea los datos). Si una opción está muy lejos de tu estimación, descártala. En operaciones combinadas, primero multiplicaciones y divisiones; después sumas y restas.",
+  },
+  "id": "NUM.CALC:1:muestra:2",
+  "level": 2,
+  "meta": {
+    "expectedSeconds": 30,
+    "generatorVersion": "1",
+  },
+  "options": [
+    "41",
+    "161",
+    "11",
+    "61",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "data": {
+      "expr": "15 + 4 × 9 - 10",
+      "kind": "expr",
+    },
+    "text": "¿Cuál es el resultado de 15 + 4 × 9 − 10?",
+  },
+  "type": "NUM.CALC",
+}
+`;
+
+exports[`NUM.CALC v1 > nivel 3: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 0,
+  "explanation": {
+    "apply": "550 × 40 ÷ 100 = 220",
+    "distractors": [
+      {
+        "error": "Corres la coma un lugar de más al dividir.",
+        "optionIndex": 1,
+      },
+      {
+        "error": "Calculas el 60 % (lo que queda) en vez del 40 %.",
+        "optionIndex": 2,
+      },
+      {
+        "error": "Divides entre 10 en vez de entre 100.",
+        "optionIndex": 3,
+      },
+    ],
+    "observe": "El 40 % significa 40 de cada 100.",
+    "rule": "Multiplica 550 por 40 y divide entre 100.",
+    "tip": "Antes de calcular, estima el resultado (redondea los datos). Si una opción está muy lejos de tu estimación, descártala. En operaciones combinadas, primero multiplicaciones y divisiones; después sumas y restas.",
+  },
+  "id": "NUM.CALC:1:muestra:3",
+  "level": 3,
+  "meta": {
+    "expectedSeconds": 40,
+    "generatorVersion": "1",
+  },
+  "options": [
+    "220",
+    "22",
+    "330",
+    "2200",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "data": {
+      "kind": "percent",
+      "n": 550,
+      "p": 40,
+    },
+    "text": "¿Cuánto es el 40 % de 550?",
+  },
+  "type": "NUM.CALC",
+}
+`;
+
+exports[`NUM.CALC v1 > nivel 4: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 1,
+  "explanation": {
+    "apply": "2 × 15 = 30; 30 ÷ 6 = 5",
+    "distractors": [
+      {
+        "error": "Restas la diferencia de operarios a los días.",
+        "optionIndex": 0,
+      },
+      {
+        "error": "Sumas la diferencia de operarios a los días.",
+        "optionIndex": 2,
+      },
+      {
+        "error": "Aplicas una regla de tres directa: más operarios no significa más días.",
+        "optionIndex": 3,
+      },
+    ],
+    "observe": "A más operarios, menos días: es una regla de tres inversa.",
+    "rule": "Días = 2 × 15 ÷ 6 (el trabajo total, 2 × 15, no cambia).",
+    "tip": "Antes de calcular, estima el resultado (redondea los datos). Si una opción está muy lejos de tu estimación, descártala. En operaciones combinadas, primero multiplicaciones y divisiones; después sumas y restas.",
+  },
+  "id": "NUM.CALC:1:muestra:4",
+  "level": 4,
+  "meta": {
+    "expectedSeconds": 55,
+    "generatorVersion": "1",
+  },
+  "options": [
+    "19",
+    "5",
+    "11",
+    "45",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "data": {
+      "a": 2,
+      "b": 15,
+      "c": 6,
+      "inverse": true,
+      "kind": "rule3",
+    },
+    "text": "2 operarios tardan 15 días en terminar una obra. Al mismo ritmo, ¿cuántos días tardarían 6 operarios?",
+  },
+  "type": "NUM.CALC",
+}
+`;
+
+exports[`NUM.CALC v1 > nivel 5: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 1,
+  "explanation": {
+    "apply": "1600 + 50 % = 2400; 2400 − 50 % = 1200",
+    "distractors": [
+      {
+        "error": "Olvidas aplicar la bajada.",
+        "optionIndex": 0,
+      },
+      {
+        "error": "Olvidas aplicar la subida.",
+        "optionIndex": 2,
+      },
+      {
+        "error": "Sumas y restas los porcentajes sobre el precio original.",
+        "optionIndex": 3,
+      },
+    ],
+    "observe": "La bajada se calcula sobre el precio ya subido, no sobre el original.",
+    "rule": "Aplica cada porcentaje sobre el resultado del anterior.",
+    "tip": "Antes de calcular, estima el resultado (redondea los datos). Si una opción está muy lejos de tu estimación, descártala. En operaciones combinadas, primero multiplicaciones y divisiones; después sumas y restas.",
+  },
+  "id": "NUM.CALC:1:muestra:5",
+  "level": 5,
+  "meta": {
+    "expectedSeconds": 70,
+    "generatorVersion": "1",
+  },
+  "options": [
+    "2400",
+    "1200",
+    "800",
+    "1600",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "data": {
+      "kind": "chain",
+      "n": 1600,
+      "p1": 50,
+      "p2": 50,
+    },
+    "text": "Un precio de 1600 euros sube un 50 % y después baja un 50 %. ¿Cuál es el precio final, en euros?",
+  },
+  "type": "NUM.CALC",
+}
+`;
