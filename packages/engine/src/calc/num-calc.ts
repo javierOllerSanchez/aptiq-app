@@ -19,19 +19,18 @@ type Raw = Omit<Draft<NumCalcStem>, 'stem' | 'answer' | 'distractors'> & {
   answer: number;
   /** Valor máximo con sentido (p. ej. el total en un porcentaje): lo que lo supera se descarta. */
   max?: number;
-  distractors: { value: number; error: string }[];
+  distractors: { value: number; error: string; generic?: boolean }[];
 };
 type Family = (rng: Rng) => Raw | null;
 
 /** Errores de cálculo a ambos lados: completan cuando faltan errores de la regla. */
-const slips = (answer: number) => [
-  { value: answer + 1, error: 'Error de cálculo de una unidad (una de más).' },
-  { value: answer - 1, error: 'Error de cálculo de una unidad (una de menos).' },
-  { value: answer + 10, error: 'Error de una decena al llevar (una de más).' },
-  { value: answer - 10, error: 'Error de una decena al llevar (una de menos).' },
-  { value: answer + 2, error: 'Error de cálculo de dos unidades (de más).' },
-  { value: answer - 2, error: 'Error de cálculo de dos unidades (de menos).' },
-];
+const slips = (answer: number) =>
+  [
+    { value: answer + 1, error: 'Error de cálculo: una unidad de más.' },
+    { value: answer - 1, error: 'Error de cálculo: una unidad de menos.' },
+    { value: answer + 10, error: 'Error de cálculo: una decena de más.' },
+    { value: answer - 10, error: 'Error de cálculo: una decena de menos.' },
+  ].map((d) => ({ ...d, generic: true }));
 
 const addSub: Family = (rng) => {
   const a = rng.int(20, 99);
@@ -314,7 +313,7 @@ const drafts = finishFamilies(families, (raw: Raw) => {
     // delatarían el error sin calcular.
     distractors: raw.distractors
       .filter((d) => Number.isInteger(d.value) && d.value > 0 && (raw.max === undefined || d.value < raw.max))
-      .map((d) => ({ value: fmt(d.value), error: d.error })),
+      .map((d) => ({ value: fmt(d.value), error: d.error, ...(d.generic && { generic: true }) })),
     observe: raw.observe,
     rule: raw.rule,
     apply: raw.apply,

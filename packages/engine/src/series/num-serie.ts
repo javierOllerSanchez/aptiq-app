@@ -15,14 +15,20 @@ const err = (value: number, error: string) => ({ value: String(value), error });
 const diffs = (t: number[]) => t.slice(1).map((x, i) => x - t[i]!);
 
 /** Errores de cálculo a ambos lados de la respuesta: completan cuando faltan errores de la regla. */
-const slips = (answer: number) => [
-  err(answer + 1, 'Error de cálculo de una unidad (una de más).'),
-  err(answer - 1, 'Error de cálculo de una unidad (una de menos).'),
-  err(answer + 10, 'Error de una decena al llevar (una de más).'),
-  err(answer - 10, 'Error de una decena al llevar (una de menos).'),
-  err(answer + 2, 'Error de cálculo de dos unidades (de más).'),
-  err(answer - 2, 'Error de cálculo de dos unidades (de menos).'),
-];
+const slips = (answer: number) =>
+  [
+    err(answer + 1, 'Error de cálculo: una unidad de más.'),
+    err(answer - 1, 'Error de cálculo: una unidad de menos.'),
+    err(answer + 10, 'Error de cálculo: una decena de más.'),
+    err(answer - 10, 'Error de cálculo: una decena de menos.'),
+  ].map((d) => ({ ...d, generic: true }));
+
+/** Errores al leer la diferencia (+4 en lugar de +5…), a los dos lados de la respuesta. */
+const misreads = (l: number, s: number) =>
+  [1, -1, 2, -2, 3, -3]
+    .map((k) => s + Math.sign(s) * k)
+    .filter((t) => t !== 0 && Math.sign(t) === Math.sign(s))
+    .map((t) => err(l + t, `Calculas mal la diferencia: ${sign(t)} en lugar de ${sign(s)}.`));
 
 type Raw = Omit<Draft<NumSerieStem>, 'stem' | 'answer'> & { terms: number[]; answer: number };
 type Family = (rng: Rng) => Raw;
@@ -45,7 +51,7 @@ const arithmetic =
       apply: `${l} ${sign(step)} = ${answer}`,
       distractors: [
         err(l + 2 * step, `Aplicas el paso ${sign(step)} dos veces seguidas.`),
-        err(l - step, `Aplicas el paso al revés (${sign(-step)}).`),
+        ...misreads(l, step),
         ...slips(answer),
       ],
     };
@@ -198,7 +204,7 @@ const interleaved =
             ]
           : [
               err(bLast + 2 * sb, `Aplicas el paso de la serie par (${sign(sb)}) dos veces.`),
-              err(bLast - sb, `Aplicas el paso de la serie par al revés (${sign(-sb)}).`),
+              ...misreads(bLast, sb),
             ]),
         ...slips(answer),
       ],
@@ -265,8 +271,17 @@ const drafts = finishFamilies(families, ({ terms, answer, distractors, ...rest }
   return {
     ...rest,
     answer: String(answer),
-    // Sin negativos ni números enormes: delatarían el error.
-    distractors: distractors.filter((d) => Number(d.value) >= 0 && Number(d.value) <= MAX),
+    // Fuera: negativos, números enormes, términos ya visibles y, en una serie que solo sube (o solo
+    // baja), lo que no sigue ese sentido. Se descartarían sin pensar.
+    distractors: distractors.filter((d) => {
+      const v = Number(d.value);
+      if (v < 0 || v > MAX) return false;
+      if (!terms.includes(answer) && terms.includes(v)) return false;
+      const ds = diffs([...terms, answer]);
+      if (ds.every((x) => x > 0) && v <= terms[terms.length - 1]!) return false;
+      if (ds.every((x) => x < 0) && v >= terms[terms.length - 1]!) return false;
+      return true;
+    }),
     stem: { text: `¿Qué número continúa la serie? ${list(terms)}, ?`, terms },
   };
 });
