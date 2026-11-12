@@ -5,8 +5,8 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 | Fase | Estado | Rama / PR | Cerrada | Aprobada por el propietario |
 | --- | --- | --- | --- | --- |
 | 0 · Base del proyecto | Cerrada (prueba en iPhone pendiente del propietario) | `fase-0-base` · PR #1 fusionado | 2026-11-12 | Sí, 2026-11-12 |
-| 1 · Sistema de diseño en código | Cerrada (VoiceOver en iPhone y `/review-animations` pendientes del propietario) | `fase-1-sistema-diseno` (PR hacia `main`) | 2026-11-12 | |
-| 2 · Motor de contenido v1 | Pendiente | | | |
+| 1 · Sistema de diseño en código | Cerrada (VoiceOver en iPhone y `/review-animations` pendientes del propietario) | `fase-1-sistema-diseno` · PR #2 fusionado | 2026-11-12 | Sí, 2026-11-12 |
+| 2 · Motor de contenido v1 | En curso | `fase-2-motor` | | |
 | 3 · Perfil de examen y puntuación | Pendiente | | | |
 | 4 · Práctica y simulacro sin conexión | Pendiente | | | |
 | 5 · Cuentas y sincronización | Pendiente | | | |

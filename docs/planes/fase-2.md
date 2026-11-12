@@ -6,7 +6,7 @@
 - `aptiq-generator`, que manda;
 - Superpowers `test-driven-development`.
 
-**Estado:** propuesto, pendiente de confirmación del propietario.
+**Estado:** aprobado por el propietario el 2026-11-12 con las opciones por defecto: familias habituales (se contrastan en la fase 3), alfabeto de 27 letras con Ñ, 20 muestras por tipo. Pendiente: quién revisa las muestras.
 
 ## Qué se construye
 
