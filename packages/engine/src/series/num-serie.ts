@@ -149,7 +149,9 @@ const interleaved =
     const a0 = rng.int(1, 20);
     const sa = rng.int(2, 9);
     const b0 = rng.int(20, 60);
-    const sb = rng.pick([-5, -4, -3, -2, 3, 4, 5, 6, 7]);
+    let sb = rng.pick([-5, -4, -3, -2, 3, 4, 5, 6, 7]);
+    // Con el mismo paso, las dos series juntas pueden formar una aritmética simple: no sería nivel 4.
+    if (sb === sa) sb += 1;
     const ratio = rng.pick([2, 3]);
     const bStart = Math.max(1, Math.round(b0 / 10));
     const bAt = (k: number) => (mixed ? bStart * ratio ** k : b0 + k * sb);

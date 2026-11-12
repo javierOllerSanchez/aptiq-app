@@ -39,3 +39,12 @@ test('cada pregunta de nivel 1 es una suma constante pequeña', () => {
   expect(d).toBeGreaterThanOrEqual(2);
   expect(d).toBeLessThanOrEqual(9);
 });
+
+test('los niveles 4 y 5 nunca son, en realidad, una suma constante (nivel 1)', () => {
+  for (const level of [4, 5] as const)
+    for (let i = 0; i < 1_000; i++) {
+      const t = numSerie.generate(`n${i}`, level, 4).stem.terms;
+      const d = t.slice(1).map((x, j) => x - t[j]!);
+      expect(new Set(d).size, `semilla n${i}, nivel ${level}: ${t.join(', ')}`).toBeGreaterThan(1);
+    }
+});

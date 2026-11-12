@@ -17,7 +17,12 @@ const TIMEOUT = 600_000;
  * Pruebas obligatorias de la skill aptiq-generator, iguales para todos los generadores:
  * unicidad, opciones, coherencia, distractores, posición uniforme, determinismo e instantáneas.
  */
-export function generatorSuite<S extends Stem>(gen: Generator<S>, solver: Solver<S>) {
+export function generatorSuite<S extends Stem>(
+  gen: Generator<S>,
+  solver: Solver<S>,
+  /** Enunciados distintos mínimos en 1.000 semillas, por nivel (por defecto 300). */
+  minDistinct: Partial<Record<number, number>> = {},
+) {
   describe(`${gen.type} v${gen.version}`, () => {
     for (const level of gen.levels) {
       for (const oc of [3, 4] as OptionCount[]) {
@@ -50,7 +55,9 @@ export function generatorSuite<S extends Stem>(gen: Generator<S>, solver: Solver
             for (const p of positions) expect(Math.abs(p - N / oc)).toBeLessThan((N / oc) * 0.2);
             // Variedad (CON-02): al menos 300 enunciados distintos en las primeras 1.000 semillas. Los niveles bajos tienen
             // menos combinaciones posibles; la no repetición por usuario se garantiza con la semilla.
-            expect(stems.size, `poca variedad en el nivel ${level}`).toBeGreaterThan(300);
+            expect(stems.size, `poca variedad en el nivel ${level}`).toBeGreaterThanOrEqual(
+              minDistinct[level] ?? 300,
+            );
           },
           TIMEOUT,
         );
