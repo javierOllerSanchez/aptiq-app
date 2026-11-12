@@ -1,12 +1,12 @@
-import { buildItem, type Draft } from '../build';
+import { buildItem, familyNames, finishFamilies, type Draft, type Families } from '../build';
 import { WORDS } from '../data/words';
 import type { Rng } from '../rng';
 import { ALPHABET } from '../series/alphabet';
-import { levels, type Generator, type Level } from '../types';
+import { levels, type Generator } from '../types';
 
 import { codCriptoSolver, type CodCriptoStem } from './cod-cripto.solver';
 
-const VERSION = '1';
+const VERSION = '2';
 const TIP =
   'Escribe la clave antes de mirar las opciones: qué cifra o qué salto corresponde a cada letra. Después codifica letra a letra y compara con las opciones de izquierda a derecha.';
 
@@ -77,7 +77,8 @@ const shift =
     const target = rng.pick(pool.filter((w) => w !== plain));
     const answer = enc(target)!;
     const uniform = a === b;
-    const describe = uniform ? `${sign(a)} posiciones` : `${sign(a)} y ${sign(b)} posiciones, alternando`;
+    const where = (k: number) => `${Math.abs(k)} ${Math.abs(k) === 1 ? 'posición' : 'posiciones'} ${k > 0 ? 'después' : 'antes'}`;
+    const describe = uniform ? where(a) : `${where(a)} y ${where(b)}, alternando`;
     const firstPairs = [...plain]
       .slice(0, 3)
       .map((ch, i) => `${ch}→${enc(plain)![i]}`)
@@ -89,7 +90,7 @@ const shift =
       answer,
       observe: `Compara letra a letra: ${firstPairs}… ${uniform ? 'Todas se desplazan lo mismo' : 'El salto cambia según la posición'}.`,
       rule: `Cada letra se sustituye por la que está ${describe} en el alfabeto (con Ñ).`,
-      apply: `${target} → ${answer}`,
+      apply: `${[...target].map((ch, i) => `${ch} ${sign(at(i))} = ${answer[i]}`).join(', ')} → ${answer}`,
       distractors: [
         { value: without26 ?? '', error: 'Olvidas la Ñ al contar las posiciones.' },
         { value: enc(target, (i) => -at(i)) ?? '', error: 'Desplazas hacia el lado contrario del alfabeto.' },
@@ -104,37 +105,38 @@ const shift =
     };
   };
 
-const families: Record<Level, Family[]> = {
-  1: [digits(1, 4)],
-  2: [digits(1, 5), shift(() => [1, 1], 4)],
-  3: [digits(2, 5), shift((r) => { const k = r.pick([-2, -1, 2]); return [k, k]; }, 4)],
-  4: [shift((r) => { const k = r.pick([-3, 3, 4]); return [k, k]; }, 5)],
-  5: [shift((r) => [r.pick([1, 2]), r.pick([-1, -2])], 5), shift((r) => [r.pick([2, 3]), r.pick([1])], 6)],
+const families: Families<Family> = {
+  1: { cifras: digits(1, 4) },
+  2: { cifrasLargas: digits(1, 5), desplazamientoDeUno: shift(() => [1, 1], 4) },
+  3: {
+    cifrasConDosEjemplos: digits(2, 5),
+    desplazamientoCorto: shift((r) => { const k = r.pick([-2, -1, 2]); return [k, k]; }, 4),
+  },
+  4: { desplazamientoLargo: shift((r) => { const k = r.pick([-3, 3, 4]); return [k, k]; }, 5) },
+  5: {
+    desplazamientoAlternoOpuesto: shift((r) => [r.pick([1, 2]), r.pick([-1, -2])], 5),
+    desplazamientoAlterno: shift((r) => [r.pick([2, 3]), r.pick([1])], 6),
+  },
 };
+
+const drafts = finishFamilies(families, ({ examples, target, ...rest }: Raw) => {
+  const shown = examples.map((e) => `${e.plain} se escribe ${e.code}`).join(' y ');
+  return {
+    ...rest,
+    stem: { text: `En un código, ${shown}. Con la misma clave, ¿cómo se escribe ${target}?`, examples, target },
+  };
+});
 
 export const codCripto: Generator<CodCriptoStem> = {
   type: 'COD.CRIPTO',
   version: VERSION,
   levels,
+  families: familyNames(families),
   generate: (seed, level, optionCount) =>
     buildItem(
-      { type: 'COD.CRIPTO', version: VERSION, tip: TIP, solver: codCriptoSolver },
+      { type: 'COD.CRIPTO', version: VERSION, tip: TIP, solver: codCriptoSolver, families: drafts },
       seed,
       level,
       optionCount,
-      (rng) => {
-        const raw = rng.pick(families[level])(rng);
-        if (!raw) return null;
-        const { examples, target, ...rest } = raw;
-        const shown = examples.map((e) => `${e.plain} se escribe ${e.code}`).join(' y ');
-        return {
-          ...rest,
-          stem: {
-            text: `En un código, ${shown}. Con la misma clave, ¿cómo se escribe ${target}?`,
-            examples,
-            target,
-          },
-        };
-      },
     ),
 };

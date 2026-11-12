@@ -30,6 +30,8 @@ export function generatorSuite<S extends Stem>(
           `nivel ${level}, ${oc} opciones: ${N} preguntas sin ambigüedad`,
           () => {
             const positions = new Array<number>(oc).fill(0);
+            const ranks = new Array<number>(oc).fill(0);
+            const families = new Map<string, number>();
             const stems = new Set<string>();
             for (let i = 0; i < N; i++) {
               const item = gen.generate(`s${i}`, level, oc);
@@ -49,10 +51,27 @@ export function generatorSuite<S extends Stem>(
               for (const t of [item.explanation.observe, item.explanation.rule, item.explanation.tip])
                 expect(t.length, ctx).toBeGreaterThan(10);
               positions[item.answerIndex]!++;
+              if (gen.compareOptions) {
+                const answer = item.options[item.answerIndex]!;
+                ranks[item.options.filter((o) => gen.compareOptions!(o, answer) < 0).length]!++;
+              }
+              families.set(item.meta.family, (families.get(item.meta.family) ?? 0) + 1);
               if (i < 1_000) stems.add(item.stem.text);
             }
-            // La correcta no puede delatarse por su posición.
+            // La correcta no puede delatarse por su posición (A, B, C, D)…
             for (const p of positions) expect(Math.abs(p - N / oc)).toBeLessThan((N / oc) * 0.2);
+            // …ni por su valor: ordenadas de menor a mayor, no puede ser casi siempre la del medio.
+            if (gen.compareOptions)
+              for (const [r, count] of ranks.entries())
+                expect(count, `la correcta ocupa el puesto ${r + 1} por valor en ${count} de ${N}`).toBeGreaterThan(
+                  (N / oc) * 0.5,
+                );
+            // Cada familia de reglas declarada aparece de verdad.
+            const declared = gen.families[level];
+            for (const f of declared)
+              expect(families.get(f) ?? 0, `la familia «${f}» casi no aparece`).toBeGreaterThan(
+                (N / declared.length) * 0.4,
+              );
             // Variedad (CON-02): al menos 300 enunciados distintos en las primeras 1.000 semillas. Los niveles bajos tienen
             // menos combinaciones posibles; la no repetición por usuario se garantiza con la semilla.
             expect(stems.size, `poca variedad en el nivel ${level}`).toBeGreaterThanOrEqual(

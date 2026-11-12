@@ -1,4 +1,4 @@
-# Muestras · Series numéricas (`NUM.SERIE`, versión 1)
+# Muestras · Series numéricas (`NUM.SERIE`, versión 2)
 
 Encontrar el número que continúa una serie que sigue una regla.
 
@@ -12,300 +12,300 @@ Generadas automáticamente para revisión humana. Para cada pregunta, comprueba:
 
 ### 1. Nivel 1 · semilla `muestra-1-1`
 
-> ¿Qué número continúa la serie? 36, 41, 46, 51, 56, ?
+> ¿Qué número continúa la serie? 48, 52, 56, 60, 64, ?
 
-- **A)** 60 — Error de cálculo de una unidad al aplicar el paso.
-- **B)** 66 — Aplicas el paso + 5 dos veces seguidas.
-- **C)** 62 — Error de cálculo de una unidad al aplicar el paso.
-- **D)** 61 ✔ correcta
+- **A)** 68 ✔ correcta
+- **B)** 69 — Error de cálculo de una unidad (una de más).
+- **C)** 78 — Error de una decena al llevar (una de más).
+- **D)** 72 — Aplicas el paso + 4 dos veces seguidas.
 
-1. **Observa:** Entre cada término y el siguiente hay siempre la misma diferencia: + 5.
-2. **Regla:** Cada número es el anterior + 5.
-3. **Aplica:** 56 + 5 = 61
+1. **Observa:** Entre cada término y el siguiente hay siempre la misma diferencia: + 4.
+2. **Regla:** Cada número es el anterior + 4.
+3. **Aplica:** 64 + 4 = 68
 
 - [ ] Revisada · Comentarios:
 
 ### 2. Nivel 1 · semilla `muestra-1-2`
 
-> ¿Qué número continúa la serie? 35, 40, 45, 50, 55, ?
+> ¿Qué número continúa la serie? 36, 42, 48, 54, 60, ?
 
-- **A)** 60 ✔ correcta
-- **B)** 61 — Error de cálculo de una unidad al aplicar el paso.
-- **C)** 65 — Aplicas el paso + 5 dos veces seguidas.
-- **D)** 59 — Error de cálculo de una unidad al aplicar el paso.
+- **A)** 66 ✔ correcta
+- **B)** 67 — Error de cálculo de una unidad (una de más).
+- **C)** 76 — Error de una decena al llevar (una de más).
+- **D)** 72 — Aplicas el paso + 6 dos veces seguidas.
 
-1. **Observa:** Entre cada término y el siguiente hay siempre la misma diferencia: + 5.
-2. **Regla:** Cada número es el anterior + 5.
-3. **Aplica:** 55 + 5 = 60
+1. **Observa:** Entre cada término y el siguiente hay siempre la misma diferencia: + 6.
+2. **Regla:** Cada número es el anterior + 6.
+3. **Aplica:** 60 + 6 = 66
 
 - [ ] Revisada · Comentarios:
 
 ### 3. Nivel 1 · semilla `muestra-1-3`
 
-> ¿Qué número continúa la serie? 20, 26, 32, 38, 44, ?
+> ¿Qué número continúa la serie? 1, 4, 7, 10, 13, ?
 
-- **A)** 49 — Error de cálculo de una unidad al aplicar el paso.
-- **B)** 51 — Error de cálculo de una unidad al aplicar el paso.
-- **C)** 50 ✔ correcta
-- **D)** 56 — Aplicas el paso + 6 dos veces seguidas.
+- **A)** 17 — Error de cálculo de una unidad (una de más).
+- **B)** 19 — Aplicas el paso + 3 dos veces seguidas.
+- **C)** 10 — Aplicas el paso al revés (− 3).
+- **D)** 16 ✔ correcta
 
-1. **Observa:** Entre cada término y el siguiente hay siempre la misma diferencia: + 6.
-2. **Regla:** Cada número es el anterior + 6.
-3. **Aplica:** 44 + 6 = 50
+1. **Observa:** Entre cada término y el siguiente hay siempre la misma diferencia: + 3.
+2. **Regla:** Cada número es el anterior + 3.
+3. **Aplica:** 13 + 3 = 16
 
 - [ ] Revisada · Comentarios:
 
 ### 4. Nivel 1 · semilla `muestra-1-4`
 
-> ¿Qué número continúa la serie? 39, 48, 57, 66, 75, ?
+> ¿Qué número continúa la serie? 40, 47, 54, 61, 68, ?
 
-- **A)** 85 — Error de cálculo de una unidad al aplicar el paso.
-- **B)** 93 — Aplicas el paso + 9 dos veces seguidas.
-- **C)** 83 — Error de cálculo de una unidad al aplicar el paso.
-- **D)** 84 ✔ correcta
+- **A)** 74 — Error de cálculo de una unidad (una de menos).
+- **B)** 65 — Error de una decena al llevar (una de menos).
+- **C)** 75 ✔ correcta
+- **D)** 61 — Aplicas el paso al revés (− 7).
 
-1. **Observa:** Entre cada término y el siguiente hay siempre la misma diferencia: + 9.
-2. **Regla:** Cada número es el anterior + 9.
-3. **Aplica:** 75 + 9 = 84
+1. **Observa:** Entre cada término y el siguiente hay siempre la misma diferencia: + 7.
+2. **Regla:** Cada número es el anterior + 7.
+3. **Aplica:** 68 + 7 = 75
 
 - [ ] Revisada · Comentarios:
 
 ### 5. Nivel 2 · semilla `muestra-2-1`
 
-> ¿Qué número continúa la serie? 20, 32, 44, 56, 68, ?
+> ¿Qué número continúa la serie? 30, 47, 64, 81, 98, ?
 
-- **A)** 81 — Error de cálculo de una unidad al aplicar el paso.
-- **B)** 92 — Aplicas el paso + 12 dos veces seguidas.
-- **C)** 79 — Error de cálculo de una unidad al aplicar el paso.
-- **D)** 80 ✔ correcta
+- **A)** 105 — Error de una decena al llevar (una de menos).
+- **B)** 81 — Aplicas el paso al revés (− 17).
+- **C)** 114 — Error de cálculo de una unidad (una de menos).
+- **D)** 115 ✔ correcta
 
-1. **Observa:** Entre cada término y el siguiente hay siempre la misma diferencia: + 12.
-2. **Regla:** Cada número es el anterior + 12.
-3. **Aplica:** 68 + 12 = 80
+1. **Observa:** Entre cada término y el siguiente hay siempre la misma diferencia: + 17.
+2. **Regla:** Cada número es el anterior + 17.
+3. **Aplica:** 98 + 17 = 115
 
 - [ ] Revisada · Comentarios:
 
 ### 6. Nivel 2 · semilla `muestra-2-2`
 
-> ¿Qué número continúa la serie? 4, 8, 16, 32, 64, ?
+> ¿Qué número continúa la serie? 19, 39, 59, 79, 99, ?
 
-- **A)** 128 ✔ correcta
-- **B)** 130 — Error de cálculo: sumas 2 al multiplicar.
-- **C)** 192 — Multiplicas por 3 en lugar de por 2.
-- **D)** 96 — Sumas la última diferencia (32) en vez de multiplicar: la diferencia no es constante.
+- **A)** 119 ✔ correcta
+- **B)** 129 — Error de una decena al llevar (una de más).
+- **C)** 120 — Error de cálculo de una unidad (una de más).
+- **D)** 139 — Aplicas el paso + 20 dos veces seguidas.
 
-1. **Observa:** Cada término es 2 veces el anterior: 32 × 2 = 64.
-2. **Regla:** Cada número es el anterior × 2.
-3. **Aplica:** 64 × 2 = 128
+1. **Observa:** Entre cada término y el siguiente hay siempre la misma diferencia: + 20.
+2. **Regla:** Cada número es el anterior + 20.
+3. **Aplica:** 99 + 20 = 119
 
 - [ ] Revisada · Comentarios:
 
 ### 7. Nivel 2 · semilla `muestra-2-3`
 
-> ¿Qué número continúa la serie? 22, 36, 50, 64, 78, ?
+> ¿Qué número continúa la serie? 14, 28, 42, 56, 70, ?
 
-- **A)** 92 ✔ correcta
-- **B)** 91 — Error de cálculo de una unidad al aplicar el paso.
-- **C)** 93 — Error de cálculo de una unidad al aplicar el paso.
-- **D)** 106 — Aplicas el paso + 14 dos veces seguidas.
+- **A)** 85 — Error de cálculo de una unidad (una de más).
+- **B)** 98 — Aplicas el paso + 14 dos veces seguidas.
+- **C)** 84 ✔ correcta
+- **D)** 94 — Error de una decena al llevar (una de más).
 
 1. **Observa:** Entre cada término y el siguiente hay siempre la misma diferencia: + 14.
 2. **Regla:** Cada número es el anterior + 14.
-3. **Aplica:** 78 + 14 = 92
+3. **Aplica:** 70 + 14 = 84
 
 - [ ] Revisada · Comentarios:
 
 ### 8. Nivel 2 · semilla `muestra-2-4`
 
-> ¿Qué número continúa la serie? 168, 143, 118, 93, 68, ?
+> ¿Qué número continúa la serie? 5, 15, 45, 135, 405, ?
 
-- **A)** 44 — Error de cálculo de una unidad al aplicar el paso.
-- **B)** 43 ✔ correcta
-- **C)** 18 — Aplicas el paso − 25 dos veces seguidas.
-- **D)** 42 — Error de cálculo de una unidad al aplicar el paso.
+- **A)** 1620 — Multiplicas por 4 en lugar de por 3.
+- **B)** 3645 — Multiplicas por 3 dos veces.
+- **C)** 675 — Sumas la última diferencia (270) en vez de multiplicar: la diferencia no es constante.
+- **D)** 1215 ✔ correcta
 
-1. **Observa:** Entre cada término y el siguiente hay siempre la misma diferencia: − 25.
-2. **Regla:** Cada número es el anterior − 25.
-3. **Aplica:** 68 − 25 = 43
+1. **Observa:** Cada término es 3 veces el anterior: 135 × 3 = 405.
+2. **Regla:** Cada número es el anterior × 3.
+3. **Aplica:** 405 × 3 = 1215
 
 - [ ] Revisada · Comentarios:
 
 ### 9. Nivel 3 · semilla `muestra-3-1`
 
-> ¿Qué número continúa la serie? 15, 19, 25, 33, 43, 55, ?
+> ¿Qué número continúa la serie? 6, 23, 74, 227, 686, ?
 
-- **A)** 71 — Aumentas la diferencia dos veces (16).
-- **B)** 70 — Error de cálculo de una unidad.
-- **C)** 69 ✔ correcta
-- **D)** 67 — Repites la última diferencia (12) sin aumentarla.
+- **A)** 1145 — Sumas otra vez la última diferencia (459); no ves que se multiplica.
+- **B)** 2062 — Error de cálculo de una unidad (una de menos).
+- **C)** 2058 — Multiplicas por 3 pero olvidas el + 5.
+- **D)** 2063 ✔ correcta
 
-1. **Observa:** Las diferencias son 4, 6, 8, 10, 12: aumentan 2 cada vez.
-2. **Regla:** Se suma una cantidad que crece 2 en cada paso.
-3. **Aplica:** La siguiente diferencia es 12 + 2 = 14; 55 + 14 = 69
+1. **Observa:** Las diferencias crecen deprisa (17, 51, 153, 459): hay una multiplicación.
+2. **Regla:** Cada número es el anterior × 3 + 5.
+3. **Aplica:** 686 × 3 + 5 = 2063
 
 - [ ] Revisada · Comentarios:
 
 ### 10. Nivel 3 · semilla `muestra-3-2`
 
-> ¿Qué número continúa la serie? 1, 4, 10, 19, 31, 46, ?
+> ¿Qué número continúa la serie? 15, 17, 20, 24, 29, 35, ?
 
-- **A)** 64 ✔ correcta
-- **B)** 65 — Error de cálculo de una unidad.
-- **C)** 67 — Aumentas la diferencia dos veces (21).
-- **D)** 61 — Repites la última diferencia (15) sin aumentarla.
+- **A)** 42 ✔ correcta
+- **B)** 44 — Error de cálculo de dos unidades (de más).
+- **C)** 43 — Aumentas la diferencia dos veces (8).
+- **D)** 52 — Error de una decena al llevar (una de más).
 
-1. **Observa:** Las diferencias son 3, 6, 9, 12, 15: aumentan 3 cada vez.
-2. **Regla:** Se suma una cantidad que crece 3 en cada paso.
-3. **Aplica:** La siguiente diferencia es 15 + 3 = 18; 46 + 18 = 64
+1. **Observa:** Las diferencias son 2, 3, 4, 5, 6: aumentan 1 cada vez.
+2. **Regla:** Se suma una cantidad que crece 1 en cada paso.
+3. **Aplica:** La siguiente diferencia es 6 + 1 = 7; 35 + 7 = 42
 
 - [ ] Revisada · Comentarios:
 
 ### 11. Nivel 3 · semilla `muestra-3-3`
 
-> ¿Qué número continúa la serie? 4, 7, 13, 25, 49, ?
+> ¿Qué número continúa la serie? 3, 4, 6, 10, 18, ?
 
-- **A)** 98 — Multiplicas por 2 pero olvidas el − 1.
-- **B)** 73 — Sumas otra vez la última diferencia (24); no ves que se multiplica.
-- **C)** 96 — Cambias el orden: sumas -1 antes de multiplicar.
-- **D)** 97 ✔ correcta
+- **A)** 34 ✔ correcta
+- **B)** 32 — Cambias el orden: haces − 2 antes de multiplicar.
+- **C)** 52 — Multiplicas por 3 en lugar de por 2.
+- **D)** 36 — Multiplicas por 2 pero olvidas el − 2.
 
-1. **Observa:** Las diferencias crecen deprisa (3, 6, 12, 24): hay una multiplicación.
-2. **Regla:** Cada número es el anterior × 2 − 1.
-3. **Aplica:** 49 × 2 − 1 = 97
+1. **Observa:** Las diferencias crecen deprisa (1, 2, 4, 8): hay una multiplicación.
+2. **Regla:** Cada número es el anterior × 2 − 2.
+3. **Aplica:** 18 × 2 − 2 = 34
 
 - [ ] Revisada · Comentarios:
 
 ### 12. Nivel 3 · semilla `muestra-3-4`
 
-> ¿Qué número continúa la serie? 2, 8, 26, 80, 242, ?
+> ¿Qué número continúa la serie? 6, 15, 42, 123, 366, ?
 
-- **A)** 728 ✔ correcta
-- **B)** 404 — Sumas otra vez la última diferencia (162); no ves que se multiplica.
-- **C)** 726 — Multiplicas por 3 pero olvidas el + 2.
-- **D)** 732 — Cambias el orden: sumas 2 antes de multiplicar.
+- **A)** 1095 ✔ correcta
+- **B)** 1094 — Error de cálculo de una unidad (una de menos).
+- **C)** 1089 — Cambias el orden: haces − 3 antes de multiplicar.
+- **D)** 609 — Sumas otra vez la última diferencia (243); no ves que se multiplica.
 
-1. **Observa:** Las diferencias crecen deprisa (6, 18, 54, 162): hay una multiplicación.
-2. **Regla:** Cada número es el anterior × 3 + 2.
-3. **Aplica:** 242 × 3 + 2 = 728
+1. **Observa:** Las diferencias crecen deprisa (9, 27, 81, 243): hay una multiplicación.
+2. **Regla:** Cada número es el anterior × 3 − 3.
+3. **Aplica:** 366 × 3 − 3 = 1095
 
 - [ ] Revisada · Comentarios:
 
 ### 13. Nivel 4 · semilla `muestra-4-1`
 
-> ¿Qué número continúa la serie? 5, 27, 11, 23, 17, 19, 23, ?
+> ¿Qué número continúa la serie? 11, 12, 16, 24, 37, 56, 82, ?
 
-- **A)** 15 ✔ correcta
-- **B)** 27 — Tratas todo como una sola serie y repites la última diferencia.
-- **C)** 16 — Error de cálculo de una unidad.
-- **D)** 29 — Continúas la serie de las posiciones impares (23 + 6) cuando toca la de las pares.
+- **A)** 118 — Error de cálculo de dos unidades (de más).
+- **B)** 116 ✔ correcta
+- **C)** 117 — Aumentas el aumento dos veces (1 de más).
+- **D)** 126 — Error de una decena al llevar (una de más).
 
-1. **Observa:** Los términos en posición impar (5, 11, 17, 23) y en posición par (27, 23, 19) siguen reglas distintas.
-2. **Regla:** Hay dos series intercaladas: la de las posiciones impares suma 6; la de las pares va − 4.
-3. **Aplica:** Toca la serie de las posiciones pares: 19 − 4 = 15
+1. **Observa:** Las diferencias son 1, 4, 8, 13, 19, 26, y las diferencias entre ellas, 3, 4, 5, 6, 7: también crecen, 1 cada vez.
+2. **Regla:** La diferencia aumenta cada vez 1 más que la vez anterior.
+3. **Aplica:** Aumento siguiente: 7 + 1 = 8; diferencia: 26 + 8 = 34; 82 + 34 = 116
 
 - [ ] Revisada · Comentarios:
 
 ### 14. Nivel 4 · semilla `muestra-4-2`
 
-> ¿Qué número continúa la serie? 2, 4, 10, 28, 82, 244, ?
+> ¿Qué número continúa la serie? 20, 43, 23, 38, 26, 33, 29, ?
 
-- **A)** 730 ✔ correcta
-- **B)** 732 — Multiplicas el último término por 3 en vez de multiplicar la diferencia.
-- **C)** 406 — Repites la última diferencia (162) sin multiplicarla.
-- **D)** 514 — Crees que la diferencia aumenta siempre lo mismo (108), pero se multiplica.
+- **A)** 32 — Continúas la serie de las posiciones impares (29 + 3) cuando toca la de las pares.
+- **B)** 38 — Aplicas el paso de la serie par al revés (+ 5).
+- **C)** 25 — Tratas todo como una sola serie y repites la última diferencia.
+- **D)** 28 ✔ correcta
 
-1. **Observa:** Las diferencias son 2, 6, 18, 54, 162: cada una es 3 veces la anterior.
-2. **Regla:** Se suma una cantidad que se multiplica por 3 en cada paso.
-3. **Aplica:** La siguiente diferencia es 162 × 3 = 486; 244 + 486 = 730
+1. **Observa:** Los términos en posición impar (20, 23, 26, 29) y en posición par (43, 38, 33) siguen reglas distintas.
+2. **Regla:** Hay dos series intercaladas: la de las posiciones impares suma 3; la de las pares va − 5.
+3. **Aplica:** Toca la serie de las posiciones pares: 33 − 5 = 28
 
 - [ ] Revisada · Comentarios:
 
 ### 15. Nivel 4 · semilla `muestra-4-3`
 
-> ¿Qué número continúa la serie? 11, 54, 15, 59, 19, 64, 23, ?
+> ¿Qué número continúa la serie? 8, 52, 14, 55, 20, 58, 26, ?
 
-- **A)** 70 — Error de cálculo de una unidad.
-- **B)** -18 — Tratas todo como una sola serie y repites la última diferencia.
-- **C)** 27 — Continúas la serie de las posiciones impares (23 + 4) cuando toca la de las pares.
-- **D)** 69 ✔ correcta
+- **A)** 61 ✔ correcta
+- **B)** 55 — Aplicas el paso de la serie par al revés (− 3).
+- **C)** 64 — Aplicas el paso de la serie par (+ 3) dos veces.
+- **D)** 32 — Continúas la serie de las posiciones impares (26 + 6) cuando toca la de las pares.
 
-1. **Observa:** Los términos en posición impar (11, 15, 19, 23) y en posición par (54, 59, 64) siguen reglas distintas.
-2. **Regla:** Hay dos series intercaladas: la de las posiciones impares suma 4; la de las pares va + 5.
-3. **Aplica:** Toca la serie de las posiciones pares: 64 + 5 = 69
+1. **Observa:** Los términos en posición impar (8, 14, 20, 26) y en posición par (52, 55, 58) siguen reglas distintas.
+2. **Regla:** Hay dos series intercaladas: la de las posiciones impares suma 6; la de las pares va + 3.
+3. **Aplica:** Toca la serie de las posiciones pares: 58 + 3 = 61
 
 - [ ] Revisada · Comentarios:
 
 ### 16. Nivel 4 · semilla `muestra-4-4`
 
-> ¿Qué número continúa la serie? 9, 31, 11, 34, 13, 37, 15, ?
+> ¿Qué número continúa la serie? 14, 32, 22, 36, 30, 40, 38, ?
 
-- **A)** 41 — Error de cálculo de una unidad.
-- **B)** -7 — Tratas todo como una sola serie y repites la última diferencia.
-- **C)** 40 ✔ correcta
-- **D)** 17 — Continúas la serie de las posiciones impares (15 + 2) cuando toca la de las pares.
+- **A)** 44 ✔ correcta
+- **B)** 36 — Tratas todo como una sola serie y repites la última diferencia.
+- **C)** 46 — Continúas la serie de las posiciones impares (38 + 8) cuando toca la de las pares.
+- **D)** 43 — Error de cálculo de una unidad (una de menos).
 
-1. **Observa:** Los términos en posición impar (9, 11, 13, 15) y en posición par (31, 34, 37) siguen reglas distintas.
-2. **Regla:** Hay dos series intercaladas: la de las posiciones impares suma 2; la de las pares va + 3.
-3. **Aplica:** Toca la serie de las posiciones pares: 37 + 3 = 40
+1. **Observa:** Los términos en posición impar (14, 22, 30, 38) y en posición par (32, 36, 40) siguen reglas distintas.
+2. **Regla:** Hay dos series intercaladas: la de las posiciones impares suma 8; la de las pares va + 4.
+3. **Aplica:** Toca la serie de las posiciones pares: 40 + 4 = 44
 
 - [ ] Revisada · Comentarios:
 
 ### 17. Nivel 5 · semilla `muestra-5-1`
 
-> ¿Qué número continúa la serie? 14, 6, 20, 12, 26, 24, 32, ?
+> ¿Qué número continúa la serie? 6, 9, 11, 18, 16, 36, 21, 72, 26, ?
 
-- **A)** 49 — Error de cálculo de una unidad.
-- **B)** 48 ✔ correcta
-- **C)** 40 — Tratas todo como una sola serie y repites la última diferencia.
-- **D)** 38 — Continúas la serie de las posiciones impares (32 + 6) cuando toca la de las pares.
+- **A)** 31 — Continúas la serie de las posiciones impares (26 + 5) cuando toca la de las pares.
+- **B)** 145 — Error de cálculo de una unidad (una de más).
+- **C)** 288 — Multiplicas por 2 dos veces.
+- **D)** 144 ✔ correcta
 
-1. **Observa:** Los términos en posición impar (14, 20, 26, 32) y en posición par (6, 12, 24) siguen reglas distintas.
-2. **Regla:** Hay dos series intercaladas: la de las posiciones impares suma 6; la de las pares va × 2.
-3. **Aplica:** Toca la serie de las posiciones pares: 24 × 2 = 48
+1. **Observa:** Los términos en posición impar (6, 11, 16, 21, 26) y en posición par (9, 18, 36, 72) siguen reglas distintas.
+2. **Regla:** Hay dos series intercaladas: la de las posiciones impares suma 5; la de las pares va × 2.
+3. **Aplica:** Toca la serie de las posiciones pares: 72 × 2 = 144
 
 - [ ] Revisada · Comentarios:
 
 ### 18. Nivel 5 · semilla `muestra-5-2`
 
-> ¿Qué número continúa la serie? 6, 9, 15, 24, 39, 63, ?
+> ¿Qué número continúa la serie? 15, 2, 22, 6, 29, 18, 36, 54, 43, ?
 
-- **A)** 126 — Duplicas el último término.
-- **B)** 102 ✔ correcta
-- **C)** 103 — Error de cálculo de una unidad.
-- **D)** 87 — Sumas la última diferencia (24) en vez de sumar los dos anteriores.
+- **A)** 32 — Tratas todo como una sola serie y repites la última diferencia.
+- **B)** 486 — Multiplicas por 3 dos veces.
+- **C)** 162 ✔ correcta
+- **D)** 50 — Continúas la serie de las posiciones impares (43 + 7) cuando toca la de las pares.
 
-1. **Observa:** Desde el tercero, cada término coincide con la suma de los dos anteriores: 6 + 9 = 15.
-2. **Regla:** Cada número es la suma de los dos anteriores.
-3. **Aplica:** 39 + 63 = 102
+1. **Observa:** Los términos en posición impar (15, 22, 29, 36, 43) y en posición par (2, 6, 18, 54) siguen reglas distintas.
+2. **Regla:** Hay dos series intercaladas: la de las posiciones impares suma 7; la de las pares va × 3.
+3. **Aplica:** Toca la serie de las posiciones pares: 54 × 3 = 162
 
 - [ ] Revisada · Comentarios:
 
 ### 19. Nivel 5 · semilla `muestra-5-3`
 
-> ¿Qué número continúa la serie? 4, 4, 8, 12, 20, 32, ?
+> ¿Qué número continúa la serie? 12, 2, 19, 6, 26, 18, 33, 54, 40, ?
 
-- **A)** 52 ✔ correcta
-- **B)** 64 — Duplicas el último término.
-- **C)** 44 — Sumas la última diferencia (12) en vez de sumar los dos anteriores.
-- **D)** 53 — Error de cálculo de una unidad.
+- **A)** 162 ✔ correcta
+- **B)** 47 — Continúas la serie de las posiciones impares (40 + 7) cuando toca la de las pares.
+- **C)** 26 — Tratas todo como una sola serie y repites la última diferencia.
+- **D)** 90 — Sumas la última diferencia de la serie par (36) en vez de multiplicar.
 
-1. **Observa:** Desde el tercero, cada término coincide con la suma de los dos anteriores: 4 + 4 = 8.
-2. **Regla:** Cada número es la suma de los dos anteriores.
-3. **Aplica:** 20 + 32 = 52
+1. **Observa:** Los términos en posición impar (12, 19, 26, 33, 40) y en posición par (2, 6, 18, 54) siguen reglas distintas.
+2. **Regla:** Hay dos series intercaladas: la de las posiciones impares suma 7; la de las pares va × 3.
+3. **Aplica:** Toca la serie de las posiciones pares: 54 × 3 = 162
 
 - [ ] Revisada · Comentarios:
 
 ### 20. Nivel 5 · semilla `muestra-5-4`
 
-> ¿Qué número continúa la serie? 7, 2, 9, 11, 20, 31, ?
+> ¿Qué número continúa la serie? 13, 4, 17, 8, 21, 16, 25, 32, 29, ?
 
-- **A)** 42 — Sumas la última diferencia (11) en vez de sumar los dos anteriores.
-- **B)** 62 — Duplicas el último término.
-- **C)** 51 ✔ correcta
-- **D)** 52 — Error de cálculo de una unidad.
+- **A)** 26 — Tratas todo como una sola serie y repites la última diferencia.
+- **B)** 128 — Multiplicas por 2 dos veces.
+- **C)** 64 ✔ correcta
+- **D)** 33 — Continúas la serie de las posiciones impares (29 + 4) cuando toca la de las pares.
 
-1. **Observa:** Desde el tercero, cada término coincide con la suma de los dos anteriores: 7 + 2 = 9.
-2. **Regla:** Cada número es la suma de los dos anteriores.
-3. **Aplica:** 20 + 31 = 51
+1. **Observa:** Los términos en posición impar (13, 17, 21, 25, 29) y en posición par (4, 8, 16, 32) siguen reglas distintas.
+2. **Regla:** Hay dos series intercaladas: la de las posiciones impares suma 4; la de las pares va × 2.
+3. **Aplica:** Toca la serie de las posiciones pares: 32 × 2 = 64
 
 - [ ] Revisada · Comentarios:

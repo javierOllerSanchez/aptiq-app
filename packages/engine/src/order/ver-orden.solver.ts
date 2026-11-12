@@ -12,11 +12,23 @@ export interface VerOrdenStem extends Stem {
  */
 const collator = new Intl.Collator('es', { sensitivity: 'base' });
 
+/**
+ * Orden tradicional (anterior a 1994): CH y LL como letras propias, después de C y de L.
+ * Muchos opositores lo aprendieron así; si con él cambia la respuesta, la pregunta es discutible.
+ */
+function traditionalKey(w: string) {
+  return w.replace(/CH/g, 'C￿').replace(/LL/g, 'L￿');
+}
+const traditional = (a: string, b: string) => collator.compare(traditionalKey(a), traditionalKey(b));
+
 export const verOrdenSolver: Solver<VerOrdenStem> = {
   type: 'VER.ORDEN',
   validOptions: (item: Item<VerOrdenStem>) => {
-    const sorted = [...item.stem.words].sort(collator.compare);
-    const expected = sorted[item.stem.position - 1];
-    return item.options.flatMap((o, i) => (o === expected ? [i] : []));
+    const n = item.stem.position - 1;
+    const expected = new Set([
+      [...item.stem.words].sort(collator.compare)[n],
+      [...item.stem.words].sort(traditional)[n],
+    ]);
+    return item.options.flatMap((o, i) => (expected.has(o) ? [i] : []));
   },
 };

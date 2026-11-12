@@ -1,4 +1,4 @@
-# Muestras · Códigos y criptogramas (`COD.CRIPTO`, versión 1)
+# Muestras · Códigos y criptogramas (`COD.CRIPTO`, versión 2)
 
 Deducir una clave a partir de un ejemplo y aplicarla.
 
@@ -12,300 +12,300 @@ Generadas automáticamente para revisión humana. Para cada pregunta, comprueba:
 
 ### 1. Nivel 1 · semilla `muestra-1-1`
 
-> En un código, RELOJ se escribe 78214. Con la misma clave, ¿cómo se escribe RRLO?
+> En un código, CIUDAD se escribe 564838. Con la misma clave, ¿cómo se escribe ICIU?
 
-- **A)** 1277 — Escribes el código de derecha a izquierda.
-- **B)** 1127 — Confundes la cifra de la R con la de la O.
-- **C)** 7721 ✔ correcta
-- **D)** 7712 — Intercambias el orden de dos cifras seguidas.
+- **A)** 6564 ✔ correcta
+- **B)** 5654 — Confundes la cifra de la C con la de la I.
+- **C)** 5664 — Intercambias el orden de dos cifras seguidas.
+- **D)** 4656 — Escribes el código de derecha a izquierda.
 
-1. **Observa:** Cada letra se escribe siempre con la misma cifra: R = 7, L = 2, O = 1.
-2. **Regla:** Sustituye cada letra de RRLO por su cifra, en el mismo orden.
-3. **Aplica:** R R L O → 7 7 2 1 = 7721
+1. **Observa:** Cada letra se escribe siempre con la misma cifra: C = 5, I = 6, U = 4.
+2. **Regla:** Sustituye cada letra de ICIU por su cifra, en el mismo orden.
+3. **Aplica:** I C I U → 6 5 6 4 = 6564
 
 - [ ] Revisada · Comentarios:
 
 ### 2. Nivel 1 · semilla `muestra-1-2`
 
-> En un código, IMAN se escribe 3269. Con la misma clave, ¿cómo se escribe NIAM?
+> En un código, ARROYO se escribe 066575. Con la misma clave, ¿cómo se escribe YRAY?
 
-- **A)** 2639 — Escribes el código de derecha a izquierda.
-- **B)** 9362 ✔ correcta
-- **C)** 9326 — Intercambias el orden de dos cifras seguidas.
-- **D)** 3962 — Confundes la cifra de la N con la de la I.
+- **A)** 7607 ✔ correcta
+- **B)** 7608 — Te equivocas en la cifra de la última letra.
+- **C)** 7067 — Confundes la cifra de la A con la de la R.
+- **D)** 6707 — Intercambias el orden de dos cifras seguidas.
 
-1. **Observa:** Cada letra se escribe siempre con la misma cifra: I = 3, M = 2, A = 6, N = 9.
-2. **Regla:** Sustituye cada letra de NIAM por su cifra, en el mismo orden.
-3. **Aplica:** N I A M → 9 3 6 2 = 9362
+1. **Observa:** Cada letra se escribe siempre con la misma cifra: A = 0, R = 6, Y = 7.
+2. **Regla:** Sustituye cada letra de YRAY por su cifra, en el mismo orden.
+3. **Aplica:** Y R A Y → 7 6 0 7 = 7607
 
 - [ ] Revisada · Comentarios:
 
 ### 3. Nivel 1 · semilla `muestra-1-3`
 
-> En un código, COLINA se escribe 834590. Con la misma clave, ¿cómo se escribe ANCA?
+> En un código, MARCA se escribe 87347. Con la misma clave, ¿cómo se escribe RCRA?
 
-- **A)** 8908 — Confundes la cifra de la A con la de la C.
-- **B)** 0980 ✔ correcta
-- **C)** 0981 — Te equivocas en la cifra de la última letra.
-- **D)** 0890 — Intercambias el orden de dos cifras seguidas.
+- **A)** 7343 — Escribes el código de derecha a izquierda.
+- **B)** 3734 — Confundes la cifra de la C con la de la A.
+- **C)** 3347 — Intercambias el orden de dos cifras seguidas.
+- **D)** 3437 ✔ correcta
 
-1. **Observa:** Cada letra se escribe siempre con la misma cifra: C = 8, N = 9, A = 0.
-2. **Regla:** Sustituye cada letra de ANCA por su cifra, en el mismo orden.
-3. **Aplica:** A N C A → 0 9 8 0 = 0980
+1. **Observa:** Cada letra se escribe siempre con la misma cifra: A = 7, R = 3, C = 4.
+2. **Regla:** Sustituye cada letra de RCRA por su cifra, en el mismo orden.
+3. **Aplica:** R C R A → 3 4 3 7 = 3437
 
 - [ ] Revisada · Comentarios:
 
 ### 4. Nivel 1 · semilla `muestra-1-4`
 
-> En un código, PANERA se escribe 350285. Con la misma clave, ¿cómo se escribe RAAN?
+> En un código, RUEDA se escribe 46025. Con la misma clave, ¿cómo se escribe DDRU?
 
-- **A)** 0558 — Escribes el código de derecha a izquierda.
-- **B)** 5880 — Confundes la cifra de la A con la de la R.
-- **C)** 8550 ✔ correcta
-- **D)** 8505 — Intercambias el orden de dos cifras seguidas.
+- **A)** 6422 — Escribes el código de derecha a izquierda.
+- **B)** 2247 — Te equivocas en la cifra de la última letra.
+- **C)** 2246 ✔ correcta
+- **D)** 2264 — Intercambias el orden de dos cifras seguidas.
 
-1. **Observa:** Cada letra se escribe siempre con la misma cifra: A = 5, N = 0, R = 8.
-2. **Regla:** Sustituye cada letra de RAAN por su cifra, en el mismo orden.
-3. **Aplica:** R A A N → 8 5 5 0 = 8550
+1. **Observa:** Cada letra se escribe siempre con la misma cifra: R = 4, U = 6, D = 2.
+2. **Regla:** Sustituye cada letra de DDRU por su cifra, en el mismo orden.
+3. **Aplica:** D D R U → 2 2 4 6 = 2246
 
 - [ ] Revisada · Comentarios:
 
 ### 5. Nivel 2 · semilla `muestra-2-1`
 
-> En un código, ACEITE se escribe 132692. Con la misma clave, ¿cómo se escribe ECTAT?
+> En un código, PALOMA se escribe 650795. Con la misma clave, ¿cómo se escribe LLMOP?
 
-- **A)** 91932 — Escribes el código de derecha a izquierda.
-- **B)** 23991 — Intercambias el orden de dos cifras seguidas.
-- **C)** 32919 — Confundes la cifra de la E con la de la C.
-- **D)** 23919 ✔ correcta
+- **A)** 00796 — Intercambias el orden de dos cifras seguidas.
+- **B)** 99076 — Confundes la cifra de la M con la de la L.
+- **C)** 00976 ✔ correcta
+- **D)** 67900 — Escribes el código de derecha a izquierda.
 
-1. **Observa:** Cada letra se escribe siempre con la misma cifra: A = 1, C = 3, E = 2, T = 9.
-2. **Regla:** Sustituye cada letra de ECTAT por su cifra, en el mismo orden.
-3. **Aplica:** E C T A T → 2 3 9 1 9 = 23919
+1. **Observa:** Cada letra se escribe siempre con la misma cifra: P = 6, L = 0, O = 7, M = 9.
+2. **Regla:** Sustituye cada letra de LLMOP por su cifra, en el mismo orden.
+3. **Aplica:** L L M O P → 0 0 9 7 6 = 00976
 
 - [ ] Revisada · Comentarios:
 
 ### 6. Nivel 2 · semilla `muestra-2-2`
 
-> En un código, MARINO se escribe 490362. Con la misma clave, ¿cómo se escribe RIROA?
+> En un código, HIERRO se escribe IJFSSP. Con la misma clave, ¿cómo se escribe BOTON?
 
-- **A)** 02039 — Confundes la cifra de la O con la de la I.
-- **B)** 03209 — Intercambias el orden de dos cifras seguidas.
-- **C)** 03029 ✔ correcta
-- **D)** 92030 — Escribes el código de derecha a izquierda.
+- **A)** CPUPÑ ✔ correcta
+- **B)** DQVQO — Desplazas una posición de más.
+- **C)** CPUPO — Olvidas la Ñ al contar las posiciones.
+- **D)** AÑSÑM — Desplazas hacia el lado contrario del alfabeto.
 
-1. **Observa:** Cada letra se escribe siempre con la misma cifra: A = 9, R = 0, I = 3, O = 2.
-2. **Regla:** Sustituye cada letra de RIROA por su cifra, en el mismo orden.
-3. **Aplica:** R I R O A → 0 3 0 2 9 = 03029
+1. **Observa:** Compara letra a letra: H→I, I→J, E→F… Todas se desplazan lo mismo.
+2. **Regla:** Cada letra se sustituye por la que está 1 posición después en el alfabeto (con Ñ).
+3. **Aplica:** B +1 = C, O +1 = P, T +1 = U, O +1 = P, N +1 = Ñ → CPUPÑ
 
 - [ ] Revisada · Comentarios:
 
 ### 7. Nivel 2 · semilla `muestra-2-3`
 
-> En un código, CUERDA se escribe 320851. Con la misma clave, ¿cómo se escribe RDCDE?
+> En un código, MANTA se escribe 47517. Con la misma clave, ¿cómo se escribe NMMTN?
 
-- **A)** 85350 ✔ correcta
-- **B)** 05358 — Escribes el código de derecha a izquierda.
-- **C)** 80305 — Confundes la cifra de la E con la de la D.
-- **D)** 85530 — Intercambias el orden de dos cifras seguidas.
+- **A)** 54415 ✔ correcta
+- **B)** 54451 — Intercambias el orden de dos cifras seguidas.
+- **C)** 14451 — Confundes la cifra de la T con la de la N.
+- **D)** 51445 — Escribes el código de derecha a izquierda.
 
-1. **Observa:** Cada letra se escribe siempre con la misma cifra: C = 3, E = 0, R = 8, D = 5.
-2. **Regla:** Sustituye cada letra de RDCDE por su cifra, en el mismo orden.
-3. **Aplica:** R D C D E → 8 5 3 5 0 = 85350
+1. **Observa:** Cada letra se escribe siempre con la misma cifra: M = 4, N = 5, T = 1.
+2. **Regla:** Sustituye cada letra de NMMTN por su cifra, en el mismo orden.
+3. **Aplica:** N M M T N → 5 4 4 1 5 = 54415
 
 - [ ] Revisada · Comentarios:
 
 ### 8. Nivel 2 · semilla `muestra-2-4`
 
-> En un código, OBRERO se escribe 079590. Con la misma clave, ¿cómo se escribe ROORE?
+> En un código, CAMISA se escribe 407320. Con la misma clave, ¿cómo se escribe AAMCC?
 
-- **A)** 59009 — Escribes el código de derecha a izquierda.
-- **B)** 90095 ✔ correcta
-- **C)** 90059 — Intercambias el orden de dos cifras seguidas.
-- **D)** 09905 — Confundes la cifra de la R con la de la O.
+- **A)** 00744 ✔ correcta
+- **B)** 00477 — Confundes la cifra de la M con la de la C.
+- **C)** 07044 — Intercambias el orden de dos cifras seguidas.
+- **D)** 44700 — Escribes el código de derecha a izquierda.
 
-1. **Observa:** Cada letra se escribe siempre con la misma cifra: O = 0, R = 9, E = 5.
-2. **Regla:** Sustituye cada letra de ROORE por su cifra, en el mismo orden.
-3. **Aplica:** R O O R E → 9 0 0 9 5 = 90095
+1. **Observa:** Cada letra se escribe siempre con la misma cifra: C = 4, A = 0, M = 7.
+2. **Regla:** Sustituye cada letra de AAMCC por su cifra, en el mismo orden.
+3. **Aplica:** A A M C C → 0 0 7 4 4 = 00744
 
 - [ ] Revisada · Comentarios:
 
 ### 9. Nivel 3 · semilla `muestra-3-1`
 
-> En un código, GUANTE se escribe 042916 y MARINO se escribe 328795. Con la misma clave, ¿cómo se escribe TURUO?
+> En un código, ZORRO se escribe XNPPN. Con la misma clave, ¿cómo se escribe MUELLE?
 
-- **A)** 14854 — Intercambias el orden de dos cifras seguidas.
-- **B)** 54841 — Escribes el código de derecha a izquierda.
-- **C)** 41815 — Confundes la cifra de la U con la de la T.
-- **D)** 14845 ✔ correcta
+- **A)** KSCJJC ✔ correcta
+- **B)** JRBIIB — Desplazas una posición de más.
+- **C)** KSCJJE — Olvidas codificar la última letra.
+- **D)** ÑWGNNG — Desplazas hacia el lado contrario del alfabeto.
 
-1. **Observa:** Cada letra se escribe siempre con la misma cifra: U = 4, T = 1, R = 8, O = 5.
-2. **Regla:** Sustituye cada letra de TURUO por su cifra, en el mismo orden.
-3. **Aplica:** T U R U O → 1 4 8 4 5 = 14845
+1. **Observa:** Compara letra a letra: Z→X, O→N, R→P… Todas se desplazan lo mismo.
+2. **Regla:** Cada letra se sustituye por la que está 2 posiciones antes en el alfabeto (con Ñ).
+3. **Aplica:** M −2 = K, U −2 = S, E −2 = C, L −2 = J, L −2 = J, E −2 = C → KSCJJC
 
 - [ ] Revisada · Comentarios:
 
 ### 10. Nivel 3 · semilla `muestra-3-2`
 
-> En un código, PUERTA se escribe RWGTVC. Con la misma clave, ¿cómo se escribe MESA?
+> En un código, BOTON se escribe AÑSÑM. Con la misma clave, ¿cómo se escribe DIENTE?
 
-- **A)** ÑGUA — Olvidas codificar la última letra.
-- **B)** ÑGUC ✔ correcta
-- **C)** OGUC — Olvidas la Ñ al contar las posiciones.
-- **D)** OHVD — Desplazas una posición de más.
+- **A)** CHDMSD ✔ correcta
+- **B)** CHDMSE — Olvidas codificar la última letra.
+- **C)** EJFÑUF — Desplazas hacia el lado contrario del alfabeto.
+- **D)** BGCLRC — Desplazas una posición de más.
 
-1. **Observa:** Compara letra a letra: P→R, U→W, E→G… Todas se desplazan lo mismo.
-2. **Regla:** Cada letra se sustituye por la que está +2 posiciones en el alfabeto (con Ñ).
-3. **Aplica:** MESA → ÑGUC
+1. **Observa:** Compara letra a letra: B→A, O→Ñ, T→S… Todas se desplazan lo mismo.
+2. **Regla:** Cada letra se sustituye por la que está 1 posición antes en el alfabeto (con Ñ).
+3. **Aplica:** D −1 = C, I −1 = H, E −1 = D, N −1 = M, T −1 = S, E −1 = D → CHDMSD
 
 - [ ] Revisada · Comentarios:
 
 ### 11. Nivel 3 · semilla `muestra-3-3`
 
-> En un código, VOLCAN se escribe 937284 y LAGO se escribe 7813. Con la misma clave, ¿cómo se escribe GGNCN?
+> En un código, ROBLE se escribe QÑAKD. Con la misma clave, ¿cómo se escribe RELOJ?
 
-- **A)** 42411 — Escribes el código de derecha a izquierda.
-- **B)** 11425 — Te equivocas en la cifra de la última letra.
-- **C)** 11242 — Confundes la cifra de la C con la de la N.
-- **D)** 11424 ✔ correcta
+- **A)** PCJNH — Desplazas una posición de más.
+- **B)** SFMPK — Desplazas hacia el lado contrario del alfabeto.
+- **C)** QDKNI — Olvidas la Ñ al contar las posiciones.
+- **D)** QDKÑI ✔ correcta
 
-1. **Observa:** Cada letra se escribe siempre con la misma cifra: C = 2, N = 4, G = 1.
-2. **Regla:** Sustituye cada letra de GGNCN por su cifra, en el mismo orden.
-3. **Aplica:** G G N C N → 1 1 4 2 4 = 11424
+1. **Observa:** Compara letra a letra: R→Q, O→Ñ, B→A… Todas se desplazan lo mismo.
+2. **Regla:** Cada letra se sustituye por la que está 1 posición antes en el alfabeto (con Ñ).
+3. **Aplica:** R −1 = Q, E −1 = D, L −1 = K, O −1 = Ñ, J −1 = I → QDKÑI
 
 - [ ] Revisada · Comentarios:
 
 ### 12. Nivel 3 · semilla `muestra-3-4`
 
-> En un código, PUERTO se escribe OTDQSÑ. Con la misma clave, ¿cómo se escribe VIENTO?
+> En un código, ARBOL se escribe 04791 y IMAN se escribe 6308. Con la misma clave, ¿cómo se escribe BORMA?
 
-- **A)** TGCLRN — Desplazas una posición de más.
-- **B)** UHDMSÑ ✔ correcta
-- **C)** WJFÑUP — Desplazas hacia el lado contrario del alfabeto.
-- **D)** UHDMSN — Olvidas la Ñ al contar las posiciones.
+- **A)** 79403 — Intercambias el orden de dos cifras seguidas.
+- **B)** 73490 — Confundes la cifra de la O con la de la M.
+- **C)** 79430 ✔ correcta
+- **D)** 03497 — Escribes el código de derecha a izquierda.
 
-1. **Observa:** Compara letra a letra: P→O, U→T, E→D… Todas se desplazan lo mismo.
-2. **Regla:** Cada letra se sustituye por la que está −1 posiciones en el alfabeto (con Ñ).
-3. **Aplica:** VIENTO → UHDMSÑ
+1. **Observa:** Cada letra se escribe siempre con la misma cifra: A = 0, R = 4, B = 7, O = 9, M = 3.
+2. **Regla:** Sustituye cada letra de BORMA por su cifra, en el mismo orden.
+3. **Aplica:** B O R M A → 7 9 4 3 0 = 79430
 
 - [ ] Revisada · Comentarios:
 
 ### 13. Nivel 4 · semilla `muestra-4-1`
 
-> En un código, TRIGO se escribe QOFDM. Con la misma clave, ¿cómo se escribe SONIDO?
+> En un código, OREJA se escribe RUHMD. Con la misma clave, ¿cómo se escribe AGENDA?
 
-- **A)** PMKFAM ✔ correcta
-- **B)** VRPLGR — Desplazas hacia el lado contrario del alfabeto.
-- **C)** PMKFAO — Olvidas codificar la última letra.
-- **D)** PLKFAL — Olvidas la Ñ al contar las posiciones.
+- **A)** EKIQHE — Desplazas una posición de más.
+- **B)** DJHPGD ✔ correcta
+- **C)** DJHQGD — Olvidas la Ñ al contar las posiciones.
+- **D)** DJHPGA — Olvidas codificar la última letra.
 
-1. **Observa:** Compara letra a letra: T→Q, R→O, I→F… Todas se desplazan lo mismo.
-2. **Regla:** Cada letra se sustituye por la que está −3 posiciones en el alfabeto (con Ñ).
-3. **Aplica:** SONIDO → PMKFAM
+1. **Observa:** Compara letra a letra: O→R, R→U, E→H… Todas se desplazan lo mismo.
+2. **Regla:** Cada letra se sustituye por la que está 3 posiciones después en el alfabeto (con Ñ).
+3. **Aplica:** A +3 = D, G +3 = J, E +3 = H, N +3 = P, D +3 = G, A +3 = D → DJHPGD
 
 - [ ] Revisada · Comentarios:
 
 ### 14. Nivel 4 · semilla `muestra-4-2`
 
-> En un código, HORMIGA se escribe LSVPMKE. Con la misma clave, ¿cómo se escribe CANCION?
+> En un código, ZORRO se escribe WMOOM. Con la misma clave, ¿cómo se escribe HUERTO?
 
-- **A)** GEQGMSQ ✔ correcta
-- **B)** HFRHNTR — Desplazas una posición de más.
-- **C)** GERGMSR — Olvidas la Ñ al contar las posiciones.
-- **D)** GEQGMSN — Olvidas codificar la última letra.
+- **A)** ERBOQM ✔ correcta
+- **B)** KXHUWR — Desplazas hacia el lado contrario del alfabeto.
+- **C)** DQAÑPL — Desplazas una posición de más.
+- **D)** ERBOQL — Olvidas la Ñ al contar las posiciones.
 
-1. **Observa:** Compara letra a letra: H→L, O→S, R→V… Todas se desplazan lo mismo.
-2. **Regla:** Cada letra se sustituye por la que está +4 posiciones en el alfabeto (con Ñ).
-3. **Aplica:** CANCION → GEQGMSQ
+1. **Observa:** Compara letra a letra: Z→W, O→M, R→O… Todas se desplazan lo mismo.
+2. **Regla:** Cada letra se sustituye por la que está 3 posiciones antes en el alfabeto (con Ñ).
+3. **Aplica:** H −3 = E, U −3 = R, E −3 = B, R −3 = O, T −3 = Q, O −3 = M → ERBOQM
 
 - [ ] Revisada · Comentarios:
 
 ### 15. Nivel 4 · semilla `muestra-4-3`
 
-> En un código, SUELO se escribe PRBIM. Con la misma clave, ¿cómo se escribe PUERTO?
+> En un código, LIBRO se escribe OMFVS. Con la misma clave, ¿cómo se escribe MAREA?
 
-- **A)** NRBOQM ✔ correcta
-- **B)** SXHUWR — Desplazas hacia el lado contrario del alfabeto.
-- **C)** MQAÑPL — Desplazas una posición de más.
-- **D)** MRBOQL — Olvidas la Ñ al contar las posiciones.
+- **A)** QFWJF — Desplazas una posición de más.
+- **B)** PEVIE ✔ correcta
+- **C)** QEVIE — Olvidas la Ñ al contar las posiciones.
+- **D)** PEVIA — Olvidas codificar la última letra.
 
-1. **Observa:** Compara letra a letra: S→P, U→R, E→B… Todas se desplazan lo mismo.
-2. **Regla:** Cada letra se sustituye por la que está −3 posiciones en el alfabeto (con Ñ).
-3. **Aplica:** PUERTO → NRBOQM
+1. **Observa:** Compara letra a letra: L→O, I→M, B→F… Todas se desplazan lo mismo.
+2. **Regla:** Cada letra se sustituye por la que está 4 posiciones después en el alfabeto (con Ñ).
+3. **Aplica:** M +4 = P, A +4 = E, R +4 = V, E +4 = I, A +4 = E → PEVIE
 
 - [ ] Revisada · Comentarios:
 
 ### 16. Nivel 4 · semilla `muestra-4-4`
 
-> En un código, SOLDADO se escribe WSOHEHS. Con la misma clave, ¿cómo se escribe CABALLO?
+> En un código, CALLE se escribe FDÑÑH. Con la misma clave, ¿cómo se escribe DIENTE?
 
-- **A)** GEFEOOO — Olvidas codificar la última letra.
-- **B)** GEFEOOS ✔ correcta
-- **C)** GEFEPPS — Olvidas la Ñ al contar las posiciones.
-- **D)** HFGFPPT — Desplazas una posición de más.
+- **A)** AFBKQB — Desplazas hacia el lado contrario del alfabeto.
+- **B)** GLHPWH ✔ correcta
+- **C)** HMIQXI — Desplazas una posición de más.
+- **D)** GLHQWH — Olvidas la Ñ al contar las posiciones.
 
-1. **Observa:** Compara letra a letra: S→W, O→S, L→O… Todas se desplazan lo mismo.
-2. **Regla:** Cada letra se sustituye por la que está +4 posiciones en el alfabeto (con Ñ).
-3. **Aplica:** CABALLO → GEFEOOS
+1. **Observa:** Compara letra a letra: C→F, A→D, L→Ñ… Todas se desplazan lo mismo.
+2. **Regla:** Cada letra se sustituye por la que está 3 posiciones después en el alfabeto (con Ñ).
+3. **Aplica:** D +3 = G, I +3 = L, E +3 = H, N +3 = P, T +3 = W, E +3 = H → GLHPWH
 
 - [ ] Revisada · Comentarios:
 
 ### 17. Nivel 5 · semilla `muestra-5-1`
 
-> En un código, SOMBRA se escribe UPÑCTB. Con la misma clave, ¿cómo se escribe CASTAÑA?
+> En un código, SOMBRA se escribe UPÑCTB. Con la misma clave, ¿cómo se escribe MARTILLO?
 
-- **A)** FCVVDPD — Desplazas una posición de más.
-- **B)** EBUUCOC ✔ correcta
-- **C)** ECUVCPC — Aplicas +2 a todas las letras, sin alternar.
-- **D)** DCTVBPB — Empiezas la alternancia por el salto equivocado.
+- **A)** OBTUKMNP — Olvidas la Ñ al contar las posiciones.
+- **B)** ÑCTVKNNQ — Aplicas +2 a todas las letras, sin alternar.
+- **C)** NCSVJNMQ — Empiezas la alternancia por el salto equivocado.
+- **D)** ÑBTUKMNP ✔ correcta
 
 1. **Observa:** Compara letra a letra: S→U, O→P, M→Ñ… El salto cambia según la posición.
-2. **Regla:** Cada letra se sustituye por la que está +2 y +1 posiciones, alternando en el alfabeto (con Ñ).
-3. **Aplica:** CASTAÑA → EBUUCOC
+2. **Regla:** Cada letra se sustituye por la que está 2 posiciones después y 1 posición después, alternando en el alfabeto (con Ñ).
+3. **Aplica:** M +2 = Ñ, A +1 = B, R +2 = T, T +1 = U, I +2 = K, L +1 = M, L +2 = N, O +1 = P → ÑBTUKMNP
 
 - [ ] Revisada · Comentarios:
 
 ### 18. Nivel 5 · semilla `muestra-5-2`
 
-> En un código, PUERTA se escribe RVGSVB. Con la misma clave, ¿cómo se escribe FLECHA?
+> En un código, RUEDA se escribe STFCB. Con la misma clave, ¿cómo se escribe SUEÑO?
 
-- **A)** GNFEIC — Empiezas la alternancia por el salto equivocado.
-- **B)** HNGEJC — Aplicas +2 a todas las letras, sin alternar.
-- **C)** HMGDJB ✔ correcta
-- **D)** INHEKC — Desplazas una posición de más.
+- **A)** TVFOP — Aplicas +1 a todas las letras, sin alternar.
+- **B)** RVDOÑ — Desplazas hacia el lado contrario del alfabeto.
+- **C)** TTFNP ✔ correcta
+- **D)** USGMQ — Desplazas una posición de más.
 
-1. **Observa:** Compara letra a letra: P→R, U→V, E→G… El salto cambia según la posición.
-2. **Regla:** Cada letra se sustituye por la que está +2 y +1 posiciones, alternando en el alfabeto (con Ñ).
-3. **Aplica:** FLECHA → HMGDJB
+1. **Observa:** Compara letra a letra: R→S, U→T, E→F… El salto cambia según la posición.
+2. **Regla:** Cada letra se sustituye por la que está 1 posición después y 1 posición antes, alternando en el alfabeto (con Ñ).
+3. **Aplica:** S +1 = T, U −1 = T, E +1 = F, Ñ −1 = N, O +1 = P → TTFNP
 
 - [ ] Revisada · Comentarios:
 
 ### 19. Nivel 5 · semilla `muestra-5-3`
 
-> En un código, PLATO se escribe QJBRP. Con la misma clave, ¿cómo se escribe JUGUETE?
+> En un código, PUERTA se escribe SVHSWB. Con la misma clave, ¿cómo se escribe MADERA?
 
-- **A)** KSHSFRF ✔ correcta
-- **B)** IWFWDVD — Desplazas hacia el lado contrario del alfabeto.
-- **C)** KVHVFUF — Aplicas +1 a todas las letras, sin alternar.
-- **D)** HVEVCUC — Empiezas la alternancia por el salto equivocado.
+- **A)** OBGFUB ✔ correcta
+- **B)** ODGHUD — Aplicas +3 a todas las letras, sin alternar.
+- **C)** PBGFUB — Olvidas la Ñ al contar las posiciones.
+- **D)** NDEHSD — Empiezas la alternancia por el salto equivocado.
 
-1. **Observa:** Compara letra a letra: P→Q, L→J, A→B… El salto cambia según la posición.
-2. **Regla:** Cada letra se sustituye por la que está +1 y −2 posiciones, alternando en el alfabeto (con Ñ).
-3. **Aplica:** JUGUETE → KSHSFRF
+1. **Observa:** Compara letra a letra: P→S, U→V, E→H… El salto cambia según la posición.
+2. **Regla:** Cada letra se sustituye por la que está 3 posiciones después y 1 posición después, alternando en el alfabeto (con Ñ).
+3. **Aplica:** M +3 = O, A +1 = B, D +3 = G, E +1 = F, R +3 = U, A +1 = B → OBGFUB
 
 - [ ] Revisada · Comentarios:
 
 ### 20. Nivel 5 · semilla `muestra-5-4`
 
-> En un código, AMIGO se escribe CKKEQ. Con la misma clave, ¿cómo se escribe VENTANA?
+> En un código, ALFOMBRA se escribe CMHPÑCTB. Con la misma clave, ¿cómo se escribe AGENDA?
 
-- **A)** XCORCLC ✔ correcta
-- **B)** YBPQDKD — Desplazas una posición de más.
-- **C)** XGOVCOC — Aplicas +2 a todas las letras, sin alternar.
-- **D)** XCPRCLC — Olvidas la Ñ al contar las posiciones.
+- **A)** CHGÑFB ✔ correcta
+- **B)** CIGOFC — Aplicas +2 a todas las letras, sin alternar.
+- **C)** CHGOFB — Olvidas la Ñ al contar las posiciones.
+- **D)** BIFOEC — Empiezas la alternancia por el salto equivocado.
 
-1. **Observa:** Compara letra a letra: A→C, M→K, I→K… El salto cambia según la posición.
-2. **Regla:** Cada letra se sustituye por la que está +2 y −2 posiciones, alternando en el alfabeto (con Ñ).
-3. **Aplica:** VENTANA → XCORCLC
+1. **Observa:** Compara letra a letra: A→C, L→M, F→H… El salto cambia según la posición.
+2. **Regla:** Cada letra se sustituye por la que está 2 posiciones después y 1 posición después, alternando en el alfabeto (con Ñ).
+3. **Aplica:** A +2 = C, G +1 = H, E +2 = G, N +1 = Ñ, D +2 = F, A +1 = B → CHGÑFB
 
 - [ ] Revisada · Comentarios:

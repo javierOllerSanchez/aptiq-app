@@ -11,6 +11,8 @@ export interface NumSerieStem extends Stem {
  * Cada regla exige términos de sobra para confirmarse (no vale «ajustar» con lo justo).
  */
 type Rule = (t: number[]) => number | null;
+/** Una regla de varias lecturas (series intercaladas) puede predecir más de un valor. */
+type MultiRule = (t: number[]) => number | number[] | null;
 
 const diffs = (t: number[]) => t.slice(1).map((x, i) => x - t[i]!);
 const allEqual = (xs: number[]) => xs.length > 0 && xs.every((x) => x === xs[0]);
@@ -49,23 +51,35 @@ const differencesOf =
   };
 
 /** Dos series intercaladas (posiciones impares y pares), cada una con su propia regla. */
-const interleaved: Rule = (t) => {
+const interleaved: MultiRule = (t) => {
   if (t.length < 6) return null;
   const sub = t.filter((_, i) => i % 2 === t.length % 2);
   const other = t.filter((_, i) => i % 2 !== t.length % 2);
-  for (const rule of [arithmetic, geometric, arithmetic3, geometric3]) {
-    const next = rule(sub);
-    if (next !== null && [arithmetic, geometric, arithmetic3, geometric3].some((r) => r(other) !== null))
-      return next;
-  }
-  return null;
+  // Las subseries son cortas (3 a 5 términos): se aceptan reglas con menos confirmación.
+  const otherFits = shortRules.some((r) => r(other) !== null);
+  const preds = new Set(shortRules.map((r) => r(sub)).filter((x): x is number => x !== null));
+  // Varias lecturas razonables de la subserie: se devuelven todas para que la pregunta se descarte.
+  return otherFits && preds.size > 0 ? [...preds] : null;
 };
-// Para subseries de solo 3 términos: aritmética/geométrica con 2 diferencias o razones iguales.
-const arithmetic3: Rule = (t) => (t.length === 3 && t[1]! - t[0]! === t[2]! - t[1]! ? 2 * t[2]! - t[1]! : null);
-const geometric3: Rule = (t) =>
-  t.length === 3 && t[0] !== 0 && t[1] !== t[0] && t[1]! * t[1]! === t[0]! * t[2]! && Number.isInteger((t[2]! * t[1]!) / t[0]!)
-    ? (t[2]! * t[1]!) / t[0]!
-    : null;
+
+// Reglas para subseries cortas: suma constante, multiplicación constante y diferencias que crecen.
+const shortArithmetic: Rule = (t) => {
+  const d = diffs(t);
+  return d.length >= 2 && allEqual(d) ? last(t) + d[0]! : null;
+};
+const shortGeometric: Rule = (t) => {
+  if (t.length < 3 || t[0] === 0 || t[1] === t[0]) return null;
+  for (let i = 1; i < t.length - 1; i++) if (t[i + 1]! * t[0]! !== t[i]! * t[1]!) return null;
+  const next = (last(t) * t[1]!) / t[0]!;
+  return Number.isInteger(next) ? next : null;
+};
+const shortQuadratic: Rule = (t) => {
+  const d = diffs(t);
+  const dd = diffs(d);
+  // Basta una segunda diferencia: con «6, 12, 24» ya es razonable leer «+6, +12, +18».
+  return dd.length >= 1 && allEqual(dd) && dd[0] !== 0 ? last(t) + last(d) + dd[0]! : null;
+};
+const shortRules = [shortArithmetic, shortGeometric, shortQuadratic];
 
 /** Cada término es la suma de los dos anteriores. */
 const fibonacci: Rule = (t) => {
@@ -93,7 +107,7 @@ const alternating: Rule = (t) => {
   return results.size === 1 ? [...results][0]! : null;
 };
 
-export const numSerieRules: Record<string, Rule> = {
+export const numSerieRules: Record<string, MultiRule> = {
   arithmetic,
   geometric,
   affine,
@@ -109,7 +123,7 @@ export function predictNext(terms: number[]): Set<number> {
   const out = new Set<number>();
   for (const rule of Object.values(numSerieRules)) {
     const next = rule(terms);
-    if (next !== null && Number.isFinite(next)) out.add(next);
+    for (const v of next === null ? [] : [next].flat()) if (Number.isFinite(v)) out.add(v);
   }
   return out;
 }

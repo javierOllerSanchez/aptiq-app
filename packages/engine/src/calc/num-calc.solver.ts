@@ -7,7 +7,8 @@ export type CalcData =
   | { kind: 'change'; p: number; n: number; up: boolean }
   | { kind: 'rule3'; a: number; b: number; c: number; inverse: boolean }
   | { kind: 'fraction'; num: number; den: number; n: number }
-  | { kind: 'chain'; n: number; p1: number; p2: number };
+  | { kind: 'chain'; n: number; p1: number; p2: number }
+  | { kind: 'reverse'; p: number; final: number; up: boolean };
 
 export interface NumCalcStem extends Stem {
   data: CalcData;
@@ -58,6 +59,9 @@ export function solveCalc(d: CalcData): number {
       return (d.n / d.den) * d.num;
     case 'chain':
       return d.n * (1 + d.p1 / 100) * (1 - d.p2 / 100);
+    case 'reverse':
+      // Precio de antes: el final es el (100 ± p) % de él.
+      return d.final / (1 + ((d.up ? 1 : -1) * d.p) / 100);
   }
 }
 

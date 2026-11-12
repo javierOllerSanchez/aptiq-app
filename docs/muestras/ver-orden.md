@@ -1,4 +1,4 @@
-# Muestras · Ordenación alfabética (`VER.ORDEN`, versión 1)
+# Muestras · Ordenación alfabética (`VER.ORDEN`, versión 2)
 
 Ordenar palabras alfabéticamente y localizar la que ocupa un puesto.
 
@@ -12,300 +12,300 @@ Generadas automáticamente para revisión humana. Para cada pregunta, comprueba:
 
 ### 1. Nivel 1 · semilla `muestra-1-1`
 
-> ¿Qué palabra va primera en orden alfabético? NORMA, CABALLO, HOGAR, ALFOMBRA
+> ¿Qué palabra va primera en orden alfabético? SOMBRA, OCEANO, MALETA, BOLSA
 
-- **A)** CABALLO — Te equivocas al contar: tomas la palabra del puesto siguiente.
-- **B)** NORMA — Cuentas los puestos desde el final de la lista ordenada.
-- **C)** ALFOMBRA ✔ correcta
-- **D)** HOGAR — HOGAR va detrás de ALFOMBRA: en la 1.ª letra, H va después de A.
+- **A)** SOMBRA — Cuentas los puestos desde el final de la lista ordenada.
+- **B)** OCEANO — OCEANO va detrás de BOLSA: en la 1.ª letra, O va después de B.
+- **C)** BOLSA ✔ correcta
+- **D)** MALETA — Te equivocas al contar: tomas la palabra del puesto siguiente.
 
-1. **Observa:** Compara letra a letra. Ordenadas: ALFOMBRA, CABALLO, HOGAR, NORMA.
+1. **Observa:** Compara letra a letra. Ordenadas: BOLSA, MALETA, OCEANO, SOMBRA.
 2. **Regla:** Se ordena por la primera letra distinta, con la Ñ después de la N.
-3. **Aplica:** Puesto 1: ALFOMBRA (ALFOMBRA < CABALLO)
+3. **Aplica:** Puesto 1: BOLSA (BOLSA < MALETA)
 
 - [ ] Revisada · Comentarios:
 
 ### 2. Nivel 1 · semilla `muestra-1-2`
 
-> ¿Qué palabra va primera en orden alfabético? UVA, LAPIZ, REGLA, PEINE
+> ¿Qué palabra va primera en orden alfabético? PASTEL, MONEDA, SEÑAL, VENTANA
 
-- **A)** LAPIZ ✔ correcta
-- **B)** PEINE — Te equivocas al contar: tomas la palabra del puesto siguiente.
-- **C)** REGLA — REGLA va detrás de LAPIZ: en la 1.ª letra, R va después de L.
-- **D)** UVA — Cuentas los puestos desde el final de la lista ordenada.
+- **A)** PASTEL — Te equivocas al contar: tomas la palabra del puesto siguiente.
+- **B)** VENTANA — Cuentas los puestos desde el final de la lista ordenada.
+- **C)** MONEDA ✔ correcta
+- **D)** SEÑAL — SEÑAL va detrás de MONEDA: en la 1.ª letra, S va después de M.
 
-1. **Observa:** Compara letra a letra. Ordenadas: LAPIZ, PEINE, REGLA, UVA.
+1. **Observa:** Compara letra a letra. Ordenadas: MONEDA, PASTEL, SEÑAL, VENTANA.
 2. **Regla:** Se ordena por la primera letra distinta, con la Ñ después de la N.
-3. **Aplica:** Puesto 1: LAPIZ (LAPIZ < PEINE)
+3. **Aplica:** Puesto 1: MONEDA (MONEDA < PASTEL)
 
 - [ ] Revisada · Comentarios:
 
 ### 3. Nivel 1 · semilla `muestra-1-3`
 
-> ¿Qué palabra va primera en orden alfabético? RIO, ESCUDO, AGENDA, PEÑA
+> ¿Qué palabra va primera en orden alfabético? PATIO, ABRIGO, NARANJA, OFICINA
 
-- **A)** PEÑA — PEÑA va detrás de AGENDA: en la 1.ª letra, P va después de A.
-- **B)** ESCUDO — Te equivocas al contar: tomas la palabra del puesto siguiente.
-- **C)** AGENDA ✔ correcta
-- **D)** RIO — Cuentas los puestos desde el final de la lista ordenada.
+- **A)** ABRIGO ✔ correcta
+- **B)** OFICINA — OFICINA va detrás de ABRIGO: en la 1.ª letra, O va después de A.
+- **C)** PATIO — Cuentas los puestos desde el final de la lista ordenada.
+- **D)** NARANJA — Te equivocas al contar: tomas la palabra del puesto siguiente.
 
-1. **Observa:** Compara letra a letra. Ordenadas: AGENDA, ESCUDO, PEÑA, RIO.
+1. **Observa:** Compara letra a letra. Ordenadas: ABRIGO, NARANJA, OFICINA, PATIO.
 2. **Regla:** Se ordena por la primera letra distinta, con la Ñ después de la N.
-3. **Aplica:** Puesto 1: AGENDA (AGENDA < ESCUDO)
+3. **Aplica:** Puesto 1: ABRIGO (ABRIGO < NARANJA)
 
 - [ ] Revisada · Comentarios:
 
 ### 4. Nivel 1 · semilla `muestra-1-4`
 
-> ¿Qué palabra va primera en orden alfabético? TORRE, BARCO, UVA, MERCADO
+> ¿Qué palabra va primera en orden alfabético? CUADERNO, ABRIGO, OFICINA, FLECHA
 
-- **A)** MERCADO — Te equivocas al contar: tomas la palabra del puesto siguiente.
-- **B)** TORRE — Tomas la palabra que ocupa ese puesto en la lista sin ordenarla.
-- **C)** BARCO ✔ correcta
-- **D)** UVA — Cuentas los puestos desde el final de la lista ordenada.
+- **A)** CUADERNO — Te equivocas al contar: tomas la palabra del puesto siguiente.
+- **B)** ABRIGO ✔ correcta
+- **C)** OFICINA — Cuentas los puestos desde el final de la lista ordenada.
+- **D)** FLECHA — FLECHA va detrás de ABRIGO: en la 1.ª letra, F va después de A.
 
-1. **Observa:** Compara letra a letra. Ordenadas: BARCO, MERCADO, TORRE, UVA.
+1. **Observa:** Compara letra a letra. Ordenadas: ABRIGO, CUADERNO, FLECHA, OFICINA.
 2. **Regla:** Se ordena por la primera letra distinta, con la Ñ después de la N.
-3. **Aplica:** Puesto 1: BARCO (BARCO < MERCADO)
+3. **Aplica:** Puesto 1: ABRIGO (ABRIGO < CUADERNO)
 
 - [ ] Revisada · Comentarios:
 
 ### 5. Nivel 2 · semilla `muestra-2-1`
 
-> ¿Qué palabra va primera en orden alfabético? HORMIGA, HIERRO, HOGAR, HARINA, HUESO
+> ¿Qué palabra ocupa el tercer lugar en orden alfabético? CABALLO, SEÑAL, PALMERA, ABRIGO, TALLER
 
-- **A)** HUESO — Cuentas los puestos desde el final de la lista ordenada.
-- **B)** HIERRO — Te equivocas al contar: tomas la palabra del puesto siguiente.
-- **C)** HARINA ✔ correcta
-- **D)** HORMIGA — Tomas la palabra que ocupa ese puesto en la lista sin ordenarla.
+- **A)** SEÑAL — Te equivocas al contar: tomas la palabra del puesto siguiente.
+- **B)** PALMERA ✔ correcta
+- **C)** CABALLO — Te equivocas al contar: tomas la palabra del puesto anterior.
+- **D)** ABRIGO — ABRIGO va delante de PALMERA: en la 1.ª letra, A va antes de P.
 
-1. **Observa:** Compara letra a letra. Ordenadas: HARINA, HIERRO, HOGAR, HORMIGA, HUESO.
+1. **Observa:** Compara letra a letra. Ordenadas: ABRIGO, CABALLO, PALMERA, SEÑAL, TALLER.
 2. **Regla:** Se ordena por la primera letra distinta, con la Ñ después de la N.
-3. **Aplica:** Puesto 1: HARINA (HARINA < HIERRO)
+3. **Aplica:** Puesto 3: PALMERA (CABALLO < PALMERA < SEÑAL)
 
 - [ ] Revisada · Comentarios:
 
 ### 6. Nivel 2 · semilla `muestra-2-2`
 
-> ¿Qué palabra ocupa el cuarto lugar en orden alfabético? PLATO, MALETA, CARPETA, SONIDO, ANCLA
+> ¿Qué palabra va primera en orden alfabético? DEDAL, DUEÑO, DOCENA, DIENTE, DIBUJO
 
-- **A)** PLATO ✔ correcta
-- **B)** SONIDO — Te equivocas al contar: tomas la palabra del puesto siguiente.
-- **C)** CARPETA — Cuentas los puestos desde el final de la lista ordenada.
-- **D)** MALETA — Te equivocas al contar: tomas la palabra del puesto anterior.
+- **A)** DUEÑO — Cuentas los puestos desde el final de la lista ordenada.
+- **B)** DIENTE — DIENTE va detrás de DEDAL: en la 2.ª letra, I va después de E.
+- **C)** DIBUJO — Te equivocas al contar: tomas la palabra del puesto siguiente.
+- **D)** DEDAL ✔ correcta
 
-1. **Observa:** Compara letra a letra. Ordenadas: ANCLA, CARPETA, MALETA, PLATO, SONIDO.
+1. **Observa:** Compara letra a letra. Ordenadas: DEDAL, DIBUJO, DIENTE, DOCENA, DUEÑO.
 2. **Regla:** Se ordena por la primera letra distinta, con la Ñ después de la N.
-3. **Aplica:** Puesto 4: PLATO (MALETA < PLATO < SONIDO)
+3. **Aplica:** Puesto 1: DEDAL (DEDAL < DIBUJO)
 
 - [ ] Revisada · Comentarios:
 
 ### 7. Nivel 2 · semilla `muestra-2-3`
 
-> ¿Qué palabra va primera en orden alfabético? VIENTO, VELA, VIÑEDO, VALLE, VASO
+> ¿Qué palabra va primera en orden alfabético? LOMA, LLAVE, LAGO, LECHE, LEÑA
 
-- **A)** VIENTO — Tomas la palabra que ocupa ese puesto en la lista sin ordenarla.
-- **B)** VIÑEDO — Cuentas los puestos desde el final de la lista ordenada.
-- **C)** VASO — Te equivocas al contar: tomas la palabra del puesto siguiente.
-- **D)** VALLE ✔ correcta
+- **A)** LEÑA — LEÑA va detrás de LAGO: en la 2.ª letra, E va después de A.
+- **B)** LECHE — Te equivocas al contar: tomas la palabra del puesto siguiente.
+- **C)** LOMA — Cuentas los puestos desde el final de la lista ordenada.
+- **D)** LAGO ✔ correcta
 
-1. **Observa:** Compara letra a letra. Ordenadas: VALLE, VASO, VELA, VIENTO, VIÑEDO.
+1. **Observa:** Compara letra a letra. Ordenadas: LAGO, LECHE, LEÑA, LLAVE, LOMA.
 2. **Regla:** Se ordena por la primera letra distinta, con la Ñ después de la N.
-3. **Aplica:** Puesto 1: VALLE (VALLE < VASO)
+3. **Aplica:** Puesto 1: LAGO (LAGO < LECHE)
 
 - [ ] Revisada · Comentarios:
 
 ### 8. Nivel 2 · semilla `muestra-2-4`
 
-> ¿Qué palabra va primera en orden alfabético? VIENTO, VELA, VENTANA, VASO, VALLE
+> ¿Qué palabra va primera en orden alfabético? PELOTA, PANERA, PASILLO, PAPEL, PEINE
 
-- **A)** VALLE ✔ correcta
-- **B)** VIENTO — Cuentas los puestos desde el final de la lista ordenada.
-- **C)** VASO — Te equivocas al contar: tomas la palabra del puesto siguiente.
-- **D)** VELA — VELA va detrás de VALLE: en la 2.ª letra, E va después de A.
+- **A)** PELOTA — Cuentas los puestos desde el final de la lista ordenada.
+- **B)** PANERA ✔ correcta
+- **C)** PASILLO — PASILLO va detrás de PANERA: en la 3.ª letra, S va después de N.
+- **D)** PAPEL — Te equivocas al contar: tomas la palabra del puesto siguiente.
 
-1. **Observa:** Compara letra a letra. Ordenadas: VALLE, VASO, VELA, VENTANA, VIENTO.
+1. **Observa:** Compara letra a letra. Ordenadas: PANERA, PAPEL, PASILLO, PEINE, PELOTA.
 2. **Regla:** Se ordena por la primera letra distinta, con la Ñ después de la N.
-3. **Aplica:** Puesto 1: VALLE (VALLE < VASO)
+3. **Aplica:** Puesto 1: PANERA (PANERA < PAPEL)
 
 - [ ] Revisada · Comentarios:
 
 ### 9. Nivel 3 · semilla `muestra-3-1`
 
-> ¿Qué palabra va última en orden alfabético? CARRO, CANTERA, CASTAÑA, CARPETA, CAJON
+> ¿Qué palabra ocupa el tercer lugar en orden alfabético? CANAL, CANTIDAD, CABAÑA, CAÑA, CIUDAD
 
-- **A)** CASTAÑA ✔ correcta
-- **B)** CAJON — Cuentas los puestos desde el final de la lista ordenada.
-- **C)** CARRO — Te equivocas al contar: tomas la palabra del puesto anterior.
-- **D)** CANTERA — CANTERA va delante de CASTAÑA: en la 3.ª letra, N va antes de S.
+- **A)** CANTIDAD ✔ correcta
+- **B)** CAÑA — Te equivocas al contar: tomas la palabra del puesto siguiente.
+- **C)** CIUDAD — CIUDAD va detrás de CANTIDAD: en la 2.ª letra, I va después de A.
+- **D)** CANAL — Ordenas la Ñ como si fuera una N.
 
-1. **Observa:** Compara letra a letra. Ordenadas: CAJON, CANTERA, CARPETA, CARRO, CASTAÑA.
+1. **Observa:** Compara letra a letra. Ordenadas: CABAÑA, CANAL, CANTIDAD, CAÑA, CIUDAD.
 2. **Regla:** Se ordena por la primera letra distinta, con la Ñ después de la N.
-3. **Aplica:** Puesto 5: CASTAÑA (CARRO < CASTAÑA)
+3. **Aplica:** Puesto 3: CANTIDAD (CANAL < CANTIDAD < CAÑA)
 
 - [ ] Revisada · Comentarios:
 
 ### 10. Nivel 3 · semilla `muestra-3-2`
 
-> ¿Qué palabra ocupa el segundo lugar en orden alfabético? ENERO, ESTRELLA, ENCINA, ESTACION, ENSEÑANZA
+> ¿Qué palabra ocupa el segundo lugar en orden alfabético? PUERTA, PALACIO, PARAGUAS, PUERTO, PUENTE
 
-- **A)** ENSEÑANZA — Te equivocas al contar: tomas la palabra del puesto siguiente.
-- **B)** ENCINA — Te equivocas al contar: tomas la palabra del puesto anterior.
-- **C)** ESTACION — Cuentas los puestos desde el final de la lista ordenada.
-- **D)** ENERO ✔ correcta
+- **A)** PARAGUAS ✔ correcta
+- **B)** PUERTO — PUERTO va detrás de PARAGUAS: en la 2.ª letra, U va después de A.
+- **C)** PUERTA — Cuentas los puestos desde el final de la lista ordenada.
+- **D)** PUENTE — Te equivocas al contar: tomas la palabra del puesto siguiente.
 
-1. **Observa:** Compara letra a letra. Ordenadas: ENCINA, ENERO, ENSEÑANZA, ESTACION, ESTRELLA.
+1. **Observa:** Compara letra a letra. Ordenadas: PALACIO, PARAGUAS, PUENTE, PUERTA, PUERTO.
 2. **Regla:** Se ordena por la primera letra distinta, con la Ñ después de la N.
-3. **Aplica:** Puesto 2: ENERO (ENCINA < ENERO < ENSEÑANZA)
+3. **Aplica:** Puesto 2: PARAGUAS (PALACIO < PARAGUAS < PUENTE)
 
 - [ ] Revisada · Comentarios:
 
 ### 11. Nivel 3 · semilla `muestra-3-3`
 
-> ¿Qué palabra va última en orden alfabético? MOCHILA, MONEDA, DADO, MONTAÑA, MOLINO
+> ¿Qué palabra va última en orden alfabético? ALFOMBRA, ALDEA, ALCALDE, ALAMBRE, ALMACEN
 
-- **A)** MONEDA — Te equivocas al contar: tomas la palabra del puesto anterior.
-- **B)** MONTAÑA ✔ correcta
-- **C)** MOLINO — Tomas la palabra que ocupa ese puesto en la lista sin ordenarla.
-- **D)** DADO — Cuentas los puestos desde el final de la lista ordenada.
+- **A)** ALCALDE — ALCALDE va delante de ALMACEN: en la 3.ª letra, C va antes de M.
+- **B)** ALFOMBRA — Te equivocas al contar: tomas la palabra del puesto anterior.
+- **C)** ALMACEN ✔ correcta
+- **D)** ALAMBRE — Cuentas los puestos desde el final de la lista ordenada.
 
-1. **Observa:** Compara letra a letra. Ordenadas: DADO, MOCHILA, MOLINO, MONEDA, MONTAÑA.
+1. **Observa:** Compara letra a letra. Ordenadas: ALAMBRE, ALCALDE, ALDEA, ALFOMBRA, ALMACEN.
 2. **Regla:** Se ordena por la primera letra distinta, con la Ñ después de la N.
-3. **Aplica:** Puesto 5: MONTAÑA (MONEDA < MONTAÑA)
+3. **Aplica:** Puesto 5: ALMACEN (ALFOMBRA < ALMACEN)
 
 - [ ] Revisada · Comentarios:
 
 ### 12. Nivel 3 · semilla `muestra-3-4`
 
-> ¿Qué palabra ocupa el cuarto lugar en orden alfabético? NARANJA, NORMA, NIÑO, NUDO, NAVE
+> ¿Qué palabra va última en orden alfabético? ESTACION, ESCALERA, ESCUDO, ESPEJO, ESTRELLA
 
-- **A)** NAVE — Cuentas los puestos desde el final de la lista ordenada.
-- **B)** NORMA ✔ correcta
-- **C)** NIÑO — Te equivocas al contar: tomas la palabra del puesto anterior.
-- **D)** NUDO — Te equivocas al contar: tomas la palabra del puesto siguiente.
+- **A)** ESTACION — Te equivocas al contar: tomas la palabra del puesto anterior.
+- **B)** ESCUDO — ESCUDO va delante de ESTRELLA: en la 3.ª letra, C va antes de T.
+- **C)** ESCALERA — Cuentas los puestos desde el final de la lista ordenada.
+- **D)** ESTRELLA ✔ correcta
 
-1. **Observa:** Compara letra a letra. Ordenadas: NARANJA, NAVE, NIÑO, NORMA, NUDO.
+1. **Observa:** Compara letra a letra. Ordenadas: ESCALERA, ESCUDO, ESPEJO, ESTACION, ESTRELLA.
 2. **Regla:** Se ordena por la primera letra distinta, con la Ñ después de la N.
-3. **Aplica:** Puesto 4: NORMA (NIÑO < NORMA < NUDO)
+3. **Aplica:** Puesto 5: ESTRELLA (ESTACION < ESTRELLA)
 
 - [ ] Revisada · Comentarios:
 
 ### 13. Nivel 4 · semilla `muestra-4-1`
 
-> ¿Qué palabra ocupa el segundo lugar en orden alfabético? PARADA, PARQUE, SEÑAL, PARED, PARAGUAS, ARBOL
+> ¿Qué palabra ocupa el cuarto lugar en orden alfabético? ALAMBRE, ALFOMBRA, ALCALDE, ALDEA, ALUMNO, ALMACEN
 
-- **A)** ARBOL — Te equivocas al contar: tomas la palabra del puesto anterior.
-- **B)** PARADA ✔ correcta
-- **C)** PARQUE — Cuentas los puestos desde el final de la lista ordenada.
-- **D)** PARAGUAS — Te equivocas al contar: tomas la palabra del puesto siguiente.
+- **A)** ALAMBRE — ALAMBRE va delante de ALFOMBRA: en la 3.ª letra, A va antes de F.
+- **B)** ALCALDE — ALCALDE va delante de ALFOMBRA: en la 3.ª letra, C va antes de F.
+- **C)** ALFOMBRA ✔ correcta
+- **D)** ALDEA — Cuentas los puestos desde el final de la lista ordenada.
 
-1. **Observa:** Compara letra a letra. Ordenadas: ARBOL, PARADA, PARAGUAS, PARED, PARQUE, SEÑAL.
+1. **Observa:** Compara letra a letra. Ordenadas: ALAMBRE, ALCALDE, ALDEA, ALFOMBRA, ALMACEN, ALUMNO.
 2. **Regla:** Se ordena por la primera letra distinta, con la Ñ después de la N.
-3. **Aplica:** Puesto 2: PARADA (ARBOL < PARADA < PARAGUAS)
+3. **Aplica:** Puesto 4: ALFOMBRA (ALDEA < ALFOMBRA < ALMACEN)
 
 - [ ] Revisada · Comentarios:
 
 ### 14. Nivel 4 · semilla `muestra-4-2`
 
-> ¿Qué palabra ocupa el tercer lugar en orden alfabético? MARTILLO, MAREA, MARCO, MARCA, MARTES, MARINO
+> ¿Qué palabra ocupa el tercer lugar en orden alfabético? PARADA, OFICINA, PARAGUAS, PARQUE, TUNEL, PARED
 
-- **A)** MARCO — Te equivocas al contar: tomas la palabra del puesto anterior.
-- **B)** MARCA — MARCA va delante de MAREA: en la 4.ª letra, C va antes de E.
-- **C)** MARINO — Cuentas los puestos desde el final de la lista ordenada.
-- **D)** MAREA ✔ correcta
+- **A)** PARAGUAS ✔ correcta
+- **B)** PARED — Cuentas los puestos desde el final de la lista ordenada.
+- **C)** TUNEL — TUNEL va detrás de PARAGUAS: en la 1.ª letra, T va después de P.
+- **D)** PARQUE — PARQUE va detrás de PARAGUAS: en la 4.ª letra, Q va después de A.
 
-1. **Observa:** Compara letra a letra. Ordenadas: MARCA, MARCO, MAREA, MARINO, MARTES, MARTILLO.
+1. **Observa:** Compara letra a letra. Ordenadas: OFICINA, PARADA, PARAGUAS, PARED, PARQUE, TUNEL.
 2. **Regla:** Se ordena por la primera letra distinta, con la Ñ después de la N.
-3. **Aplica:** Puesto 3: MAREA (MARCO < MAREA < MARINO)
+3. **Aplica:** Puesto 3: PARAGUAS (PARADA < PARAGUAS < PARED)
 
 - [ ] Revisada · Comentarios:
 
 ### 15. Nivel 4 · semilla `muestra-4-3`
 
-> ¿Qué palabra ocupa el segundo lugar en orden alfabético? CARTA, CARRO, CARTERA, CARRERA, CARPETA, PATATA
+> ¿Qué palabra ocupa el cuarto lugar en orden alfabético? PALMERA, PALOMA, PALACIO, PARAGUAS, PANERA, PARADA
 
-- **A)** CARRO — Te equivocas al contar: tomas la palabra del puesto siguiente.
-- **B)** CARTERA — Cuentas los puestos desde el final de la lista ordenada.
-- **C)** CARRERA ✔ correcta
-- **D)** CARPETA — Te equivocas al contar: tomas la palabra del puesto anterior.
+- **A)** PANERA ✔ correcta
+- **B)** PALOMA — Cuentas los puestos desde el final de la lista ordenada.
+- **C)** PALACIO — PALACIO va delante de PANERA: en la 3.ª letra, L va antes de N.
+- **D)** PALMERA — PALMERA va delante de PANERA: en la 3.ª letra, L va antes de N.
 
-1. **Observa:** Compara letra a letra. Ordenadas: CARPETA, CARRERA, CARRO, CARTA, CARTERA, PATATA.
+1. **Observa:** Compara letra a letra. Ordenadas: PALACIO, PALMERA, PALOMA, PANERA, PARADA, PARAGUAS.
 2. **Regla:** Se ordena por la primera letra distinta, con la Ñ después de la N.
-3. **Aplica:** Puesto 2: CARRERA (CARPETA < CARRERA < CARRO)
+3. **Aplica:** Puesto 4: PANERA (PALOMA < PANERA < PARADA)
 
 - [ ] Revisada · Comentarios:
 
 ### 16. Nivel 4 · semilla `muestra-4-4`
 
-> ¿Qué palabra ocupa el tercer lugar en orden alfabético? PALMERA, UVA, PALA, PALCO, PALACIO, PALOMA
+> ¿Qué palabra ocupa el quinto lugar en orden alfabético? PARAGUAS, CABALLO, PARQUE, CUCHARA, PARED, PARADA
 
-- **A)** PALMERA — Cuentas los puestos desde el final de la lista ordenada.
-- **B)** PALCO ✔ correcta
-- **C)** PALA — Tomas la palabra que ocupa ese puesto en la lista sin ordenarla.
-- **D)** PALACIO — Te equivocas al contar: tomas la palabra del puesto anterior.
+- **A)** PARAGUAS — Te equivocas al contar: tomas la palabra del puesto anterior.
+- **B)** CABALLO — CABALLO va delante de PARED: en la 1.ª letra, C va antes de P.
+- **C)** PARED ✔ correcta
+- **D)** CUCHARA — Cuentas los puestos desde el final de la lista ordenada.
 
-1. **Observa:** Compara letra a letra. Ordenadas: PALA, PALACIO, PALCO, PALMERA, PALOMA, UVA.
+1. **Observa:** Compara letra a letra. Ordenadas: CABALLO, CUCHARA, PARADA, PARAGUAS, PARED, PARQUE.
 2. **Regla:** Se ordena por la primera letra distinta, con la Ñ después de la N.
-3. **Aplica:** Puesto 3: PALCO (PALACIO < PALCO < PALMERA)
+3. **Aplica:** Puesto 5: PARED (PARAGUAS < PARED < PARQUE)
 
 - [ ] Revisada · Comentarios:
 
 ### 17. Nivel 5 · semilla `muestra-5-1`
 
-> ¿Qué palabra ocupa el segundo lugar en orden alfabético? MONEDA, MOLINO, DIENTE, MOCHILA, SALON, MONTAÑA, HIERRO
+> ¿Qué palabra ocupa el cuarto lugar en orden alfabético? MARINO, MURO, MAREA, MARCA, MARCO, MARTILLO, MARTES
 
-- **A)** HIERRO ✔ correcta
-- **B)** MONTAÑA — Cuentas los puestos desde el final de la lista ordenada.
-- **C)** MOCHILA — Te equivocas al contar: tomas la palabra del puesto siguiente.
-- **D)** DIENTE — Te equivocas al contar: tomas la palabra del puesto anterior.
+- **A)** MARINO ✔ correcta
+- **B)** MARTES — Te equivocas al contar: tomas la palabra del puesto siguiente.
+- **C)** MAREA — Te equivocas al contar: tomas la palabra del puesto anterior.
+- **D)** MARCA — Tomas la palabra que ocupa ese puesto en la lista sin ordenarla.
 
-1. **Observa:** Compara letra a letra. Ordenadas: DIENTE, HIERRO, MOCHILA, MOLINO, MONEDA, MONTAÑA, SALON.
+1. **Observa:** Compara letra a letra. Ordenadas: MARCA, MARCO, MAREA, MARINO, MARTES, MARTILLO, MURO.
 2. **Regla:** Se ordena por la primera letra distinta, con la Ñ después de la N.
-3. **Aplica:** Puesto 2: HIERRO (DIENTE < HIERRO < MOCHILA)
+3. **Aplica:** Puesto 4: MARINO (MAREA < MARINO < MARTES)
 
 - [ ] Revisada · Comentarios:
 
 ### 18. Nivel 5 · semilla `muestra-5-2`
 
-> ¿Qué palabra ocupa el tercer lugar en orden alfabético? PALCO, PAÑUELO, PATATA, PALACIO, PALMERA, PASTOR, PARADA
+> ¿Qué palabra ocupa el sexto lugar en orden alfabético? PALOMA, ESPEJO, PALACIO, PALA, PALMERA, PALCO, PANERA
 
-- **A)** PARADA — Cuentas los puestos desde el final de la lista ordenada.
-- **B)** PALCO — Te equivocas al contar: tomas la palabra del puesto anterior.
-- **C)** PALMERA ✔ correcta
-- **D)** PAÑUELO — Te equivocas al contar: tomas la palabra del puesto siguiente.
+- **A)** PALMERA — Te equivocas al contar: tomas la palabra del puesto anterior.
+- **B)** PALCO — Tomas la palabra que ocupa ese puesto en la lista sin ordenarla.
+- **C)** PALA — Cuentas los puestos desde el final de la lista ordenada.
+- **D)** PALOMA ✔ correcta
 
-1. **Observa:** Compara letra a letra. Ordenadas: PALACIO, PALCO, PALMERA, PAÑUELO, PARADA, PASTOR, PATATA.
+1. **Observa:** Compara letra a letra. Ordenadas: ESPEJO, PALA, PALACIO, PALCO, PALMERA, PALOMA, PANERA.
 2. **Regla:** Se ordena por la primera letra distinta, con la Ñ después de la N.
-3. **Aplica:** Puesto 3: PALMERA (PALCO < PALMERA < PAÑUELO)
+3. **Aplica:** Puesto 6: PALOMA (PALMERA < PALOMA < PANERA)
 
 - [ ] Revisada · Comentarios:
 
 ### 19. Nivel 5 · semilla `muestra-5-3`
 
-> ¿Qué palabra ocupa el quinto lugar en orden alfabético? SEMILLA, RATON, PALACIO, PALCO, PALA, PALOMA, PALMERA
+> ¿Qué palabra ocupa el quinto lugar en orden alfabético? RELOJ, CARPETA, CARTA, PARED, CARRERA, CARRO, CARTERA
 
-- **A)** PALOMA ✔ correcta
-- **B)** RATON — Te equivocas al contar: tomas la palabra del puesto siguiente.
-- **C)** PALCO — Cuentas los puestos desde el final de la lista ordenada.
-- **D)** PALMERA — Te equivocas al contar: tomas la palabra del puesto anterior.
+- **A)** CARTERA ✔ correcta
+- **B)** CARTA — Te equivocas al contar: tomas la palabra del puesto anterior.
+- **C)** CARRO — Cuentas los puestos desde el final de la lista ordenada.
+- **D)** CARRERA — Tomas la palabra que ocupa ese puesto en la lista sin ordenarla.
 
-1. **Observa:** Compara letra a letra. Ordenadas: PALA, PALACIO, PALCO, PALMERA, PALOMA, RATON, SEMILLA.
+1. **Observa:** Compara letra a letra. Ordenadas: CARPETA, CARRERA, CARRO, CARTA, CARTERA, PARED, RELOJ.
 2. **Regla:** Se ordena por la primera letra distinta, con la Ñ después de la N.
-3. **Aplica:** Puesto 5: PALOMA (PALMERA < PALOMA < RATON)
+3. **Aplica:** Puesto 5: CARTERA (CARTA < CARTERA < PARED)
 
 - [ ] Revisada · Comentarios:
 
 ### 20. Nivel 5 · semilla `muestra-5-4`
 
-> ¿Qué palabra ocupa el sexto lugar en orden alfabético? SONIDO, SOPA, SOLAR, SOLDADO, SOMBRERO, SOMBRA, SOBRE
+> ¿Qué palabra ocupa el segundo lugar en orden alfabético? ABRIGO, PARADA, OBRERO, PARQUE, PARAGUAS, PARED, MUELLE
 
-- **A)** SOPA — Te equivocas al contar: tomas la palabra del puesto siguiente.
-- **B)** SONIDO ✔ correcta
-- **C)** SOMBRERO — Te equivocas al contar: tomas la palabra del puesto anterior.
-- **D)** SOLAR — Cuentas los puestos desde el final de la lista ordenada.
+- **A)** OBRERO — Te equivocas al contar: tomas la palabra del puesto siguiente.
+- **B)** MUELLE ✔ correcta
+- **C)** ABRIGO — Te equivocas al contar: tomas la palabra del puesto anterior.
+- **D)** PARED — Cuentas los puestos desde el final de la lista ordenada.
 
-1. **Observa:** Compara letra a letra. Ordenadas: SOBRE, SOLAR, SOLDADO, SOMBRA, SOMBRERO, SONIDO, SOPA.
+1. **Observa:** Compara letra a letra. Ordenadas: ABRIGO, MUELLE, OBRERO, PARADA, PARAGUAS, PARED, PARQUE.
 2. **Regla:** Se ordena por la primera letra distinta, con la Ñ después de la N.
-3. **Aplica:** Puesto 6: SONIDO (SOMBRERO < SONIDO < SOPA)
+3. **Aplica:** Puesto 2: MUELLE (ABRIGO < MUELLE < OBRERO)
 
 - [ ] Revisada · Comentarios:

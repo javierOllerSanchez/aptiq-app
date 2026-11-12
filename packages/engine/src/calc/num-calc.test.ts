@@ -24,6 +24,8 @@ test('casos calculados a mano', () => {
   expect(solveCalc({ kind: 'rule3', a: 6, b: 10, c: 4, inverse: true })).toBe(15);
   expect(solveCalc({ kind: 'fraction', num: 3, den: 5, n: 240 })).toBe(144);
   expect(solveCalc({ kind: 'chain', n: 400, p1: 25, p2: 20 })).toBe(400);
+  expect(solveCalc({ kind: 'reverse', p: 20, final: 120, up: true })).toBeCloseTo(100);
+  expect(solveCalc({ kind: 'reverse', p: 25, final: 60, up: false })).toBeCloseTo(80);
 });
 
 test('formato español de números', () => {

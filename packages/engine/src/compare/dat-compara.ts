@@ -1,11 +1,11 @@
-import { buildItem } from '../build';
+import { buildItem, byNumber, familyNames, type Draft, type Families } from '../build';
 import { WORDS } from '../data/words';
 import type { Rng } from '../rng';
-import { levels, type Generator, type Level } from '../types';
+import { levels, type Generator } from '../types';
 
 import { datComparaSolver, type DatComparaStem } from './dat-compara.solver';
 
-const VERSION = '1';
+const VERSION = '2';
 const TIP =
   'Compara de izquierda a derecha y por bloques cortos (tres o cuatro caracteres), señalando con el dedo. Los cambios más difíciles de ver son dos cifras que intercambian su lugar y las letras que se parecen a cifras (O y 0, I y 1, B y 8, S y 5).';
 
@@ -68,62 +68,65 @@ const changes: Change[] = [
 ];
 
 type Config = { rows: number; kinds: Kind[]; subtle: boolean };
-const configs: Record<Level, Config> = {
-  1: { rows: 4, kinds: [code(4), digits(5)], subtle: false },
-  2: { rows: 5, kinds: [code(5), digits(6), nameNumber], subtle: false },
-  3: { rows: 6, kinds: [code(6), digits(7), nameNumber], subtle: true },
-  4: { rows: 7, kinds: [code(7), digits(9)], subtle: true },
-  5: { rows: 8, kinds: [tricky(7), digits(10)], subtle: true },
+
+const comparison = (cfg: Config) => (rng: Rng): Draft<DatComparaStem> | null => {
+  const kind = rng.pick(cfg.kinds);
+  const different = rng.int(1, cfg.rows - 1);
+  const differentRows = new Set(rng.shuffle(Array.from({ length: cfg.rows }, (_, i) => i)).slice(0, different));
+  // En los niveles altos se prefieren los cambios difíciles de ver (orden y parecidos).
+  const pool = cfg.subtle ? [changes[0]!, changes[1]!, changes[0]!, changes[1]!, changes[2]!] : changes;
+  const notes: string[] = [];
+  const rows: DatComparaStem['rows'] = [];
+  for (let i = 0; i < cfg.rows; i++) {
+    const left = kind(rng);
+    let right = left;
+    if (differentRows.has(i)) {
+      const order = rng.shuffle(pool);
+      const change = order.find((c) => (right = c.apply(left, rng) ?? left) !== left);
+      if (!change) return null;
+      notes.push(`fila ${i + 1}: ${change.describe} (${left} / ${right})`);
+    }
+    rows.push({ left, right });
+  }
+  const equal = cfg.rows - different;
+  const table = rows.map((r, i) => `${i + 1}. ${r.left} | ${r.right}`).join('\n');
+  return {
+    stem: { text: `¿Cuántas filas tienen exactamente los mismos datos en las dos columnas?\n${table}`, rows },
+    answer: String(equal),
+    distractors: [
+      { value: String(equal + 1), error: 'Pasas por alto una de las diferencias y cuentas como igual una fila distinta.' },
+      { value: String(equal - 1), error: 'Ves una diferencia donde no la hay y descuentas una fila igual.' },
+      { value: String(different), error: 'Cuentas las filas distintas en lugar de las iguales.' },
+      { value: String(equal + 2), error: 'Pasas por alto dos diferencias.' },
+      { value: String(equal - 2), error: 'Ves dos diferencias donde no las hay.' },
+      { value: String(equal + 3), error: 'Pasas por alto tres diferencias.' },
+      { value: String(equal - 3), error: 'Ves tres diferencias donde no las hay.' },
+    ].filter((d) => Number(d.value) >= 0 && Number(d.value) <= cfg.rows),
+    observe: `Hay ${cfg.rows} filas. Compara cada pareja carácter a carácter.`,
+    rule: 'Una fila solo cuenta si las dos columnas son idénticas: un carácter cambiado, de menos o fuera de sitio ya la hace distinta.',
+    apply: `Diferencias: ${notes.join('; ')}. Filas iguales: ${cfg.rows} − ${different} = ${equal}`,
+  };
+};
+
+const families: Families<ReturnType<typeof comparison>> = {
+  1: { cuatroFilas: comparison({ rows: 4, kinds: [code(4), digits(5)], subtle: false }) },
+  2: { cincoFilas: comparison({ rows: 5, kinds: [code(5), digits(6), nameNumber], subtle: false }) },
+  3: { seisFilasSutiles: comparison({ rows: 6, kinds: [code(6), digits(7), nameNumber], subtle: true }) },
+  4: { sieteFilasSutiles: comparison({ rows: 7, kinds: [code(7), digits(9)], subtle: true }) },
+  5: { ochoFilasParecidas: comparison({ rows: 8, kinds: [tricky(7), digits(10)], subtle: true }) },
 };
 
 export const datCompara: Generator<DatComparaStem> = {
   type: 'DAT.COMPARA',
   version: VERSION,
   levels,
+  families: familyNames(families),
+  compareOptions: byNumber,
   generate: (seed, level, optionCount) =>
     buildItem(
-      { type: 'DAT.COMPARA', version: VERSION, tip: TIP, solver: datComparaSolver },
+      { type: 'DAT.COMPARA', version: VERSION, tip: TIP, solver: datComparaSolver, compare: byNumber, families },
       seed,
       level,
       optionCount,
-      (rng) => {
-        const cfg = configs[level];
-        const kind = rng.pick(cfg.kinds);
-        const different = rng.int(1, cfg.rows - 1);
-        const differentRows = new Set(rng.shuffle(Array.from({ length: cfg.rows }, (_, i) => i)).slice(0, different));
-        // En los niveles altos se prefieren los cambios difíciles de ver (orden y parecidos).
-        const pool = cfg.subtle ? [changes[0]!, changes[1]!, changes[0]!, changes[1]!, changes[2]!] : changes;
-        const notes: string[] = [];
-        const rows: DatComparaStem['rows'] = [];
-        for (let i = 0; i < cfg.rows; i++) {
-          const left = kind(rng);
-          let right = left;
-          if (differentRows.has(i)) {
-            const order = rng.shuffle(pool);
-            const change = order.find((c) => (right = c.apply(left, rng) ?? left) !== left);
-            if (!change) return null;
-            notes.push(`fila ${i + 1}: ${change.describe} (${left} / ${right})`);
-          }
-          rows.push({ left, right });
-        }
-        const equal = cfg.rows - different;
-        const table = rows.map((r, i) => `${i + 1}. ${r.left} | ${r.right}`).join('\n');
-        return {
-          stem: {
-            text: `¿Cuántas filas tienen exactamente los mismos datos en las dos columnas?\n${table}`,
-            rows,
-          },
-          answer: String(equal),
-          distractors: [
-            { value: String(equal + 1), error: 'Pasas por alto una de las diferencias y cuentas como igual una fila distinta.' },
-            { value: String(equal - 1), error: 'Ves una diferencia donde no la hay y descuentas una fila igual.' },
-            { value: String(different), error: 'Cuentas las filas distintas en lugar de las iguales.' },
-            { value: String(equal + 2), error: 'Pasas por alto dos diferencias.' },
-          ].filter((d) => Number(d.value) >= 0 && Number(d.value) <= cfg.rows),
-          observe: `Hay ${cfg.rows} filas. Compara cada pareja carácter a carácter.`,
-          rule: 'Una fila solo cuenta si las dos columnas son idénticas: un carácter cambiado, de menos o fuera de sitio ya la hace distinta.',
-          apply: `Diferencias: ${notes.join('; ')}. Filas iguales: ${cfg.rows} − ${different} = ${equal}`,
-        };
-      },
     ),
 };

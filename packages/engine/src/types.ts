@@ -26,7 +26,8 @@ export interface Item<S extends Stem = Stem> {
     distractors: { optionIndex: number; error: string }[];
     tip: string;
   };
-  meta: { expectedSeconds: number; generatorVersion: string };
+  /** `family`: regla con la que se generó (para calibrar por familia con datos de uso). */
+  meta: { expectedSeconds: number; generatorVersion: string; family: string };
 }
 
 export interface Generator<S extends Stem = Stem> {
@@ -34,6 +35,10 @@ export interface Generator<S extends Stem = Stem> {
   /** Subir si cambia la salida para una misma semilla. */
   version: string;
   levels: readonly Level[];
+  /** Familias de reglas de cada nivel. */
+  families: Readonly<Record<Level, readonly string[]>>;
+  /** Orden por valor de las opciones, si lo tienen (números, letras, palabras). */
+  compareOptions?: (a: string, b: string) => number;
   generate(seed: string, level: Level, optionCount: OptionCount): Item<S>;
 }
 

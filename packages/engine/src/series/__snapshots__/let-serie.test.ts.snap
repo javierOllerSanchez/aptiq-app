@@ -1,250 +1,257 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`LET.SERIE v1 > nivel 1: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+exports[`LET.SERIE v2 > nivel 1: instantánea de una semilla fija (si cambia, subir version) 1`] = `
 {
-  "answerIndex": 2,
+  "answerIndex": 3,
   "explanation": {
-    "apply": "H (8) + 2 = J (10) → J",
+    "apply": "S (20) + 1 = T (21) → T",
     "distractors": [
       {
-        "error": "Aplicas el salto (+ 2) dos veces.",
+        "error": "Aplicas el salto (+ 1) dos veces.",
         "optionIndex": 0,
       },
       {
-        "error": "Cuentas una letra de más.",
+        "error": "Aplicas el salto en sentido contrario (− 1).",
         "optionIndex": 1,
       },
       {
         "error": "Cuentas una letra de menos.",
-        "optionIndex": 3,
+        "optionIndex": 2,
       },
     ],
-    "observe": "Entre cada letra y la siguiente hay siempre el mismo salto: + 2 posiciones.",
-    "rule": "Cada letra está 2 posiciones después de la anterior.",
+    "observe": "Entre cada letra y la siguiente hay siempre el mismo salto: + 1 posiciones.",
+    "rule": "Cada letra está 1 posiciones después de la anterior.",
     "tip": "Escribe debajo de cada letra su posición en el alfabeto (A = 1… Z = 27) y trabaja con números. No olvides la Ñ, que va después de la N.",
   },
-  "id": "LET.SERIE:1:muestra:1",
+  "id": "LET.SERIE:2:muestra:1",
   "level": 1,
   "meta": {
     "expectedSeconds": 20,
-    "generatorVersion": "1",
+    "family": "saltoFijo",
+    "generatorVersion": "2",
   },
   "options": [
-    "L",
-    "K",
-    "J",
-    "I",
-  ],
-  "seed": "muestra",
-  "stem": {
-    "letters": [
-      "B",
-      "D",
-      "F",
-      "H",
-    ],
-    "text": "¿Qué letra continúa la serie? B, D, F, H, ?",
-  },
-  "type": "LET.SERIE",
-}
-`;
-
-exports[`LET.SERIE v1 > nivel 2: instantánea de una semilla fija (si cambia, subir version) 1`] = `
-{
-  "answerIndex": 0,
-  "explanation": {
-    "apply": "P (17) + 4 = T (21) → T",
-    "distractors": [
-      {
-        "error": "Cuentas una letra de menos.",
-        "optionIndex": 1,
-      },
-      {
-        "error": "Aplicas el salto (+ 4) dos veces.",
-        "optionIndex": 2,
-      },
-      {
-        "error": "Cuentas una letra de más.",
-        "optionIndex": 3,
-      },
-    ],
-    "observe": "Entre cada letra y la siguiente hay siempre el mismo salto: + 4 posiciones.",
-    "rule": "Cada letra está 4 posiciones después de la anterior.",
-    "tip": "Escribe debajo de cada letra su posición en el alfabeto (A = 1… Z = 27) y trabaja con números. No olvides la Ñ, que va después de la N.",
-  },
-  "id": "LET.SERIE:1:muestra:2",
-  "level": 2,
-  "meta": {
-    "expectedSeconds": 30,
-    "generatorVersion": "1",
-  },
-  "options": [
-    "T",
-    "S",
-    "X",
     "U",
+    "R",
+    "S",
+    "T",
   ],
   "seed": "muestra",
   "stem": {
     "letters": [
-      "E",
-      "I",
-      "M",
       "P",
-    ],
-    "text": "¿Qué letra continúa la serie? E, I, M, P, ?",
-  },
-  "type": "LET.SERIE",
-}
-`;
-
-exports[`LET.SERIE v1 > nivel 3: instantánea de una semilla fija (si cambia, subir version) 1`] = `
-{
-  "answerIndex": 1,
-  "explanation": {
-    "apply": "El siguiente salto es − 6: I (9) − 6 = C (3) → C",
-    "distractors": [
-      {
-        "error": "Aumentas el salto dos veces.",
-        "optionIndex": 0,
-      },
-      {
-        "error": "Vuelves a usar el primer salto (− 2) en vez del que toca.",
-        "optionIndex": 2,
-      },
-      {
-        "error": "Repites el último salto (− 5) sin aumentarlo.",
-        "optionIndex": 3,
-      },
-    ],
-    "observe": "Los saltos entre letras son − 2, − 3, − 4, − 5: su tamaño crece 1 cada vez.",
-    "rule": "El salto aumenta 1 en cada paso, yendo hacia atrás en el alfabeto.",
-    "tip": "Escribe debajo de cada letra su posición en el alfabeto (A = 1… Z = 27) y trabaja con números. No olvides la Ñ, que va después de la N.",
-  },
-  "id": "LET.SERIE:1:muestra:3",
-  "level": 3,
-  "meta": {
-    "expectedSeconds": 40,
-    "generatorVersion": "1",
-  },
-  "options": [
-    "B",
-    "C",
-    "G",
-    "D",
-  ],
-  "seed": "muestra",
-  "stem": {
-    "letters": [
-      "V",
-      "T",
       "Q",
-      "N",
-      "I",
+      "R",
+      "S",
     ],
-    "text": "¿Qué letra continúa la serie? V, T, Q, N, I, ?",
+    "text": "¿Qué letra continúa la serie? P, Q, R, S, ?",
   },
   "type": "LET.SERIE",
 }
 `;
 
-exports[`LET.SERIE v1 > nivel 4: instantánea de una semilla fija (si cambia, subir version) 1`] = `
-{
-  "answerIndex": 1,
-  "explanation": {
-    "apply": "Toca la serie de las posiciones pares: I (9) + 3 = L (12) → L",
-    "distractors": [
-      {
-        "error": "Cuentas una letra de más.",
-        "optionIndex": 0,
-      },
-      {
-        "error": "Aplicas el salto de las pares en sentido contrario.",
-        "optionIndex": 2,
-      },
-      {
-        "error": "Continúas la serie de las posiciones impares (H + 2).",
-        "optionIndex": 3,
-      },
-    ],
-    "observe": "Las letras en posición impar (B, D, F, H) y en posición par (C, F, I) forman dos series distintas.",
-    "rule": "Hay dos series intercaladas: las impares van + 2 y las pares + 3.",
-    "tip": "Escribe debajo de cada letra su posición en el alfabeto (A = 1… Z = 27) y trabaja con números. No olvides la Ñ, que va después de la N.",
-  },
-  "id": "LET.SERIE:1:muestra:4",
-  "level": 4,
-  "meta": {
-    "expectedSeconds": 50,
-    "generatorVersion": "1",
-  },
-  "options": [
-    "M",
-    "L",
-    "F",
-    "J",
-  ],
-  "seed": "muestra",
-  "stem": {
-    "letters": [
-      "B",
-      "C",
-      "D",
-      "F",
-      "F",
-      "I",
-      "H",
-    ],
-    "text": "¿Qué letra continúa la serie? B, C, D, F, F, I, H, ?",
-  },
-  "type": "LET.SERIE",
-}
-`;
-
-exports[`LET.SERIE v1 > nivel 5: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+exports[`LET.SERIE v2 > nivel 2: instantánea de una semilla fija (si cambia, subir version) 1`] = `
 {
   "answerIndex": 2,
   "explanation": {
-    "apply": "El siguiente salto es + 9: Q (18) + 9 = Z (27) → Z",
+    "apply": "R (19) + 3 = U (22) → U",
     "distractors": [
       {
-        "error": "Vuelves a usar el primer salto (+ 1) en vez del que toca.",
+        "error": "Aplicas el salto en sentido contrario (− 3).",
         "optionIndex": 0,
       },
       {
-        "error": "Cuentas una letra de menos.",
+        "error": "Aplicas el salto (+ 3) dos veces.",
         "optionIndex": 1,
       },
       {
-        "error": "Repites el último salto (+ 7) sin aumentarlo.",
+        "error": "Cuentas una letra de más.",
         "optionIndex": 3,
       },
     ],
-    "observe": "Los saltos entre letras son + 1, + 3, + 5, + 7: su tamaño crece 2 cada vez.",
-    "rule": "El salto aumenta 2 en cada paso.",
+    "observe": "Entre cada letra y la siguiente hay siempre el mismo salto: + 3 posiciones.",
+    "rule": "Cada letra está 3 posiciones después de la anterior.",
     "tip": "Escribe debajo de cada letra su posición en el alfabeto (A = 1… Z = 27) y trabaja con números. No olvides la Ñ, que va después de la N.",
   },
-  "id": "LET.SERIE:1:muestra:5",
-  "level": 5,
+  "id": "LET.SERIE:2:muestra:2",
+  "level": 2,
   "meta": {
-    "expectedSeconds": 60,
-    "generatorVersion": "1",
+    "expectedSeconds": 30,
+    "family": "saltoFijoAmbosSentidos",
+    "generatorVersion": "2",
   },
   "options": [
-    "R",
-    "Y",
-    "Z",
+    "O",
     "X",
+    "U",
+    "V",
   ],
   "seed": "muestra",
   "stem": {
     "letters": [
-      "B",
-      "C",
-      "F",
-      "K",
-      "Q",
+      "G",
+      "J",
+      "M",
+      "O",
+      "R",
     ],
-    "text": "¿Qué letra continúa la serie? B, C, F, K, Q, ?",
+    "text": "¿Qué letra continúa la serie? G, J, M, O, R, ?",
+  },
+  "type": "LET.SERIE",
+}
+`;
+
+exports[`LET.SERIE v2 > nivel 3: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 3,
+  "explanation": {
+    "apply": "El siguiente salto es + 1: V (23) + 1 = W (24) → W",
+    "distractors": [
+      {
+        "error": "Cambias el salto dos veces (+ 0).",
+        "optionIndex": 0,
+      },
+      {
+        "error": "Repites el último salto (+ 2) sin cambiarlo.",
+        "optionIndex": 1,
+      },
+      {
+        "error": "Cuentas dos letras de menos.",
+        "optionIndex": 2,
+      },
+    ],
+    "observe": "Los saltos entre letras son + 5, + 4, + 3, + 2: su tamaño decrece de uno en uno.",
+    "rule": "El tamaño del salto decrece 1 en cada paso.",
+    "tip": "Escribe debajo de cada letra su posición en el alfabeto (A = 1… Z = 27) y trabaja con números. No olvides la Ñ, que va después de la N.",
+  },
+  "id": "LET.SERIE:2:muestra:3",
+  "level": 3,
+  "meta": {
+    "expectedSeconds": 40,
+    "family": "saltoVariable",
+    "generatorVersion": "2",
+  },
+  "options": [
+    "V",
+    "X",
+    "U",
+    "W",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "letters": [
+      "I",
+      "N",
+      "Q",
+      "T",
+      "V",
+    ],
+    "text": "¿Qué letra continúa la serie? I, N, Q, T, V, ?",
+  },
+  "type": "LET.SERIE",
+}
+`;
+
+exports[`LET.SERIE v2 > nivel 4: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 0,
+  "explanation": {
+    "apply": "El último salto fue + 1, ahora toca + 3: J (10) + 3 = M (13) → M",
+    "distractors": [
+      {
+        "error": "Aplicas los dos saltos a la vez.",
+        "optionIndex": 1,
+      },
+      {
+        "error": "Cuentas dos letras de más.",
+        "optionIndex": 2,
+      },
+      {
+        "error": "Repites el último salto (+ 1); no ves que se alternan.",
+        "optionIndex": 3,
+      },
+    ],
+    "observe": "Los saltos se alternan: + 1, + 3, + 1, + 3…",
+    "rule": "Se alternan dos saltos: + 1 y + 3.",
+    "tip": "Escribe debajo de cada letra su posición en el alfabeto (A = 1… Z = 27) y trabaja con números. No olvides la Ñ, que va después de la N.",
+  },
+  "id": "LET.SERIE:2:muestra:4",
+  "level": 4,
+  "meta": {
+    "expectedSeconds": 50,
+    "family": "saltosAlternos",
+    "generatorVersion": "2",
+  },
+  "options": [
+    "M",
+    "N",
+    "Ñ",
+    "K",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "letters": [
+      "A",
+      "B",
+      "E",
+      "F",
+      "I",
+      "J",
+    ],
+    "text": "¿Qué letra continúa la serie? A, B, E, F, I, J, ?",
+  },
+  "type": "LET.SERIE",
+}
+`;
+
+exports[`LET.SERIE v2 > nivel 5: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 1,
+  "explanation": {
+    "apply": "Toca la serie de las posiciones pares: I (9) − 3 = F (6) → F",
+    "distractors": [
+      {
+        "error": "Cuentas una letra de menos.",
+        "optionIndex": 0,
+      },
+      {
+        "error": "Continúas la serie de las posiciones impares (I + 2).",
+        "optionIndex": 2,
+      },
+      {
+        "error": "Aplicas el salto de las pares (− 3) dos veces.",
+        "optionIndex": 3,
+      },
+    ],
+    "observe": "Las letras en posición impar (C, E, G, I) y en posición par (Ñ, L, I) forman dos series distintas.",
+    "rule": "Hay dos series intercaladas: las impares van + 2 y las pares − 3.",
+    "tip": "Escribe debajo de cada letra su posición en el alfabeto (A = 1… Z = 27) y trabaja con números. No olvides la Ñ, que va después de la N.",
+  },
+  "id": "LET.SERIE:2:muestra:5",
+  "level": 5,
+  "meta": {
+    "expectedSeconds": 60,
+    "family": "intercaladasOpuestas",
+    "generatorVersion": "2",
+  },
+  "options": [
+    "G",
+    "F",
+    "K",
+    "C",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "letters": [
+      "C",
+      "Ñ",
+      "E",
+      "L",
+      "G",
+      "I",
+      "I",
+    ],
+    "text": "¿Qué letra continúa la serie? C, Ñ, E, L, G, I, I, ?",
   },
   "type": "LET.SERIE",
 }
