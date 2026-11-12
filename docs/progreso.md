@@ -7,8 +7,8 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 | 0 · Base del proyecto | Cerrada (prueba en iPhone pendiente del propietario) | `fase-0-base` · PR #1 fusionado | 2026-11-12 | Sí, 2026-11-12 |
 | 1 · Sistema de diseño en código | Cerrada (VoiceOver en iPhone y `/review-animations` pendientes del propietario) | `fase-1-sistema-diseno` · PR #2 fusionado | 2026-11-12 | Sí, 2026-11-12 |
 | 2 · Motor de contenido v1 | Cerrada (rediseño de distractores pendiente para el inicio de la fase 3) | `fase-2-motor` · PR #3 fusionado | 2026-11-12 | Sí, 2026-11-12 |
-| 3 · Perfil de examen y puntuación | Cerrada (revisión del perfil por el propietario pendiente) | `fase-3-perfil` (PR hacia `main`) | 2026-11-12 | |
-| 4 · Práctica y simulacro sin conexión | Pendiente | | | |
+| 3 · Perfil de examen y puntuación | Cerrada (revisión del perfil por el propietario pendiente) | `fase-3-perfil` · PR #4 fusionado | 2026-11-12 | Sí, 2026-11-12 |
+| 4 · Práctica y simulacro sin conexión | En curso | `fase-4-practica` | | |
 | 5 · Cuentas y sincronización | Pendiente | | | |
 | 6 · Progreso y adaptativo | Pendiente | | | |
 | 7 · Pago | Pendiente | | | |
@@ -151,3 +151,8 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 - **Debe hacer el propietario:**
   - revisar el perfil contra el BOE y marcar la casilla de `packages/engine/profiles/analysis/guardia-civil-2026.md`;
   - decidir si escribe a la Jefatura de Enseñanza.
+
+**2026-11-12 · Fase 4 · T1 (en curso)**
+
+- **Hecho:** modelo de sesión y reparto de práctica en el motor (`packages/engine/src/session/plan.ts`). Reparto equitativo para el simulacro y prioritario por fallos para la práctica; semillas no repetidas (CON-02). 7 pruebas en verde.
+- **Pendiente de la fase:** T2 a T11 según `docs/planes/fase-4.md`.
