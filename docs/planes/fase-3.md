@@ -3,7 +3,7 @@
 **Rama:** `fase-3-perfil` (desde `main`, con la fase 2 fusionada).
 **Requisitos:** CON-01, SIM-01, RES-01, RES-04 y NFR-08, más el pendiente de la fase 2 (distractores).
 **Skills:** `aptiq-exam-profile` (manda) y `aptiq-generator` (para los distractores).
-**Estado:** propuesto, pendiente de confirmación del propietario.
+**Estado:** aprobado por el propietario el 2026-11-12 con las opciones propuestas: simulacro con «mezcla de entrenamiento» a partes iguales y aviso visible; distractores validados con pruebas automáticas y en la beta; nota negativa sin recortar, pendiente de confirmar.
 
 ## Qué dicen las fuentes oficiales (consultadas el 2026-11-12)
 

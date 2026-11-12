@@ -1,0 +1,48 @@
+{
+  "id": "guardia-civil-2026",
+  "oposicion": "Guardia Civil · Escala de Cabos y Guardias",
+  "convocatoria": "2026",
+  "version": 1,
+  "sources": [
+    {
+      "organismo": "BOE",
+      "titulo": "Resolución 160/38243/2026, de 5 de mayo, de la Dirección General de la Guardia Civil, por la que se convocan pruebas selectivas para ingreso en los centros docentes de formación para la incorporación a la Escala de Cabos y Guardias (BOE n.º 112, de 8 de mayo de 2026)",
+      "url": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-9982",
+      "tipo": "bases",
+      "fechaConsulta": "2026-11-12",
+      "apartado": "bases 6.1.2.a, 7.3 y 7.8"
+    },
+    {
+      "organismo": "Guardia Civil",
+      "titulo": "Plantillas de respuestas de las pruebas de ingreso en la Escala de Cabos y Guardias, 11 de julio de 2026 (página 3: prueba de aptitudes)",
+      "url": "https://web.guardiacivil.es/export/sites/guardiaCivil/documentos/pdfs/2026/Procesos_Selectivos_2026/PLANTILLAS-INGRESO-CABOS-Y-GUARDIAS.-2026.pdf",
+      "tipo": "plantilla",
+      "fechaConsulta": "2026-11-12"
+    }
+  ],
+  "format": {
+    "preguntas": 80,
+    "minutos": 55,
+    "opciones": 4,
+    "puntuacion": { "maxima": 30, "minima": 12 }
+  },
+  "mix": null,
+  "fieldSources": {
+    "format.preguntas": 0,
+    "format.minutos": 0,
+    "format.opciones": 0,
+    "format.puntuacion.maxima": 0,
+    "format.puntuacion.minima": 0
+  },
+  "pendiente": ["mix"],
+  "notas": {
+    "format.preguntas": "Base 6.1.2.a («La batería se compondrá de ochenta (80) preguntas») y tabla de la base 7.3 (T = 80). La plantilla oficial del 11/07/2026 tiene 80 ítems por modelo.",
+    "format.minutos": "Base 6.1.2.a: cincuenta y cinco (55) minutos, incluida la lectura de instrucciones.",
+    "format.opciones": "Tabla de la base 7.3 (N = 4). La plantilla oficial usa las respuestas A, B, C y D.",
+    "format.puntuacion.maxima": "Bases 7.3 (Y = 30) y 7.8 (de 0 a 30 puntos). Fórmula de la base 7.3: P = Y/T × (A − E/(N − 1)). Las preguntas sin contestar no penalizan (base 6.1.2.a).",
+    "format.puntuacion.minima": "Base 7.8: mínimo de doce (12) puntos; quien no lo alcance queda excluido del proceso selectivo.",
+    "respuesta": "Base 6.1.2.a: cada pregunta tiene una única respuesta válida; si se consideran correctas varias, se señala la más completa.",
+    "mix": "Pendiente: la Guardia Civil no publica el cuestionario de la prueba de aptitudes, solo la plantilla de respuestas. Las bases solo indican «test de inteligencia general y/o escalas específicas». Ver profiles/analysis/guardia-civil-2026.md.",
+    "puntuacionNegativa": "Pendiente de confirmar: las bases no dicen si una puntuación negativa se recorta a 0. La app muestra el valor de la fórmula."
+  }
+}

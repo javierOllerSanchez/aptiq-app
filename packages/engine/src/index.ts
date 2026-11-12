@@ -17,6 +17,8 @@ import type { Generator, Solver } from './types';
 export { createRng, type Rng } from './rng';
 export { taxonomy, typeCodes, type TypeCode } from './taxonomy';
 export * from './types';
+export { validateProfile, type ExamProfile } from './profile';
+export { score, type ScoreResult } from './score';
 
 /** Un generador y su solucionador por cada tipo de la taxonomía. */
 export const registry: Record<TypeCode, { generator: Generator; solver: Solver }> = {
