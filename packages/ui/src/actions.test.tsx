@@ -28,8 +28,7 @@ test('Button desactivado no responde y lo anuncia', async () => {
 test('OptionBubble se anuncia como en la guía', async () => {
   const onPress = jest.fn();
   await render(<OptionBubble letter="B" value="63" state="marked" onPress={onPress} />);
-  const option = screen.getByRole('radio', { name: 'Opción B, 63' });
-  expect(option).toBeChecked();
+  const option = screen.getByRole('radio', { name: 'Opción B, 63, seleccionada' });
   fireEvent.press(option);
   expect(onPress).toHaveBeenCalledTimes(1);
 });

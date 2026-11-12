@@ -18,7 +18,7 @@ const tabs: { key: Tab; icon: IconName; label: string }[] = [
 /** Barra de navegación flotante en cristal. Activa: fondo tinta, icono subrayador. */
 export function TabBar({ active, onSelect }: { active: Tab; onSelect: (tab: Tab) => void }) {
   return (
-    <Glass radius={radius.nav} style={styles.bar}>
+    <Glass radius={radius.nav} style={styles.bar} accessibilityRole="tablist">
       {tabs.map((t) => {
         const selected = t.key === active;
         return (
@@ -28,7 +28,12 @@ export function TabBar({ active, onSelect }: { active: Tab; onSelect: (tab: Tab)
             accessibilityRole="tab"
             accessibilityLabel={t.label}
             accessibilityState={{ selected }}
-            style={[styles.tab, selected && styles.active]}>
+            style={({ pressed }) => [
+              styles.tab,
+              selected && styles.active,
+              pressed && { opacity: tokens.opacity.pressed },
+            ]}
+          >
             <Icon name={t.icon} color={selected ? 'highlighter' : 'ink'} />
           </Pressable>
         );

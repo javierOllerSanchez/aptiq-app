@@ -5,7 +5,7 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 | Fase | Estado | Rama / PR | Cerrada | Aprobada por el propietario |
 | --- | --- | --- | --- | --- |
 | 0 · Base del proyecto | Cerrada (prueba en iPhone pendiente del propietario) | `fase-0-base` · PR #1 fusionado | 2026-11-12 | Sí, 2026-11-12 |
-| 1 · Sistema de diseño en código | Plan propuesto | `fase-1-sistema-diseno` | | |
+| 1 · Sistema de diseño en código | Cerrada (VoiceOver en iPhone y `/review-animations` pendientes del propietario) | `fase-1-sistema-diseno` (PR hacia `main`) | 2026-11-12 | |
 | 2 · Motor de contenido v1 | Pendiente | | | |
 | 3 · Perfil de examen y puntuación | Pendiente | | | |
 | 4 · Práctica y simulacro sin conexión | Pendiente | | | |
@@ -58,3 +58,32 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
   - iconos y pantalla de arranque siguen siendo los de Expo; se sustituirán por `docs/marca/icono-app.svg` antes de la beta;
   - `test:stress` aún no hace nada (fase 2);
   - el perfil `development` de `eas.json` necesitará `expo-dev-client` el día que se haga la primera compilación de desarrollo.
+
+**2026-11-12 · Fase 1**
+
+- **Hecho:**
+  - `packages/ui` con 13 piezas, cada una con pruebas de rol y etiqueta: `Text`, `Button`, `OptionBubble`, `GlassCard` y `Glass`, `TabBar`, `ProgressTicks`, `LevelBubbles`, `Stamp`, `SourceNote`, `PaperBackground` (con modo `scroll`), `Logo` e `Icon`.
+  - Tokens nuevos en `docs/tokens.json`; la prueba de coincidencia sigue en verde.
+  - Catálogo `/catalogo`, solo en desarrollo, y pantalla provisional con los componentes.
+  - Capturas en Android: `docs/capturas/fase-1-catalogo-1/2/3.png` y, con el texto al 200 %, `fase-1-texto-200.png`.
+- **Cierre (`/cerrar-fase 1`):**
+  - `verificador-fase`: typecheck, lint, test y CI en verde. Pedía corregir «reducir movimiento» y actualizar estos documentos; ya está hecho.
+  - `revisor-interfaz`: sin bloqueantes. Corregido:
+    - «reducir movimiento» mantiene el fundido (`ReduceMotion.Never` en las animaciones de opacidad);
+    - las opciones se anuncian «Opción B, 63, seleccionada», y las correctas o falladas ya no salen como desactivadas;
+    - la letra amarilla ya no asoma al marcar (fundido cruzado);
+    - todo lo pulsable responde visualmente; la vibración solo suena si cambia la respuesta;
+    - el contenido no salta 1 px al marcar;
+    - la barra de pestañas se anuncia como grupo de pestañas;
+    - `GlassCard` agrupa su contenido para el lector.
+  - Ponytail: se ha simplificado la simulación de Reanimated y se ha quitado una etiqueta redundante del botón.
+  - Prettier aplicado al código; los Markdown y los recursos quedan fuera.
+- **Debe comprobar el propietario:**
+  - en el iPhone, abrir el catálogo («Ver catálogo») y recorrerlo con VoiceOver: opciones, pestañas, progreso y sello;
+  - ejecutar `/review-animations` en el chat sobre `packages/ui/src/option-bubble.tsx` y `stamp.tsx`.
+- **Anotado para la fase 4 (menores):**
+  - el icono de `SourceNote` no crece con el texto dinámico;
+  - algunos valores de icono y sello siguen escritos a mano (`size.icon * 0.8`, la escala 1,15 del sello): pasarlos a tokens cuando se usen en pantallas;
+  - `glass.saturate` no se aplica (expo-blur no lo admite);
+  - el catálogo no sigue el orden exacto de `sistema.html` ni tiene la lámina de color.
+- **Para que lo decida el propietario:** casillas pendientes (1,28:1), burbujas de nivel vacías (1,73:1) y borde de opción vacía (1,38:1) quedan por debajo del 3:1 que WCAG 1.4.11 pide a los elementos gráficos. Son valores de la guía; la información también llega por el texto y la etiqueta accesible.

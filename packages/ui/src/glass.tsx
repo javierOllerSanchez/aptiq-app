@@ -1,7 +1,15 @@
 import { tokens } from '@aptiq/tokens';
 import { BlurView } from 'expo-blur';
 import { useEffect, useState, type ReactNode } from 'react';
-import { AccessibilityInfo, Platform, StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
+import {
+  AccessibilityInfo,
+  Platform,
+  StyleSheet,
+  View,
+  type StyleProp,
+  type ViewProps,
+  type ViewStyle,
+} from 'react-native';
 import Svg, { Defs, LinearGradient, Rect, Stop } from 'react-native-svg';
 
 import { withAlpha } from './color';
@@ -27,7 +35,8 @@ export function Glass({
   children,
   radius,
   style,
-}: {
+  ...rest
+}: ViewProps & {
   children?: ReactNode;
   radius: number;
   style?: StyleProp<ViewStyle>;
@@ -37,13 +46,15 @@ export function Glass({
   const s = glass.shadow;
   return (
     <View
+      {...rest}
       style={[
         {
           borderRadius: radius,
           boxShadow: `0 ${s.offsetY}px ${s.radius}px ${withAlpha(s.color, s.opacity)}`,
         },
         style,
-      ]}>
+      ]}
+    >
       <View style={[StyleSheet.absoluteFill, { borderRadius: radius, overflow: 'hidden' }]}>
         {blur ? (
           <>

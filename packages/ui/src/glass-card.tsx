@@ -4,7 +4,10 @@ import { StyleSheet, type StyleProp, type ViewStyle } from 'react-native';
 
 import { Glass } from './glass';
 
-/** Tarjeta de resumen en cristal (nivel estimado, aciertos, fallos…). Nunca para preguntas. */
+/**
+ * Tarjeta de resumen en cristal (nivel estimado, aciertos, fallos…). Nunca para preguntas.
+ * Agrupa su contenido para el lector de pantalla («Racha, 6 días» en un solo elemento).
+ */
 export function GlassCard({
   children,
   style,
@@ -13,7 +16,7 @@ export function GlassCard({
   style?: StyleProp<ViewStyle>;
 }) {
   return (
-    <Glass radius={tokens.radius.cardLarge} style={[styles.card, style]}>
+    <Glass radius={tokens.radius.cardLarge} style={[styles.card, style]} accessible>
       {children}
     </Glass>
   );

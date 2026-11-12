@@ -45,7 +45,8 @@ export function Icon({
       strokeLinecap="round"
       strokeLinejoin="round"
       accessible={false}
-      importantForAccessibility="no">
+      importantForAccessibility="no"
+    >
       {icon.paths.map((d) => (
         <Path key={d} d={d} />
       ))}

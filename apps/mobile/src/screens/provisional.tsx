@@ -17,7 +17,11 @@ export function Provisional() {
         </Text>
         <Text>Pantalla provisional. Las pantallas reales llegan en la fase 4.</Text>
         {__DEV__ && (
-          <Button label="Ver catálogo" variant="secondary" onPress={() => router.push('/catalogo')} />
+          <Button
+            label="Ver catálogo"
+            variant="secondary"
+            onPress={() => router.push('/catalogo')}
+          />
         )}
       </View>
     </PaperBackground>

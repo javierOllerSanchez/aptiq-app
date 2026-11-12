@@ -22,7 +22,8 @@ export function ProgressTicks({
       accessible
       accessibilityRole="progressbar"
       accessibilityLabel={`Pregunta ${current + 1} de ${total}`}
-      accessibilityValue={{ min: 1, max: total, now: current + 1 }}>
+      accessibilityValue={{ min: 1, max: total, now: current + 1 }}
+    >
       {Array.from({ length: total }, (_, i) => (
         <View
           key={i}
@@ -44,7 +45,8 @@ export function LevelBubbles({ level, max = 10 }: { level: number; max?: number 
       accessible
       accessibilityRole="progressbar"
       accessibilityLabel={`Nivel ${level} de ${max}`}
-      accessibilityValue={{ min: 0, max, now: level }}>
+      accessibilityValue={{ min: 0, max, now: level }}
+    >
       {Array.from({ length: max }, (_, i) => (
         <View key={i} style={[styles.level, i < level ? styles.levelFilled : styles.levelEmpty]} />
       ))}

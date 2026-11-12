@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Animated, {
   Easing,
+  ReduceMotion,
   useAnimatedStyle,
   useReducedMotion,
   useSharedValue,
@@ -21,7 +22,12 @@ export function Stamp({ label = 'Apto' }: { label?: string }) {
   const reduce = useReducedMotion();
   const p = useSharedValue(0);
   useEffect(() => {
-    p.value = withTiming(1, { duration: motion.durationSlow, easing: Easing.bezier(...motion.easingCurve) });
+    // ReduceMotion.Never: con «reducir movimiento» se quita la escala y el giro, pero se mantiene el fundido.
+    p.value = withTiming(1, {
+      duration: motion.durationSlow,
+      easing: Easing.bezier(...motion.easingCurve),
+      reduceMotion: ReduceMotion.Never,
+    });
   }, [p]);
   const appear = useAnimatedStyle(() => ({
     opacity: p.value,

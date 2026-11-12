@@ -11,7 +11,11 @@ import { Text } from './text';
 export function SourceNote({ organismo }: { organismo: string }) {
   return (
     <View style={styles.row} accessible>
-      <Icon name="document" color="graphiteStrong" size={tokens.type.caption.size + tokens.spacing.xs} />
+      <Icon
+        name="document"
+        color="graphiteStrong"
+        size={tokens.type.caption.size + tokens.spacing.xs}
+      />
       <Text variant="caption" color="graphiteStrong" style={styles.text}>
         Estructura basada en las bases del BOE y en los exámenes publicados por {organismo}.
       </Text>

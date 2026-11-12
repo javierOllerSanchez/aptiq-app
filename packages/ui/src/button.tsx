@@ -31,13 +31,13 @@ export function Button({
       onPress={onPress}
       disabled={disabled}
       accessibilityRole="button"
-      accessibilityLabel={label}
       accessibilityState={{ disabled }}
       {...(accessibilityHint !== undefined && { accessibilityHint })}
       style={({ pressed }) => [
         styles.base,
         (pressed || disabled) && { opacity: disabled ? opacity.disabled : opacity.pressed },
-      ]}>
+      ]}
+    >
       {variant === 'glass' ? (
         <Glass radius={radius.button} style={styles.inner}>
           {content}

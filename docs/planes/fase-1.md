@@ -11,7 +11,7 @@
 - `review-animations`;
 - `design:accessibility-review`.
 
-**Estado:** propuesto, pendiente de confirmación del propietario.
+**Estado:** aprobado por el propietario el 2026-11-12 con las opciones por defecto: mandan la guía y `tokens.json`; logotipo con la **p** marcada; siempre el SVG oficial.
 
 ## Fuente de verdad cuando no coinciden
 

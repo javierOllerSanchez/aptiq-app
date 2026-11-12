@@ -2,7 +2,8 @@ import { defineConfig, globalIgnores } from 'eslint/config';
 import expoConfig from 'eslint-config-expo/flat.js';
 import tseslint from 'typescript-eslint';
 
-const motorDeterminista = 'El motor debe ser determinista: usa createRng(seed) (ver skill aptiq-generator).';
+const motorDeterminista =
+  'El motor debe ser determinista: usa createRng(seed) (ver skill aptiq-generator).';
 
 export default defineConfig([
   globalIgnores([

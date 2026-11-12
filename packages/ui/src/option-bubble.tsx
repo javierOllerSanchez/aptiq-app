@@ -2,20 +2,34 @@ import { tokens } from '@aptiq/tokens';
 import * as Haptics from 'expo-haptics';
 import { useEffect } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
-import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import Animated, {
+  Easing,
+  ReduceMotion,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated';
 
 import { Icon } from './icon';
 import { Text } from './text';
 
-const { color, radius, border, size, spacing, motion } = tokens;
+const { color, radius, border, size, spacing, motion, opacity } = tokens;
 
 export type OptionState = 'empty' | 'marked' | 'correct' | 'wrong';
 
+// Guía, sección 10: «Opción B, 63, seleccionada».
 const stateLabel: Record<OptionState, string> = {
   empty: '',
-  marked: '',
+  marked: ', seleccionada',
   correct: ', correcta',
   wrong: ', incorrecta',
+};
+
+const rowBorder: Record<OptionState, number> = {
+  empty: border.hairline,
+  marked: border.selected,
+  correct: border.default,
+  wrong: border.default,
 };
 
 /** Fila de respuesta con burbuja de hoja de examen (guía, sección 5). */
@@ -31,45 +45,62 @@ export function OptionBubble({
   onPress?: () => void;
 }) {
   const filled = state !== 'empty';
-  // Relleno de la burbuja: 150 ms ease-out. Reanimated lo omite con «reducir movimiento» (ReduceMotion.System).
+  // Relleno de la burbuja: 150 ms con ease-out marcada. Solo opacidad, así que se mantiene también
+  // con «reducir movimiento» (ReduceMotion.Never): la guía permite fundidos.
   const fill = useSharedValue(filled ? 1 : 0);
   useEffect(() => {
     fill.value = withTiming(filled ? 1 : 0, {
       duration: motion.durationFast,
       easing: Easing.bezier(...motion.easingCurve),
+      reduceMotion: ReduceMotion.Never,
     });
   }, [filled, fill]);
   const fillStyle = useAnimatedStyle(() => ({ opacity: fill.value }));
 
   const press = onPress
     ? () => {
-        Haptics.selectionAsync().catch(() => {});
+        if (state !== 'marked') Haptics.selectionAsync().catch(() => {});
         onPress();
       }
     : undefined;
 
   const wrong = state === 'wrong';
+  // Mismo hueco interior con cualquier grosor de borde: el contenido no salta al marcar.
+  const paddingHorizontal = spacing.l + border.selected - rowBorder[state];
+
   return (
     <Pressable
       onPress={press}
-      disabled={!onPress}
       accessibilityRole="radio"
-      accessibilityState={{ checked: state === 'marked', disabled: !onPress }}
       accessibilityLabel={`Opción ${letter}, ${value}${stateLabel[state]}`}
-      style={[styles.row, rowStyle[state]]}>
+      style={({ pressed }) => [
+        styles.row,
+        rowStyle[state],
+        { borderWidth: rowBorder[state], paddingHorizontal },
+        pressed && { opacity: opacity.pressed },
+      ]}
+    >
       <View style={[styles.bubble, wrong && styles.bubbleWrong]}>
+        {/* Letra en tinta debajo; encima, el relleno con la letra en subrayador (fundido cruzado). */}
+        <Text variant="timer">{letter}</Text>
         <Animated.View
-          style={[StyleSheet.absoluteFill, { backgroundColor: wrong ? color.seal : color.ink }, fillStyle]}
-        />
-        {state === 'correct' ? (
-          <Icon name="check" color="highlighter" size={size.icon * 0.8} strokeWidth={3} />
-        ) : wrong ? (
-          <Icon name="cross" color="white" size={size.icon * 0.75} strokeWidth={3} />
-        ) : (
-          <Text variant="timer" color={state === 'marked' ? 'highlighter' : 'ink'}>
-            {letter}
-          </Text>
-        )}
+          style={[
+            StyleSheet.absoluteFill,
+            styles.center,
+            { backgroundColor: wrong ? color.seal : color.ink },
+            fillStyle,
+          ]}
+        >
+          {state === 'correct' ? (
+            <Icon name="check" color="highlighter" strokeWidth={border.selected * 1.5} />
+          ) : wrong ? (
+            <Icon name="cross" color="white" strokeWidth={border.selected * 1.5} />
+          ) : (
+            <Text variant="timer" color="highlighter">
+              {letter}
+            </Text>
+          )}
+        </Animated.View>
       </View>
       <Text variant="optionValue" weight={state === 'empty' ? 600 : 700} style={styles.value}>
         {value}
@@ -79,17 +110,16 @@ export function OptionBubble({
 }
 
 const rowStyle = StyleSheet.create({
-  empty: { backgroundColor: color.paperCard, borderWidth: border.hairline, borderColor: color.line },
-  marked: { backgroundColor: color.white, borderWidth: border.selected, borderColor: color.ink },
-  correct: { backgroundColor: color.highlighter, borderWidth: border.default, borderColor: color.ink },
-  wrong: { backgroundColor: color.paperCard, borderWidth: border.default, borderColor: color.seal },
+  empty: { backgroundColor: color.paperCard, borderColor: color.line },
+  marked: { backgroundColor: color.white, borderColor: color.ink },
+  correct: { backgroundColor: color.highlighter, borderColor: color.ink },
+  wrong: { backgroundColor: color.paperCard, borderColor: color.seal },
 });
 
 const styles = StyleSheet.create({
   row: {
     minHeight: size.optionHeight,
     borderRadius: radius.option,
-    paddingHorizontal: spacing.l,
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacing.m,
@@ -100,10 +130,11 @@ const styles = StyleSheet.create({
     borderRadius: size.bubble / 2,
     borderWidth: border.selected,
     borderColor: color.ink,
+    overflow: 'hidden',
     alignItems: 'center',
     justifyContent: 'center',
-    overflow: 'hidden',
   },
+  center: { alignItems: 'center', justifyContent: 'center' },
   bubbleWrong: { borderColor: color.seal },
   value: { flex: 1 },
 });
