@@ -12,6 +12,14 @@ import type { Store } from '@/data/store';
 /** Opciones por pregunta del perfil de la Guardia Civil (base 7.3, N = 4). */
 export const OPTION_COUNT = 4 as const;
 
+/** Nombres de las aptitudes del motor, en español para la pantalla. */
+export const APTITUDE_LABELS: Record<string, string> = {
+  numerica: 'Numérica',
+  verbal: 'Verbal',
+  atencion: 'Atención y percepción',
+  abstracta: 'Abstracta',
+};
+
 export interface StartOptions {
   count: number;
   reparto: 'equitativo' | 'prioritario';

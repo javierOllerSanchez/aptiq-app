@@ -44,6 +44,12 @@
 | 2026-11-12 | Palabras de las preguntas sin ninguna que lleve tilde (se muestran en mayúsculas sin ella) | La oposición evalúa la ortografía: no se debe enseñar «JARDIN» o «VOLCAN» |
 | 2026-11-12 | Esquema de perfil con `format.puntuacion.{maxima, minima}` y la fórmula Y/T/N del BOE; la skill `aptiq-exam-profile` se actualiza a este esquema | El esquema de ejemplo de la skill era anterior a leer las bases |
 
+| 2026-11-12 | Práctica de la fase 4 con preguntas en revisión: la pantalla Inicio lo avisa; la validación con opositores va en la beta | Decisión del propietario (opción a) |
+| 2026-11-12 | Una sesión y un intento guardan sus preguntas completas (tipo, nivel, semilla, respuesta, marca); las pantallas regeneran el enunciado con el motor | Así el fallo y la explicación salen de la semilla, sin guardar el texto de las preguntas |
+| 2026-11-12 | Dependencias nuevas: `expo-sqlite` y `drizzle-orm` (del stack). Tablas creadas con SQL al abrir la base; drizzle-kit se añade con la primera migración de cambio | Stack del CLAUDE.md; evita una herramienta más mientras no hay migraciones |
+| 2026-11-12 | `@aptiq/engine` es dependencia interna de la app (no una librería externa) | La app usa el motor para generar y puntuar; el perfil oficial se exporta desde el motor |
+| 2026-11-12 | Test de nivel de 12 preguntas (2 por tipo, nivel 2) con estimación lineal de 1 a 5, marcada como orientativa | Decisión del propietario (recomendada); sin datos oficiales de reparto |
+
 ## Pendientes (las decide el propietario)
 
 - [x] Logotipo: p marcada (decidido el 2026-11-12)

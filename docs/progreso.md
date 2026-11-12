@@ -182,3 +182,18 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 
 - **Hecho:** cálculo del nivel orientativo por tipo a partir del test de nivel (`packages/engine/src/level/estimate.ts`): lineal de 1 a 5, sin contar las preguntas en blanco y sin inventar nivel cuando no hay respuestas. 3 pruebas en verde.
 - **Pendiente:** las pantallas de onboarding (elegir oposición y fecha, test de 10 minutos) y su flujo de Maestro.
+
+**2026-11-12 · Fase 4 · T6 y T7 (código; sin verificar en dispositivo)**
+
+- **Hecho:**
+  - Arranque con redirección: sin oposición va al onboarding, con oposición a Inicio.
+  - Onboarding en 3 pasos (oposición, fecha opcional y test de 12 preguntas), con el nivel estimado guardado.
+  - Inicio con sesión de hoy, simulacro, práctica por aptitud y el aviso de preguntas en revisión.
+  - Práctica con confirmación y explicación (EXP-01 a EXP-03), simulacro con cronómetro y navegación, resultado con la nota del perfil oficial (RES-01, RES-02) y repaso de fallos (RES-03).
+  - El paquete de Android se genera sin errores (`expo export`).
+  - Lint de la app limpio; 12 pruebas de la app en verde.
+- **No verificado aún:**
+  - Ninguna pantalla se ha visto en un dispositivo ni comparado con su prototipo (T10).
+  - Los flujos de Maestro (T9) no existen.
+  - Sesión activa en memoria: si la app se cierra a mitad de práctica se pierde esa sesión.
+- **Pendiente de la fase:** T8 (modo avión y medición de arranque), T9, T10 y T11.

@@ -4,6 +4,7 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 
+import { StoreProvider } from '@/data/provider';
 import { fontAssets } from '@/fonts';
 
 SplashScreen.preventAutoHideAsync();
@@ -18,8 +19,13 @@ export default function RootLayout() {
 
   if (!loaded && !error) return null;
   return (
-    <Stack
-      screenOptions={{ headerShown: false, contentStyle: { backgroundColor: tokens.color.paper } }}
-    />
+    <StoreProvider>
+      <Stack
+        screenOptions={{
+          headerShown: false,
+          contentStyle: { backgroundColor: tokens.color.paper },
+        }}
+      />
+    </StoreProvider>
   );
 }
