@@ -3,7 +3,7 @@
 **Rama:** `fase-4-practica` (desde `main`, con la fase 3 fusionada).
 **Requisitos:** ONB-01, ONB-02, ENT-01, ENT-02, SIM-01, SIM-02, SIM-03, EXP-01–03, RES-01–03, PRO-01, PRO-02, CON-03, NFR-01–04.
 **Skills:** `aptiq-design-system` (manda), `expo-router`, `expo-data-fetching`, `animate-expo`, `review-animations` (a mano, ver decisiones), `ui-ux-pro-max`, Impeccable (`critique`, `audit`, `polish`), `design:ux-copy`, `design:accessibility-review`.
-**Estado:** **pendiente de confirmación del propietario** (ver «Decisiones que necesito de ti»). No se escribe código hasta confirmar.
+**Estado:** aprobado por el propietario el 2026-11-12 con las opciones propuestas: 1a (práctica con aviso de preguntas en revisión), test de nivel orientativo, Maestro en Android por Claude y en iPhone por el propietario, y cuentas en la fase 5.
 
 ## Qué ya existe y se reutiliza
 

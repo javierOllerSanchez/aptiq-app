@@ -17,12 +17,19 @@ import { StyleSheet, TextInput, View } from 'react-native';
 import { useStore } from '@/data/provider';
 import type { Store } from '@/data/store';
 import { useExamClock } from '@/hooks/use-exam-clock';
-import { FUENTE, startRun } from '@/practice/run';
+import { CITA, LETTERS, startRun, toSaved } from '@/practice/run';
+import { Pregunta } from '@/screens/pregunta';
 
-const LETTERS = ['A', 'B', 'C', 'D'] as const;
 const TEST_QUESTIONS = 12; // 2 por tipo (ONB-02)
 const TEST_MINUTES = 10;
-const FECHA = /^\d{4}-\d{2}-\d{2}$/;
+/** AAAA-MM-DD y que la fecha exista (rechaza 2027-02-31). */
+export function fechaReal(texto: string): boolean {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(texto);
+  if (!m) return false;
+  const [y, mo, d] = [Number(m[1]), Number(m[2]), Number(m[3])];
+  const f = new Date(Date.UTC(y, mo - 1, d));
+  return f.getUTCFullYear() === y && f.getUTCMonth() === mo - 1 && f.getUTCDate() === d;
+}
 
 type Step = 'oposicion' | 'fecha' | 'test';
 
@@ -32,7 +39,7 @@ export function Onboarding() {
   const [step, setStep] = useState<Step>('oposicion');
   const [fecha, setFecha] = useState('');
   const [test, setTest] = useState<{ items: Item[]; exam: ExamState } | null>(null);
-  const fechaValida = fecha.trim() === '' || FECHA.test(fecha.trim());
+  const fechaValida = fecha.trim() === '' || fechaReal(fecha.trim());
 
   async function empezarTest() {
     await store.setSetting('oposicion', 'guardia-civil-2026');
@@ -62,7 +69,7 @@ export function Onboarding() {
           onPress={() => setStep('fecha')}
           variant="primary"
         />
-        <SourceNote organismo={FUENTE} />
+        <SourceNote cita={CITA} />
         <Text variant="caption" color="graphite">
           Aptiq es independiente de la Administración.
         </Text>
@@ -121,19 +128,14 @@ function TestDeNivel({ store, items, exam }: { store: Store; items: Item[]; exam
     done.current = true;
     const porTipo = items.map((item, i) => ({
       type: item.type,
+      level: item.level,
       correct: finales[i] === item.answerIndex,
       blank: finales[i] === null || finales[i] === undefined,
     }));
     await store.saveSession({
       id: `test-${exam.startedAt}`,
       creada: exam.startedAt,
-      questions: items.map((item, i) => ({
-        type: item.type,
-        level: item.level,
-        seed: item.seed,
-        answer: finales[i] ?? null,
-        marked: false,
-      })),
+      questions: toSaved(items, finales),
     });
     await store.setSetting('niveles', JSON.stringify(estimateLevels(porTipo)));
     router.replace('/inicio');
@@ -171,7 +173,7 @@ function TestDeNivel({ store, items, exam }: { store: Store; items: Item[]; exam
         current={index}
         answered={items.map((_, i) => i < answers.length)}
       />
-      <Text variant="questionTitle">{item.stem.text}</Text>
+      <Pregunta texto={item.stem.text} />
       <View accessibilityRole="radiogroup" style={styles.options}>
         {item.options.map((value, i) => (
           <OptionBubble

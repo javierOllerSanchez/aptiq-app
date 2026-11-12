@@ -29,7 +29,7 @@ appId: com.javioller.aptiq
 - takeScreenshot: capturas/fase-4-practica
 - launchApp:
     stopApp: true
-- tapOn: "Empezar simulacro"
+- tapOn: "(Empezar|Continuar) simulacro"
 - tapOn: "Opción B, .*"
 - takeScreenshot: capturas/fase-4-simulacro
 - scrollUntilVisible:

@@ -62,3 +62,10 @@ test('el reparto prioritario da más preguntas a los tipos con más fallos', () 
 test('lanza error si la aptitud no tiene tipos', () => {
   expect(() => buildPractice({ ...base, aptitude: 'inexistente' })).toThrow();
 });
+
+test('el reparto equitativo no sigue un ciclo fijo de tipos', () => {
+  const out = buildPractice({ ...base, count: 12 });
+  const first = out.slice(0, 6).map((it) => it.type);
+  const second = out.slice(6, 12).map((it) => it.type);
+  expect(first).not.toEqual(second);
+});

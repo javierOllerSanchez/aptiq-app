@@ -8,7 +8,7 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 | 1 · Sistema de diseño en código | Cerrada (VoiceOver en iPhone y `/review-animations` pendientes del propietario) | `fase-1-sistema-diseno` · PR #2 fusionado | 2026-11-12 | Sí, 2026-11-12 |
 | 2 · Motor de contenido v1 | Cerrada (rediseño de distractores pendiente para el inicio de la fase 3) | `fase-2-motor` · PR #3 fusionado | 2026-11-12 | Sí, 2026-11-12 |
 | 3 · Perfil de examen y puntuación | Cerrada (revisión del perfil por el propietario pendiente) | `fase-3-perfil` · PR #4 fusionado | 2026-11-12 | Sí, 2026-11-12 |
-| 4 · Práctica y simulacro sin conexión | En curso | `fase-4-practica` | | |
+| 4 · Práctica y simulacro sin conexión | En cierre (pendiente de decisiones del propietario) | `fase-4-practica` | | |
 | 5 · Cuentas y sincronización | Pendiente | | | |
 | 6 · Progreso y adaptativo | Pendiente | | | |
 | 7 · Pago | Pendiente | | | |
@@ -245,3 +245,46 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
   - composición exacta de Resultado (nota con «/ 30» y sello al lado) y barras por aptitud;
   - cuál es el botón amarillo de Inicio: he seguido el prototipo («Empezar simulacro»).
 - **Para revisar el propietario:** `SourceNote` dice «exámenes publicados por la Guardia Civil», pero la Guardia Civil solo publica la plantilla de respuestas de aptitudes, no el cuestionario.
+
+**2026-11-12 · Fase 4 · Cierre (en curso; subido a GitHub para seguir desde otro equipo)**
+
+- **Revisiones del cierre:**
+  - `verificador-fase`, primera pasada: «no lista». Bloqueantes:
+    - segunda pasada de `revisor-interfaz`: **hecha, sin graves**;
+    - NFR-03 al cerrarse la app: **corregido**; el simulacro se guarda tras cada cambio y se retoma con «Continuar simulacro»;
+    - prueba del cronómetro en un móvil real: **la hace el propietario**;
+    - T8: **pendiente del propietario**;
+    - aplazar PRO-01 y PRO-02: **pendiente del propietario**;
+    - documentación de cierre: hecha.
+  - `revisor-interfaz`, segunda pasada: **ningún grave**. Corregidos los importantes 1, 3, 4 y 6:
+    - tarjeta de la pregunta;
+    - mismo criterio para «a reforzar» y el porcentaje mostrado;
+    - aviso si el test no da para estimar;
+    - el veredicto de Práctica se anuncia al lector de pantalla.
+  - `revisor-contenido`, primera pasada: 2 bloqueantes, **corregidos**:
+    - `SourceNote` ya no habla de «exámenes publicados»: cita BOE-A-2026-9982 y sus bases;
+    - aviso visible de que la mezcla de tipos no es oficial.
+
+    Importantes corregidos:
+    - enunciados repetidos dentro de un simulacro (CON-02);
+    - «a reforzar»;
+    - test de nivel;
+    - el error de cada opción incorrecta (EXP-02);
+    - «3 fallos restan 1 acierto».
+  - `revisor-contenido`, segunda pasada: **ningún bloqueante**. Sus 2 importantes nuevos están corregidos: no hay «a reforzar» si todas las aptitudes empatan, y con la mitad de aciertos no se sube de nivel.
+  - Ponytail: una sola `LETTERS` y `toSaved`/`fromSaved` compartidos. `Store` se queda (dos implementaciones).
+- **Verificado en este equipo:** typecheck, lint, test y `test:stress` en verde (230 del motor, 18 de `ui` y 22 de la app).
+- **Sin confirmar todavía:** la última pasada de Maestro con el código final. La anterior pasó los 3 flujos; los flujos se han reforzado con dejar en blanco, segundo plano y cierre de la app a mitad. Para repetirla en otro equipo:
+  1. compilar el release (Windows necesita el plugin `with-windows-cmake`, ya incluido);
+  2. ejecutar `maestro test apps/mobile/.maestro/onboarding.yaml`, `practica.yaml` y `simulacro-offline.yaml` (los dos últimos lanzan el onboarding solos).
+- **Debe decidir el propietario** (lista en `docs/decisiones.md`, «Pendientes»):
+  - aplazar PRO-01 y PRO-02;
+  - T8 / NFR-02;
+  - cambio del texto de `SourceNote` en la guía y el prototipo;
+  - diseño de Inicio y Resultado;
+  - identificador de la app.
+- **Debe probar el propietario en un móvil real:**
+  - simulacro con 2 minutos en segundo plano y pantalla bloqueada (el cronómetro baja unos 2 minutos);
+  - cerrar la app a mitad de simulacro y volver con «Continuar simulacro»;
+  - VoiceOver y TalkBack en las opciones;
+  - Maestro en iPhone.

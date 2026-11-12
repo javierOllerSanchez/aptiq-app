@@ -27,7 +27,13 @@ export function createMemoryStore(): Store {
       return [...sessionList].sort((a, b) => a.creada - b.creada);
     },
     async saveAttempt(a) {
-      attemptList.push(a);
+      const i = attemptList.findIndex((x) => x.id === a.id);
+      if (i === -1) attemptList.push(a);
+      else attemptList[i] = a;
+    },
+    async deleteAttempt(id) {
+      const i = attemptList.findIndex((x) => x.id === id);
+      if (i !== -1) attemptList.splice(i, 1);
     },
     async attempts() {
       return [...attemptList];

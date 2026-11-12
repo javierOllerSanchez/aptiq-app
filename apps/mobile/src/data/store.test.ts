@@ -45,3 +45,27 @@ test('guarda un intento de simulacro, terminado o no', async () => {
   expect(a?.finishedAt).toBeNull();
   expect(a?.questions[0]?.answer).toBe(1);
 });
+
+test('guardar un intento con el mismo id lo actualiza (simulacro en curso, NFR-03)', async () => {
+  const store = createMemoryStore();
+  const base = { id: 'i1', empezado: 1_000, durationMs: 55 * 60_000, finishedAt: null };
+  await store.saveAttempt({ ...base, questions: [{ ...q, answer: null }] });
+  await store.saveAttempt({ ...base, finishedAt: 2_000, questions: [{ ...q, answer: 2 }] });
+  const list = await store.attempts();
+  expect(list).toHaveLength(1);
+  expect(list[0]?.finishedAt).toBe(2_000);
+  expect(list[0]?.questions[0]?.answer).toBe(2);
+});
+
+test('borrar un intento lo quita (salir sin entregar)', async () => {
+  const store = createMemoryStore();
+  await store.saveAttempt({
+    id: 'i1',
+    empezado: 1,
+    durationMs: 1,
+    finishedAt: null,
+    questions: [],
+  });
+  await store.deleteAttempt('i1');
+  expect(await store.attempts()).toHaveLength(0);
+});

@@ -1,6 +1,7 @@
-# ENT-01, EXP-01–03: práctica por aptitud con explicación tras cada respuesta. Requiere onboarding.yaml antes.
+# ENT-01, EXP-01–03: práctica por aptitud con explicación tras cada respuesta.
 appId: com.javioller.aptiq
 ---
+- runFlow: onboarding.yaml
 - launchApp
 - assertVisible: "Sesión de hoy"
 - tapOn: "Numérica"
@@ -14,7 +15,8 @@ appId: com.javioller.aptiq
       - scrollUntilVisible:
           element: "Confirmar"
       - tapOn: "Confirmar"
-      - assertVisible: "Truco"
+      - scrollUntilVisible:
+          element: "Truco"
       - scrollUntilVisible:
           element: "(Siguiente|Terminar sesión)"
       - tapOn: "(Siguiente|Terminar sesión)"

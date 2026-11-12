@@ -1,25 +1,37 @@
 import { expect, test } from 'vitest';
 
-import { estimateLevels } from './estimate';
+import type { Level } from '../types';
+import { estimateLevels, type LevelAnswer } from './estimate';
 
-test('sin respuestas de un tipo, ese tipo no tiene nivel estimado', () => {
-  const e = estimateLevels([{ type: 'NUM.SERIE', correct: true, blank: false }]);
+const a = (correct: boolean, blank = false, level: Level = 2): LevelAnswer => ({
+  type: 'NUM.CALC',
+  level,
+  correct,
+  blank,
+});
+
+test('sin preguntas de un tipo, ese tipo no tiene nivel estimado', () => {
+  const e = estimateLevels([a(true)]);
   expect(e['LET.SERIE']).toBeNull();
-  expect(e['NUM.SERIE']).not.toBeNull();
+  expect(e['NUM.CALC']).not.toBeNull();
 });
 
-test('todo acertado da el nivel 5; todo fallado, el 1', () => {
-  const allRight = Array.from({ length: 4 }, () => ({ type: 'NUM.CALC' as const, correct: true, blank: false }));
-  const allWrong = Array.from({ length: 4 }, () => ({ type: 'NUM.CALC' as const, correct: false, blank: false }));
-  expect(estimateLevels(allRight)['NUM.CALC']).toBe(5);
-  expect(estimateLevels(allWrong)['NUM.CALC']).toBe(1);
+test('todo fallado da el nivel 1', () => {
+  expect(estimateLevels([a(false), a(false)])['NUM.CALC']).toBe(1);
 });
 
-test('la mitad de aciertos da el nivel 3, y las preguntas en blanco no cuentan', () => {
-  const half = [
-    { type: 'COD.CRIPTO' as const, correct: true, blank: false },
-    { type: 'COD.CRIPTO' as const, correct: false, blank: false },
-    { type: 'COD.CRIPTO' as const, correct: false, blank: true },
-  ];
-  expect(estimateLevels(half)['COD.CRIPTO']).toBe(3);
+test('no se estima más de un nivel por encima del probado', () => {
+  expect(estimateLevels([a(true), a(true)])['NUM.CALC']).toBe(3);
+  expect(estimateLevels([a(true, false, 4), a(true, false, 4)])['NUM.CALC']).toBe(5);
+});
+
+test('«No lo sé» (en blanco) cuenta como no acertada: no sube el nivel', () => {
+  const conBlanco = estimateLevels([a(true), a(false, true)])['NUM.CALC'];
+  const conFallo = estimateLevels([a(true), a(false)])['NUM.CALC'];
+  expect(conBlanco).toBe(conFallo);
+  expect(estimateLevels([a(false, true), a(false, true)])['NUM.CALC']).toBe(1);
+});
+
+test('la mitad de aciertos no sube por encima del nivel probado', () => {
+  expect(estimateLevels([a(true), a(false)])['NUM.CALC']).toBe(2);
 });

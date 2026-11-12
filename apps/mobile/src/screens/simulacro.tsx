@@ -29,57 +29,94 @@ import { Alert, BackHandler, Pressable, StyleSheet, View } from 'react-native';
 import { useStore } from '@/data/provider';
 import type { Store } from '@/data/store';
 import { useExamClock } from '@/hooks/use-exam-clock';
-import { APTITUDE_LABELS, FUENTE, startRun } from '@/practice/run';
+import {
+  APTITUDE_LABELS,
+  AVISO_MEZCLA,
+  CITA,
+  fromSaved,
+  LETTERS,
+  startRun,
+  toSaved,
+} from '@/practice/run';
 import { Loading } from '@/screens/loading';
+import { Pregunta } from '@/screens/pregunta';
 
-const LETTERS = ['A', 'B', 'C', 'D'] as const;
 const { opciones } = guardiaCivil2026.format;
+const plural = (n: number, uno: string, varios: string) => `${n} ${n === 1 ? uno : varios}`;
 
-/** Simulacro con el formato oficial del perfil: número de preguntas, tiempo y opciones (SIM-01). */
-export function Simulacro() {
-  const store = useStore();
-  const [start] = useState(() => Date.now());
-  const [ready, setReady] = useState<{ items: Item[]; exam: ExamState } | null>(null);
-
-  useEffect(() => {
-    const { preguntas, minutos } = guardiaCivil2026.format;
-    if (preguntas === null || minutos === null)
-      throw new Error('El perfil no tiene el formato completo');
-    startRun(store, {
-      count: preguntas,
-      reparto: 'equitativo',
-      sessionSeed: `s-${start}`,
-      levelFor: () => 3,
-    }).then((items) =>
-      setReady({ items, exam: createExam(items.length, start, minutos * 60_000) }),
-    );
-  }, [store, start]);
-
-  if (!ready) return <Loading text="Preparando el simulacro…" />;
-  return <SimulacroEnCurso store={store} items={ready.items} exam={ready.exam} />;
-}
-
-/** Salir sin entregar pierde el intento: siempre se pregunta antes (botón cerrar y Atrás de Android). */
-function confirmarSalida() {
-  Alert.alert('¿Salir del simulacro?', 'El intento no se guarda.', [
-    { text: 'Seguir', style: 'cancel' },
-    { text: 'Salir', style: 'destructive', onPress: () => router.back() },
-  ]);
-}
-
-function SimulacroEnCurso({
-  store,
-  items,
-  exam: initial,
-}: {
-  store: Store;
+interface Listo {
+  id: string;
   items: Item[];
   exam: ExamState;
-}) {
+}
+
+/**
+ * Simulacro con el formato oficial del perfil (SIM-01). Si hay uno abierto (la app se cerró a mitad),
+ * se retoma con su hora de inicio: el tiempo sigue contando como en el examen real (NFR-03).
+ */
+export function Simulacro() {
+  const store = useStore();
+  const [listo, setListo] = useState<Listo | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      const abierto = (await store.attempts()).find((a) => a.finishedAt === null);
+      if (abierto) {
+        const items = fromSaved(abierto.questions);
+        const base = createExam(items.length, abierto.empezado, abierto.durationMs);
+        setListo({
+          id: abierto.id,
+          items,
+          exam: {
+            ...base,
+            answers: abierto.questions.map((q) => q.answer),
+            marked: abierto.questions.map((q) => q.marked),
+          },
+        });
+        return;
+      }
+      const { preguntas, minutos } = guardiaCivil2026.format;
+      if (preguntas === null || minutos === null)
+        throw new Error('El perfil no tiene el formato completo');
+      const items = await startRun(store, {
+        count: preguntas,
+        reparto: 'equitativo',
+        sessionSeed: `s-${Date.now()}`,
+        levelFor: () => 3,
+      });
+      // El reloj empieza cuando las preguntas ya están listas: preparar no gasta tiempo del examen.
+      const empezado = Date.now();
+      setListo({
+        id: `i-${empezado}`,
+        items,
+        exam: createExam(items.length, empezado, minutos * 60_000),
+      });
+    })();
+  }, [store]);
+
+  if (!listo) return <Loading text="Preparando el simulacro…" />;
+  return <SimulacroEnCurso store={store} {...listo} />;
+}
+
+function SimulacroEnCurso({ store, id, items, exam: initial }: Listo & { store: Store }) {
   const [exam, setExam] = useState(initial);
   const remaining = useExamClock(exam);
   const item = items[exam.current];
-  const saved = useRef(false);
+  const cerrado = useRef(false);
+
+  function confirmarSalida() {
+    Alert.alert('¿Salir del simulacro?', 'El intento se descarta y no cuenta en tu historial.', [
+      { text: 'Seguir', style: 'cancel' },
+      {
+        text: 'Salir',
+        style: 'destructive',
+        onPress: () => {
+          cerrado.current = true;
+          store.deleteAttempt(id).then(() => router.back());
+        },
+      },
+    ]);
+  }
 
   useEffect(() => {
     const sub = BackHandler.addEventListener('hardwareBackPress', () => {
@@ -87,31 +124,27 @@ function SimulacroEnCurso({
       return true;
     });
     return () => sub.remove();
-  }, []);
+  });
 
   // Cierre por tiempo agotado o por entrega: se calcula sin escribir estado dentro de un efecto.
   const closedAt = exam.finishedAt ?? (remaining === 0 ? exam.startedAt + exam.durationMs : null);
 
+  // Se guarda tras cada cambio: si el sistema cierra la app, el simulacro se retoma (NFR-03).
   useEffect(() => {
-    if (closedAt === null || saved.current) return;
-    saved.current = true;
-    const id = `i-${exam.startedAt}`;
+    if (cerrado.current) return;
+    if (closedAt !== null) cerrado.current = true;
     store
       .saveAttempt({
         id,
         empezado: exam.startedAt,
         durationMs: exam.durationMs,
         finishedAt: closedAt,
-        questions: items.map((it, i) => ({
-          type: it.type,
-          level: it.level,
-          seed: it.seed,
-          answer: exam.answers[i] ?? null,
-          marked: exam.marked[i] ?? false,
-        })),
+        questions: toSaved(items, exam.answers, exam.marked),
       })
-      .then(() => router.replace({ pathname: '/resultado', params: { id } }));
-  }, [closedAt, exam, items, store]);
+      .then(() => {
+        if (closedAt !== null) router.replace({ pathname: '/resultado', params: { id } });
+      });
+  }, [closedAt, exam, id, items, store]);
 
   if (!item) return null;
   const tipo = taxonomy[item.type];
@@ -124,7 +157,7 @@ function SimulacroEnCurso({
   function entregar() {
     Alert.alert(
       '¿Entregar el simulacro?',
-      `Quedan ${enBlanco} en blanco y ${marcadas} marcadas para revisar. Después no podrás cambiar respuestas.`,
+      `Te quedan ${plural(enBlanco, 'pregunta en blanco', 'preguntas en blanco')} y ${plural(marcadas, 'marcada', 'marcadas')} para revisar. Después no podrás cambiar respuestas.`,
       [
         { text: 'Seguir', style: 'cancel' },
         { text: 'Entregar ahora', onPress: () => setExam((e) => finish(e, Date.now())) },
@@ -163,11 +196,11 @@ function SimulacroEnCurso({
         </Text>
         {opciones !== null && (
           <Text variant="label" color="graphite">
-            {opciones - 1} fallos = −1
+            {opciones - 1} fallos restan 1 acierto
           </Text>
         )}
       </View>
-      <Text variant="questionTitle">{item.stem.text}</Text>
+      <Pregunta texto={item.stem.text} />
       <View accessibilityRole="radiogroup" style={styles.options}>
         {item.options.map((value, i) => (
           <OptionBubble
@@ -218,14 +251,24 @@ function SimulacroEnCurso({
       <Text variant="caption" color="graphite">
         Sin explicaciones hasta el final del simulacro.
       </Text>
-      <SourceNote organismo={FUENTE} />
+      {AVISO_MEZCLA && (
+        <Text variant="caption" color="graphite">
+          {AVISO_MEZCLA}
+        </Text>
+      )}
+      <SourceNote cita={CITA} />
     </PaperBackground>
   );
 }
 
 const styles = StyleSheet.create({
   content: { gap: tokens.spacing.m },
-  header: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', gap: tokens.spacing.s },
+  header: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    gap: tokens.spacing.s,
+  },
   shrink: { flexShrink: 1, flexGrow: 1 },
   // Con texto grande, la penalización baja de línea antes que partir el nombre del tipo.
   tipo: { flexShrink: 1, flexGrow: 1, minWidth: '60%' },

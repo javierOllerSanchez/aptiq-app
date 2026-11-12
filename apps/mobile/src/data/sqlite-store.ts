@@ -39,13 +39,17 @@ export function createSqliteStore(name = 'aptiq.db'): Store {
       return rows.map((r) => ({ id: r.id, creada: r.creada, questions: r.preguntas }));
     },
     async saveAttempt(a) {
-      await db.insert(intentos).values({
+      const row = {
         id: a.id,
         empezado: a.empezado,
         duracionMs: a.durationMs,
         fin: a.finishedAt,
         preguntas: a.questions,
-      });
+      };
+      await db.insert(intentos).values(row).onConflictDoUpdate({ target: intentos.id, set: row });
+    },
+    async deleteAttempt(id) {
+      await db.delete(intentos).where(eq(intentos.id, id));
     },
     async attempts() {
       const rows = await db.select().from(intentos).orderBy(asc(intentos.empezado));

@@ -16,7 +16,7 @@ import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { useStore } from '@/data/provider';
-import { APTITUDE_LABELS, formatNota, OPTION_COUNT } from '@/practice/run';
+import { APTITUDE_LABELS, AVISO_MEZCLA, formatNota, OPTION_COUNT } from '@/practice/run';
 import { Loading } from '@/screens/loading';
 
 interface Resumen {
@@ -84,6 +84,11 @@ export function Resultado() {
       <Text variant="bodyStrong">
         {nota.supera ? 'Llegas a la nota mínima.' : 'No llegas a la nota mínima.'}
       </Text>
+      {AVISO_MEZCLA && (
+        <Text variant="caption" color="graphite">
+          {AVISO_MEZCLA}
+        </Text>
+      )}
       <GlassCard>
         <View style={styles.cuentas}>
           <Cuenta valor={desglose.total.aciertos} texto="Aciertos" />

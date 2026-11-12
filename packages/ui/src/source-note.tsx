@@ -6,9 +6,10 @@ import { Text } from './text';
 
 /**
  * Cita de la fuente oficial del formato. Obligatoria en cada simulacro.
- * El organismo llega del perfil de examen: este componente nunca inventa una fuente.
+ * La cita llega del perfil de examen (fuente y apartado): este componente nunca inventa una fuente
+ * ni afirma que existan exámenes publicados que no lo están.
  */
-export function SourceNote({ organismo }: { organismo: string }) {
+export function SourceNote({ cita }: { cita: string }) {
   return (
     <View style={styles.row} accessible>
       <Icon
@@ -17,7 +18,7 @@ export function SourceNote({ organismo }: { organismo: string }) {
         size={tokens.type.caption.size + tokens.spacing.xs}
       />
       <Text variant="caption" color="graphiteStrong" style={styles.text}>
-        Estructura basada en las bases del BOE y en los exámenes publicados por {organismo}.
+        Formato según la convocatoria oficial: {cita}.
       </Text>
     </View>
   );

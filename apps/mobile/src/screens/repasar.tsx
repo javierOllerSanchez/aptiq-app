@@ -6,11 +6,10 @@ import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { useStore } from '@/data/provider';
-import { OPTION_COUNT } from '@/practice/run';
+import { LETTERS, OPTION_COUNT } from '@/practice/run';
 import { Explicacion } from '@/screens/explicacion';
 import { Loading } from '@/screens/loading';
-
-const LETTERS = ['A', 'B', 'C', 'D'] as const;
+import { cardStyle } from '@/screens/pregunta';
 
 interface Fallo {
   n: number;
@@ -67,12 +66,5 @@ export function Repasar() {
 
 const styles = StyleSheet.create({
   content: { gap: tokens.spacing.m },
-  card: {
-    gap: tokens.spacing.s,
-    padding: tokens.spacing.l,
-    backgroundColor: tokens.color.paperCard,
-    borderRadius: tokens.radius.card,
-    borderWidth: tokens.border.hairline,
-    borderColor: tokens.color.line,
-  },
+  card: { ...cardStyle, gap: tokens.spacing.s },
 });

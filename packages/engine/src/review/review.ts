@@ -39,7 +39,7 @@ export interface Breakdown {
   total: { aciertos: number; fallos: number; enBlanco: number };
   byType: Record<TypeCode, Tally>;
   byAptitude: Record<string, Tally>;
-  /** Aptitud con peor porcentaje de aciertos entre las que tienen respuestas (RES-02). */
+  /** Aptitud con peor porcentaje de aciertos sobre el total de sus preguntas (RES-02). */
   weakest: string | null;
 }
 
@@ -68,16 +68,20 @@ export function breakdown(results: readonly Result[]): Breakdown {
     else total.fallos++;
   }
 
+  // Mismo porcentaje que muestra la pantalla: aciertos ÷ total (los blancos cuentan). Empate: más fallos.
   let weakest: string | null = null;
   let worst = Infinity;
+  let worstWrong = -1;
   for (const [apt, t] of Object.entries(byAptitude)) {
-    const answered = t.correct + t.wrong;
-    if (answered === 0) continue;
-    const pct = t.correct / answered;
-    if (pct < worst) {
+    const pct = t.correct / t.total;
+    if (pct < worst || (pct === worst && t.wrong > worstWrong)) {
       worst = pct;
+      worstWrong = t.wrong;
       weakest = apt;
     }
   }
+  // Si todas las aptitudes tienen el mismo porcentaje (p. ej. todo al 100 %), no hay una a reforzar.
+  const pcts = Object.values(byAptitude).map((t) => t.correct / t.total);
+  if (pcts.every((p) => p === pcts[0])) weakest = null;
   return { total, byType, byAptitude, weakest };
 }

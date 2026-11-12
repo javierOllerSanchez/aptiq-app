@@ -33,6 +33,8 @@ export interface Store {
   usedSeeds(): Promise<Set<string>>;
   saveSession(s: SavedSession): Promise<void>;
   sessions(): Promise<SavedSession[]>;
+  /** Crea o actualiza por id: el simulacro en curso se guarda tras cada cambio (NFR-03). */
   saveAttempt(a: SavedAttempt): Promise<void>;
+  deleteAttempt(id: string): Promise<void>;
   attempts(): Promise<SavedAttempt[]>;
 }

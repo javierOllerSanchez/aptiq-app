@@ -1,4 +1,4 @@
-import type { Item } from '@aptiq/engine';
+import type { Item, Level, TypeCode } from '@aptiq/engine';
 import { tokens } from '@aptiq/tokens';
 import {
   Button,
@@ -14,11 +14,11 @@ import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { useStore } from '@/data/provider';
-import { APTITUDE_LABELS, startRun } from '@/practice/run';
+import { APTITUDE_LABELS, LETTERS, startRun, toSaved } from '@/practice/run';
 import { Explicacion } from '@/screens/explicacion';
 import { Loading } from '@/screens/loading';
+import { Pregunta } from '@/screens/pregunta';
 
-const LETTERS = ['A', 'B', 'C', 'D'] as const;
 const SESSION_QUESTIONS = 10;
 
 /** Práctica: una aptitud concreta, o la sesión de hoy sin aptitud (ENT-01, ENT-02, EXP-01–03). */
@@ -32,13 +32,20 @@ export function Practica() {
   const [revealed, setRevealed] = useState(false);
 
   useEffect(() => {
-    startRun(store, {
-      count: SESSION_QUESTIONS,
-      reparto: aptitud ? 'equitativo' : 'prioritario',
-      ...(aptitud ? { aptitude: aptitud } : {}),
-      sessionSeed: `p-${Date.now()}`,
-      levelFor: () => 2,
-    }).then(setItems);
+    (async () => {
+      // Nivel de cada tipo según el test de nivel; sin dato, nivel 2.
+      const raw = await store.getSetting('niveles');
+      const niveles = (raw ? JSON.parse(raw) : {}) as Partial<Record<TypeCode, Level | null>>;
+      setItems(
+        await startRun(store, {
+          count: SESSION_QUESTIONS,
+          reparto: aptitud ? 'equitativo' : 'prioritario',
+          ...(aptitud ? { aptitude: aptitud } : {}),
+          sessionSeed: `p-${Date.now()}`,
+          levelFor: (t) => niveles[t] ?? 2,
+        }),
+      );
+    })();
   }, [store, aptitud]);
 
   if (!items) return <Loading text="Preparando la sesión…" />;
@@ -69,13 +76,7 @@ export function Practica() {
     await store.saveSession({
       id: `p-${Date.now()}`,
       creada: Date.now(),
-      questions: items!.map((it, i) => ({
-        type: it.type,
-        level: it.level,
-        seed: it.seed,
-        answer: nuevas[i] ?? null,
-        marked: false,
-      })),
+      questions: toSaved(items!, nuevas),
     });
     router.replace('/inicio');
   }
@@ -90,7 +91,7 @@ export function Practica() {
         current={index}
         answered={items.map((_, i) => i < answers.length)}
       />
-      <Text variant="questionTitle">{item.stem.text}</Text>
+      <Pregunta texto={item.stem.text} />
       <View accessibilityRole="radiogroup" style={styles.options}>
         {item.options.map((value, i) => (
           <OptionBubble
@@ -102,7 +103,7 @@ export function Practica() {
           />
         ))}
       </View>
-      {revealed && <Explicacion item={item} answer={selected} />}
+      {revealed && <Explicacion item={item} answer={selected} anunciar />}
       {revealed ? (
         // Tras corregir, el amarillo es la opción correcta: el botón pasa a secundario (un solo protagonista).
         <Button
