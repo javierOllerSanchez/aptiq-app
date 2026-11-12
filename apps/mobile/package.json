@@ -4,6 +4,7 @@
   "main": "expo-router/entry",
   "dependencies": {
     "@aptiq/tokens": "workspace:^",
+    "@aptiq/ui": "workspace:^",
     "@expo-google-fonts/bricolage-grotesque": "^0.4.1",
     "@expo-google-fonts/ibm-plex-mono": "^0.4.1",
     "@expo-google-fonts/instrument-sans": "^0.4.2",
@@ -45,6 +46,9 @@
   },
   "private": true,
   "jest": {
-    "preset": "jest-expo"
+    "preset": "jest-expo",
+    "setupFiles": [
+      "<rootDir>/../../packages/ui/jest.setup.js"
+    ]
   }
 }

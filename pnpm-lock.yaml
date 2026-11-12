@@ -32,6 +32,9 @@ importers:
       '@aptiq/tokens':
         specifier: workspace:^
         version: link:../../packages/tokens
+      '@aptiq/ui':
+        specifier: workspace:^
+        version: link:../../packages/ui
       '@expo-google-fonts/bricolage-grotesque':
         specifier: ^0.4.1
         version: 0.4.1
