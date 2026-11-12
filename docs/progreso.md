@@ -177,3 +177,8 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 - **Hecho:** almacenamiento local: contrato `Store` (ajustes, semillas usadas, sesiones, intentos), implementación en memoria para pruebas y la de SQLite con Drizzle (`expo-sqlite` y `drizzle-orm`). Las tablas se crean con SQL al abrir la base, sin drizzle-kit por ahora. 4 pruebas del contrato en verde.
 - **Pendiente en dispositivo (T9):** la implementación de SQLite no se puede probar con Jest (módulo nativo); se comprueba al abrir la app.
 - **Dependencias nuevas:** `expo-sqlite` (SDK 58, del stack) y `drizzle-orm` (del stack). Se anotan en `docs/decisiones.md` al cerrar la fase.
+
+**2026-11-12 · Fase 4 · T6 (parcial)**
+
+- **Hecho:** cálculo del nivel orientativo por tipo a partir del test de nivel (`packages/engine/src/level/estimate.ts`): lineal de 1 a 5, sin contar las preguntas en blanco y sin inventar nivel cuando no hay respuestas. 3 pruebas en verde.
+- **Pendiente:** las pantallas de onboarding (elegir oposición y fecha, test de 10 minutos) y su flujo de Maestro.
