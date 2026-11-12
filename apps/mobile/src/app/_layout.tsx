@@ -1,3 +1,4 @@
+import { tokens } from '@aptiq/tokens';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -11,9 +12,14 @@ export default function RootLayout() {
   const [loaded, error] = useFonts(fontAssets);
 
   useEffect(() => {
+    if (error) console.error('No se han podido cargar las fuentes de Aptiq', error);
     if (loaded || error) SplashScreen.hideAsync();
   }, [loaded, error]);
 
   if (!loaded && !error) return null;
-  return <Stack screenOptions={{ headerShown: false }} />;
+  return (
+    <Stack
+      screenOptions={{ headerShown: false, contentStyle: { backgroundColor: tokens.color.paper } }}
+    />
+  );
 }
