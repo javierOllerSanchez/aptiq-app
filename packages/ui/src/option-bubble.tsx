@@ -36,7 +36,7 @@ export function OptionBubble({
   useEffect(() => {
     fill.value = withTiming(filled ? 1 : 0, {
       duration: motion.durationFast,
-      easing: Easing.out(Easing.quad),
+      easing: Easing.bezier(...motion.easingCurve),
     });
   }, [filled, fill]);
   const fillStyle = useAnimatedStyle(() => ({ opacity: fill.value }));

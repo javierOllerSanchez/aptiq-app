@@ -21,7 +21,7 @@ export function Stamp({ label = 'Apto' }: { label?: string }) {
   const reduce = useReducedMotion();
   const p = useSharedValue(0);
   useEffect(() => {
-    p.value = withTiming(1, { duration: motion.durationSlow, easing: Easing.out(Easing.cubic) });
+    p.value = withTiming(1, { duration: motion.durationSlow, easing: Easing.bezier(...motion.easingCurve) });
   }, [p]);
   const appear = useAnimatedStyle(() => ({
     opacity: p.value,

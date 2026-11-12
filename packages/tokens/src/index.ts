@@ -74,6 +74,7 @@ export const tokens = {
     durationBase: 200,
     durationSlow: 250,
     easing: 'ease-out',
+    easingCurve: [0.23, 1, 0.32, 1],
     noBounceDuringExam: true,
     respectReduceMotion: true,
   },
