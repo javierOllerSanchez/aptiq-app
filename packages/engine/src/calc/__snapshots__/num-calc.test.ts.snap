@@ -1,0 +1,246 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NUM.CALC v2 > nivel 1: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 1,
+  "explanation": {
+    "apply": "180 + 54 = 234",
+    "distractors": [
+      {
+        "error": "Multiplicas por 25 en lugar de por 26.",
+        "optionIndex": 0,
+      },
+      {
+        "error": "Error de cálculo de una unidad (una de más).",
+        "optionIndex": 2,
+      },
+      {
+        "error": "Multiplicas por 27 en lugar de por 26.",
+        "optionIndex": 3,
+      },
+    ],
+    "observe": "Descompón 26 en decenas y unidades para multiplicar de cabeza.",
+    "rule": "9 × 26 = 9 × 20 + 9 × 6.",
+    "tip": "Antes de calcular, estima el resultado (redondea los datos). Si una opción está muy lejos de tu estimación, descártala. En operaciones combinadas, primero multiplicaciones y divisiones; después sumas y restas.",
+  },
+  "id": "NUM.CALC:2:muestra:1",
+  "level": 1,
+  "meta": {
+    "expectedSeconds": 20,
+    "family": "multiplicacion",
+    "generatorVersion": "2",
+  },
+  "options": [
+    "225",
+    "234",
+    "235",
+    "243",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "data": {
+      "expr": "9 × 26",
+      "kind": "expr",
+    },
+    "text": "¿Cuál es el resultado de 9 × 26?",
+  },
+  "type": "NUM.CALC",
+}
+`;
+
+exports[`NUM.CALC v2 > nivel 2: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 3,
+  "explanation": {
+    "apply": "5 × 8 = 40; 20 + 40 − 3 = 57",
+    "distractors": [
+      {
+        "error": "Restas antes de multiplicar.",
+        "optionIndex": 0,
+      },
+      {
+        "error": "Operas de izquierda a derecha sin dar prioridad a la multiplicación.",
+        "optionIndex": 1,
+      },
+      {
+        "error": "Error de cálculo de una unidad (una de menos).",
+        "optionIndex": 2,
+      },
+    ],
+    "observe": "Hay una multiplicación entre sumas y restas: va primero.",
+    "rule": "Primero multiplicaciones y divisiones; después sumas y restas, de izquierda a derecha.",
+    "tip": "Antes de calcular, estima el resultado (redondea los datos). Si una opción está muy lejos de tu estimación, descártala. En operaciones combinadas, primero multiplicaciones y divisiones; después sumas y restas.",
+  },
+  "id": "NUM.CALC:2:muestra:2",
+  "level": 2,
+  "meta": {
+    "expectedSeconds": 30,
+    "family": "prioridad",
+    "generatorVersion": "2",
+  },
+  "options": [
+    "45",
+    "197",
+    "56",
+    "57",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "data": {
+      "expr": "20 + 5 × 8 - 3",
+      "kind": "expr",
+    },
+    "text": "¿Cuál es el resultado de 20 + 5 × 8 − 3?",
+  },
+  "type": "NUM.CALC",
+}
+`;
+
+exports[`NUM.CALC v2 > nivel 3: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 3,
+  "explanation": {
+    "apply": "63 ÷ 9 = 7 kg por caja; 7 × 7 = 49",
+    "distractors": [
+      {
+        "error": "Cuentas una caja de menos.",
+        "optionIndex": 0,
+      },
+      {
+        "error": "Error de cálculo de una unidad (una de menos).",
+        "optionIndex": 1,
+      },
+      {
+        "error": "Sumas la diferencia de cajas en lugar de multiplicar.",
+        "optionIndex": 2,
+      },
+    ],
+    "observe": "A más cajas, más peso, en la misma proporción: regla de tres directa.",
+    "rule": "Peso = 7 × (63 ÷ 9).",
+    "tip": "Antes de calcular, estima el resultado (redondea los datos). Si una opción está muy lejos de tu estimación, descártala. En operaciones combinadas, primero multiplicaciones y divisiones; después sumas y restas.",
+  },
+  "id": "NUM.CALC:2:muestra:3",
+  "level": 3,
+  "meta": {
+    "expectedSeconds": 40,
+    "family": "reglaDeTres",
+    "generatorVersion": "2",
+  },
+  "options": [
+    "42",
+    "48",
+    "61",
+    "49",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "data": {
+      "a": 9,
+      "b": 63,
+      "c": 7,
+      "inverse": false,
+      "kind": "rule3",
+    },
+    "text": "Si 9 cajas iguales pesan 63 kg, ¿cuántos kg pesan 7 cajas?",
+  },
+  "type": "NUM.CALC",
+}
+`;
+
+exports[`NUM.CALC v2 > nivel 4: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 0,
+  "explanation": {
+    "apply": "17 + 9 = 26; 26 × 6 = 156; 156 ÷ 2 = 78",
+    "distractors": [
+      {
+        "error": "Ignoras el paréntesis y multiplicas antes de sumar.",
+        "optionIndex": 1,
+      },
+      {
+        "error": "Error al multiplicar: sumas 6 de más.",
+        "optionIndex": 2,
+      },
+      {
+        "error": "Olvidas dividir entre 2.",
+        "optionIndex": 3,
+      },
+    ],
+    "observe": "Hay un paréntesis: se resuelve antes que nada.",
+    "rule": "Paréntesis primero; después multiplicaciones y divisiones de izquierda a derecha.",
+    "tip": "Antes de calcular, estima el resultado (redondea los datos). Si una opción está muy lejos de tu estimación, descártala. En operaciones combinadas, primero multiplicaciones y divisiones; después sumas y restas.",
+  },
+  "id": "NUM.CALC:2:muestra:4",
+  "level": 4,
+  "meta": {
+    "expectedSeconds": 55,
+    "family": "parentesis",
+    "generatorVersion": "2",
+  },
+  "options": [
+    "78",
+    "44",
+    "84",
+    "156",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "data": {
+      "expr": "(17 + 9) × 6 ÷ 2",
+      "kind": "expr",
+    },
+    "text": "¿Cuál es el resultado de (17 + 9) × 6 ÷ 2?",
+  },
+  "type": "NUM.CALC",
+}
+`;
+
+exports[`NUM.CALC v2 > nivel 5: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 2,
+  "explanation": {
+    "apply": "2200 + 10 % = 2420; 2420 − 20 % = 1936",
+    "distractors": [
+      {
+        "error": "Olvidas aplicar la subida.",
+        "optionIndex": 0,
+      },
+      {
+        "error": "Sumas y restas los porcentajes sobre el precio original.",
+        "optionIndex": 1,
+      },
+      {
+        "error": "Error de cálculo de una unidad (una de menos).",
+        "optionIndex": 3,
+      },
+    ],
+    "observe": "La bajada se calcula sobre el precio ya subido, no sobre el original.",
+    "rule": "Aplica cada porcentaje sobre el resultado del anterior.",
+    "tip": "Antes de calcular, estima el resultado (redondea los datos). Si una opción está muy lejos de tu estimación, descártala. En operaciones combinadas, primero multiplicaciones y divisiones; después sumas y restas.",
+  },
+  "id": "NUM.CALC:2:muestra:5",
+  "level": 5,
+  "meta": {
+    "expectedSeconds": 70,
+    "family": "porcentajesEncadenados",
+    "generatorVersion": "2",
+  },
+  "options": [
+    "1760",
+    "1980",
+    "1936",
+    "1935",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "data": {
+      "kind": "chain",
+      "n": 2200,
+      "p1": 10,
+      "p2": 20,
+    },
+    "text": "Un precio de 2200 euros sube un 10 % y después baja un 20 %. ¿Cuál es el precio final, en euros?",
+  },
+  "type": "NUM.CALC",
+}
+`;

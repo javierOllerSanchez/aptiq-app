@@ -1,0 +1,260 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NUM.SERIE v2 > nivel 1: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 2,
+  "explanation": {
+    "apply": "73 + 7 = 80",
+    "distractors": [
+      {
+        "error": "Aplicas el paso al revés (− 7).",
+        "optionIndex": 0,
+      },
+      {
+        "error": "Error de una decena al llevar (una de menos).",
+        "optionIndex": 1,
+      },
+      {
+        "error": "Error de cálculo de una unidad (una de menos).",
+        "optionIndex": 3,
+      },
+    ],
+    "observe": "Entre cada término y el siguiente hay siempre la misma diferencia: + 7.",
+    "rule": "Cada número es el anterior + 7.",
+    "tip": "Calcula primero las diferencias entre términos seguidos. Si son iguales, es una suma constante; si crecen deprisa, prueba con multiplicaciones; si saltan arriba y abajo, mira las posiciones pares e impares por separado.",
+  },
+  "id": "NUM.SERIE:2:muestra:1",
+  "level": 1,
+  "meta": {
+    "expectedSeconds": 20,
+    "family": "aritmetica",
+    "generatorVersion": "2",
+  },
+  "options": [
+    "66",
+    "70",
+    "80",
+    "79",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "terms": [
+      45,
+      52,
+      59,
+      66,
+      73,
+    ],
+    "text": "¿Qué número continúa la serie? 45, 52, 59, 66, 73, ?",
+  },
+  "type": "NUM.SERIE",
+}
+`;
+
+exports[`NUM.SERIE v2 > nivel 2: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 0,
+  "explanation": {
+    "apply": "102 + 20 = 122",
+    "distractors": [
+      {
+        "error": "Aplicas el paso al revés (− 20).",
+        "optionIndex": 1,
+      },
+      {
+        "error": "Error de una decena al llevar (una de menos).",
+        "optionIndex": 2,
+      },
+      {
+        "error": "Error de cálculo de una unidad (una de menos).",
+        "optionIndex": 3,
+      },
+    ],
+    "observe": "Entre cada término y el siguiente hay siempre la misma diferencia: + 20.",
+    "rule": "Cada número es el anterior + 20.",
+    "tip": "Calcula primero las diferencias entre términos seguidos. Si son iguales, es una suma constante; si crecen deprisa, prueba con multiplicaciones; si saltan arriba y abajo, mira las posiciones pares e impares por separado.",
+  },
+  "id": "NUM.SERIE:2:muestra:2",
+  "level": 2,
+  "meta": {
+    "expectedSeconds": 30,
+    "family": "aritmeticaGrande",
+    "generatorVersion": "2",
+  },
+  "options": [
+    "122",
+    "82",
+    "112",
+    "121",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "terms": [
+      22,
+      42,
+      62,
+      82,
+      102,
+    ],
+    "text": "¿Qué número continúa la serie? 22, 42, 62, 82, 102, ?",
+  },
+  "type": "NUM.SERIE",
+}
+`;
+
+exports[`NUM.SERIE v2 > nivel 3: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 3,
+  "explanation": {
+    "apply": "La siguiente diferencia es 13 + 3 = 16; 63 + 16 = 79",
+    "distractors": [
+      {
+        "error": "Error de cálculo de una unidad (una de más).",
+        "optionIndex": 0,
+      },
+      {
+        "error": "Error de una decena al llevar (una de más).",
+        "optionIndex": 1,
+      },
+      {
+        "error": "Aumentas la diferencia dos veces (19).",
+        "optionIndex": 2,
+      },
+    ],
+    "observe": "Las diferencias son 1, 4, 7, 10, 13: aumentan 3 cada vez.",
+    "rule": "Se suma una cantidad que crece 3 en cada paso.",
+    "tip": "Calcula primero las diferencias entre términos seguidos. Si son iguales, es una suma constante; si crecen deprisa, prueba con multiplicaciones; si saltan arriba y abajo, mira las posiciones pares e impares por separado.",
+  },
+  "id": "NUM.SERIE:2:muestra:3",
+  "level": 3,
+  "meta": {
+    "expectedSeconds": 40,
+    "family": "diferenciasCrecientes",
+    "generatorVersion": "2",
+  },
+  "options": [
+    "80",
+    "89",
+    "82",
+    "79",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "terms": [
+      28,
+      29,
+      33,
+      40,
+      50,
+      63,
+    ],
+    "text": "¿Qué número continúa la serie? 28, 29, 33, 40, 50, 63, ?",
+  },
+  "type": "NUM.SERIE",
+}
+`;
+
+exports[`NUM.SERIE v2 > nivel 4: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 0,
+  "explanation": {
+    "apply": "Aumento siguiente: 15 + 3 = 18; diferencia: 48 + 18 = 66; 129 + 66 = 195",
+    "distractors": [
+      {
+        "error": "Error de una decena al llevar (una de más).",
+        "optionIndex": 1,
+      },
+      {
+        "error": "Error de cálculo de una unidad (una de más).",
+        "optionIndex": 2,
+      },
+      {
+        "error": "Aumentas el aumento dos veces (3 de más).",
+        "optionIndex": 3,
+      },
+    ],
+    "observe": "Las diferencias son 3, 6, 12, 21, 33, 48, y las diferencias entre ellas, 3, 6, 9, 12, 15: también crecen, 3 cada vez.",
+    "rule": "La diferencia aumenta cada vez 3 más que la vez anterior.",
+    "tip": "Calcula primero las diferencias entre términos seguidos. Si son iguales, es una suma constante; si crecen deprisa, prueba con multiplicaciones; si saltan arriba y abajo, mira las posiciones pares e impares por separado.",
+  },
+  "id": "NUM.SERIE:2:muestra:4",
+  "level": 4,
+  "meta": {
+    "expectedSeconds": 50,
+    "family": "diferenciasDeSegundoOrden",
+    "generatorVersion": "2",
+  },
+  "options": [
+    "195",
+    "205",
+    "196",
+    "198",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "terms": [
+      6,
+      9,
+      15,
+      27,
+      48,
+      81,
+      129,
+    ],
+    "text": "¿Qué número continúa la serie? 6, 9, 15, 27, 48, 81, 129, ?",
+  },
+  "type": "NUM.SERIE",
+}
+`;
+
+exports[`NUM.SERIE v2 > nivel 5: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 1,
+  "explanation": {
+    "apply": "34 + 54 = 88",
+    "distractors": [
+      {
+        "error": "Duplicas el último término.",
+        "optionIndex": 0,
+      },
+      {
+        "error": "Sumas la última diferencia (20) en vez de sumar los dos anteriores.",
+        "optionIndex": 2,
+      },
+      {
+        "error": "Error de cálculo de una unidad (una de menos).",
+        "optionIndex": 3,
+      },
+    ],
+    "observe": "Desde el tercero, cada término coincide con la suma de los dos anteriores: 8 + 6 = 14.",
+    "rule": "Cada número es la suma de los dos anteriores.",
+    "tip": "Calcula primero las diferencias entre términos seguidos. Si son iguales, es una suma constante; si crecen deprisa, prueba con multiplicaciones; si saltan arriba y abajo, mira las posiciones pares e impares por separado.",
+  },
+  "id": "NUM.SERIE:2:muestra:5",
+  "level": 5,
+  "meta": {
+    "expectedSeconds": 60,
+    "family": "fibonacci",
+    "generatorVersion": "2",
+  },
+  "options": [
+    "108",
+    "88",
+    "74",
+    "87",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "terms": [
+      8,
+      6,
+      14,
+      20,
+      34,
+      54,
+    ],
+    "text": "¿Qué número continúa la serie? 8, 6, 14, 20, 34, 54, ?",
+  },
+  "type": "NUM.SERIE",
+}
+`;

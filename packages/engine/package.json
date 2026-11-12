@@ -7,9 +7,12 @@
   "scripts": {
     "typecheck": "tsc",
     "lint": "eslint .",
-    "test": "vitest run --passWithNoTests"
+    "test": "vitest run",
+    "test:stress": "vitest run --mode stress",
+    "muestras": "vitest run --mode muestras"
   },
   "devDependencies": {
+    "@types/node": "^26.6.6",
     "fast-check": "^4.10.2",
     "vitest": "^5.1.0"
   }

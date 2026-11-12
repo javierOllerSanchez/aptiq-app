@@ -5,8 +5,8 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 | Fase | Estado | Rama / PR | Cerrada | Aprobada por el propietario |
 | --- | --- | --- | --- | --- |
 | 0 · Base del proyecto | Cerrada (prueba en iPhone pendiente del propietario) | `fase-0-base` · PR #1 fusionado | 2026-11-12 | Sí, 2026-11-12 |
-| 1 · Sistema de diseño en código | Cerrada (VoiceOver en iPhone y `/review-animations` pendientes del propietario) | `fase-1-sistema-diseno` (PR hacia `main`) | 2026-11-12 | |
-| 2 · Motor de contenido v1 | Pendiente | | | |
+| 1 · Sistema de diseño en código | Cerrada (VoiceOver en iPhone y `/review-animations` pendientes del propietario) | `fase-1-sistema-diseno` · PR #2 fusionado | 2026-11-12 | Sí, 2026-11-12 |
+| 2 · Motor de contenido v1 | Cerrada (rediseño de distractores pendiente para el inicio de la fase 3) | `fase-2-motor` (PR hacia `main`) | 2026-11-12 | |
 | 3 · Perfil de examen y puntuación | Pendiente | | | |
 | 4 · Práctica y simulacro sin conexión | Pendiente | | | |
 | 5 · Cuentas y sincronización | Pendiente | | | |
@@ -87,3 +87,35 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
   - `glass.saturate` no se aplica (expo-blur no lo admite);
   - el catálogo no sigue el orden exacto de `sistema.html` ni tiene la lámina de color.
 - **Para que lo decida el propietario:** casillas pendientes (1,28:1), burbujas de nivel vacías (1,73:1) y borde de opción vacía (1,38:1) quedan por debajo del 3:1 que WCAG 1.4.11 pide a los elementos gráficos. Son valores de la guía; la información también llega por el texto y la etiqueta accesible.
+
+**2026-11-12 · Fase 2**
+
+- **Hecho:**
+  - Motor con 6 tipos de pregunta (series numéricas y de letras, cálculo y porcentajes, códigos, ordenación alfabética y comparación de datos), en versión 2.
+  - 5 niveles por tipo, con familias de reglas con nombre.
+  - Cada tipo tiene generador, solucionador independiente y explicación paso a paso (observa, regla, aplica, error de cada distractor y truco).
+  - Generación determinista por semilla (NFR-09).
+  - Batería común de pruebas para todos los tipos:
+    - unicidad;
+    - determinismo;
+    - coherencia de la explicación;
+    - errores explicados;
+    - posición A, B, C, D uniforme;
+    - puesto por valor;
+    - que aparezcan todas las familias;
+    - variedad;
+    - instantáneas.
+  - 171 pruebas. `pnpm test:stress`: 10.000 por tipo, nivel y número de opciones, sin ninguna ambigua. La prueba de estrés también se ejecuta cada noche en GitHub Actions.
+  - 120 muestras en `docs/muestras/`.
+- **Revisiones:**
+  - `verificador-fase`: el código cumple el criterio de aceptación.
+  - `revisor-contenido`, primera revisión: 2 bloqueantes (explicación invertida en las series de letras hacia atrás y series intercaladas con dos lecturas) y 7 importantes. Todos corregidos, salvo lo que se indica abajo.
+  - `revisor-contenido`, segunda revisión: **sin bloqueantes**.
+- **Pendiente (decisión del propietario: se hace al empezar la fase 3, con los exámenes oficiales como referencia):**
+  - **Distractores adivinables.** En NUM.SERIE y NUM.CALC, elegir «la opción rodeada de errores de ±1, ±2 o ±10» acierta entre el 53 % y el 75 % con 4 opciones; en COD.CRIPTO de cifras, «la opción que más se parece a las demás» acierta entre el 40 % y el 69 %.
+    - El trabajo empezado está en la rama local `fase-2-distractores`. Incluye la prueba común «centro de errores» y el límite de errores genéricos por pregunta, y le faltan errores de la regla a ambos lados en varias familias.
+  - En las series que solo suben o solo bajan, el distractor «paso al revés» da un término ya visible. LET.SERIE, nivel 3: «cambias el salto dos veces» puede repetir la última letra.
+  - VER.ORDEN, preguntas de «puesto N»: la correcta está en el medio alfabéticamente un 67–70 % de las veces en los niveles 2 y 3.
+  - Variedad baja en LET.SERIE, nivel 3 (52 enunciados distintos por cada 1.000 semillas).
+  - **Hasta resolverlo, las preguntas no se muestran a opositores (fase 4).**
+- **Debe hacer el propietario:** decidir quién revisa las 120 muestras de `docs/muestras/` y marcar las casillas «Revisada».

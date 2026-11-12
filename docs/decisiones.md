@@ -26,6 +26,16 @@
 | 2026-11-12 | Simulación mínima de Reanimated en Jest (`packages/ui/jest.setup.js`) | La simulación oficial de Reanimated 4 choca con jest-expo en este monorepo |
 | 2026-11-12 | `review-animations` se aplica a mano (la skill solo se puede invocar desde el chat) | Su criterio llevó a la curva ease-out marcada y a mantener el fundido con «reducir movimiento» |
 | 2026-11-12 | La animación de avance de `ProgressTicks` llega en la fase 4, con el Simulacro | Solo tiene sentido con la navegación entre preguntas |
+| 2026-11-12 | Familias de reglas del motor: las habituales de los psicotécnicos; se contrastan con los cuestionarios oficiales en la fase 3 | Decisión del propietario; no son datos de la oposición, solo tipos de ejercicio |
+| 2026-11-12 | Series de letras con el alfabeto español de 27 letras (con Ñ, sin CH ni LL) y sin dar la vuelta (después de la Z no viene la A) | Decisión del propietario; se confirma con las instrucciones oficiales en la fase 3. Sin vuelta se evitan respuestas discutibles |
+| 2026-11-12 | Muestras para revisión humana: 20 por tipo (4 por nivel) en `docs/muestras/` | Decisión del propietario; la skill pedía 20 por nivel (600), demasiadas para revisar con atención |
+| 2026-11-12 | Las muestras se exportan con Vitest (`--mode muestras`), no con un script de Node | Node no ejecuta directamente los imports sin extensión del motor; así no hace falta ninguna dependencia nueva |
+| 2026-11-12 | `@types/node` como dependencia de desarrollo de `packages/engine` | Solo para el exportador de muestras; el código del motor no usa Node |
+| 2026-11-12 | Prueba de estrés (10.000 por tipo, nivel y opciones) cada noche en GitHub Actions y al cerrar cada fase | Skill `aptiq-generator` |
+| 2026-11-12 | La correcta no puede delatarse por su valor: el montaje común reparte cuántas opciones quedan por debajo de ella, y una prueba común lo vigila | Hallazgo del revisor de contenido: en varios tipos la correcta era casi siempre la del medio |
+| 2026-11-12 | Ordenación alfabética: se descarta toda pregunta cuya respuesta cambie con el orden antiguo (CH y LL como letras propias) | Muchos opositores aprendieron ese orden; la pregunta sería discutible |
+| 2026-11-12 | Cada pregunta guarda la familia de reglas con la que se generó (`meta.family`) | Para calibrar la dificultad por familia con datos de uso |
+| 2026-11-12 | Limitación conocida: las series de letras de los niveles 1 a 3 tienen pocas combinaciones (126, 161 y 52 enunciados distintos por cada 1.000 semillas, versión 2) | Con 27 letras y reglas sencillas no hay más; un opositor que practique mucho ese tipo verá repeticiones. Se puede ampliar en la fase 3 si los exámenes oficiales usan otras variantes |
 
 ## Pendientes (las decide el propietario)
 
