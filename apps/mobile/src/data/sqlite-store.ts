@@ -1,10 +1,9 @@
-import type { Level, TypeCode } from '@aptiq/engine';
 import { asc, eq } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/expo-sqlite';
 import { openDatabaseSync } from 'expo-sqlite';
 
 import { ajustes, createTablesSql, intentos, semillasUsadas, sesiones } from './schema';
-import type { SavedAttempt, SavedSession, Store } from './store';
+import type { Store } from './store';
 
 /** Abre la base local y crea las tablas si no existen. Verificado en dispositivo (T9), no con Jest. */
 export function createSqliteStore(name = 'aptiq.db'): Store {
@@ -21,10 +20,7 @@ export function createSqliteStore(name = 'aptiq.db'): Store {
       await db
         .insert(ajustes)
         .values({ clave: key, valor: value })
-        .onConflictDoUpdate({
-          target: ajustes.clave,
-          set: { valor: value },
-        });
+        .onConflictDoUpdate({ target: ajustes.clave, set: { valor: value } });
     },
     async addUsedSeeds(list) {
       for (const semilla of list) {
@@ -36,47 +32,29 @@ export function createSqliteStore(name = 'aptiq.db'): Store {
       return new Set(rows.map((r) => r.semilla));
     },
     async saveSession(s) {
-      await db.insert(sesiones).values({
-        id: s.id,
-        tipo: s.type,
-        nivel: s.level,
-        semilla: s.seed,
-        respuestas: s.answers,
-        marcas: s.marked,
-        creada: s.creada,
-      });
+      await db.insert(sesiones).values({ id: s.id, creada: s.creada, preguntas: s.questions });
     },
     async sessions() {
       const rows = await db.select().from(sesiones).orderBy(asc(sesiones.creada));
-      return rows.map((r): SavedSession => ({
-        id: r.id,
-        type: r.tipo as TypeCode,
-        level: r.nivel as Level,
-        seed: r.semilla,
-        answers: r.respuestas,
-        marked: r.marcas,
-        creada: r.creada,
-      }));
+      return rows.map((r) => ({ id: r.id, creada: r.creada, questions: r.preguntas }));
     },
     async saveAttempt(a) {
       await db.insert(intentos).values({
         id: a.id,
         empezado: a.empezado,
         duracionMs: a.durationMs,
-        respuestas: a.answers,
-        marcas: a.marked,
         fin: a.finishedAt,
+        preguntas: a.questions,
       });
     },
     async attempts() {
       const rows = await db.select().from(intentos).orderBy(asc(intentos.empezado));
-      return rows.map((r): SavedAttempt => ({
+      return rows.map((r) => ({
         id: r.id,
         empezado: r.empezado,
         durationMs: r.duracionMs,
-        answers: r.respuestas,
-        marked: r.marcas,
         finishedAt: r.fin,
+        questions: r.preguntas,
       }));
     },
   };

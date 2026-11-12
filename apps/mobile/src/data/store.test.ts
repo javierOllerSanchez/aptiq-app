@@ -2,6 +2,8 @@ import { createMemoryStore } from './memory-store';
 
 // Este contrato lo cumplen la implementación en memoria (pruebas) y la de SQLite (dispositivo).
 
+const q = { type: 'NUM.SERIE' as const, level: 2 as const, seed: 'x', marked: false };
+
 test('guarda y lee ajustes; una clave sin valor devuelve null', async () => {
   const store = createMemoryStore();
   expect(await store.getSetting('oposicion')).toBeNull();
@@ -17,17 +19,17 @@ test('acumula las semillas usadas sin duplicarlas (CON-02)', async () => {
   expect([...(await store.usedSeeds())].sort()).toEqual(['a1', 'b2', 'c3']);
 });
 
-test('lista las sesiones guardadas en orden de creación', async () => {
+test('lista las sesiones guardadas en orden de creación, con sus preguntas', async () => {
   const store = createMemoryStore();
-  const base = {
-    type: 'NUM.SERIE' as const,
-    level: 2 as const,
-    answers: [0, null],
-    marked: [false, true],
-  };
-  await store.saveSession({ ...base, id: 's2', seed: 'x', creada: 200 });
-  await store.saveSession({ ...base, id: 's1', seed: 'y', creada: 100 });
-  expect((await store.sessions()).map((s) => s.id)).toEqual(['s1', 's2']);
+  await store.saveSession({ id: 's2', creada: 200, questions: [{ ...q, answer: 0 }] });
+  await store.saveSession({
+    id: 's1',
+    creada: 100,
+    questions: [{ ...q, answer: null, marked: true }],
+  });
+  const list = await store.sessions();
+  expect(list.map((s) => s.id)).toEqual(['s1', 's2']);
+  expect(list[0]?.questions[0]?.marked).toBe(true);
 });
 
 test('guarda un intento de simulacro, terminado o no', async () => {
@@ -36,11 +38,10 @@ test('guarda un intento de simulacro, terminado o no', async () => {
     id: 'i1',
     empezado: 1_000,
     durationMs: 55 * 60_000,
-    answers: [1, null],
-    marked: [false, false],
     finishedAt: null,
+    questions: [{ ...q, answer: 1 }],
   });
   const [a] = await store.attempts();
   expect(a?.finishedAt).toBeNull();
-  expect(a?.answers).toEqual([1, null]);
+  expect(a?.questions[0]?.answer).toBe(1);
 });

@@ -1,24 +1,28 @@
 import type { Level, TypeCode } from '@aptiq/engine';
 
-/** Respuestas de una sesión de práctica (una fila por pregunta). */
-export interface SavedSession {
-  id: string;
+/** Una pregunta tal como se respondió: lo justo para regenerarla con el motor (semilla) y saber qué se contestó. */
+export interface SavedQuestion {
   type: TypeCode;
   level: Level;
   seed: string;
-  answers: (number | null)[];
-  marked: boolean[];
+  /** Opción elegida, o null si quedó en blanco. */
+  answer: number | null;
+  marked: boolean;
+}
+
+export interface SavedSession {
+  id: string;
   creada: number;
+  questions: SavedQuestion[];
 }
 
 export interface SavedAttempt {
   id: string;
   empezado: number;
   durationMs: number;
-  answers: (number | null)[];
-  marked: boolean[];
   /** null mientras el simulacro sigue abierto. */
   finishedAt: number | null;
+  questions: SavedQuestion[];
 }
 
 /** Almacenamiento local (sin cuenta, fase 4). La implementación de SQLite va en `sqlite-store.ts`. */
