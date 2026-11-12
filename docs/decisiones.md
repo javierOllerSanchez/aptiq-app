@@ -49,12 +49,16 @@
 | 2026-11-12 | Dependencias nuevas: `expo-sqlite` y `drizzle-orm` (del stack). Tablas creadas con SQL al abrir la base; drizzle-kit se añade con la primera migración de cambio | Stack del CLAUDE.md; evita una herramienta más mientras no hay migraciones |
 | 2026-11-12 | `@aptiq/engine` es dependencia interna de la app (no una librería externa) | La app usa el motor para generar y puntuar; el perfil oficial se exporta desde el motor |
 | 2026-11-12 | Test de nivel de 12 preguntas (2 por tipo, nivel 2) con estimación lineal de 1 a 5, marcada como orientativa | Decisión del propietario (recomendada); sin datos oficiales de reparto |
+| 2026-11-12 | `.npmrc` con `node-linker=hoisted` (sustituye a «no hace falta `.npmrc`» de la fase 0) | Con los enlaces de pnpm, CMake/ninja no compilaban Android en Windows y las rutas pasaban de 260 caracteres; Expo lo recomienda con pnpm. El lockfile no cambia |
+| 2026-11-12 | Plugin de configuración `apps/mobile/plugins/with-windows-cmake.js`: en Windows, CMake 3.31.6 (ninja con rutas largas) y carpeta temporal `C:/b` | El ninja de CMake 3.22 no admite rutas largas; `android/` se genera y no se puede editar a mano. En Linux (CI, EAS) no cambia nada |
+| 2026-11-12 | Flujos de Maestro en `apps/mobile/.maestro/` (onboarding, práctica, simulacro en modo avión), probados en el emulador Android 37 con la compilación release | Criterio de aceptación de la fase 4 |
 
 ## Pendientes (las decide el propietario)
 
 - [x] Logotipo: p marcada (decidido el 2026-11-12)
 - [x] Confirmar en las bases vigentes del BOE: número de preguntas, tiempo, opciones, penalización y nota mínima de Guardia Civil (hecho en la fase 3, BOE-A-2026-9982; falta tu revisión del perfil)
 - [ ] Preguntar a la Jefatura de Enseñanza si publica o facilita los tipos de ejercicio de la prueba de aptitudes (lo envía el propietario)
+- [ ] Identificador de la app en Android e iOS: el prebuild propuso `com.javioller.aptiq` (lo usan los flujos de Maestro); no está en `app.json` hasta que lo confirmes
 - [ ] Cuentas: Expo/EAS, Apple Developer, Google Play Console, Supabase (región UE), RevenueCat, PostHog, Sentry
 - [ ] Psicólogo o preparador que revise el contenido
 - [ ] Precios definitivos y prueba con 5–8 opositores

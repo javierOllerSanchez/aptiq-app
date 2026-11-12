@@ -197,3 +197,20 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
   - Los flujos de Maestro (T9) no existen.
   - Sesión activa en memoria: si la app se cierra a mitad de práctica se pierde esa sesión.
 - **Pendiente de la fase:** T8 (modo avión y medición de arranque), T9, T10 y T11.
+
+**2026-11-12 · Fase 4 · T9 (Maestro en el emulador)**
+
+- **Hecho:**
+  - **Compilación release en Windows arreglada.** Pasaba de 260 caracteres en las rutas de CMake. Se resuelve con `node_modules` plano (`.npmrc`) y con un plugin que usa CMake 3.31.6 en Windows.
+  - **App instalada** en el emulador Android 37 (`Medium_Phone_API_37.0`).
+  - **Flujos de Maestro en verde:**
+    - `onboarding.yaml`: oposición, fecha y test de 12 preguntas.
+    - `practica.yaml`: 10 preguntas de Numérica, con explicación y truco.
+    - `simulacro-offline.yaml`: **simulacro completo de 80 preguntas en modo avión**, pasando por segundo plano, con marca para revisar, entrega, resultado con la fórmula y repaso de fallos.
+  - Monorepo: typecheck, lint y pruebas en verde (221 del motor, 15 de `ui` y 15 de la app).
+- **Límite:** Maestro no lee el cronómetro con precisión. La exactitud tras pasar a segundo plano la cubre la prueba de `use-exam-clock`.
+- **Pendiente:**
+  - T8: medir el arranque en un móvil de gama media.
+  - T10: comparar con los prototipos y revisar accesibilidad.
+  - T11: cierre.
+  - Que el propietario confirme el identificador de la app.

@@ -1,0 +1,31 @@
+# Criterio de aceptación de la fase 4: simulacro completo de Guardia Civil en modo avión,
+# de principio a fin, con el cronómetro tras pasar a segundo plano (SIM-01–03, RES-01–03, NFR-01, NFR-03).
+# Requiere onboarding.yaml antes.
+appId: com.javioller.aptiq
+---
+- setAirplaneMode: enabled
+- launchApp
+- tapOn: "Empezar simulacro"
+- assertVisible: "Pregunta 1 de 80"
+# Pasa a segundo plano y vuelve: el simulacro sigue donde estaba. La exactitud del tiempo tras el
+# segundo plano la cubre la prueba de use-exam-clock (NFR-03); Maestro no puede leer el cronómetro con precisión.
+- pressKey: Home
+- waitForAnimationToEnd
+- launchApp:
+    stopApp: false
+- assertVisible: "Pregunta 1 de 80"
+- tapOn: "Marcar para revisar"
+- assertVisible: "Quitar marca"
+- repeat:
+    times: 80
+    commands:
+      - tapOn: "Opción C, .*"
+      - tapOn:
+          text: "Siguiente"
+          optional: true
+- tapOn: "Entregar simulacro"
+- assertVisible: "Resultado · simulacro"
+- assertVisible: ".* aciertos − .* fallos ÷ 3"
+- tapOn: "Repasar fallos y en blanco"
+- assertVisible: "Repasar fallos"
+- setAirplaneMode: disabled

@@ -1,0 +1,14 @@
+# ENT-01, EXP-01–03: práctica por aptitud con explicación tras cada respuesta. Requiere onboarding.yaml antes.
+appId: com.javioller.aptiq
+---
+- launchApp
+- assertVisible: "Sesión de hoy"
+- tapOn: "Numérica"
+- repeat:
+    times: 10
+    commands:
+      - tapOn: "Opción B, .*"
+      - tapOn: "Confirmar"
+      - assertVisible: "Truco: .*"
+      - tapOn: "(Siguiente|Terminar sesión)"
+- assertVisible: "Sesión de hoy"
