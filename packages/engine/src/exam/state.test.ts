@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest';
 
-import { answer, createExam, finish, goTo, mark, remainingMs, tick } from './state';
+import { answer, clear, createExam, finish, goTo, mark, remainingMs, tick } from './state';
 
 const MIN = 60_000;
 const start = 1_000_000;
@@ -62,4 +62,18 @@ test('después de terminar no se puede responder', () => {
   const frozen = answer(s, 0, 0, start + 2 * MIN);
   expect(frozen.answers[0]).toBeNull();
   expect(frozen.finishedAt).toBe(start + MIN);
+});
+
+test('dejar en blanco borra la respuesta de esa pregunta (SIM-02)', () => {
+  let s = createExam(80, start, 55 * MIN);
+  s = answer(s, 3, 2, start + MIN);
+  s = clear(s, 3, start + 2 * MIN);
+  expect(s.answers[3]).toBeNull();
+});
+
+test('dejar en blanco tras el cierre no cambia nada', () => {
+  let s = createExam(80, start, 55 * MIN);
+  s = answer(s, 3, 2, start + MIN);
+  s = finish(s, start + 2 * MIN);
+  expect(clear(s, 3, start + 3 * MIN).answers[3]).toBe(2);
 });

@@ -54,3 +54,8 @@ test('con datos pendientes en el perfil, no inventa: lanza un error', () => {
   };
   expect(() => score(sinMinimo, { aciertos: 10, fallos: 0 })).toThrow('pendiente');
 });
+
+test('la fórmula concuerda en singular («1 acierto − 1 fallo»)', () => {
+  expect(score(gc, { aciertos: 1, fallos: 1 }).formula).toBe('1 acierto − 1 fallo ÷ 3');
+  expect(score(gc, { aciertos: 0, fallos: 2 }).formula).toBe('0 aciertos − 2 fallos ÷ 3');
+});

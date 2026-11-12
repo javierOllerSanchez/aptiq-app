@@ -51,11 +51,22 @@ function assertIndex(s: ExamState, index: number): void {
 
 export function answer(s: ExamState, index: number, option: number, now: number): ExamState {
   assertIndex(s, index);
-  if (!Number.isInteger(option) || option < 0 || option > 3) throw new Error(`Opción ${option} no válida`);
+  if (!Number.isInteger(option) || option < 0 || option > 3)
+    throw new Error(`Opción ${option} no válida`);
   const closed = tick(s, now);
   if (closed.finishedAt !== null) return closed;
   const answers = [...s.answers];
   answers[index] = option;
+  return { ...s, answers };
+}
+
+/** Deja la pregunta en blanco (SIM-02): en blanco no resta. */
+export function clear(s: ExamState, index: number, now: number): ExamState {
+  assertIndex(s, index);
+  const closed = tick(s, now);
+  if (closed.finishedAt !== null) return closed;
+  const answers = [...s.answers];
+  answers[index] = null;
   return { ...s, answers };
 }
 

@@ -16,7 +16,10 @@ export interface ScoreResult {
  * P = Y/T × (A − E/(N − 1)). Las preguntas en blanco no restan.
  * Si el perfil tiene pendiente algún dato necesario, no se inventa: se lanza un error.
  */
-export function score(profile: ExamProfile, attempt: { aciertos: number; fallos: number }): ScoreResult {
+export function score(
+  profile: ExamProfile,
+  attempt: { aciertos: number; fallos: number },
+): ScoreResult {
   const { preguntas: T, opciones: N } = profile.format;
   const { maxima: Y, minima } = profile.format.puntuacion;
   if (T === null || N === null || Y === null || minima === null)
@@ -33,6 +36,6 @@ export function score(profile: ExamProfile, attempt: { aciertos: number; fallos:
     minima,
     supera: puntos >= minima,
     enBlanco: T - A - E,
-    formula: `${A} aciertos − ${E} fallos ÷ ${N - 1}`,
+    formula: `${A} ${A === 1 ? 'acierto' : 'aciertos'} − ${E} ${E === 1 ? 'fallo' : 'fallos'} ÷ ${N - 1}`,
   };
 }

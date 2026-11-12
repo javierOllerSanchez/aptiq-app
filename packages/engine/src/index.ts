@@ -27,6 +27,7 @@ export { score, type ScoreResult } from './score';
 export {
   createExam,
   answer,
+  clear,
   mark,
   goTo,
   finish,
