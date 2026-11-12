@@ -156,3 +156,8 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 
 - **Hecho:** modelo de sesión y reparto de práctica en el motor (`packages/engine/src/session/plan.ts`). Reparto equitativo para el simulacro y prioritario por fallos para la práctica; semillas no repetidas (CON-02). 7 pruebas en verde.
 - **Pendiente de la fase:** T2 a T11 según `docs/planes/fase-4.md`.
+
+**2026-11-12 · Fase 4 · T2**
+
+- **Hecho:** estado del simulacro en el motor (`packages/engine/src/exam/state.ts`): tiempo por marcas de reloj, cierre automático al agotarse, respuestas en blanco, marcar para revisar y navegación. Inmutable. Pruebas en verde.
+- **Pendiente de la fase:** T3 a T11.
