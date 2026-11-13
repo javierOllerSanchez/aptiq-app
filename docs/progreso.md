@@ -7,7 +7,7 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 | 0 · Base del proyecto | Cerrada (prueba en iPhone pendiente del propietario) | `fase-0-base` · PR #1 fusionado | 2026-11-12 | Sí, 2026-11-12 |
 | 1 · Sistema de diseño en código | Cerrada (VoiceOver en iPhone y `/review-animations` pendientes del propietario) | `fase-1-sistema-diseno` · PR #2 fusionado | 2026-11-12 | Sí, 2026-11-12 |
 | 2 · Motor de contenido v1 | Cerrada (rediseño de distractores pendiente para el inicio de la fase 3) | `fase-2-motor` · PR #3 fusionado | 2026-11-12 | Sí, 2026-11-12 |
-| 3 · Perfil de examen y puntuación | Cerrada (revisión del perfil por el propietario pendiente) | `fase-3-perfil` · PR #4 fusionado | 2026-11-12 | Sí, 2026-11-12 |
+| 3 · Perfil de examen y puntuación | Cerrada | `fase-3-perfil` · PR #4 fusionado | 2026-11-12 | Sí, 2026-11-13 |
 | 4 · Práctica y simulacro sin conexión | En cierre (pendiente de decisiones del propietario) | `fase-4-practica` | | |
 | 5 · Cuentas y sincronización | Pendiente | | | |
 | 6 · Progreso y adaptativo | Pendiente | | | |
@@ -16,6 +16,11 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 | 9 · Beta y lanzamiento | Pendiente | | | |
 
 ## Registro
+
+**2026-11-13 · Fase 3 · Aprobación**
+
+- El propietario aprueba la fase 3 y su perfil `guardia-civil-2026`.
+- Pendiente de la fase 3 que no bloquea el cierre: escribir a la Jefatura de Enseñanza sobre los tipos de la prueba de aptitudes, y las pistas de distractores ya anotadas.
 
 <!-- Formato de cada entrada: fecha · fase · qué se hizo · qué queda · qué debe comprobar el propietario -->
 
