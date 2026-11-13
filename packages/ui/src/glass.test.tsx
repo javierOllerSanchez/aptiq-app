@@ -25,11 +25,11 @@ test('GlassCard muestra su contenido', async () => {
   expect(screen.getByText('Nivel estimado')).toBeOnTheScreen();
 });
 
-test('SourceNote cita el organismo que se le pasa', async () => {
-  await render(<SourceNote organismo="la Guardia Civil" />);
+test('SourceNote cita solo la fuente que se le pasa (principio 4: nada de «exámenes publicados»)', async () => {
+  await render(<SourceNote cita="BOE-A-2026-9982, bases 6.1.2.a, 7.3 y 7.8" />);
   expect(
     screen.getByText(
-      'Estructura basada en las bases del BOE y en los exámenes publicados por la Guardia Civil.',
+      'Formato según la convocatoria oficial: BOE-A-2026-9982, bases 6.1.2.a, 7.3 y 7.8.',
     ),
   ).toBeOnTheScreen();
 });

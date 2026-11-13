@@ -1,0 +1,24 @@
+# ONB-01, ONB-02: primer arranque, elegir oposición y fecha, y hacer el test de nivel.
+appId: com.javioller.aptiq
+---
+- launchApp:
+    clearState: true
+- assertVisible: "¿Qué oposición preparas?"
+- tapOn: "Guardia Civil · Escala de Cabos y Guardias"
+- assertVisible: "¿Cuándo es tu examen?"
+- tapOn: "Fecha prevista del examen.*"
+- inputText: "2027-06-15"
+# Enter confirma el campo y cierra el teclado (hideKeyboard pulsa «Atrás» y saldría de la app).
+- pressKey: Enter
+- tapOn: "Hacer el test de nivel"
+- repeat:
+    times: 12
+    commands:
+      - scrollUntilVisible:
+          element: "Opción A, .*"
+          direction: UP
+      - tapOn: "Opción A, .*"
+      - scrollUntilVisible:
+          element: "(Siguiente|Ver mi nivel)"
+      - tapOn: "(Siguiente|Ver mi nivel)"
+- assertVisible: "Sesión de hoy"

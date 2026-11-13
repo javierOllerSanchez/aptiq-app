@@ -44,11 +44,28 @@
 | 2026-11-12 | Palabras de las preguntas sin ninguna que lleve tilde (se muestran en mayúsculas sin ella) | La oposición evalúa la ortografía: no se debe enseñar «JARDIN» o «VOLCAN» |
 | 2026-11-12 | Esquema de perfil con `format.puntuacion.{maxima, minima}` y la fórmula Y/T/N del BOE; la skill `aptiq-exam-profile` se actualiza a este esquema | El esquema de ejemplo de la skill era anterior a leer las bases |
 
+| 2026-11-12 | Práctica de la fase 4 con preguntas en revisión: la pantalla Inicio lo avisa; la validación con opositores va en la beta | Decisión del propietario (opción a) |
+| 2026-11-12 | Una sesión y un intento guardan sus preguntas completas (tipo, nivel, semilla, respuesta, marca); las pantallas regeneran el enunciado con el motor | Así el fallo y la explicación salen de la semilla, sin guardar el texto de las preguntas |
+| 2026-11-12 | Dependencias nuevas: `expo-sqlite` y `drizzle-orm` (del stack). Tablas creadas con SQL al abrir la base; drizzle-kit se añade con la primera migración de cambio | Stack del CLAUDE.md; evita una herramienta más mientras no hay migraciones |
+| 2026-11-12 | `@aptiq/engine` es dependencia interna de la app (no una librería externa) | La app usa el motor para generar y puntuar; el perfil oficial se exporta desde el motor |
+| 2026-11-12 | Test de nivel de 12 preguntas (2 por tipo, nivel 2) con estimación lineal de 1 a 5, marcada como orientativa | Decisión del propietario (recomendada); sin datos oficiales de reparto |
+| 2026-11-12 | `.npmrc` con `node-linker=hoisted` (sustituye a «no hace falta `.npmrc`» de la fase 0) | Con los enlaces de pnpm, CMake/ninja no compilaban Android en Windows y las rutas pasaban de 260 caracteres; Expo lo recomienda con pnpm. El lockfile no cambia |
+| 2026-11-12 | Plugin de configuración `apps/mobile/plugins/with-windows-cmake.js`: en Windows, CMake 3.31.6 (ninja con rutas largas) y carpeta temporal `C:/b` | El ninja de CMake 3.22 no admite rutas largas; `android/` se genera y no se puede editar a mano. En Linux (CI, EAS) no cambia nada |
+| 2026-11-12 | Flujos de Maestro en `apps/mobile/.maestro/` (onboarding, práctica, simulacro en modo avión), probados en el emulador Android 37 con la compilación release | Criterio de aceptación de la fase 4 |
+| 2026-11-12 | `SourceNote` dice «Formato según la convocatoria oficial: BOE-A-2026-9982, bases 6.1.2.a, 7.3 y 7.8», con la cita sacada del perfil, en lugar de «…exámenes publicados por…» | Principio 4: la Guardia Civil no publica el cuestionario de aptitudes. **Pendiente** que el propietario confirme el cambio en `docs/guia-estilos.md` §5 y en `docs/prototipos/inicio.html` |
+| 2026-11-12 | El simulacro en curso se guarda en SQLite tras cada respuesta y se retoma al volver a abrir la app, con su hora de inicio (el tiempo sigue contando); salir sin entregar lo borra | NFR-03: «si la app pasa a segundo plano o se cierra» |
+| 2026-11-12 | Dentro de una sesión no se repite ningún enunciado (se cambia la semilla por una derivada, como mucho 50 intentos); entre sesiones solo se evitan las semillas repetidas | CON-02. Las series de letras de niveles bajos tienen pocos enunciados distintos (limitación ya anotada) |
+| 2026-11-12 | «A reforzar» con aciertos ÷ total (las de en blanco cuentan), como el porcentaje que se ve; el test de nivel cuenta «No lo sé» como no acertada y no estima más de un nivel por encima del probado | Hallazgos de `revisor-contenido` e `revisor-interfaz` |
+
 ## Pendientes (las decide el propietario)
 
 - [x] Logotipo: p marcada (decidido el 2026-11-12)
 - [x] Confirmar en las bases vigentes del BOE: número de preguntas, tiempo, opciones, penalización y nota mínima de Guardia Civil (hecho en la fase 3, BOE-A-2026-9982; falta tu revisión del perfil)
 - [ ] Preguntar a la Jefatura de Enseñanza si publica o facilita los tipos de ejercicio de la prueba de aptitudes (lo envía el propietario)
+- [x] Identificador de la app en Android e iOS: `com.javioller.aptiq` (confirmado por el propietario el 2026-11-13; ya en `app.json`)
+- [x] Aplazar a la fase 5 la pantalla de historial (PRO-02) y a la fase 6 el nivel por aptitud con su evolución (PRO-01). Confirmado por el propietario el 2026-11-13
+- [x] T8 / NFR-02: medir arranque en frío y pregunta nueva en Android de gama media, en release, aplazado a la beta (decidido por el propietario el 2026-11-13)
+- [ ] Diseño de Inicio y Resultado: barra de pestañas y filas de lista, casillas marcadas en el progreso, nota con «/ 30» y sello al lado, barras por aptitud
 - [ ] Cuentas: Expo/EAS, Apple Developer, Google Play Console, Supabase (región UE), RevenueCat, PostHog, Sentry
 - [ ] Psicólogo o preparador que revise el contenido
 - [ ] Precios definitivos y prueba con 5–8 opositores

@@ -1,0 +1,66 @@
+# Criterio de aceptación de la fase 4: simulacro completo de Guardia Civil en modo avión, de principio
+# a fin (SIM-01–03, RES-01–03, NFR-01). Incluye dejar en blanco, segundo plano y cierre de la app a mitad
+# (NFR-03). La exactitud del tiempo la cubre la prueba de use-exam-clock: Maestro no lee el cronómetro.
+appId: com.javioller.aptiq
+---
+- runFlow: onboarding.yaml
+- setAirplaneMode: enabled
+- launchApp
+- tapOn: "(Empezar|Continuar) simulacro"
+- assertVisible: "Pregunta 1 de 80"
+# Dejar en blanco borra la respuesta (SIM-02).
+- tapOn: "Opción A, .*"
+- assertVisible: "Opción A, .*, seleccionada"
+- scrollUntilVisible:
+    element: "Dejar en blanco"
+- tapOn: "Dejar en blanco"
+- scrollUntilVisible:
+    element: "Opción A, .*"
+    direction: UP
+- assertNotVisible: "Opción A, .*, seleccionada"
+# Segundo plano y vuelta: el simulacro sigue donde estaba.
+- pressKey: Home
+- waitForAnimationToEnd
+- launchApp:
+    stopApp: false
+- assertVisible: "Pregunta 1 de 80"
+# Cierre de la app a mitad: la respuesta y la marca se recuperan con «Continuar simulacro» (NFR-03).
+- tapOn: "Opción C, .*"
+- scrollUntilVisible:
+    element: "Marcar para revisar"
+- tapOn: "Marcar para revisar"
+- stopApp
+- launchApp:
+    stopApp: false
+- tapOn: "Continuar simulacro"
+- assertVisible: "Opción C, .*, seleccionada"
+- scrollUntilVisible:
+    element: "Quitar marca"
+- repeat:
+    times: 80
+    commands:
+      - scrollUntilVisible:
+          element: "Opción C, .*"
+          direction: UP
+      - tapOn: "Opción C, .*"
+      - scrollUntilVisible:
+          element: "Siguiente"
+          direction: DOWN
+      - tapOn:
+          text: "Siguiente"
+          optional: true
+# Tras 80 respuestas, la última pregunta debe estar contestada (comprueba que de verdad se avanzó).
+- scrollUntilVisible:
+    element: "Pregunta 80 de 80"
+    direction: UP
+- scrollUntilVisible:
+    element: "Entregar simulacro"
+- tapOn: "Entregar simulacro"
+- tapOn: "Entregar ahora"
+- assertVisible: "Resultado · simulacro.*"
+- assertVisible: '\(.* aciertos? − .* fallos? ÷ 3\) × 30/80 = .*'
+- scrollUntilVisible:
+    element: "Ver explicaciones"
+- tapOn: "Ver explicaciones"
+- assertVisible: "Fallos y en blanco.*"
+- setAirplaneMode: disabled

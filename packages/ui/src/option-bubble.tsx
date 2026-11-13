@@ -72,6 +72,7 @@ export function OptionBubble({
     <Pressable
       onPress={press}
       accessibilityRole="radio"
+      accessibilityState={{ checked: state === 'marked' }}
       accessibilityLabel={`Opción ${letter}, ${value}${stateLabel[state]}`}
       style={({ pressed }) => [
         styles.row,
@@ -82,7 +83,10 @@ export function OptionBubble({
     >
       <View style={[styles.bubble, wrong && styles.bubbleWrong]}>
         {/* Letra en tinta debajo; encima, el relleno con la letra en subrayador (fundido cruzado). */}
-        <Text variant="timer">{letter}</Text>
+        {/* La letra es un gráfico de tamaño fijo, como un icono: la etiqueta accesible ya la incluye. */}
+        <Text variant="timer" maxFontSizeMultiplier={1}>
+          {letter}
+        </Text>
         <Animated.View
           style={[
             StyleSheet.absoluteFill,
@@ -96,7 +100,7 @@ export function OptionBubble({
           ) : wrong ? (
             <Icon name="cross" color="white" strokeWidth={border.selected * 1.5} />
           ) : (
-            <Text variant="timer" color="highlighter">
+            <Text variant="timer" color="highlighter" maxFontSizeMultiplier={1}>
               {letter}
             </Text>
           )}

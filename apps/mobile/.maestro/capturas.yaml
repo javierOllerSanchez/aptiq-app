@@ -1,0 +1,43 @@
+# Capturas de cada pantalla para compararlas con docs/prototipos/ (T10). No es una prueba: solo fotografía.
+appId: com.javioller.aptiq
+---
+- launchApp:
+    clearState: true
+- assertVisible: "¿Qué oposición preparas?"
+- takeScreenshot: capturas/fase-4-onboarding
+- tapOn: "Guardia Civil · Escala de Cabos y Guardias"
+- takeScreenshot: capturas/fase-4-fecha
+- tapOn: "Hacer el test de nivel"
+- tapOn: "Opción A, .*"
+- takeScreenshot: capturas/fase-4-test-nivel
+- repeat:
+    times: 12
+    commands:
+      - scrollUntilVisible:
+          element: "Opción A, .*"
+          direction: UP
+      - tapOn: "Opción A, .*"
+      - scrollUntilVisible:
+          element: "(Siguiente|Ver mi nivel)"
+      - tapOn: "(Siguiente|Ver mi nivel)"
+- takeScreenshot: capturas/fase-4-inicio
+- tapOn: "Numérica"
+- tapOn: "Opción B, .*"
+- scrollUntilVisible:
+    element: "Confirmar"
+- tapOn: "Confirmar"
+- takeScreenshot: capturas/fase-4-practica
+- launchApp:
+    stopApp: true
+- tapOn: "(Empezar|Continuar) simulacro"
+- tapOn: "Opción B, .*"
+- takeScreenshot: capturas/fase-4-simulacro
+- scrollUntilVisible:
+    element: "Entregar simulacro"
+- tapOn: "Entregar simulacro"
+- tapOn: "Entregar ahora"
+- takeScreenshot: capturas/fase-4-resultado
+- scrollUntilVisible:
+    element: "Ver explicaciones"
+- tapOn: "Ver explicaciones"
+- takeScreenshot: capturas/fase-4-repasar

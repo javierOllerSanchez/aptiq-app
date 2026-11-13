@@ -8,7 +8,7 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 | 1 · Sistema de diseño en código | Cerrada (VoiceOver en iPhone y `/review-animations` pendientes del propietario) | `fase-1-sistema-diseno` · PR #2 fusionado | 2026-11-12 | Sí, 2026-11-12 |
 | 2 · Motor de contenido v1 | Cerrada (rediseño de distractores pendiente para el inicio de la fase 3) | `fase-2-motor` · PR #3 fusionado | 2026-11-12 | Sí, 2026-11-12 |
 | 3 · Perfil de examen y puntuación | Cerrada | `fase-3-perfil` · PR #4 fusionado | 2026-11-12 | Sí, 2026-11-13 |
-| 4 · Práctica y simulacro sin conexión | Pendiente | | | |
+| 4 · Práctica y simulacro sin conexión | En cierre (pendiente de decisiones del propietario) | `fase-4-practica` | | |
 | 5 · Cuentas y sincronización | Pendiente | | | |
 | 6 · Progreso y adaptativo | Pendiente | | | |
 | 7 · Pago | Pendiente | | | |
@@ -156,3 +156,140 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 - **Debe hacer el propietario:**
   - revisar el perfil contra el BOE y marcar la casilla de `packages/engine/profiles/analysis/guardia-civil-2026.md`;
   - decidir si escribe a la Jefatura de Enseñanza.
+
+**2026-11-12 · Fase 4 · T1 (en curso)**
+
+- **Hecho:** modelo de sesión y reparto de práctica en el motor (`packages/engine/src/session/plan.ts`). Reparto equitativo para el simulacro y prioritario por fallos para la práctica; semillas no repetidas (CON-02). 7 pruebas en verde.
+- **Pendiente de la fase:** T2 a T11 según `docs/planes/fase-4.md`.
+
+**2026-11-12 · Fase 4 · T2**
+
+- **Hecho:** estado del simulacro en el motor (`packages/engine/src/exam/state.ts`): tiempo por marcas de reloj, cierre automático al agotarse, respuestas en blanco, marcar para revisar y navegación. Inmutable. Pruebas en verde.
+- **Pendiente de la fase:** T3 a T11.
+
+**2026-11-12 · Fase 4 · T3**
+
+- **Hecho:** explicación de cada pregunta, error de la opción elegida y truco (`packages/engine/src/review/review.ts`); desglose por tipo y aptitud, cuadrado con `score()`, y aptitud a reforzar. Pruebas en verde.
+- **Pendiente de la fase:** T4 a T11.
+
+**2026-11-12 · Fase 4 · T4**
+
+- **Hecho:** hook `useExamClock` (`apps/mobile/src/hooks/use-exam-clock.ts`): recalcula con el reloj cada segundo y al volver a primer plano; recibe el estado del simulacro (no inicio y duración, como decía el plan) para no repetir la lógica del motor. La app depende de `@aptiq/engine`. Pruebas en verde.
+- **Pendiente de la fase:** T5 a T11. Pendiente en dispositivo: pasar el móvil a segundo plano 2 minutos y comprobar el cronómetro.
+
+**2026-11-12 · Fase 4 · T5**
+
+- **Hecho:** almacenamiento local: contrato `Store` (ajustes, semillas usadas, sesiones, intentos), implementación en memoria para pruebas y la de SQLite con Drizzle (`expo-sqlite` y `drizzle-orm`). Las tablas se crean con SQL al abrir la base, sin drizzle-kit por ahora. 4 pruebas del contrato en verde.
+- **Pendiente en dispositivo (T9):** la implementación de SQLite no se puede probar con Jest (módulo nativo); se comprueba al abrir la app.
+- **Dependencias nuevas:** `expo-sqlite` (SDK 58, del stack) y `drizzle-orm` (del stack). Se anotan en `docs/decisiones.md` al cerrar la fase.
+
+**2026-11-12 · Fase 4 · T6 (parcial)**
+
+- **Hecho:** cálculo del nivel orientativo por tipo a partir del test de nivel (`packages/engine/src/level/estimate.ts`): lineal de 1 a 5, sin contar las preguntas en blanco y sin inventar nivel cuando no hay respuestas. 3 pruebas en verde.
+- **Pendiente:** las pantallas de onboarding (elegir oposición y fecha, test de 10 minutos) y su flujo de Maestro.
+
+**2026-11-12 · Fase 4 · T6 y T7 (código; sin verificar en dispositivo)**
+
+- **Hecho:**
+  - Arranque con redirección: sin oposición va al onboarding, con oposición a Inicio.
+  - Onboarding en 3 pasos (oposición, fecha opcional y test de 12 preguntas), con el nivel estimado guardado.
+  - Inicio con sesión de hoy, simulacro, práctica por aptitud y el aviso de preguntas en revisión.
+  - Práctica con confirmación y explicación (EXP-01 a EXP-03), simulacro con cronómetro y navegación, resultado con la nota del perfil oficial (RES-01, RES-02) y repaso de fallos (RES-03).
+  - El paquete de Android se genera sin errores (`expo export`).
+  - Lint de la app limpio; 12 pruebas de la app en verde.
+- **No verificado aún:**
+  - Ninguna pantalla se ha visto en un dispositivo ni comparado con su prototipo (T10).
+  - Los flujos de Maestro (T9) no existen.
+  - Sesión activa en memoria: si la app se cierra a mitad de práctica se pierde esa sesión.
+- **Pendiente de la fase:** T8 (modo avión y medición de arranque), T9, T10 y T11.
+
+**2026-11-12 · Fase 4 · T9 (Maestro en el emulador)**
+
+- **Hecho:**
+  - **Compilación release en Windows arreglada.** Pasaba de 260 caracteres en las rutas de CMake. Se resuelve con `node_modules` plano (`.npmrc`) y con un plugin que usa CMake 3.31.6 en Windows.
+  - **App instalada** en el emulador Android 37 (`Medium_Phone_API_37.0`).
+  - **Flujos de Maestro en verde:**
+    - `onboarding.yaml`: oposición, fecha y test de 12 preguntas.
+    - `practica.yaml`: 10 preguntas de Numérica, con explicación y truco.
+    - `simulacro-offline.yaml`: **simulacro completo de 80 preguntas en modo avión**, pasando por segundo plano, con marca para revisar, entrega, resultado con la fórmula y repaso de fallos.
+  - Monorepo: typecheck, lint y pruebas en verde (221 del motor, 15 de `ui` y 15 de la app).
+- **Límite:** Maestro no lee el cronómetro con precisión. La exactitud tras pasar a segundo plano la cubre la prueba de `use-exam-clock`.
+- **Pendiente:**
+  - T8: medir el arranque en un móvil de gama media.
+  - T10: comparar con los prototipos y revisar accesibilidad.
+  - T11: cierre.
+  - Que el propietario confirme el identificador de la app.
+
+**2026-11-12 · Fase 4 · T10 (prototipos, accesibilidad y `revisor-interfaz`)**
+
+- **Revisión:** `revisor-interfaz` encontró 7 problemas graves y 13 importantes. **Graves, todos corregidos:**
+  1. **Dejar en blanco (SIM-02):** `clear()` en el motor, con prueba, y botón en el simulacro.
+  2. **Fórmula visible (RES-01):** completa y con el resultado, «(0 aciertos − 1 fallo ÷ 3) × 30/80 = −0,13», con el singular y el signo menos tipográfico.
+  3. **Desglose (RES-02):** por aptitud y por tipo, con el total real (incluidas las de en blanco) y porcentaje; la aptitud a reforzar en rojo.
+  4. **Nivel estimado:** se muestra en Inicio, marcado como orientativo.
+  5. **Salida del simulacro:** pide confirmación con el botón cerrar, con Atrás de Android y al entregar (dice cuántas quedan en blanco y cuántas marcadas); sin gesto de deslizar.
+  6. **Campo de fecha:** estilo de texto correcto (`textStyle`) y validación del formato.
+  7. **Capturas:** rehechas, a tamaño normal y con el texto al 200 % (`docs/capturas/fase-4-texto-200/`).
+- **Importantes corregidos:**
+  - márgenes duplicados (ahora 20 de lado);
+  - `Timer` de cristal con reloj y anuncio por minutos;
+  - tipo de pregunta, penalización, nota de fuente y «Siguiente marcada» en el simulacro;
+  - `checked` y `radiogroup` para TalkBack y VoiceOver;
+  - fuente «la Guardia Civil» y formato leídos del perfil;
+  - repaso con los tres pasos, opciones correcta/fallo y una tarjeta por pregunta;
+  - un solo amarillo en Práctica tras corregir;
+  - test de nivel con 10 minutos, «No lo sé» y casillas;
+  - estados de carga.
+- **Al 200 %:** la letra de la burbuja ya no se corta (tamaño fijo, como un icono) y el nombre del tipo ya no se parte a mitad de palabra.
+- **Verificado:**
+  - los 4 flujos de Maestro en verde en el emulador (el simulacro llega a la pregunta 80 y entrega en modo avión);
+  - typecheck, lint y pruebas en verde: 224 del motor, 18 de `ui` y 15 de la app.
+- **Pendiente de decidir por el propietario (importantes que cambian la estructura):**
+  - barra de pestañas y filas de lista (`ListRow`) en Inicio;
+  - marca visible en las casillas de progreso;
+  - composición exacta de Resultado (nota con «/ 30» y sello al lado) y barras por aptitud;
+  - cuál es el botón amarillo de Inicio: he seguido el prototipo («Empezar simulacro»).
+- **Para revisar el propietario:** `SourceNote` dice «exámenes publicados por la Guardia Civil», pero la Guardia Civil solo publica la plantilla de respuestas de aptitudes, no el cuestionario.
+
+**2026-11-12 · Fase 4 · Cierre (en curso; subido a GitHub para seguir desde otro equipo)**
+
+- **Revisiones del cierre:**
+  - `verificador-fase`, primera pasada: «no lista». Bloqueantes:
+    - segunda pasada de `revisor-interfaz`: **hecha, sin graves**;
+    - NFR-03 al cerrarse la app: **corregido**; el simulacro se guarda tras cada cambio y se retoma con «Continuar simulacro»;
+    - prueba del cronómetro en un móvil real: **la hace el propietario**;
+    - T8: **pendiente del propietario**;
+    - aplazar PRO-01 y PRO-02: **pendiente del propietario**;
+    - documentación de cierre: hecha.
+  - `revisor-interfaz`, segunda pasada: **ningún grave**. Corregidos los importantes 1, 3, 4 y 6:
+    - tarjeta de la pregunta;
+    - mismo criterio para «a reforzar» y el porcentaje mostrado;
+    - aviso si el test no da para estimar;
+    - el veredicto de Práctica se anuncia al lector de pantalla.
+  - `revisor-contenido`, primera pasada: 2 bloqueantes, **corregidos**:
+    - `SourceNote` ya no habla de «exámenes publicados»: cita BOE-A-2026-9982 y sus bases;
+    - aviso visible de que la mezcla de tipos no es oficial.
+
+    Importantes corregidos:
+    - enunciados repetidos dentro de un simulacro (CON-02);
+    - «a reforzar»;
+    - test de nivel;
+    - el error de cada opción incorrecta (EXP-02);
+    - «3 fallos restan 1 acierto».
+  - `revisor-contenido`, segunda pasada: **ningún bloqueante**. Sus 2 importantes nuevos están corregidos: no hay «a reforzar» si todas las aptitudes empatan, y con la mitad de aciertos no se sube de nivel.
+  - Ponytail: una sola `LETTERS` y `toSaved`/`fromSaved` compartidos. `Store` se queda (dos implementaciones).
+- **Verificado en este equipo:** typecheck, lint, test y `test:stress` en verde (230 del motor, 18 de `ui` y 22 de la app).
+- **Sin confirmar todavía:** la última pasada de Maestro con el código final. La anterior pasó los 3 flujos; los flujos se han reforzado con dejar en blanco, segundo plano y cierre de la app a mitad. Para repetirla en otro equipo:
+  1. compilar el release (Windows necesita el plugin `with-windows-cmake`, ya incluido);
+  2. ejecutar `maestro test apps/mobile/.maestro/onboarding.yaml`, `practica.yaml` y `simulacro-offline.yaml` (los dos últimos lanzan el onboarding solos).
+- **Debe decidir el propietario** (lista en `docs/decisiones.md`, «Pendientes»):
+  - aplazar PRO-01 y PRO-02;
+  - T8 / NFR-02;
+  - cambio del texto de `SourceNote` en la guía y el prototipo;
+  - diseño de Inicio y Resultado;
+  - identificador de la app.
+- **Debe probar el propietario en un móvil real:**
+  - simulacro con 2 minutos en segundo plano y pantalla bloqueada (el cronómetro baja unos 2 minutos);
+  - cerrar la app a mitad de simulacro y volver con «Continuar simulacro»;
+  - VoiceOver y TalkBack en las opciones;
+  - Maestro en iPhone.
