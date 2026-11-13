@@ -4,7 +4,7 @@ appId: com.javioller.aptiq
 - runFlow: onboarding.yaml
 - launchApp
 - assertVisible: "Sesión de hoy"
-- tapOn: "Numérica"
+- tapOn: "Numérica.*"
 - repeat:
     times: 10
     commands:

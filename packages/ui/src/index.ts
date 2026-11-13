@@ -12,3 +12,5 @@ export * from './glass-card';
 export * from './source-note';
 export * from './tab-bar';
 export * from './timer';
+export * from './list-row';
+export * from './aptitude-bar';

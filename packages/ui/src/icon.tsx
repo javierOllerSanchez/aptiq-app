@@ -18,6 +18,7 @@ const icons = {
   stats: { paths: ['M5 20v-8M12 20V5M19 20v-11'] },
   profile: { paths: ['M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6'], circles: [[12, 8, 4]] },
   document: { paths: ['M7 3h7l5 5v13H7z', 'M14 3v5h5M10 13h6M10 17h6'] },
+  chevron: { paths: ['M9 6l6 6-6 6'] },
   clock: { paths: ['M12 9v4l2.5 2M9.5 3h5'], circles: [[12, 13, 8]] },
 } satisfies Record<string, { paths: string[]; circles?: number[][] }>;
 
