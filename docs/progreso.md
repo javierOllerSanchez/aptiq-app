@@ -8,7 +8,7 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 | 1 · Sistema de diseño en código | Cerrada (VoiceOver en iPhone y `/review-animations` pendientes del propietario) | `fase-1-sistema-diseno` · PR #2 fusionado | 2026-11-12 | Sí, 2026-11-12 |
 | 2 · Motor de contenido v1 | Cerrada (rediseño de distractores pendiente para el inicio de la fase 3) | `fase-2-motor` · PR #3 fusionado | 2026-11-12 | Sí, 2026-11-12 |
 | 3 · Perfil de examen y puntuación | Cerrada | `fase-3-perfil` · PR #4 fusionado | 2026-11-12 | Sí, 2026-11-13 |
-| 4 · Práctica y simulacro sin conexión | En cierre (pendiente de decisiones del propietario) | `fase-4-practica` | | |
+| 4 · Práctica y simulacro sin conexión | Fusionada; pendiente de pruebas en móvil real y de la última pasada de Maestro | `fase-4-practica` · PR #5 fusionado | 2026-11-13 | No |
 | 5 · Cuentas y sincronización | Pendiente | | | |
 | 6 · Progreso y adaptativo | Pendiente | | | |
 | 7 · Pago | Pendiente | | | |
@@ -16,6 +16,12 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 | 9 · Beta y lanzamiento | Pendiente | | | |
 
 ## Registro
+
+**2026-11-13 · Fase 4 · Fusión**
+
+- PR #5 fusionado en `main`. Decisiones del propietario aplicadas: identificador `com.javioller.aptiq`; PRO-02 a la fase 5; PRO-01 a la fase 6; T8 / NFR-02 aplazado a la beta.
+- Pendiente antes de aprobar la fase: última pasada de Maestro sobre el código final; cronómetro con la pantalla bloqueada; cerrar la app a mitad de simulacro; VoiceOver y TalkBack; Maestro en iPhone; diseño de Inicio y Resultado; texto de `SourceNote` en la guía y el prototipo.
+- No aprobada por el propietario.
 
 **2026-11-13 · Fase 3 · Aprobación**
 
