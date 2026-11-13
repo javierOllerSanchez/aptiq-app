@@ -62,9 +62,9 @@
 - [x] Logotipo: p marcada (decidido el 2026-11-12)
 - [x] Confirmar en las bases vigentes del BOE: número de preguntas, tiempo, opciones, penalización y nota mínima de Guardia Civil (hecho en la fase 3, BOE-A-2026-9982; falta tu revisión del perfil)
 - [ ] Preguntar a la Jefatura de Enseñanza si publica o facilita los tipos de ejercicio de la prueba de aptitudes (lo envía el propietario)
-- [ ] Identificador de la app en Android e iOS: el prebuild propuso `com.javioller.aptiq` (lo usan los flujos de Maestro); no está en `app.json` hasta que lo confirmes
-- [ ] Aplazar a la fase 5 la pantalla de historial (PRO-02: el historial ya se guarda en SQLite) y a la fase 6 el nivel por aptitud con su evolución (PRO-01: hoy hay nivel orientativo por aptitud en Inicio, sin evolución)
-- [ ] T8 / NFR-02: medir en un Android de gama media, en release, arranque en frío (< 2 s) y pregunta nueva (< 100 ms), o aplazarlo a la beta
+- [x] Identificador de la app en Android e iOS: `com.javioller.aptiq` (confirmado por el propietario el 2026-11-13; ya en `app.json`)
+- [x] Aplazar a la fase 5 la pantalla de historial (PRO-02) y a la fase 6 el nivel por aptitud con su evolución (PRO-01). Confirmado por el propietario el 2026-11-13
+- [x] T8 / NFR-02: medir arranque en frío y pregunta nueva en Android de gama media, en release, aplazado a la beta (decidido por el propietario el 2026-11-13)
 - [ ] Diseño de Inicio y Resultado: barra de pestañas y filas de lista, casillas marcadas en el progreso, nota con «/ 30» y sello al lado, barras por aptitud
 - [ ] Cuentas: Expo/EAS, Apple Developer, Google Play Console, Supabase (región UE), RevenueCat, PostHog, Sentry
 - [ ] Psicólogo o preparador que revise el contenido
