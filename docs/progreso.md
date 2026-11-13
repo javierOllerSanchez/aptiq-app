@@ -17,6 +17,27 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 
 ## Registro
 
+**2026-11-13 · Fase 4 · Cierre de pendientes (rama `fase-4-cierre`)**
+
+- **Hecho:**
+  - `SourceNote`: la guía (§5) y `docs/prototipos/inicio.html` dicen ya «Formato según la convocatoria oficial: …», como la app.
+  - Inicio: práctica por aptitud con filas (`ListRow`) y acierto acumulado; «—» si no hay datos; la aptitud a reforzar en rojo. La práctica mixta (ENT-02) pasa a la fila «Todas las aptitudes».
+  - Resultado: nota «x / 30» con el sello al lado, el mínimo en el veredicto, barras por aptitud (`AptitudeBar`) y desglose por tipo plegado.
+  - Componentes nuevos en `packages/ui` con pruebas: `ListRow`, `AptitudeBar` e icono `chevron`.
+  - Typecheck, lint y pruebas en verde: 230 del motor, 22 de `ui`, 22 de la app y 1 de tokens.
+- **No verificado en este equipo** (no tiene Android SDK, emulador ni Maestro): capturas de las pantallas nuevas comparadas con el prototipo y la pasada de Maestro. Los flujos ya tocan «Numérica.*» porque la fila anuncia también el acierto.
+- **Debe hacer el propietario:**
+  1. En el otro equipo, compilar el release y ejecutar:
+     - `maestro test apps/mobile/.maestro/onboarding.yaml`
+     - `maestro test apps/mobile/.maestro/practica.yaml`
+     - `maestro test apps/mobile/.maestro/simulacro-offline.yaml`
+  2. En un móvil real:
+     - empezar un simulacro, bloquear la pantalla 2 minutos y comprobar que el cronómetro ha bajado unos 2 minutos;
+     - cerrar la app del todo a mitad de simulacro, abrirla y pulsar «Continuar simulacro»: deben seguir las respuestas y el tiempo;
+     - VoiceOver (iPhone) y TalkBack (Android): recorrer las opciones, las filas de Inicio y las barras de Resultado;
+     - Maestro en iPhone, si es posible.
+  3. Con las pruebas en verde, aprobar la fase 4.
+
 **2026-11-13 · Fase 4 · Fusión**
 
 - PR #5 fusionado en `main`. Decisiones del propietario aplicadas: identificador `com.javioller.aptiq`; PRO-02 a la fase 5; PRO-01 a la fase 6; T8 / NFR-02 aplazado a la beta.

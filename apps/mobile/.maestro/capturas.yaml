@@ -21,7 +21,7 @@ appId: com.javioller.aptiq
           element: "(Siguiente|Ver mi nivel)"
       - tapOn: "(Siguiente|Ver mi nivel)"
 - takeScreenshot: capturas/fase-4-inicio
-- tapOn: "Numérica"
+- tapOn: "Numérica.*"
 - tapOn: "Opción B, .*"
 - scrollUntilVisible:
     element: "Confirmar"

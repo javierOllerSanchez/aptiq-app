@@ -56,6 +56,10 @@
 | 2026-11-12 | El simulacro en curso se guarda en SQLite tras cada respuesta y se retoma al volver a abrir la app, con su hora de inicio (el tiempo sigue contando); salir sin entregar lo borra | NFR-03: «si la app pasa a segundo plano o se cierra» |
 | 2026-11-12 | Dentro de una sesión no se repite ningún enunciado (se cambia la semilla por una derivada, como mucho 50 intentos); entre sesiones solo se evitan las semillas repetidas | CON-02. Las series de letras de niveles bajos tienen pocos enunciados distintos (limitación ya anotada) |
 | 2026-11-12 | «A reforzar» con aciertos ÷ total (las de en blanco cuentan), como el porcentaje que se ve; el test de nivel cuenta «No lo sé» como no acertada y no estima más de un nivel por encima del probado | Hallazgos de `revisor-contenido` e `revisor-interfaz` |
+| 2026-11-13 | Inicio: práctica por aptitud con `ListRow` (acierto acumulado, «—» sin datos, punto débil en rojo). El botón «Empezar la sesión de hoy» pasa a la fila «Todas las aptitudes» (sigue priorizando los fallos, ENT-02) | Decisión del propietario: seguir el prototipo |
+| 2026-11-13 | Resultado: nota «x / 30» con el sello al lado, mínimo en el veredicto, barras por aptitud (`AptitudeBar`) y desglose por tipo plegado. Se mantiene la escala del BOE (el prototipo dice «/ 40») | Decisión del propietario: seguir el prototipo |
+| 2026-11-13 | La barra de pestañas se añade en la fase 5, cuando haya un segundo destino (Historial y Cuenta) | Decisión del propietario |
+| 2026-11-13 | Tokens nuevos: `size.listRow` 52, `size.bar` 8, `size.chevron` 18, `radius.bar` 4, `opacity.barTrack` 0,1; icono `chevron` | Medidas de la guía §5 y de los prototipos |
 
 ## Pendientes (las decide el propietario)
 
@@ -65,7 +69,7 @@
 - [x] Identificador de la app en Android e iOS: `com.javioller.aptiq` (confirmado por el propietario el 2026-11-13; ya en `app.json`)
 - [x] Aplazar a la fase 5 la pantalla de historial (PRO-02) y a la fase 6 el nivel por aptitud con su evolución (PRO-01). Confirmado por el propietario el 2026-11-13
 - [x] T8 / NFR-02: medir arranque en frío y pregunta nueva en Android de gama media, en release, aplazado a la beta (decidido por el propietario el 2026-11-13)
-- [ ] Diseño de Inicio y Resultado: barra de pestañas y filas de lista, casillas marcadas en el progreso, nota con «/ 30» y sello al lado, barras por aptitud
+- [x] Diseño de Inicio y Resultado (decidido el 2026-11-13): filas de lista con acierto en Inicio, nota «/ 30» con sello y barras por aptitud en Resultado; la barra de pestañas llega en la fase 5
 - [ ] Cuentas: Expo/EAS, Apple Developer, Google Play Console, Supabase (región UE), RevenueCat, PostHog, Sentry
 - [ ] Psicólogo o preparador que revise el contenido
 - [ ] Precios definitivos y prueba con 5–8 opositores

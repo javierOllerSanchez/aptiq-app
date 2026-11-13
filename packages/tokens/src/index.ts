@@ -19,6 +19,7 @@ export const tokens = {
     divider: 0.14,
     pendingTick: 0.12,
     emptyBubbleBorder: 0.25,
+    barTrack: 0.1,
   },
   font: {
     ui: 'InstrumentSans',
@@ -47,6 +48,7 @@ export const tokens = {
     card: 22,
     cardLarge: 24,
     nav: 22,
+    bar: 4,
     pill: 999,
   },
   border: { default: 1.5, selected: 2, hairline: 1, stampOuter: 3.5, stampGap: 3 },
@@ -65,6 +67,9 @@ export const tokens = {
     levelBubble: 22,
     levelGap: 6,
     navHeight: 50,
+    listRow: 52,
+    bar: 8,
+    chevron: 18,
   },
   rotate: { stamp: -6 },
   glass: {
