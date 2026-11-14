@@ -1,18 +1,24 @@
-import type { SavedAttempt, SavedSession, Store } from './store';
+import type { SavedAttempt, SavedSession, SavedSetting, Store, SyncOp } from './store';
 
-/** Implementación en memoria del contrato `Store`, para pruebas. */
-export function createMemoryStore(): Store {
-  const settings = new Map<string, string>();
+const opKey = (o: Pick<SyncOp, 'entidad' | 'id'>) => `${o.entidad}:${o.id}`;
+
+/** Implementación en memoria del contrato `Store`, para pruebas. `now` permite fijar el reloj. */
+export function createMemoryStore(now: () => number = Date.now): Store {
+  const settings = new Map<string, SavedSetting>();
   const seeds = new Set<string>();
   const sessionList: SavedSession[] = [];
   const attemptList: SavedAttempt[] = [];
+  const queue = new Map<string, SyncOp>();
 
   return {
     async getSetting(key) {
-      return settings.get(key) ?? null;
+      return settings.get(key)?.valor ?? null;
     },
-    async setSetting(key, value) {
-      settings.set(key, value);
+    async setSetting(key, value, actualizado = now()) {
+      settings.set(key, { clave: key, valor: value, actualizado });
+    },
+    async settings() {
+      return [...settings.values()];
     },
     async addUsedSeeds(list) {
       for (const s of list) seeds.add(s);
@@ -37,6 +43,24 @@ export function createMemoryStore(): Store {
     },
     async attempts() {
       return [...attemptList];
+    },
+    async enqueue(entidad, id, creada) {
+      const prev = queue.get(opKey({ entidad, id }));
+      queue.set(opKey({ entidad, id }), { entidad, id, creada, intentos: prev?.intentos ?? 0 });
+    },
+    async pendingOps() {
+      return [...queue.values()].map((o) => ({ ...o })).sort((a, b) => a.creada - b.creada);
+    },
+    async removeOps(ops) {
+      for (const o of ops) {
+        if (queue.get(opKey(o))?.creada === o.creada) queue.delete(opKey(o));
+      }
+    },
+    async markFailed(ops) {
+      for (const o of ops) {
+        const cur = queue.get(opKey(o));
+        if (cur) cur.intentos += 1;
+      }
     },
   };
 }

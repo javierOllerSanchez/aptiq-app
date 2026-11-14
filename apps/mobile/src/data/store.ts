@@ -25,10 +25,31 @@ export interface SavedAttempt {
   questions: SavedQuestion[];
 }
 
-/** Almacenamiento local (sin cuenta, fase 4). La implementación de SQLite va en `sqlite-store.ts`. */
+export interface SavedSetting {
+  clave: string;
+  valor: string;
+  /** Momento del último cambio (ms). Entre dispositivos gana el más reciente. */
+  actualizado: number;
+}
+
+/** Qué se sube al servidor (fase 5 · T3). */
+export type SyncEntity = 'ajuste' | 'semilla' | 'sesion' | 'intento';
+
+/** Operación pendiente de subir: solo la referencia; el dato se lee del almacén al subir. */
+export interface SyncOp {
+  entidad: SyncEntity;
+  id: string;
+  /** Momento del último cambio encolado; sirve para no borrar un cambio hecho durante la subida. */
+  creada: number;
+  intentos: number;
+}
+
+/** Almacenamiento local. La implementación de SQLite va en `sqlite-store.ts`. */
 export interface Store {
   getSetting(key: string): Promise<string | null>;
-  setSetting(key: string, value: string): Promise<void>;
+  /** `actualizado` por defecto es ahora; la sincronización pasa la fecha del servidor. */
+  setSetting(key: string, value: string, actualizado?: number): Promise<void>;
+  settings(): Promise<SavedSetting[]>;
   addUsedSeeds(seeds: string[]): Promise<void>;
   usedSeeds(): Promise<Set<string>>;
   saveSession(s: SavedSession): Promise<void>;
@@ -37,4 +58,12 @@ export interface Store {
   saveAttempt(a: SavedAttempt): Promise<void>;
   deleteAttempt(id: string): Promise<void>;
   attempts(): Promise<SavedAttempt[]>;
+
+  /** Cola de sincronización (`cola_sync`). Encolar dos veces lo mismo deja una sola operación. */
+  enqueue(entidad: SyncEntity, id: string, creada: number): Promise<void>;
+  /** Pendientes, de la más antigua a la más reciente. */
+  pendingOps(): Promise<SyncOp[]>;
+  /** Quita las operaciones subidas, salvo las que cambiaron después (otra `creada`). */
+  removeOps(ops: SyncOp[]): Promise<void>;
+  markFailed(ops: SyncOp[]): Promise<void>;
 }

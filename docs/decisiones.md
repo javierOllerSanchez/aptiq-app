@@ -66,6 +66,7 @@
 | 2026-11-14 | Esquema del servidor: `ajuste`, `semilla_usada`, `sesion`, `intento_simulacro`; clave primaria `(user_id, …)`, RLS forzado, sin permisos para `anon`, borrado en cascada desde `auth.users`; ni texto de preguntas ni correo en tablas propias | NFR-05, NFR-06, SOP-02 |
 | 2026-11-14 | Proyecto Supabase `aptiq` (ref `enlsulwnqimpbscqlbdw`) creado en la organización aptiq-app, región `eu-central-1` (Fráncfort), plan gratuito (0 $/mes) | Decisión del propietario (NFR-05); coste confirmado antes de crear |
 | 2026-11-14 | La app usa la clave publicable moderna (`sb_publishable_…`) en `EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, no la `anon` heredada; URL y clave públicas en `apps/mobile/.env.example` (versionado) | Recomendación de Supabase: se rota sin tocar JWT; la seguridad la da RLS (NFR-06) |
+| 2026-11-14 | Sincronización: cola local `cola_sync` (una fila por dato pendiente); subida por upsert en orden ajustes → semillas → sesiones → intentos; el simulacro abierto no se sube; en ajustes gana el cambio más reciente (en la app y con un disparador en el servidor); reintentos 5 s → 15 min | Fase 5 · T3 (NFR-01, PRO-02). Conectar los avisos de «abrir app» y «recuperar red» queda para T4, con la sesión |
 
 ## Pendientes (las decide el propietario)
 

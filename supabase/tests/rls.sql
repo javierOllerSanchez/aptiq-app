@@ -1,4 +1,4 @@
--- Fase 5 · T2 · Prueba de RLS y borrado en cascada (NFR-06, SOP-02).
+-- Fase 5 · T2 y T3 · Prueba de RLS, borrado en cascada y ajustes «gana el más reciente» (NFR-06, SOP-02, PRO-02).
 --
 -- Crea dos usuarios de prueba dentro de una transacción, comprueba que B no ve ni toca
 -- nada de A, que anon no tiene acceso y que borrar a A borra todas sus filas.
@@ -29,6 +29,23 @@ begin
     or (select count(*) from public.sesion) <> 1
     or (select count(*) from public.intento_simulacro) <> 1 then
     raise exception 'A no ve sus propias filas';
+  end if;
+end
+$$;
+
+-- Un ajuste más antiguo no pisa uno más reciente (upsert de otro dispositivo, PRO-02).
+insert into public.ajuste (clave, valor, actualizado) values ('fecha', 'nueva', '2026-11-14 12:00+00');
+insert into public.ajuste (clave, valor, actualizado) values ('fecha', 'vieja', '2026-11-14 10:00+00')
+on conflict (user_id, clave) do update set valor = excluded.valor, actualizado = excluded.actualizado;
+insert into public.ajuste (clave, valor, actualizado) values ('oposicion', 'cambiada', '2099-01-01 00:00+00')
+on conflict (user_id, clave) do update set valor = excluded.valor, actualizado = excluded.actualizado;
+do $$
+begin
+  if (select valor from public.ajuste where clave = 'fecha') <> 'nueva' then
+    raise exception 'Un ajuste antiguo pisó uno más reciente';
+  end if;
+  if (select valor from public.ajuste where clave = 'oposicion') <> 'cambiada' then
+    raise exception 'Un ajuste más reciente no se guardó';
   end if;
 end
 $$;
