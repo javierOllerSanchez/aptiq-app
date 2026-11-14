@@ -69,7 +69,7 @@
 | 2026-11-14 | Sincronización: cola local `cola_sync` (una fila por dato pendiente); subida por upsert en orden ajustes → semillas → sesiones → intentos; el simulacro abierto no se sube; en ajustes gana el cambio más reciente (en la app y con un disparador en el servidor); reintentos 5 s → 15 min | Fase 5 · T3 (NFR-01, PRO-02). Conectar los avisos de «abrir app» y «recuperar red» queda para T4, con la sesión |
 | 2026-11-14 | Dependencias nuevas: `@supabase/supabase-js` (cliente de Supabase), `expo-secure-store` (sesión cifrada, en trozos de 1.800 caracteres por el límite de 2 KB) y `expo-network` (avisar al recuperar la red). Sin AsyncStorage ni aes-js | Fase 5 · T4 (ONB-03, NFR-06); previstas en el plan salvo `expo-network`, que es del SDK de Expo |
 | 2026-11-14 | Cerrar sesión sube antes lo pendiente y cierra solo en este móvil (`scope: local`) | Cerrar en un móvil no debe echar al usuario de los demás |
-| 2026-11-14 | Si el móvil ya estaba vinculado a otra cuenta, al entrar con una nueva no se sube nada de la anterior (se vacía la cola) | Evita mezclar datos de dos personas; pendiente de confirmar por el propietario |
+| 2026-11-14 | Si el móvil ya estaba vinculado a otra cuenta, al entrar con una nueva no se sube nada de la anterior (se vacía la cola) | Evita mezclar datos de dos personas; confirmado por el propietario |
 
 ## Pendientes (las decide el propietario)
 
