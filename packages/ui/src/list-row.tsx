@@ -35,6 +35,7 @@ export function ListRow({
     >
       <Text variant="bodyStrong" style={styles.label}>
         {label}
+        {weak ? ' · a reforzar' : ''}
       </Text>
       {value !== undefined && (
         <Text variant="timer" color={weak ? 'sealText' : 'ink'}>

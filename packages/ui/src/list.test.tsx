@@ -14,6 +14,8 @@ test('ListRow es un botón con nombre, valor y punto débil anunciados', async (
   expect(StyleSheet.flatten(screen.getByText('58 %').props.style).color).toBe(
     tokens.color.sealText,
   );
+  // El punto débil no se indica solo con color (WCAG 1.4.1).
+  expect(screen.getByText('Verbal · a reforzar')).toBeTruthy();
   fireEvent.press(row);
   expect(onPress).toHaveBeenCalledTimes(1);
 });

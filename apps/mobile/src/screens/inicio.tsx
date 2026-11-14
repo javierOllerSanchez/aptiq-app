@@ -29,6 +29,8 @@ const dato = (n: number | null, texto: string) =>
 /** «81 %», o «—» si aún no hay respuestas de esa aptitud (no se inventa un dato). */
 const acierto = (t?: Tally) =>
   t && t.total ? `${Math.round((t.correct / t.total) * 100)} %` : '—';
+/** Lo que dice el lector de pantalla: «81 % de acierto» o «sin datos». */
+const lectura = (t?: Tally) => (t && t.total ? `${acierto(t)} de acierto` : 'sin datos');
 const media = (xs: number[]) => Math.round(xs.reduce((a, b) => a + b, 0) / xs.length);
 
 interface Niveles {
@@ -136,7 +138,7 @@ export function Inicio() {
         <ListRow
           label="Todas las aptitudes"
           value={historial ? acierto(sumar(historial)) : undefined}
-          valueLabel={historial ? `${acierto(sumar(historial))} de acierto` : undefined}
+          valueLabel={historial ? lectura(sumar(historial)) : undefined}
           onPress={() => router.push('/practica')}
         />
         {Object.entries(APTITUDE_LABELS).map(([id, label]) => {
@@ -146,7 +148,7 @@ export function Inicio() {
               key={id}
               label={label}
               value={historial ? acierto(t) : undefined}
-              valueLabel={historial ? `${acierto(t)} de acierto` : undefined}
+              valueLabel={historial ? lectura(t) : undefined}
               weak={historial?.weakest === id}
               onPress={() => router.push({ pathname: '/practica', params: { aptitud: id } })}
             />
@@ -173,5 +175,12 @@ const styles = StyleSheet.create({
   content: { gap: tokens.spacing.m },
   nivel: { flexDirection: 'row', alignItems: 'baseline', gap: tokens.spacing.s },
   aviso: { paddingTop: tokens.spacing.s },
-  cabeceraLista: { flexDirection: 'row', justifyContent: 'space-between' },
+  cabeceraLista: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'baseline',
+    justifyContent: 'space-between',
+    columnGap: tokens.spacing.m,
+    marginTop: tokens.spacing.m,
+  },
 });

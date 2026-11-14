@@ -25,7 +25,7 @@ export function AptitudeBar({
       accessibilityLabel={`${label}${weak ? ', a reforzar' : ''}: ${p} % de acierto`}
     >
       <View style={styles.head}>
-        <Text variant="bodyStrong" color={weak ? 'sealText' : 'ink'} style={styles.label}>
+        <Text variant="bodyStrong" style={styles.label}>
           {label}
           {weak ? ' · a reforzar' : ''}
         </Text>

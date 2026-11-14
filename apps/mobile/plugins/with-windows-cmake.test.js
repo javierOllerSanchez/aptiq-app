@@ -21,3 +21,7 @@ test('no la duplica si ya está', () => {
   const once = addWindowsCmake(gradle);
   expect(addWindowsCmake(once)).toBe(once);
 });
+
+test('acorta las rutas de los objetos aunque Windows no admita rutas largas', () => {
+  expect(addWindowsCmake(gradle)).toContain('-DCMAKE_OBJECT_PATH_MAX=200');
+});

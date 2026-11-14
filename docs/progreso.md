@@ -25,18 +25,25 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
   - Resultado: nota «x / 30» con el sello al lado, el mínimo en el veredicto, barras por aptitud (`AptitudeBar`) y desglose por tipo plegado.
   - Componentes nuevos en `packages/ui` con pruebas: `ListRow`, `AptitudeBar` e icono `chevron`.
   - Typecheck, lint y pruebas en verde: 230 del motor, 22 de `ui`, 22 de la app y 1 de tokens.
-- **No verificado en este equipo** (no tiene Android SDK, emulador ni Maestro): capturas de las pantallas nuevas comparadas con el prototipo y la pasada de Maestro. Los flujos ya tocan «Numérica.*» porque la fila anuncia también el acierto.
-- **Debe hacer el propietario:**
-  1. En el otro equipo, compilar el release y ejecutar:
-     - `maestro test apps/mobile/.maestro/onboarding.yaml`
-     - `maestro test apps/mobile/.maestro/practica.yaml`
-     - `maestro test apps/mobile/.maestro/simulacro-offline.yaml`
-  2. En un móvil real:
-     - empezar un simulacro, bloquear la pantalla 2 minutos y comprobar que el cronómetro ha bajado unos 2 minutos;
-     - cerrar la app del todo a mitad de simulacro, abrirla y pulsar «Continuar simulacro»: deben seguir las respuestas y el tiempo;
-     - VoiceOver (iPhone) y TalkBack (Android): recorrer las opciones, las filas de Inicio y las barras de Resultado;
-     - Maestro en iPhone, si es posible.
-  3. Con las pruebas en verde, aprobar la fase 4.
+- **Verificado el 2026-11-14 en este equipo** (Android SDK, emulador Android 36 con Google Play, JDK 17 y Maestro instalados en carpetas de usuario):
+  - release compilado (solo x86_64 para el emulador);
+  - Maestro en verde con el código final: `onboarding.yaml` (3 pasadas), `practica.yaml` y `simulacro-offline.yaml` (simulacro de 80 preguntas en modo avión, segundo plano, cierre a mitad, entrega, resultado y repaso);
+  - capturas nuevas en `docs/capturas/fase-4-*.png` y al 200 % en `docs/capturas/fase-4-texto-200/`;
+  - cronómetro con la pantalla bloqueada: 128 s de reloj, 128 s menos en el cronómetro (52:36 → 50:28);
+  - app cerrada a la fuerza 73 s a mitad de simulacro: al volver sigue el mismo simulacro con 74 s menos (50:17 → 49:03);
+  - etiquetas que lee TalkBack, comprobadas en el árbol de accesibilidad («Opción A, ESCUDO», «Quedan 49 minutos», «Pregunta 1 de 80»…).
+- **Corregido al verificar:**
+  - `app.json` tenía `ios` y `android` repetidos, así que el identificador se perdía y la app salía como `com.anonymous.aptiq`. Ahora va dentro de los bloques existentes, con una prueba que detecta claves repetidas;
+  - el plugin `with-windows-cmake` añade `CMAKE_OBJECT_PATH_MAX=200`: compila también en equipos Windows sin rutas largas activadas;
+  - flujos de Maestro: tocan la fila «Numérica, …» (antes tocaban el texto de la tarjeta de nivel) y se desplazan hasta ella (al 200 % queda fuera de la pantalla).
+- **`revisor-interfaz`:** sin graves en el código (el grave eran las capturas antiguas, ya rehechas). Corregidos los importantes:
+  - cabecera de la lista de Inicio y nota «/ 30» que se cortaban al 200 %;
+  - fórmula en mono (variante de token `formula`);
+  - el punto débil también con texto «· a reforzar», no solo con color (WCAG 1.4.1).
+
+  Corregidos los menores: «Puntos netos», plegable «Desglose por tipo» con chevron, cabecera «Por aptitud», orden fijo de las barras, nombre en tinta en la aptitud débil, sello oculto al lector (el veredicto ya lo dice) y espaciado de la lista.
+- **Anotado para más adelante** (menores del revisor): cifras de aciertos, fallos y en blanco a 28 y centradas como en el prototipo; «Otro simulacro» junto a «Ver explicaciones» y botón de cerrar en Resultado (con la navegación de la fase 5); un mínimo de respuestas antes de marcar una aptitud como débil en Inicio; pequeñas diferencias de tamaño con el prototipo.
+- **Solo lo puede hacer el propietario:** VoiceOver y Maestro en iPhone (este equipo es Windows) y escuchar TalkBack en un móvil real.
 
 **2026-11-13 · Fase 4 · Fusión**
 

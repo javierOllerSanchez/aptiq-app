@@ -10,7 +10,7 @@ import {
   type TypeCode,
 } from '@aptiq/engine';
 import { tokens } from '@aptiq/tokens';
-import { AptitudeBar, Button, GlassCard, PaperBackground, Stamp, Text } from '@aptiq/ui';
+import { AptitudeBar, Button, GlassCard, Icon, PaperBackground, Stamp, Text } from '@aptiq/ui';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
@@ -63,6 +63,9 @@ export function Resultado() {
       <Text variant="label" color="graphite">
         Resultado · simulacro · Guardia Civil
       </Text>
+      <Text variant="label" color="graphite">
+        Puntos netos
+      </Text>
       <View style={styles.nota}>
         <View
           style={styles.cifra}
@@ -74,9 +77,14 @@ export function Resultado() {
             / {nota.maxima}
           </Text>
         </View>
-        {nota.supera && <Stamp label="Apto" />}
+        {nota.supera && (
+          // El veredicto de abajo ya lo dice: el sello no se lee dos veces.
+          <View accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
+            <Stamp label="Apto" />
+          </View>
+        )}
       </View>
-      <Text variant="caption" color="graphite">
+      <Text variant="formula" color="graphiteStrong">
         ({nota.formula}) × {nota.maxima}/{guardiaCivil2026.format.preguntas} = {puntos}
       </Text>
       {nota.puntos < 0 && (
@@ -99,28 +107,30 @@ export function Resultado() {
           <Cuenta valor={nota.enBlanco} texto="En blanco" />
         </View>
       </GlassCard>
-      <Text variant="label" color="graphite">
+      <Text variant="label" color="graphite" accessibilityRole="header">
         Por aptitud
       </Text>
       <View style={styles.barras}>
-        {Object.entries(desglose.byAptitude).map(([apt, t]) => (
-          <AptitudeBar
-            key={apt}
-            label={APTITUDE_LABELS[apt] ?? apt}
-            percent={pct(t)}
-            weak={apt === desglose.weakest}
-          />
-        ))}
+        {Object.entries(APTITUDE_LABELS).map(([apt, label]) => {
+          const t = desglose.byAptitude[apt];
+          return t?.total ? (
+            <AptitudeBar key={apt} label={label} percent={pct(t)} weak={apt === desglose.weakest} />
+          ) : null;
+        })}
       </View>
       <Pressable
         onPress={() => setVerTipos((v) => !v)}
         accessibilityRole="button"
+        accessibilityLabel="Desglose por tipo"
         accessibilityState={{ expanded: verTipos }}
         style={styles.plegable}
       >
         <Text variant="label" color="graphite">
-          Por tipo {verTipos ? '−' : '+'}
+          Por tipo
         </Text>
+        <View style={verTipos && styles.girado}>
+          <Icon name="chevron" color="graphite" size={tokens.size.chevron} />
+        </View>
       </Pressable>
       {verTipos &&
         tiposConPreguntas.map(([code, t]) => (
@@ -158,9 +168,21 @@ function Cuenta({ valor, texto, rojo = false }: { valor: number; texto: string; 
 const styles = StyleSheet.create({
   content: { gap: tokens.spacing.m },
   nota: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', gap: tokens.spacing.l },
-  cifra: { flexDirection: 'row', alignItems: 'baseline', gap: tokens.spacing.s, flexShrink: 1 },
+  cifra: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'baseline',
+    gap: tokens.spacing.s,
+    flexShrink: 1,
+  },
   barras: { gap: tokens.spacing.l },
-  plegable: { minHeight: tokens.size.touchMin, justifyContent: 'center' },
+  plegable: {
+    minHeight: tokens.size.touchMin,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: tokens.spacing.s,
+  },
+  girado: { transform: [{ rotate: '90deg' }] },
   cuentas: {
     flexDirection: 'row',
     flexWrap: 'wrap',

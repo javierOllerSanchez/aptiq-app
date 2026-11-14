@@ -38,6 +38,7 @@ export const tokens = {
     caption: { font: 'ui', weight: 400, size: 13, lineHeight: 1.4 },
     label: { font: 'mono', weight: 600, size: 12, letterSpacing: 0.1, uppercase: true },
     timer: { font: 'mono', weight: 600, size: 15 },
+    formula: { font: 'mono', weight: 600, size: 13 },
     seal: { font: 'brand', weight: 800, size: 36, letterSpacing: 0.06, uppercase: true },
   },
   radius: {
