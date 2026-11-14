@@ -8,7 +8,7 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 | 1 · Sistema de diseño en código | Cerrada (VoiceOver en iPhone y `/review-animations` pendientes del propietario) | `fase-1-sistema-diseno` · PR #2 fusionado | 2026-11-12 | Sí, 2026-11-12 |
 | 2 · Motor de contenido v1 | Cerrada (rediseño de distractores pendiente para el inicio de la fase 3) | `fase-2-motor` · PR #3 fusionado | 2026-11-12 | Sí, 2026-11-12 |
 | 3 · Perfil de examen y puntuación | Cerrada | `fase-3-perfil` · PR #4 fusionado | 2026-11-12 | Sí, 2026-11-13 |
-| 4 · Práctica y simulacro sin conexión | Fusionada; pendiente de pruebas en móvil real y de la última pasada de Maestro | `fase-4-practica` · PR #5 fusionado | 2026-11-13 | No |
+| 4 · Práctica y simulacro sin conexión | Cerrada (VoiceOver y Maestro en iPhone pendientes del propietario) | `fase-4-practica` · PR #5 y `fase-4-cierre` · PR #9 fusionados | 2026-11-14 | Sí, 2026-11-14 |
 | 5 · Cuentas y sincronización | Pendiente | | | |
 | 6 · Progreso y adaptativo | Pendiente | | | |
 | 7 · Pago | Pendiente | | | |
@@ -16,6 +16,11 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 | 9 · Beta y lanzamiento | Pendiente | | | |
 
 ## Registro
+
+**2026-11-14 · Fase 4 · Aprobación**
+
+- El propietario aprueba la fase 4 tras la verificación en el emulador (PR #9).
+- Pendiente que no bloquea: VoiceOver y Maestro en iPhone, y escuchar TalkBack en un móvil real.
 
 **2026-11-13 · Fase 4 · Cierre de pendientes (rama `fase-4-cierre`)**
 
