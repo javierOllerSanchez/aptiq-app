@@ -1,6 +1,6 @@
 # Plan · Fase 5 · Cuentas y sincronización
 
-**Estado:** pendiente de confirmación del propietario. La fase 4 está aprobada (2026-11-14); no se escribe código hasta que confirme este plan.
+**Estado:** confirmado por el propietario el 2026-11-14 (decisiones al final).
 **Rama:** `fase-5-cuentas` (desde `main`, con la fase 4 aprobada el 2026-11-14).
 **Requisitos:** ONB-03, PRO-02, SOP-02, NFR-01 (sincronizar al recuperar la red), NFR-05, NFR-06.
 **Skills:** `supabase-postgres-best-practices` (manda en esquema, RLS y migraciones), `aptiq-design-system` (pantallas), `expo-data-fetching`, `design:ux-copy`, `design:accessibility-review`.
@@ -98,14 +98,16 @@
 | El borrado elimina todos los datos | Prueba de T6 y consulta al servidor | Claude |
 | Ninguna tabla sin RLS | Avisos de seguridad de Supabase | Claude |
 
-## Decisiones que necesito de ti
+## Decisiones del propietario (2026-11-14)
 
-1. **Proyecto Supabase:** crearlo tú en una región de la UE (T1). Sin él no se puede probar nada del servidor. Pendiente: ¿un solo proyecto o uno de pruebas y otro de producción? Recomiendo empezar con uno y separar antes de la beta.
-2. **Inicio con correo:** código de un solo uso por correo (recomendado: no hay contraseñas que guardar ni olvidar) o correo y contraseña.
-3. **Apple y Google:** requieren cuenta de Apple Developer y credenciales OAuth de Google (y suponen gasto, tuyo). Si todavía no las tienes, propongo hacer la fase 5 con correo y dejar Apple y Google para cuando existan las cuentas; ONB-03 quedaría parcialmente cumplido hasta entonces.
-4. **Primer inicio de sesión con datos locales:** propongo subirlos a la cuenta sin preguntar, con el aviso en pantalla antes de crearla. Alternativa: preguntar si se quieren conservar.
-5. **Diseño de las pantallas nuevas** (cuenta, historial): no hay prototipo. ¿Prefieres que prepare uno en `docs/prototipos/` para que lo apruebes antes de implementarlo? (recomendado)
+1. **Proyecto Supabase:** uno solo para empezar, en una organización propia «Aptiq» (separada de Roomies-RPG), plan gratuito (0 $/mes), región UE. Se separan pruebas y producción antes de la beta. Claude lo crea y configura; el propietario crea la organización e inicia sesión.
+2. **Inicio con correo:** código de un solo uso por correo, sin contraseñas.
+3. **Apple y Google:** se dejan para cuando existan las cuentas de Apple Developer y las credenciales de Google. La fase 5 se hace con correo; ONB-03 queda parcial hasta entonces.
+4. **Primer inicio de sesión con datos locales:** se suben a la cuenta sin preguntar, con un aviso en pantalla antes de crearla.
+5. **Pantallas nuevas (cuenta, historial):** primero un prototipo en `docs/prototipos/` que el propietario aprueba; después se implementan.
 6. ~~Aprobar la fase 4~~: hecho el 2026-11-14.
+
+**Estado del plan:** confirmado por el propietario el 2026-11-14.
 
 ## Lo que no sé todavía
 

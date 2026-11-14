@@ -60,6 +60,10 @@
 | 2026-11-13 | Resultado: nota «x / 30» con el sello al lado, mínimo en el veredicto, barras por aptitud (`AptitudeBar`) y desglose por tipo plegado. Se mantiene la escala del BOE (el prototipo dice «/ 40») | Decisión del propietario: seguir el prototipo |
 | 2026-11-13 | La barra de pestañas se añade en la fase 5, cuando haya un segundo destino (Historial y Cuenta) | Decisión del propietario |
 | 2026-11-13 | Tokens nuevos: `size.listRow` 52, `size.bar` 8, `size.chevron` 18, `radius.bar` 4, `opacity.barTrack` 0,1; icono `chevron` | Medidas de la guía §5 y de los prototipos |
+| 2026-11-14 | Supabase: un proyecto en una organización propia «Aptiq», plan gratuito, región UE; se separa en pruebas y producción antes de la beta | Decisión del propietario (NFR-05) |
+| 2026-11-14 | Cuentas solo con correo y código de un solo uso; Apple y Google cuando existan sus cuentas de desarrollador | Decisión del propietario; ONB-03 parcial hasta entonces |
+| 2026-11-14 | Al iniciar sesión por primera vez, lo guardado sin cuenta se sube con aviso previo en pantalla | Decisión del propietario |
+| 2026-11-14 | Esquema del servidor: `ajuste`, `semilla_usada`, `sesion`, `intento_simulacro`; clave primaria `(user_id, …)`, RLS forzado, sin permisos para `anon`, borrado en cascada desde `auth.users`; ni texto de preguntas ni correo en tablas propias | NFR-05, NFR-06, SOP-02 |
 
 ## Pendientes (las decide el propietario)
 
