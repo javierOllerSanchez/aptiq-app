@@ -4,6 +4,7 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 
+import { AuthProvider } from '@/auth/provider';
 import { StoreProvider } from '@/data/provider';
 import { fontAssets } from '@/fonts';
 
@@ -20,12 +21,14 @@ export default function RootLayout() {
   if (!loaded && !error) return null;
   return (
     <StoreProvider>
-      <Stack
-        screenOptions={{
-          headerShown: false,
-          contentStyle: { backgroundColor: tokens.color.paper },
-        }}
-      />
+      <AuthProvider>
+        <Stack
+          screenOptions={{
+            headerShown: false,
+            contentStyle: { backgroundColor: tokens.color.paper },
+          }}
+        />
+      </AuthProvider>
     </StoreProvider>
   );
 }
