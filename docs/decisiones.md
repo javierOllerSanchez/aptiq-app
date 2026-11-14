@@ -65,6 +65,7 @@
 | 2026-11-14 | Al iniciar sesión por primera vez, lo guardado sin cuenta se sube con aviso previo en pantalla | Decisión del propietario |
 | 2026-11-14 | Esquema del servidor: `ajuste`, `semilla_usada`, `sesion`, `intento_simulacro`; clave primaria `(user_id, …)`, RLS forzado, sin permisos para `anon`, borrado en cascada desde `auth.users`; ni texto de preguntas ni correo en tablas propias | NFR-05, NFR-06, SOP-02 |
 | 2026-11-14 | Proyecto Supabase `aptiq` (ref `enlsulwnqimpbscqlbdw`) creado en la organización aptiq-app, región `eu-central-1` (Fráncfort), plan gratuito (0 $/mes) | Decisión del propietario (NFR-05); coste confirmado antes de crear |
+| 2026-11-14 | La app usa la clave publicable moderna (`sb_publishable_…`) en `EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, no la `anon` heredada; URL y clave públicas en `apps/mobile/.env.example` (versionado) | Recomendación de Supabase: se rota sin tocar JWT; la seguridad la da RLS (NFR-06) |
 
 ## Pendientes (las decide el propietario)
 
