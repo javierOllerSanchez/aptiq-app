@@ -1,6 +1,7 @@
 // Compilación nativa de Android en Windows: CMake anida la ruta completa del proyecto en sus carpetas de
 // objetos y supera los 260 caracteres. Se usa el ninja de CMake 3.31 (admite rutas largas; el de 3.22 no)
-// y una carpeta temporal corta. Solo en Windows: en CI y EAS (Linux) no cambia nada.
+// y una carpeta temporal corta. Si Windows no tiene activadas las rutas largas, CMAKE_OBJECT_PATH_MAX
+// hace que CMake acorte con un hash los objetos de ruta larga. Solo en Windows: en CI y EAS (Linux) no cambia nada.
 const { withProjectBuildGradle } = require('expo/config-plugins');
 
 const MARK = 'cmake.version = "3.31.6"';
@@ -11,6 +12,7 @@ if (System.getProperty('os.name').toLowerCase().contains('windows')) {
       p.plugins.withId(id) {
         p.android.externalNativeBuild.cmake.buildStagingDirectory = new File("C:/b/\${p.name}")
         p.android.externalNativeBuild.${MARK}
+        p.android.defaultConfig.externalNativeBuild.cmake.arguments("-DCMAKE_OBJECT_PATH_MAX=200")
       }
     }
   }

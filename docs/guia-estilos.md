@@ -81,7 +81,7 @@ En React Native: `expo-blur` (`BlurView`, intensidad equivalente) + capa de colo
 | `TabBar` | Cristal, radio 22, 4 pestañas (Inicio, Tests, Estadísticas, Perfil). Activa: fondo `ink`, icono `highlighter`. |
 | `Timer` | Píldora de cristal con icono de reloj y tiempo en mono 15. |
 | `Stamp` | «APTO» en Bricolage 800 color `seal`, doble borde, girado −6°. Solo en Resultado, más pequeño que la nota. |
-| `SourceNote` | Icono de documento + «Estructura basada en las bases del BOE y en los exámenes publicados por …». Obligatorio en cada simulacro. |
+| `SourceNote` | Icono de documento + «Formato según la convocatoria oficial: …» con la cita del perfil (p. ej. «BOE-A-2026-9982, bases 6.1.2.a, 7.3 y 7.8»). No menciona exámenes publicados: la Guardia Civil no publica el cuestionario de aptitudes. Obligatorio en cada simulacro. |
 | `SeriesTile` | Casilla de serie: radio 12, borde `ink` 1,5, número 24/700. La incógnita con borde discontinuo y «?» en `graphite`. |
 | `ListRow` | Fila de 52 con separador al 14 %; nombre 17/600, valor en mono 15/600, chevron. Valor en `sealText` si es el punto débil. |
 | `PaperBackground` | Papel con cuadrícula. |

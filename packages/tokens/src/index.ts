@@ -19,6 +19,7 @@ export const tokens = {
     divider: 0.14,
     pendingTick: 0.12,
     emptyBubbleBorder: 0.25,
+    barTrack: 0.1,
   },
   font: {
     ui: 'InstrumentSans',
@@ -37,6 +38,7 @@ export const tokens = {
     caption: { font: 'ui', weight: 400, size: 13, lineHeight: 1.4 },
     label: { font: 'mono', weight: 600, size: 12, letterSpacing: 0.1, uppercase: true },
     timer: { font: 'mono', weight: 600, size: 15 },
+    formula: { font: 'mono', weight: 600, size: 13 },
     seal: { font: 'brand', weight: 800, size: 36, letterSpacing: 0.06, uppercase: true },
   },
   radius: {
@@ -47,6 +49,7 @@ export const tokens = {
     card: 22,
     cardLarge: 24,
     nav: 22,
+    bar: 4,
     pill: 999,
   },
   border: { default: 1.5, selected: 2, hairline: 1, stampOuter: 3.5, stampGap: 3 },
@@ -65,6 +68,9 @@ export const tokens = {
     levelBubble: 22,
     levelGap: 6,
     navHeight: 50,
+    listRow: 52,
+    bar: 8,
+    chevron: 18,
   },
   rotate: { stamp: -6 },
   glass: {

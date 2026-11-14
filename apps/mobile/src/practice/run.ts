@@ -1,9 +1,12 @@
 import {
+  type Breakdown,
+  breakdown,
   buildPractice,
   guardiaCivil2026,
   type Item,
   type Level,
   registry,
+  type Result,
   type TypeCode,
   typeCodes,
 } from '@aptiq/engine';
@@ -94,17 +97,26 @@ export const toSaved = (
 export const fromSaved = (questions: readonly SavedQuestion[]): Item[] =>
   questions.map((q) => registry[q.type].generator.generate(q.seed, q.level, OPTION_COUNT));
 
-/** Fallos por tipo en sesiones y simulacros terminados: alimenta el reparto prioritario (ENT-02). */
-export async function failuresByType(store: Store): Promise<Record<TypeCode, number>> {
-  const out = Object.fromEntries(typeCodes.map((c) => [c, 0])) as Record<TypeCode, number>;
+/** Preguntas respondidas en sesiones y simulacros terminados, corregidas con el motor. */
+async function historyResults(store: Store): Promise<Result[]> {
   const questions = [
     ...(await store.sessions()).flatMap((s) => s.questions),
     ...(await store.attempts()).filter((a) => a.finishedAt !== null).flatMap((a) => a.questions),
   ];
-  for (const q of questions) {
-    if (q.answer === null) continue;
+  return questions.map((q) => {
     const item = registry[q.type].generator.generate(q.seed, q.level, OPTION_COUNT);
-    if (q.answer !== item.answerIndex) out[q.type]++;
-  }
+    return { type: q.type, correct: q.answer === item.answerIndex, blank: q.answer === null };
+  });
+}
+
+/** Fallos por tipo en sesiones y simulacros terminados: alimenta el reparto prioritario (ENT-02). */
+export async function failuresByType(store: Store): Promise<Record<TypeCode, number>> {
+  const out = Object.fromEntries(typeCodes.map((c) => [c, 0])) as Record<TypeCode, number>;
+  for (const r of await historyResults(store)) if (!r.correct && !r.blank) out[r.type]++;
   return out;
+}
+
+/** Acierto acumulado por aptitud y tipo para Inicio (mismo cálculo que Resultado). */
+export async function historyBreakdown(store: Store): Promise<Breakdown> {
+  return breakdown(await historyResults(store));
 }

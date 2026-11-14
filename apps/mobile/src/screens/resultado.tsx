@@ -10,10 +10,10 @@ import {
   type TypeCode,
 } from '@aptiq/engine';
 import { tokens } from '@aptiq/tokens';
-import { Button, GlassCard, PaperBackground, Stamp, Text } from '@aptiq/ui';
+import { AptitudeBar, Button, GlassCard, Icon, PaperBackground, Stamp, Text } from '@aptiq/ui';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 
 import { useStore } from '@/data/provider';
 import { APTITUDE_LABELS, AVISO_MEZCLA, formatNota, OPTION_COUNT } from '@/practice/run';
@@ -31,6 +31,7 @@ export function Resultado() {
   const store = useStore();
   const { id } = useLocalSearchParams<{ id: string }>();
   const [resumen, setResumen] = useState<Resumen | null | 'no-encontrado'>(null);
+  const [verTipos, setVerTipos] = useState(false);
 
   useEffect(() => {
     store.attempts().then((list) => {
@@ -62,18 +63,28 @@ export function Resultado() {
       <Text variant="label" color="graphite">
         Resultado · simulacro · Guardia Civil
       </Text>
+      <Text variant="label" color="graphite">
+        Puntos netos
+      </Text>
       <View style={styles.nota}>
-        <View style={styles.shrink}>
-          <Text variant="scoreNumber" accessibilityLabel={`Nota ${puntos} sobre ${nota.maxima}`}>
-            {puntos}
-          </Text>
-          <Text color="graphite">
-            sobre {nota.maxima} · mínimo {nota.minima}
+        <View
+          style={styles.cifra}
+          accessible
+          accessibilityLabel={`Nota ${puntos} sobre ${nota.maxima}`}
+        >
+          <Text variant="scoreNumber">{puntos}</Text>
+          <Text variant="questionTitle" color="graphite">
+            / {nota.maxima}
           </Text>
         </View>
-        {nota.supera && <Stamp label="Apto" />}
+        {nota.supera && (
+          // El veredicto de abajo ya lo dice: el sello no se lee dos veces.
+          <View accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
+            <Stamp label="Apto" />
+          </View>
+        )}
       </View>
-      <Text variant="caption" color="graphite">
+      <Text variant="formula" color="graphiteStrong">
         ({nota.formula}) × {nota.maxima}/{guardiaCivil2026.format.preguntas} = {puntos}
       </Text>
       {nota.puntos < 0 && (
@@ -82,7 +93,7 @@ export function Resultado() {
         </Text>
       )}
       <Text variant="bodyStrong">
-        {nota.supera ? 'Llegas a la nota mínima.' : 'No llegas a la nota mínima.'}
+        {nota.supera ? 'Llegas' : 'No llegas'} a la nota mínima ({nota.minima}).
       </Text>
       {AVISO_MEZCLA && (
         <Text variant="caption" color="graphite">
@@ -96,26 +107,37 @@ export function Resultado() {
           <Cuenta valor={nota.enBlanco} texto="En blanco" />
         </View>
       </GlassCard>
-      <Text variant="label" color="graphite">
+      <Text variant="label" color="graphite" accessibilityRole="header">
         Por aptitud
       </Text>
-      {Object.entries(desglose.byAptitude).map(([apt, t]) => {
-        const floja = apt === desglose.weakest;
-        return (
-          <Text key={apt} color={floja ? 'sealText' : 'ink'}>
-            {APTITUDE_LABELS[apt] ?? apt}
-            {floja ? ' · a reforzar' : ''}: {t.correct} de {t.total} · {pct(t)} %
-          </Text>
-        );
-      })}
-      <Text variant="label" color="graphite">
-        Por tipo
-      </Text>
-      {tiposConPreguntas.map(([code, t]) => (
-        <Text key={code}>
-          {taxonomy[code].nombre}: {t.correct} de {t.total} · {pct(t)} %
+      <View style={styles.barras}>
+        {Object.entries(APTITUDE_LABELS).map(([apt, label]) => {
+          const t = desglose.byAptitude[apt];
+          return t?.total ? (
+            <AptitudeBar key={apt} label={label} percent={pct(t)} weak={apt === desglose.weakest} />
+          ) : null;
+        })}
+      </View>
+      <Pressable
+        onPress={() => setVerTipos((v) => !v)}
+        accessibilityRole="button"
+        accessibilityLabel="Desglose por tipo"
+        accessibilityState={{ expanded: verTipos }}
+        style={styles.plegable}
+      >
+        <Text variant="label" color="graphite">
+          Por tipo
         </Text>
-      ))}
+        <View style={verTipos && styles.girado}>
+          <Icon name="chevron" color="graphite" size={tokens.size.chevron} />
+        </View>
+      </Pressable>
+      {verTipos &&
+        tiposConPreguntas.map(([code, t]) => (
+          <Text key={code}>
+            {taxonomy[code].nombre}: {t.correct} de {t.total} · {pct(t)} %
+          </Text>
+        ))}
       <Button
         label="Ver explicaciones"
         onPress={() => router.push({ pathname: '/repasar', params: { id } })}
@@ -146,7 +168,21 @@ function Cuenta({ valor, texto, rojo = false }: { valor: number; texto: string; 
 const styles = StyleSheet.create({
   content: { gap: tokens.spacing.m },
   nota: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', gap: tokens.spacing.l },
-  shrink: { flexShrink: 1 },
+  cifra: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'baseline',
+    gap: tokens.spacing.s,
+    flexShrink: 1,
+  },
+  barras: { gap: tokens.spacing.l },
+  plegable: {
+    minHeight: tokens.size.touchMin,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: tokens.spacing.s,
+  },
+  girado: { transform: [{ rotate: '90deg' }] },
   cuentas: {
     flexDirection: 'row',
     flexWrap: 'wrap',
