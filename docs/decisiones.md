@@ -64,6 +64,7 @@
 | 2026-11-14 | Cuentas solo con correo y código de un solo uso; Apple y Google cuando existan sus cuentas de desarrollador | Decisión del propietario; ONB-03 parcial hasta entonces |
 | 2026-11-14 | Al iniciar sesión por primera vez, lo guardado sin cuenta se sube con aviso previo en pantalla | Decisión del propietario |
 | 2026-11-14 | Esquema del servidor: `ajuste`, `semilla_usada`, `sesion`, `intento_simulacro`; clave primaria `(user_id, …)`, RLS forzado, sin permisos para `anon`, borrado en cascada desde `auth.users`; ni texto de preguntas ni correo en tablas propias | NFR-05, NFR-06, SOP-02 |
+| 2026-11-14 | Proyecto Supabase `aptiq` (ref `enlsulwnqimpbscqlbdw`) creado en la organización aptiq-app, región `eu-central-1` (Fráncfort), plan gratuito (0 $/mes) | Decisión del propietario (NFR-05); coste confirmado antes de crear |
 
 ## Pendientes (las decide el propietario)
 
