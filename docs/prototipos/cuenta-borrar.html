@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aptiq · Borrar cuenta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Fase 5 · T5 · Estilos comunes de los prototipos de Cuenta e Historial.
+   Valores de docs/tokens.json; mismas recetas que inicio.html. */
+body{margin:0;background:#EFEEE9;display:flex;justify-content:center;align-items:flex-start}
+.screen{position:relative;width:390px;height:844px;overflow:hidden;box-sizing:border-box;padding:56px 20px 0;display:flex;flex-direction:column;
+  font-family:'Instrument Sans',system-ui,sans-serif;color:#121316;background-color:#EFEEE9;
+  background-image:linear-gradient(rgba(18,19,22,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(18,19,22,.045) 1px,transparent 1px);background-size:24px 24px}
+.top{display:flex;align-items:center;justify-content:space-between;min-height:44px}
+.back{display:flex;align-items:center;justify-content:center;width:44px;height:44px;margin-left:-10px;border:0;background:transparent;cursor:pointer}
+h1{margin:26px 0 0;font-weight:700;font-size:30px;line-height:1.15;letter-spacing:-.02em}
+.lead{margin:6px 0 0;font-size:16px;line-height:1.45;color:#4A4C52}
+.label{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.1em;color:#5E6066}
+.mono{font-family:'IBM Plex Mono',monospace}
+.glass{display:flex;flex-direction:column;gap:16px;padding:20px;border-radius:24px;
+  background:linear-gradient(160deg,rgba(255,255,255,.8),rgba(255,255,255,.5));border:1px solid rgba(255,255,255,.95);
+  box-shadow:inset 0 1px 0 #FFFFFF,0 1px 2px rgba(18,19,22,.06),0 12px 30px rgba(18,19,22,.08);
+  backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%)}
+.btn{width:100%;min-height:54px;border-radius:14px;border:1.5px solid #121316;cursor:pointer;font-family:'Instrument Sans',sans-serif;font-size:17px;font-weight:700;color:#121316;background:transparent}
+.btn.primary{background:#DBFF3E}
+.btn.text{border-color:transparent;font-weight:600}
+.field{display:flex;flex-direction:column;gap:8px}
+.input{box-sizing:border-box;width:100%;min-height:54px;padding:0 16px;border-radius:14px;border:1.5px solid #121316;background:transparent;
+  font-family:'Instrument Sans',sans-serif;font-size:16px;color:#121316}
+.note{display:flex;align-items:flex-start;gap:8px;font-size:13px;line-height:1.4;color:#4A4C52}
+.note svg{flex:none;margin-top:1px}
+.rows{display:flex;flex-direction:column}
+.row{display:flex;align-items:center;gap:14px;min-height:52px;padding:0;border:0;border-bottom:1px solid rgba(18,19,22,.14);background:transparent;
+  cursor:pointer;text-align:left;font-family:'Instrument Sans',sans-serif;color:#121316;width:100%}
+.row .name{flex:1;font-size:17px;font-weight:600}
+.row .sub{display:block;font-size:13px;font-weight:400;color:#4A4C52;margin-top:2px}
+.row .value{font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:600}
+.section{margin-top:24px;display:flex;align-items:baseline;justify-content:space-between}
+.code{display:flex;gap:8px}
+.code span{flex:1;height:60px;border-radius:14px;border:1.5px solid #121316;display:flex;align-items:center;justify-content:center;
+  font-family:'IBM Plex Mono',monospace;font-size:26px;font-weight:600}
+.code span.empty{border-color:rgba(18,19,22,.3)}
+.code span.caret{box-shadow:inset 0 -3px 0 #121316}
+.dot{width:8px;height:8px;border-radius:50%;background:#121316;flex:none}
+.scrim{position:absolute;inset:0;background:rgba(18,19,22,.32)}
+.sheet{position:absolute;left:0;right:0;bottom:0;padding:24px 20px 34px;border-radius:24px 24px 0 0;background:#FBFAF6;display:flex;flex-direction:column;gap:14px}
+.sheet h2{margin:0;font-size:22px;line-height:1.2;letter-spacing:-.01em}
+.sheet p{margin:0;font-size:16px;line-height:1.45;color:#4A4C52}
+.tabbar{position:absolute;left:20px;right:20px;bottom:24px;display:flex;align-items:center;justify-content:space-around;padding:8px 10px;border-radius:22px;
+  background:linear-gradient(160deg,rgba(255,255,255,.82),rgba(255,255,255,.55));border:1px solid rgba(255,255,255,.95);
+  box-shadow:inset 0 1px 0 #FFFFFF,0 1px 2px rgba(18,19,22,.06),0 12px 30px rgba(18,19,22,.12);
+  backdrop-filter:blur(16px) saturate(150%);-webkit-backdrop-filter:blur(16px) saturate(150%)}
+.tab{width:88px;height:48px;border-radius:14px;border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;background:transparent}
+.tab.on{background:#121316}
+</style>
+</head>
+<body>
+<!-- Fase 5 · T5 · SOP-02. Datos de ejemplo. -->
+<div class="screen">
+
+<h1>Cuenta</h1>
+<p class="lead">nombre@correo.es</p>
+<div class="rows" style="margin-top:24px">
+<button class="row"><span class="name">Exportar mis datos</span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#121316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+<button class="row"><span class="name">Cerrar sesión</span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#121316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+<button class="row"><span class="name">Borrar cuenta</span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#121316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+</div>
+<div class="scrim"></div>
+<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="t">
+<h2 id="t">¿Borrar tu cuenta?</h2>
+<p>Se eliminan de nuestros servidores tu cuenta, tus simulacros, tus sesiones y tus ajustes, y también lo guardado en este móvil. No se puede deshacer.</p>
+<p>Si quieres conservar una copia, exporta tus datos antes.</p>
+<button class="btn" style="margin-top:6px">Borrar cuenta</button>
+<button class="btn text">Cancelar</button>
+</div>
+</div>
+</body>
+</html>
