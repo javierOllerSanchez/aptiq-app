@@ -10,12 +10,16 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 | 3 · Perfil de examen y puntuación | Cerrada | `fase-3-perfil` · PR #4 fusionado | 2026-11-12 | Sí, 2026-11-13 |
 | 4 · Práctica y simulacro sin conexión | Cerrada (VoiceOver y Maestro en iPhone pendientes del propietario) | `fase-4-practica` · PR #5 y `fase-4-cierre` · PR #9 fusionados | 2026-11-14 | Sí, 2026-11-14 |
 | 5 · Cuentas y sincronización | Cerrada con T8 pendiente (SMTP aplazado por el propietario al final del proyecto) | `fase-5-cuentas` · PR #11 fusionado | 2026-11-15 | Sí, 2026-11-15 |
-| 6 · Progreso y adaptativo | Cerrada (comprobaciones en el móvil pendientes del propietario) | `fase-6-progreso` · PR pendiente de abrir | 2026-11-15 | Pendiente de su aprobación |
+| 6 · Progreso y adaptativo | Cerrada (comprobaciones en el móvil pendientes del propietario) | `fase-6-progreso` · PR #13 fusionado | 2026-11-15 | Sí, 2026-11-15 |
 | 7 · Pago | Pendiente | | | |
 | 8 · Contenido ampliado y panel interno | Pendiente | | | |
 | 9 · Beta y lanzamiento | Pendiente | | | |
 
 ## Registro
+
+**2026-11-15 · Fase 6 · Aprobación**
+
+- El propietario aprueba la fase 6 y se fusiona el PR #13. Siguen pendientes las pruebas en un móvil real (recordatorio, Sesión de hoy sin repetir enunciados y VoiceOver) y las decisiones anotadas en `docs/decisiones.md`.
 
 **2026-11-15 · Fase 6 · Cierre**
 
