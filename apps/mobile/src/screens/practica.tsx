@@ -15,6 +15,8 @@ import { StyleSheet, View } from 'react-native';
 
 import { useStore } from '@/data/provider';
 import { APTITUDE_LABELS, LETTERS, startRun, toSaved } from '@/practice/run';
+import { expoReminderApi } from '@/notifications/expo-api';
+import { syncReminders } from '@/notifications/reminder';
 import { AJUSTE_HOY, diaLocal, loadProgress, startToday } from '@/progress/data';
 import { Explicacion } from '@/screens/explicacion';
 import { Loading } from '@/screens/loading';
@@ -80,7 +82,10 @@ export function Practica() {
       creada: ahora,
       questions: toSaved(items!, nuevas),
     });
-    if (!aptitud) await store.setSetting(AJUSTE_HOY, diaLocal(ahora));
+    if (!aptitud) {
+      await store.setSetting(AJUSTE_HOY, diaLocal(ahora));
+      syncReminders(store, expoReminderApi).catch(() => {});
+    }
     router.replace('/inicio');
   }
 

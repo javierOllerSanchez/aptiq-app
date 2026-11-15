@@ -76,6 +76,7 @@
 | 2026-11-15 | Sin cuenta no hay exportación ni borrado desde la app: los datos solo están en el móvil y se borran al desinstalar | Decisión del propietario (SOP-02, NFR-05) |
 | 2026-11-15 | Fase 6: dificultad por bloques de 10 respuestas del nivel actual (≥ 8 sube, ≤ 4 baja, de 1 a 5); repaso espaciado de tipos fallados a 1, 3, 7 y 14 días; «Tu nivel» como sección de Historial; recordatorio diario local en Cuenta, desactivado por defecto (`expo-notifications`); Sesión de hoy de 12 preguntas | Decisión del propietario (ENT-02, ENT-03, PRO-01, REP-01, NOT-01) |
 | 2026-11-15 | Prototipos de la fase 6 aprobados: «Tu nivel» al principio de Historial (global con gráfico de 4 semanas y nivel por aptitud) y recordatorio en Cuenta con 4 horas fijas (08:00, 14:00, 19:00, 21:00) | Decisión del propietario (PRO-01, NOT-01) |
+| 2026-11-15 | Dependencia nueva `expo-notifications` (SDK de Expo): recordatorio local. Se programan los avisos de los próximos 7 días uno a uno (no uno diario repetido) para saltarse el de hoy si la Sesión de hoy ya está hecha; se reprograman al abrir la app y al terminar la sesión. Permiso pedido solo al activarlo | Fase 6 · T6 (NOT-01) |
 
 ## Pendientes (las decide el propietario)
 

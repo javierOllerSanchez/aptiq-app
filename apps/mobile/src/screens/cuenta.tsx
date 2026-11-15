@@ -18,6 +18,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { AUTH_MESSAGES, estadoSync, haceCuanto } from '@/auth/messages';
 import { useAuth } from '@/auth/provider';
 import { useStore } from '@/data/provider';
+import { Recordatorio } from '@/screens/recordatorio';
 import { TabSpacer } from '@/screens/tab-spacer';
 
 /**
@@ -29,6 +30,8 @@ export function Cuenta() {
   return (
     <PaperBackground scroll style={styles.content}>
       {!auth ? <SinConfigurar /> : session ? <ConSesion email={session.user.email ?? ''} /> : <Invitacion />}
+      {/* Con sesión va dentro de ConSesion, antes de «Tus datos». El recordatorio no necesita cuenta. */}
+      {!(auth && session) && <Recordatorio />}
       <TabSpacer />
     </PaperBackground>
   );
@@ -219,6 +222,7 @@ function ConSesion({ email }: { email: string }) {
           </Text>
         </View>
       </GlassCard>
+      <Recordatorio />
       <Text variant="label" color="graphite" accessibilityRole="header" style={styles.seccion}>
         Tus datos
       </Text>
