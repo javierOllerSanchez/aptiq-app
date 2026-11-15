@@ -9,13 +9,43 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 | 2 · Motor de contenido v1 | Cerrada (rediseño de distractores pendiente para el inicio de la fase 3) | `fase-2-motor` · PR #3 fusionado | 2026-11-12 | Sí, 2026-11-12 |
 | 3 · Perfil de examen y puntuación | Cerrada | `fase-3-perfil` · PR #4 fusionado | 2026-11-12 | Sí, 2026-11-13 |
 | 4 · Práctica y simulacro sin conexión | Cerrada (VoiceOver y Maestro en iPhone pendientes del propietario) | `fase-4-practica` · PR #5 y `fase-4-cierre` · PR #9 fusionados | 2026-11-14 | Sí, 2026-11-14 |
-| 5 · Cuentas y sincronización | En curso (T1–T7 hechas; T8 pendiente del correo SMTP) | `fase-5-cuentas` | | |
+| 5 · Cuentas y sincronización | Cerrada con T8 pendiente (SMTP aplazado por el propietario al final del proyecto) | `fase-5-cuentas` · PR pendiente | 2026-11-15 | Pendiente |
 | 6 · Progreso y adaptativo | Pendiente | | | |
 | 7 · Pago | Pendiente | | | |
 | 8 · Contenido ampliado y panel interno | Pendiente | | | |
 | 9 · Beta y lanzamiento | Pendiente | | | |
 
 ## Registro
+
+**2026-11-15 · Fase 5 · Cierre**
+
+- **Entregado:**
+  - proyecto Supabase `aptiq` en la UE con RLS forzado, pruebas de dos usuarios y borrado en cascada pasadas en el servidor, y avisos de seguridad vacíos;
+  - cola de sincronización (subida por id, sin red, reintentos, ajustes «gana el más reciente»);
+  - inicio de sesión con código por correo;
+  - pantallas de Cuenta, Código e Historial (prototipo aprobado);
+  - borrar cuenta (función `borrar-cuenta`) y exportar;
+  - búsqueda de claves secretas en la CI.
+- **Revisiones:**
+  - `revisor-interfaz`, dos pasadas: dos graves de accesibilidad corregidos y sin bloqueantes en la segunda;
+  - `verificador-fase`, dos pasadas: sin bloqueantes en la segunda;
+  - revisión Ponytail: vaciado local en una transacción.
+  - Corregidos tras las revisiones: búsqueda de secretos en la CI, carrera al entrar con otra cuenta, mensajes para VoiceOver y TalkBack, teclado en Android.
+- **Pendiente por decisión del propietario:**
+  - T8 entero (SMTP aplazado al final del proyecto): prueba con dos móviles (`docs/planes/fase-5-prueba-dos-moviles.md`), flujos de Maestro `cuenta-enviar` y `cuenta-entrar`, y borrar una cuenta real desde la app comprobando que no quedan filas;
+  - ONB-03 parcial: Apple y Google cuando existan sus cuentas de desarrollador.
+- **Anotado para más adelante (menores de las revisiones):**
+  - exportar como archivo en lugar de texto si el historial supera ~1 MB (límite de Android al compartir), antes de la beta;
+  - cifras del código en mono 26 como en el prototipo, borde de las casillas vacías al 30 % de tinta (contraste 3:1), candado en la nota «Al crear la cuenta» y tamaño de las pestañas;
+  - `accessibilityLabel` estable para «Reenviar código»; «Cerrar sesión» sin aviso mientras sube lo pendiente;
+  - valores `maxHeight: '90%'` y `maxFontSizeMultiplier` a tokens;
+  - la búsqueda de secretos revisa el paquete sin las variables de EAS: repetirla sobre la compilación de EAS en la fase 9;
+  - carrera poco probable entre una descarga en curso y el borrado de cuenta.
+- **Capturas (emulador Android, 2026-11-15):** `docs/capturas/fase-5-inicio.png`, `fase-5-cuenta-invitacion.png` y `fase-5-historial.png`, que coinciden con los prototipos. Faltan Cuenta con sesión y Código (necesitan SMTP), la hoja de borrar y el texto al 200 %.
+- **Tiene que comprobarlo el propietario en un dispositivo real:**
+  - VoiceOver en iPhone: campo del correo, campo del código y hoja de borrado;
+  - TalkBack en Android;
+  - con SMTP, todo T8.
 
 **2026-11-15 · Fase 5 · T1–T7 hechas, T8 pendiente**
 
