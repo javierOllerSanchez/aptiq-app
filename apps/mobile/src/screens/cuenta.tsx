@@ -5,6 +5,7 @@ import { useCallback, useState } from 'react';
 import {
   AccessibilityInfo,
   Modal,
+  Platform,
   Pressable,
   ScrollView,
   Share,
@@ -49,7 +50,7 @@ function SinConfigurar() {
 /** Muestra el error y lo lee también VoiceOver (las regiones vivas solo funcionan en Android). */
 const anunciar = (set: (t: string) => void, texto: string) => {
   set(texto);
-  AccessibilityInfo.announceForAccessibility(texto);
+  if (Platform.OS === 'ios') AccessibilityInfo.announceForAccessibility(texto);
 };
 
 const plural = (n: number, uno: string, varios: string) => `${n} ${n === 1 ? uno : varios}`;
@@ -91,7 +92,7 @@ function Invitacion() {
       </Text>
       <GlassCard accessible={false}>
         <View style={styles.campo}>
-          <Text variant="label" color="graphiteStrong" nativeID="etiqueta-correo">
+          <Text variant="label" color="graphiteStrong" nativeID="etiqueta-correo" accessibilityElementsHidden>
             Correo electrónico
           </Text>
           <TextInput
@@ -130,7 +131,7 @@ function Invitacion() {
       <Text color="graphite">
         {guardado && guardado.simulacros + guardado.sesiones > 0
           ? `Lo que ya tienes guardado en este móvil (${plural(guardado.simulacros, 'simulacro', 'simulacros')} y ${plural(guardado.sesiones, 'sesión', 'sesiones')}) se sube a tu cuenta.`
-          : 'Lo que guardes a partir de ahora se guarda también en tu cuenta.'}{' '}
+          : 'Lo que hagas a partir de ahora se guarda también en tu cuenta.'}{' '}
         Solo guardamos tus respuestas, fechas y ajustes; nunca el texto de las preguntas.
       </Text>
       <Button label="Ahora no" variant="text" onPress={() => router.navigate('/inicio')} />

@@ -103,7 +103,7 @@ test('borrar cuenta: pide confirmación y, al confirmar, borra y vuelve al princ
   expect(mockReplace).toHaveBeenCalledWith('/onboarding');
 });
 
-test('Historial vacío lo explica; con datos, abre la revisión de la sesión', async () => {
+test('Historial vacío lo explica', async () => {
   await wrap(<Historial />);
   expect(await screen.findByText(/cuando termines el primero/)).toBeOnTheScreen();
 });

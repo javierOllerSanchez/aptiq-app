@@ -2,7 +2,7 @@ import { tokens } from '@aptiq/tokens';
 import { Button, Icon, PaperBackground, Text, textStyle, withAlpha } from '@aptiq/ui';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
-import { AccessibilityInfo, Pressable, StyleSheet, TextInput, View } from 'react-native';
+import { AccessibilityInfo, Platform, Pressable, StyleSheet, TextInput, View } from 'react-native';
 
 import { AUTH_MESSAGES } from '@/auth/messages';
 import { useAuth } from '@/auth/provider';
@@ -33,7 +33,7 @@ export function Codigo() {
   // Las regiones vivas solo funcionan en Android: VoiceOver necesita el anuncio explícito.
   const fallo = (texto: string) => {
     setError(texto);
-    AccessibilityInfo.announceForAccessibility(texto);
+    if (Platform.OS === 'ios') AccessibilityInfo.announceForAccessibility(texto);
   };
 
   const entrar = async (valor = codigo) => {
@@ -103,6 +103,8 @@ export function Codigo() {
           accessibilityLabel={`Código de ${CIFRAS} cifras`}
           style={[textStyle('body'), styles.oculto]}
           caretHidden
+          underlineColorAndroid="transparent"
+          selectionColor={withAlpha(tokens.color.ink, 0)}
         />
       </Pressable>
 
@@ -112,7 +114,7 @@ export function Codigo() {
         </Text>
       )}
       <Button
-        label="Entrar"
+        label={comprobando ? 'Comprobando…' : 'Entrar'}
         onPress={() => void entrar()}
         disabled={comprobando || codigo.length !== CIFRAS}
       />

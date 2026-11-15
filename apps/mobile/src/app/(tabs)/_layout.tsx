@@ -2,7 +2,7 @@ import { tokens } from '@aptiq/tokens';
 import { type Tab, TabBar } from '@aptiq/ui';
 import { router, Tabs } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { Keyboard, StyleSheet, View } from 'react-native';
+import { Keyboard, Platform, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const ROUTES = { home: '/inicio', history: '/historial', account: '/cuenta' } as const satisfies Record<Tab, string>;
@@ -29,7 +29,7 @@ export default function TabsLayout() {
       }}
       tabBar={({ state }) => {
         const current = state.routes[state.index]?.name ?? 'inicio';
-        if (teclado) return null;
+        if (teclado && Platform.OS === 'android') return null;
         return (
           <View
             pointerEvents="box-none"
