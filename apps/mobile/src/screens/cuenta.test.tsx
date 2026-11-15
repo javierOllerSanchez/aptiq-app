@@ -115,3 +115,17 @@ test('Historial lista la práctica y abre su revisión', async () => {
   await fireEvent.press(fila);
   expect(mockPush).toHaveBeenCalledWith({ pathname: '/repasar', params: { sesion: 's1' } });
 });
+
+test('sin test de nivel, Historial no inventa un nivel', async () => {
+  await wrap(<Historial />);
+  expect(await screen.findByText(/cuando termines el primero/)).toBeOnTheScreen();
+  expect(screen.queryByLabelText(/^Nivel global/)).toBeNull();
+});
+
+test('Historial abre con «Tu nivel»: nivel global, gráfico legible y nivel por aptitud', async () => {
+  await mockStore.setSetting('niveles', JSON.stringify({ 'NUM.CALC': 2, 'NUM.SERIE': 2, 'VER.ORDEN': 2 }));
+  await wrap(<Historial />);
+  expect(await screen.findByLabelText('Nivel global 2,0 de 5')).toBeOnTheScreen();
+  expect(screen.getByLabelText(/^Nivel global en las últimas 4 semanas/)).toBeOnTheScreen();
+  expect(screen.getByRole('button', { name: /^Numérica, nivel 2,0 de 5/ })).toBeOnTheScreen();
+});

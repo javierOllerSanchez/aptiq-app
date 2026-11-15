@@ -5,6 +5,7 @@ import {
   CITA,
   failuresByType,
   fromSaved,
+  isCorrect,
   OPTION_COUNT,
   startRun,
   toSaved,
@@ -114,4 +115,16 @@ test('ningún enunciado se repite dentro de un simulacro (CON-02)', async () => 
 test('la cita de la fuente sale del perfil y no habla de exámenes publicados', () => {
   expect(CITA).toBe('BOE-A-2026-9982, bases 6.1.2.a, 7.3 y 7.8');
   expect(AVISO_MEZCLA).toMatch(/no es oficial/);
+});
+
+test('al guardar se apunta si se acertó; sin ese dato (historial antiguo) se calcula igual', async () => {
+  const store = createMemoryStore();
+  const items = await startRun(store, { count: 3, reparto: 'equitativo', sessionSeed: 'c', levelFor: () => 2 });
+  const answers = [items[0]!.answerIndex, (items[1]!.answerIndex + 1) % OPTION_COUNT, null];
+  const saved = toSaved(items, answers);
+  expect(saved.map((q) => q.correct)).toEqual([true, false, false]);
+  for (const q of saved) {
+    const { correct, ...antiguo } = q;
+    expect(isCorrect(antiguo)).toBe(correct);
+  }
 });

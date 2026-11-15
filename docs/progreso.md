@@ -10,12 +10,43 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 | 3 · Perfil de examen y puntuación | Cerrada | `fase-3-perfil` · PR #4 fusionado | 2026-11-12 | Sí, 2026-11-13 |
 | 4 · Práctica y simulacro sin conexión | Cerrada (VoiceOver y Maestro en iPhone pendientes del propietario) | `fase-4-practica` · PR #5 y `fase-4-cierre` · PR #9 fusionados | 2026-11-14 | Sí, 2026-11-14 |
 | 5 · Cuentas y sincronización | Cerrada con T8 pendiente (SMTP aplazado por el propietario al final del proyecto) | `fase-5-cuentas` · PR #11 fusionado | 2026-11-15 | Sí, 2026-11-15 |
-| 6 · Progreso y adaptativo | Pendiente | | | |
+| 6 · Progreso y adaptativo | Cerrada (comprobaciones en el móvil pendientes del propietario) | `fase-6-progreso` · PR pendiente de abrir | 2026-11-15 | Pendiente de su aprobación |
 | 7 · Pago | Pendiente | | | |
 | 8 · Contenido ampliado y panel interno | Pendiente | | | |
 | 9 · Beta y lanzamiento | Pendiente | | | |
 
 ## Registro
+
+**2026-11-15 · Fase 6 · Cierre**
+
+- **Entregado:**
+  - nivel adaptativo por aptitud (bloques de 10 respuestas, sube con 8 o más aciertos, baja con 4 o menos, rango 1–5) (ENT-03);
+  - Sesión de hoy de 12 preguntas que prioriza el repaso y el tipo más flojo, sin repetir enunciados (ENT-02, REP-01);
+  - «Tu nivel» en Historial con su evolución semanal de 4 semanas y el resumen leído en voz (PRO-01);
+  - Inicio con el mismo nivel que Historial, racha, cuenta atrás al examen y la fila «Sesión de hoy» (PRO-03);
+  - recordatorio diario local en Cuenta, con hora a elegir y sin aviso si la sesión de hoy ya está hecha (NOT-01);
+  - rendimiento: se guarda si cada respuesta fue correcta; Inicio pasó de unos 8 s a 19 ms con 300 sesiones.
+- **Revisores:**
+  - primera pasada de `revisor-interfaz`: dos bloqueantes (nivel distinto entre Inicio e Historial; «a reforzar» con empate) y varios importantes. Corregidos en `65f2efc`;
+  - segunda pasada de `revisor-interfaz`: sin bloqueantes (B1 y B2 resueltos). Corregidos además la fecha cortada en el gráfico y la prueba de «a reforzar». Quedan como menores el orden distinto de las aptitudes entre Inicio e Historial, que «a reforzar» se decida por acierto en Inicio y por nivel en Historial (decisión tuya), y las bolitas redondeadas;
+  - `revisor-contenido`: no aplica a esta fase (no toca generadores ni perfiles);
+  - `verificador-fase`: hallazgo I1 (duplicados en la Sesión de hoy) corregido y con prueba.
+- **Comprobaciones:** `pnpm typecheck`, `pnpm lint` y `pnpm test` en verde (motor 268, app 95, componentes 23); `pnpm test:stress` 267 en verde. Capturas en el emulador Android: `docs/capturas/fase-6-inicio.png`, `fase-6-historial.png` y `fase-6-cuenta.png`.
+- **Pendiente, sin bloquear el cierre:**
+  - medidas fijas del gráfico (alto 150 y similares) en `level-chart.tsx` (I3);
+  - M1, M3, M5–M7 y M9–M12 de la revisión de interfaz (la cuenta atrás no está en el prototipo de Inicio);
+  - no hay `setNotificationHandler`: los avisos no se muestran si la app está abierta;
+  - el test de nivel cuenta en el historial adaptativo;
+  - los simulacros se fechan por su inicio;
+  - `pnpm install --frozen-lockfile` falla en este Windows por una carpeta temporal de pnpm (el lockfile está bien).
+- **Para que pruebes tú en un dispositivo real:**
+  - que llega el recordatorio a la hora elegida en Android e iPhone, y que no avisa si ya hiciste la sesión de hoy;
+  - que la Sesión de hoy no repite enunciados al hacerla varios días seguidos;
+  - VoiceOver en iPhone: el gráfico se lee en orden (nivel, variación, resumen).
+- **Decisiones pendientes de tu confirmación** (en `docs/decisiones.md`):
+  - repetir la Sesión de hoy el mismo día da preguntas nuevas;
+  - los avisos se programan para 7 días: si no abres la app en una semana, dejan de llegar;
+  - el reparto de la Sesión de hoy usa el total de fallos y no el porcentaje.
 
 **2026-11-15 · Fase 5 · Aprobación**
 

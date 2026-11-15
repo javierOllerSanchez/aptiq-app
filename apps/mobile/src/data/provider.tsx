@@ -1,5 +1,7 @@
-import { createContext, type ReactNode, useContext, useState } from 'react';
+import { createContext, type ReactNode, useContext, useEffect, useState } from 'react';
 
+import { expoReminderApi } from '@/notifications/expo-api';
+import { syncReminders } from '@/notifications/reminder';
 import { withSyncQueue } from '@/sync/queued-store';
 
 import { createSqliteStore } from './sqlite-store';
@@ -20,6 +22,10 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     const base = createSqliteStore();
     return { base, store: withSyncQueue(base) };
   });
+  // Avisos de los próximos 7 días: se reprograman en cada arranque (NOT-01).
+  useEffect(() => {
+    syncReminders(stores.store, expoReminderApi).catch(() => {});
+  }, [stores]);
   return <StoreContext.Provider value={stores}>{children}</StoreContext.Provider>;
 }
 
