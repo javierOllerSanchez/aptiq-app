@@ -62,5 +62,12 @@ export function createMemoryStore(now: () => number = Date.now): Store {
         if (cur) cur.intentos += 1;
       }
     },
+    async clearAll() {
+      settings.clear();
+      seeds.clear();
+      sessionList.length = 0;
+      attemptList.length = 0;
+      queue.clear();
+    },
   };
 }

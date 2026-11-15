@@ -100,5 +100,10 @@ export function createSqliteStore(name = 'aptiq.db', now: () => number = Date.no
           .where(and(eq(colaSync.entidad, o.entidad), eq(colaSync.id, o.id)));
       }
     },
+    async clearAll() {
+      for (const tabla of [ajustes, semillasUsadas, sesiones, intentos, colaSync]) {
+        await db.delete(tabla);
+      }
+    },
   };
 }

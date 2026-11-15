@@ -185,6 +185,9 @@ function createMemoryLink(initial: string | null = null): LinkStore {
     async set(id) {
       v = id;
     },
+    async clear() {
+      v = null;
+    },
   };
 }
 
@@ -291,5 +294,84 @@ describe('inicio de sesión con código por correo', () => {
 
   test('createSync se puede usar con el remoto de Supabase', () => {
     expect(() => createSync({ store: createMemoryStore(), remote: createSupabaseRemote(createFakeDb().client) })).not.toThrow();
+  });
+});
+
+describe('borrar la cuenta y exportar (T6, SOP-02)', () => {
+  function clientWithFunctions(result: { error: unknown }) {
+    const fake = createFakeAuthClient();
+    const invoked: string[] = [];
+    (fake.client as unknown as { functions: unknown }).functions = {
+      async invoke(name: string) {
+        invoked.push(name);
+        return { data: result.error ? null : { ok: true }, error: result.error };
+      },
+    };
+    return { ...fake, invoked };
+  }
+
+  test('borrar llama a la función del servidor, vacía el móvil y cierra la sesión', async () => {
+    const store = createMemoryStore();
+    await store.saveSession({ id: 's1', creada: 1, questions: [q] });
+    await store.setSetting('oposicion', 'guardia-civil-2026');
+    await store.enqueue('sesion', 's1', 1);
+    const link = createMemoryLink('user-a');
+    const fake = clientWithFunctions({ error: null });
+    const auth = createAuth({ client: fake.client, store, remote: createEmptyRemote(), link });
+
+    expect(await auth.deleteAccount()).toEqual({ ok: true });
+    expect(fake.invoked).toEqual(['borrar-cuenta']);
+    expect(await store.sessions()).toHaveLength(0);
+    expect(await store.getSetting('oposicion')).toBeNull();
+    expect(await store.pendingOps()).toHaveLength(0);
+    expect(await link.get()).toBeNull();
+    expect(fake.calls.at(-1)?.method).toBe('signOut');
+  });
+
+  test('si el servidor falla, no se borra nada del móvil', async () => {
+    const store = createMemoryStore();
+    await store.saveSession({ id: 's1', creada: 1, questions: [q] });
+    const fake = clientWithFunctions({ error: new Error('500') });
+    const auth = createAuth({ client: fake.client, store, remote: createEmptyRemote(), link: createMemoryLink('user-a') });
+
+    expect(await auth.deleteAccount()).toEqual({ ok: false, error: 'desconocido' });
+    expect(await store.sessions()).toHaveLength(1);
+    expect(fake.calls.some((c) => c.method === 'signOut')).toBe(false);
+  });
+
+  test('exportar junta lo del servidor y lo local sin duplicar, sin el texto de las preguntas', async () => {
+    const store = createMemoryStore();
+    await store.saveSession({ id: 'local', creada: 2, questions: [q] });
+    await store.saveSession({ id: 'ambos', creada: 1, questions: [q] });
+    const remote = createEmptyRemote();
+    remote.pull = async () => ({
+      ajustes: [{ clave: 'fecha', valor: '2027-03-01', actualizado: 5 }],
+      semillas: ['a1'],
+      sesiones: [{ id: 'ambos', creada: 1, questions: [q] }, { id: 'servidor', creada: 3, questions: [q] }],
+      intentos: [],
+    });
+    const auth = createAuth({ client: createFakeAuthClient().client, store, remote, link: createMemoryLink('user-a') });
+
+    const r = await auth.exportData(10_000);
+    expect(r.ok).toBe(true);
+    if (!r.ok) return;
+    const data = JSON.parse(r.json);
+    expect(data.exportado).toBe('1970-01-01T00:00:10.000Z');
+    expect(data.sesiones.map((s: { id: string }) => s.id).sort()).toEqual(['ambos', 'local', 'servidor']);
+    expect(data.ajustes).toEqual([{ clave: 'fecha', valor: '2027-03-01', actualizado: '1970-01-01T00:00:00.005Z' }]);
+    expect(data.semillasUsadas).toEqual(['a1']);
+    expect(r.json).not.toMatch(/"stem"|"options"/);
+  });
+
+  test('exportar sin red devuelve solo lo del móvil y lo indica', async () => {
+    const store = createMemoryStore();
+    await store.saveSession({ id: 'local', creada: 2, questions: [q] });
+    const remote = createEmptyRemote();
+    remote.pull = async () => {
+      throw new Error('sin red');
+    };
+    const auth = createAuth({ client: createFakeAuthClient().client, store, remote, link: createMemoryLink('user-a') });
+    const r = await auth.exportData(0);
+    expect(r.ok && JSON.parse(r.json).incluyeServidor).toBe(false);
   });
 });

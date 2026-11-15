@@ -34,4 +34,5 @@ const LINK_KEY = 'aptiq.cuenta_vinculada';
 export const secureLink: LinkStore = {
   get: () => SecureStore.getItemAsync(LINK_KEY),
   set: (userId) => SecureStore.setItemAsync(LINK_KEY, userId),
+  clear: () => SecureStore.deleteItemAsync(LINK_KEY),
 };

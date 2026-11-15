@@ -1,7 +1,7 @@
 import { isAuthApiError, isAuthRetryableFetchError, type SupabaseClient } from '@supabase/supabase-js';
 
-import type { Store } from '@/data/store';
-import type { Remote } from '@/sync/remote';
+import type { SavedSetting, Store } from '@/data/store';
+import type { Remote, RemoteData } from '@/sync/remote';
 import { createSync } from '@/sync/sync';
 
 /** Motivos que la pantalla de inicio de sesión sabe explicar (textos en T5). */
@@ -18,6 +18,7 @@ export type AuthResult<T = object> = ({ ok: true } & T) | { ok: false; error: Au
 export interface LinkStore {
   get(): Promise<string | null>;
   set(userId: string): Promise<void>;
+  clear(): Promise<void>;
 }
 
 interface AuthDeps {
@@ -95,6 +96,61 @@ export function createAuth({ client, store, remote, link }: AuthDeps) {
     async signOut(): Promise<void> {
       await sync.push();
       await client.auth.signOut({ scope: 'local' });
+    },
+
+    /**
+     * Borra la cuenta en el servidor (función `borrar-cuenta`, SOP-02). Solo si el servidor confirma
+     * se vacía el móvil y se cierra la sesión; si falla, no se borra nada aquí.
+     */
+    async deleteAccount(): Promise<AuthResult> {
+      const { error } = await client.functions.invoke('borrar-cuenta');
+      if (error) return { ok: false, error: reason(error) };
+      await store.clearAll();
+      await link.clear();
+      await client.auth.signOut({ scope: 'local' });
+      return { ok: true };
+    },
+
+    /**
+     * Exporta lo que tiene el móvil y, si hay red, lo del servidor, sin duplicados. No incluye el
+     * texto de las preguntas: solo semillas, respuestas y fechas.
+     */
+    async exportData(ahora = Date.now()): Promise<AuthResult<{ json: string }>> {
+      const local = {
+        ajustes: await store.settings(),
+        sesiones: await store.sessions(),
+        intentos: await store.attempts(),
+        semillas: [...(await store.usedSeeds())],
+      };
+      let server: RemoteData | null = null;
+      try {
+        server = await remote.pull();
+      } catch {
+        server = null; // sin red: solo lo del móvil, y se indica en el archivo
+      }
+
+      const ajustes = new Map<string, SavedSetting>();
+      for (const a of [...local.ajustes, ...(server?.ajustes ?? [])]) {
+        const prev = ajustes.get(a.clave);
+        if (!prev || a.actualizado > prev.actualizado) ajustes.set(a.clave, a);
+      }
+      const porId = <T extends { id: string }>(lista: T[]) => new Map(lista.map((x) => [x.id, x] as const));
+      const sesiones = { ...Object.fromEntries(porId(server?.sesiones ?? [])), ...Object.fromEntries(porId(local.sesiones)) };
+      const intentos = { ...Object.fromEntries(porId(server?.intentos ?? [])), ...Object.fromEntries(porId(local.intentos)) };
+
+      const json = JSON.stringify(
+        {
+          exportado: new Date(ahora).toISOString(),
+          incluyeServidor: server !== null,
+          ajustes: [...ajustes.values()].map((a) => ({ ...a, actualizado: new Date(a.actualizado).toISOString() })),
+          semillasUsadas: [...new Set([...local.semillas, ...(server?.semillas ?? [])])].sort(),
+          sesiones: Object.values(sesiones),
+          intentos: Object.values(intentos),
+        },
+        null,
+        2,
+      );
+      return { ok: true, json };
     },
 
     sync,

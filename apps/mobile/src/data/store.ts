@@ -66,4 +66,7 @@ export interface Store {
   /** Quita las operaciones subidas, salvo las que cambiaron después (otra `creada`). */
   removeOps(ops: SyncOp[]): Promise<void>;
   markFailed(ops: SyncOp[]): Promise<void>;
+
+  /** Borra todo lo guardado en el móvil (cuenta eliminada, SOP-02). */
+  clearAll(): Promise<void>;
 }
