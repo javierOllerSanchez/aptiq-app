@@ -44,6 +44,7 @@ export {
   type Tally,
   type Result,
 } from './review/review';
+export { adaptLevels } from './level/adapt';
 export { estimateLevels, type LevelAnswer } from './level/estimate';
 
 /** Un generador y su solucionador por cada tipo de la taxonomía. */
