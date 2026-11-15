@@ -11,12 +11,15 @@ import { Glass } from './glass';
 export function GlassCard({
   children,
   style,
+  accessible = true,
 }: {
   children?: ReactNode;
   style?: StyleProp<ViewStyle>;
+  /** false si dentro hay controles (campos, botones): agrupados, VoiceOver no llega a ellos. */
+  accessible?: boolean;
 }) {
   return (
-    <Glass radius={tokens.radius.cardLarge} style={[styles.card, style]} accessible>
+    <Glass radius={tokens.radius.cardLarge} style={[styles.card, style]} accessible={accessible}>
       {children}
     </Glass>
   );

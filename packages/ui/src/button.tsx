@@ -6,7 +6,7 @@ import { Text } from './text';
 
 const { color, radius, border, size, spacing, opacity } = tokens;
 
-export type ButtonVariant = 'primary' | 'secondary' | 'glass';
+export type ButtonVariant = 'primary' | 'secondary' | 'glass' | 'text';
 
 export function Button({
   label,
@@ -43,7 +43,13 @@ export function Button({
           {content}
         </Glass>
       ) : (
-        <View style={[styles.inner, styles.bordered, variant === 'primary' && styles.primary]}>
+        <View
+          style={[
+            styles.inner,
+            variant !== 'text' && styles.bordered,
+            variant === 'primary' && styles.primary,
+          ]}
+        >
           {content}
         </View>
       )}

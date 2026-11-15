@@ -32,7 +32,7 @@ export function Historial() {
       <Text color="graphite">
         {vacio
           ? 'Aquí aparecerán tus simulacros y sesiones de práctica cuando termines el primero.'
-          : 'Toca un simulacro o una sesión para revisar cada pregunta con su explicación.'}
+          : 'Toca un simulacro o una sesión para repasar tus fallos con su explicación.'}
       </Text>
       {rows.simulacros.length > 0 && (
         <Seccion titulo="Simulacros" columna="Nota">

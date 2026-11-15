@@ -45,7 +45,12 @@ export function PaperBackground({
       </Svg>
       {scroll ? (
         <>
-          <ScrollView contentContainerStyle={[padding, style]} showsVerticalScrollIndicator={false}>
+          <ScrollView
+            contentContainerStyle={[padding, style]}
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled"
+            automaticallyAdjustKeyboardInsets
+          >
             {children}
           </ScrollView>
           {/* Franja de papel bajo la barra de estado para que el contenido no se mezcle con la hora. */}

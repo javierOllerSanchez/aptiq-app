@@ -78,7 +78,7 @@ En React Native: `expo-blur` (`BlurView`, intensidad equivalente) + capa de colo
 | `ProgressTicks` | Una casilla por pregunta, 12 de alto, separación 3. Respondidas `ink`, actual `highlighter` con borde `ink` 1,5, pendientes `ink` al 12 %. |
 | `LevelBubbles` | 10 burbujas de 22: rellenas `ink`, vacías con borde `ink` al 25 %. |
 | `GlassCard` | Receta de cristal. Radio 24. Para resúmenes. |
-| `TabBar` | Cristal, radio 22, 4 pestañas (Inicio, Tests, Estadísticas, Perfil). Activa: fondo `ink`, icono `highlighter`. |
+| `TabBar` | Cristal, radio 22, 3 pestañas (Inicio, Historial, Cuenta; fase 5). Activa: fondo `ink`, icono `highlighter`. |
 | `Timer` | Píldora de cristal con icono de reloj y tiempo en mono 15. |
 | `Stamp` | «APTO» en Bricolage 800 color `seal`, doble borde, girado −6°. Solo en Resultado, más pequeño que la nota. |
 | `SourceNote` | Icono de documento + «Formato según la convocatoria oficial: …» con la cita del perfil (p. ej. «BOE-A-2026-9982, bases 6.1.2.a, 7.3 y 7.8»). No menciona exámenes publicados: la Guardia Civil no publica el cuestionario de aptitudes. Obligatorio en cada simulacro. |

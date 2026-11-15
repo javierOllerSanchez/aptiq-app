@@ -81,7 +81,7 @@ export function Inicio() {
         {opciones !== null ? `; ${opciones - 1} fallos restan 1 acierto.` : '.'}
       </Text>
       {niveles !== 'sin-test' && (
-        <GlassCard>
+        <GlassCard accessible={niveles.global !== null}>
           <Text variant="label" color="graphite">
             Nivel estimado · orientativo
           </Text>

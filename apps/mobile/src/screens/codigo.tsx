@@ -1,14 +1,15 @@
 import { tokens } from '@aptiq/tokens';
-import { Button, Icon, PaperBackground, Text, textStyle } from '@aptiq/ui';
+import { Button, Icon, PaperBackground, Text, textStyle, withAlpha } from '@aptiq/ui';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
-import { Pressable, StyleSheet, TextInput, View } from 'react-native';
+import { AccessibilityInfo, Pressable, StyleSheet, TextInput, View } from 'react-native';
 
 import { AUTH_MESSAGES } from '@/auth/messages';
 import { useAuth } from '@/auth/provider';
 
 const CIFRAS = 6;
 const ESPERA_S = 60;
+const mmss = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
 
 /**
  * Código de 6 cifras enviado por correo (ONB-03). Prototipo aprobado por el propietario el
@@ -29,13 +30,19 @@ export function Codigo() {
     return () => clearTimeout(t);
   }, [espera]);
 
+  // Las regiones vivas solo funcionan en Android: VoiceOver necesita el anuncio explícito.
+  const fallo = (texto: string) => {
+    setError(texto);
+    AccessibilityInfo.announceForAccessibility(texto);
+  };
+
   const entrar = async (valor = codigo) => {
     if (!auth || comprobando || valor.length !== CIFRAS) return;
     setComprobando(true);
     setError(null);
     const r = await auth.verifyCode(email, valor);
     setComprobando(false);
-    if (!r.ok) return setError(AUTH_MESSAGES[r.error]);
+    if (!r.ok) return fallo(AUTH_MESSAGES[r.error]);
     router.dismissTo('/cuenta');
   };
 
@@ -43,9 +50,10 @@ export function Codigo() {
     if (!auth || espera > 0) return;
     setError(null);
     const r = await auth.sendCode(email);
-    if (!r.ok) return setError(AUTH_MESSAGES[r.error]);
+    if (!r.ok) return fallo(AUTH_MESSAGES[r.error]);
     setCodigo('');
     setEspera(ESPERA_S);
+    AccessibilityInfo.announceForAccessibility('Código reenviado.');
   };
 
   const cambiar = (t: string) => {
@@ -78,8 +86,9 @@ export function Codigo() {
             key={i}
             style={[styles.caja, i >= codigo.length && styles.vacia, i === codigo.length && styles.actual]}
             importantForAccessibility="no-hide-descendants"
+            accessibilityElementsHidden
           >
-            <Text variant="questionTitle">{codigo[i] ?? ''}</Text>
+            <Text variant="questionTitle" maxFontSizeMultiplier={1.4}>{codigo[i] ?? ''}</Text>
           </View>
         ))}
         {/* Un solo campo invisible encima: teclado numérico y autocompletado del código del sistema. */}
@@ -91,7 +100,6 @@ export function Codigo() {
           keyboardType="number-pad"
           textContentType="oneTimeCode"
           autoComplete="one-time-code"
-          maxLength={CIFRAS}
           accessibilityLabel={`Código de ${CIFRAS} cifras`}
           style={[textStyle('body'), styles.oculto]}
           caretHidden
@@ -109,8 +117,8 @@ export function Codigo() {
         disabled={comprobando || codigo.length !== CIFRAS}
       />
       <Button
-        label={espera > 0 ? `Reenviar código · 0:${String(espera).padStart(2, '0')}` : 'Reenviar código'}
-        variant="secondary"
+        label={espera > 0 ? `Reenviar código · ${mmss(espera)}` : 'Reenviar código'}
+        variant="text"
         onPress={reenviar}
         disabled={espera > 0}
       />
@@ -139,5 +147,6 @@ const styles = StyleSheet.create({
   },
   vacia: { borderColor: tokens.color.line },
   actual: { borderColor: tokens.color.ink, borderBottomWidth: tokens.border.stampOuter },
-  oculto: { ...StyleSheet.absoluteFill, opacity: 0 },
+  // Visible para VoiceOver (opacidad 1) pero sin texto ni cursor a la vista: las casillas lo dibujan.
+  oculto: { ...StyleSheet.absoluteFill, color: withAlpha(tokens.color.ink, 0) },
 });
