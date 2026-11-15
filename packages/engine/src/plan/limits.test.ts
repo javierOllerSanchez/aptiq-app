@@ -7,17 +7,17 @@ import { allowance, TIPOS_GRATIS } from './limits';
 
 // Fase 7 · T1 (PAY-01, tabla «Monetización»): qué permite el plan gratuito.
 
-const base = { premium: false, hoy: '2026-11-18', diasSesionHoy: [], diasSimulacro: [] };
+const base = { premium: false, hoy: '2026-11-18', sesionHoyHecha: false, diasSimulacro: [] };
 
 test('gratis: tres tipos básicos, 1 Sesión de hoy al día y 1 simulacro a la semana', () => {
   expect(TIPOS_GRATIS).toEqual(['NUM.SERIE', 'DAT.COMPARA', 'VER.ORDEN']);
   const a = allowance(base);
-  expect(a).toEqual({ sesionHoy: true, simulacro: true, proximoSimulacro: null, tipos: TIPOS_GRATIS, historialCompleto: false });
+  expect(a).toEqual({ sesionHoy: true, simulacro: true, proximoSimulacro: null, tipos: TIPOS_GRATIS });
 });
 
 test('gratis: la Sesión de hoy vuelve al día siguiente', () => {
-  expect(allowance({ ...base, diasSesionHoy: ['2026-11-18'] }).sesionHoy).toBe(false);
-  expect(allowance({ ...base, diasSesionHoy: ['2026-11-17'] }).sesionHoy).toBe(true);
+  expect(allowance({ ...base, sesionHoyHecha: true }).sesionHoy).toBe(false);
+  expect(allowance({ ...base, sesionHoyHecha: false }).sesionHoy).toBe(true);
 });
 
 test('gratis: el simulacro vuelve el lunes siguiente (semana de lunes a domingo)', () => {
@@ -25,11 +25,12 @@ test('gratis: el simulacro vuelve el lunes siguiente (semana de lunes a domingo)
   expect(a.simulacro).toBe(false);
   expect(a.proximoSimulacro).toBe('2026-11-23');
   expect(allowance({ ...base, diasSimulacro: ['2026-11-15'] }).simulacro).toBe(true); // domingo anterior
+  expect(allowance({ ...base, hoy: '2026-11-23', diasSimulacro: ['2026-11-22'] }).simulacro).toBe(true); // ya es el lunes siguiente
 });
 
 test('Premium: todo abierto, sin límites', () => {
-  const a = allowance({ ...base, premium: true, diasSesionHoy: ['2026-11-18'], diasSimulacro: ['2026-11-18'] });
-  expect(a).toEqual({ sesionHoy: true, simulacro: true, proximoSimulacro: null, tipos: typeCodes, historialCompleto: true });
+  const a = allowance({ ...base, premium: true, sesionHoyHecha: true, diasSimulacro: ['2026-11-18'] });
+  expect(a).toEqual({ sesionHoy: true, simulacro: true, proximoSimulacro: null, tipos: typeCodes });
 });
 
 test('propiedad: con un simulacro hecho, el próximo es siempre un lunes de 1 a 7 días después', () => {

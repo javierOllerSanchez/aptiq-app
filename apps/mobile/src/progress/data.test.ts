@@ -53,7 +53,7 @@ test('el nivel sube con 10 aciertos seguidos y un fallo pone el tipo en repaso',
 
 test('la Sesión de hoy tiene 12 preguntas y reserva sus semillas', async () => {
   const store = createMemoryStore();
-  const items = await startToday(store, at(2026, 11, 15));
+  const items = await startToday(store, at(2026, 11, 15), true);
   expect(items).toHaveLength(12);
   const used = await store.usedSeeds();
   for (const it of items) expect(used.has(it.seed)).toBe(true);
@@ -68,7 +68,7 @@ test('la Sesión de hoy no repite el mismo enunciado aunque el tipo flojo reciba
       creada: at(2026, 10, d),
       questions: Array.from({ length: 30 }, (_, i) => respuesta('LET.SERIE', `f${d}-${i}`, false, 3)),
     });
-    const items = await startToday(store, at(2026, 11, d));
+    const items = await startToday(store, at(2026, 11, d), true);
     expect(new Set(items.map((it) => it.stem.text)).size).toBe(items.length);
   }
 });
@@ -86,4 +86,18 @@ test('fase 7 · permiso: gratis, con simulacro esta semana y Sesión de hoy hech
   const p = await loadProgress(store, at(2026, 11, 18));
   expect(permiso(p, false)).toMatchObject({ simulacro: false, sesionHoy: false, proximoSimulacro: '2026-11-23' });
   expect(permiso(p, true)).toMatchObject({ simulacro: true, sesionHoy: true });
+});
+
+test('fase 7 · en el plan gratuito la Sesión de hoy no incluye repaso espaciado', async () => {
+  const preparar = async () => {
+    const store = createMemoryStore();
+    await store.setSetting('niveles', JSON.stringify({ 'LET.SERIE': 2 }));
+    await store.saveSession({ id: 'a', creada: at(2026, 11, 14), questions: [respuesta('LET.SERIE', 'm', false)] });
+    return store;
+  };
+  const de = (xs: { type: string }[]) => xs.filter((x) => x.type === 'LET.SERIE').length;
+  const conRepaso = await startToday(await preparar(), at(2026, 11, 15), true);
+  const sinRepaso = await startToday(await preparar(), at(2026, 11, 15), false);
+  expect(de(conRepaso)).toBeGreaterThanOrEqual(6); // la mitad para el repaso
+  expect(de(sinRepaso)).toBeLessThan(de(conRepaso));
 });

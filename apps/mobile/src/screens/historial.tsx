@@ -46,7 +46,9 @@ export function Historial() {
       <Text color="graphite">
         {vacio
           ? 'Aquí aparecerán tus simulacros y sesiones de práctica cuando termines el primero.'
-          : 'Tu nivel por aptitud y todo lo que has practicado. Toca un simulacro o una sesión para repasar tus fallos.'}
+          : plan.premium
+            ? 'Tu nivel por aptitud y todo lo que has practicado. Toca un simulacro o una sesión para repasar tus fallos.'
+            : 'Tu nivel global y tu último simulacro. Tócalo para repasar tus fallos.'}
       </Text>
       <TuNivel progreso={progreso} porAptitud={plan.premium} />
       {simulacros.length > 0 && (

@@ -129,7 +129,8 @@ export function Inicio() {
         </GlassCard>
       )}
       {a && !a.simulacro && !abierto ? (
-        <GlassCard>
+        // Sin agrupar: dentro hay un botón al que debe llegar el lector de pantalla.
+        <GlassCard accessible={false}>
           <Text variant="label" color="graphiteStrong">
             Simulacro de esta semana · hecho
           </Text>
@@ -174,6 +175,7 @@ export function Inicio() {
                   : `${HOY_PREGUNTAS} preguntas · prioriza lo más flojo`
           }
           locked={a !== null && !a.sesionHoy}
+          lockedLabel="ilimitada con Premium"
           onPress={() => (a && !a.sesionHoy ? alMuro() : router.push('/practica'))}
         />
         {Object.entries(APTITUDE_LABELS).map(([id, label]) => {

@@ -36,7 +36,7 @@ export function buildPractice(input: PracticeInput): PracticeItemSpec[] {
       (input.types === undefined || input.types.includes(code)),
   );
   if (candidates.length === 0)
-    throw new Error(`Ningún tipo de ejercicio tiene la aptitud ${input.aptitude}`);
+    throw new Error(`Ningún tipo permitido para la aptitud ${input.aptitude ?? '(todas)'}`);
 
   const rng: Rng = createRng(input.sessionSeed);
   const taken = new Set(input.usedSeeds ?? []);

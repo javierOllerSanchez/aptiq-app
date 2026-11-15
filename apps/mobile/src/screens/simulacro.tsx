@@ -58,7 +58,7 @@ interface Listo {
  */
 export function Simulacro() {
   const store = useStore();
-  const { plan } = usePlan();
+  const { plan, api } = usePlan();
   const [listo, setListo] = useState<Listo | null>(null);
 
   useEffect(() => {
@@ -78,7 +78,8 @@ export function Simulacro() {
         });
         return;
       }
-      if (!permiso(await loadProgress(store), plan.premium).simulacro) return router.replace('/muro-pago');
+      const premium = await api.plan().then((p) => p.premium, () => plan.premium);
+      if (!permiso(await loadProgress(store), premium).simulacro) return router.replace('/muro-pago');
       const { preguntas, minutos } = guardiaCivil2026.format;
       if (preguntas === null || minutos === null)
         throw new Error('El perfil no tiene el formato completo');

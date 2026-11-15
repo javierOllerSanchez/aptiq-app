@@ -2,7 +2,7 @@ import { tokens } from '@aptiq/tokens';
 import { Button, Icon, PaperBackground, Text, withAlpha } from '@aptiq/ui';
 import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { AccessibilityInfo, Platform, Pressable, StyleSheet, View } from 'react-native';
 
 import type { Oferta, Periodo, Resultado } from '@/purchases/api';
 import { usePlan } from '@/purchases/provider';
@@ -36,7 +36,14 @@ export function MuroPago() {
   const [ofertas, setOfertas] = useState<Oferta[] | null | 'error'>(null);
   const [elegida, setElegida] = useState<string | null>(null);
   const [ocupado, setOcupado] = useState(false);
-  const [aviso, setAviso] = useState<string | null>(null);
+  const [aviso, setAvisoState] = useState<{ texto: string; error: boolean } | null>(null);
+  const [intento, setIntento] = useState(0);
+
+  // accessibilityLiveRegion solo existe en Android: en iPhone se anuncia aparte.
+  const setAviso = (texto: string | null, error = true) => {
+    setAvisoState(texto ? { texto, error } : null);
+    if (texto && Platform.OS === 'ios') AccessibilityInfo.announceForAccessibility(texto);
+  };
 
   useEffect(() => {
     api
@@ -46,8 +53,11 @@ export function MuroPago() {
         setOfertas(ordenadas);
         setElegida(ordenadas[0]?.id ?? null);
       })
-      .catch(() => setOfertas('error'));
-  }, [api]);
+      .catch(() => {
+        setOfertas('error');
+        if (Platform.OS === 'ios') AccessibilityInfo.announceForAccessibility('No se pueden cargar los planes ahora mismo.');
+      });
+  }, [api, intento]);
 
   const cerrar = () => (router.canGoBack() ? router.back() : router.replace('/inicio'));
 
@@ -55,10 +65,15 @@ export function MuroPago() {
     if (!elegida) return;
     setOcupado(true);
     setAviso(null);
-    const { resultado, plan } = await api.comprar(elegida);
-    setOcupado(false);
-    if (resultado === 'ok' && plan.premium) return cerrar();
-    setAviso(resultado === 'ok' ? MENSAJES.error : MENSAJES[resultado]);
+    try {
+      const { resultado, plan } = await api.comprar(elegida);
+      if (resultado === 'ok' && plan.premium) return cerrar();
+      setAviso(resultado === 'ok' ? MENSAJES.error : MENSAJES[resultado], resultado !== 'pendiente');
+    } catch {
+      setAviso(MENSAJES['sin-red']);
+    } finally {
+      setOcupado(false);
+    }
   };
 
   const restaurar = async () => {
@@ -67,7 +82,7 @@ export function MuroPago() {
     try {
       const plan = await api.restaurar();
       if (plan.premium) return cerrar();
-      setAviso('No hay compras que restaurar con esta cuenta de la tienda.');
+      setAviso('No hay compras que restaurar con esta cuenta de la tienda.', false);
     } catch {
       setAviso(MENSAJES['sin-red']);
     } finally {
@@ -107,9 +122,19 @@ export function MuroPago() {
       </View>
 
       {ofertas === 'error' || ofertas.length === 0 ? (
-        <Text color="graphiteStrong">
-          No se pueden cargar los planes ahora mismo. Comprueba tu conexión y vuelve a abrir esta pantalla.
-        </Text>
+        <>
+          <Text color="graphiteStrong" accessibilityLiveRegion="polite" accessibilityRole="alert">
+            No se pueden cargar los planes ahora mismo. Comprueba tu conexión.
+          </Text>
+          <Button
+            label="Reintentar"
+            variant="secondary"
+            onPress={() => {
+              setOfertas(null);
+              setIntento((n) => n + 1);
+            }}
+          />
+        </>
       ) : (
         <View accessibilityRole="radiogroup" accessibilityLabel="Plan" style={styles.opciones}>
           {ofertas.map((o) => {
@@ -150,8 +175,8 @@ export function MuroPago() {
       )}
 
       {aviso && (
-        <Text color="sealText" accessibilityLiveRegion="polite" accessibilityRole="alert">
-          {aviso}
+        <Text color={aviso.error ? 'sealText' : 'graphiteStrong'} accessibilityLiveRegion="polite" accessibilityRole="alert">
+          {aviso.texto}
         </Text>
       )}
       <Button
@@ -163,7 +188,7 @@ export function MuroPago() {
         <Text variant="caption" color="graphite">
           {esPase(actual)
             ? `Pago único de ${actual.precio}. No se renueva: al acabar vuelves al plan gratuito sin perder nada.`
-            : `${actual.prueba ? 'Después, ' : ''}${actual.precio} ${actual.periodo === 'anual' ? 'al año' : 'al mes'}. Se renueva solo hasta que lo canceles en la tienda, como mínimo 24 horas antes de la renovación. Lo que ya has hecho sigue siendo tuyo.`}
+            : `${actual.prueba ? `Si no cancelas antes de que acaben los 7 días, se cobran ${actual.precio} al año.` : `${actual.precio} ${actual.periodo === 'anual' ? 'al año' : 'al mes'}.`} Se renueva automáticamente salvo que lo canceles en la tienda al menos 24 horas antes de que termine el periodo. Lo que ya has hecho sigue siendo tuyo.`}
         </Text>
       )}
       <Button label="Restaurar compras" variant="text" onPress={restaurar} disabled={ocupado} />

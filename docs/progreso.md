@@ -11,11 +11,42 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 | 4 · Práctica y simulacro sin conexión | Cerrada (VoiceOver y Maestro en iPhone pendientes del propietario) | `fase-4-practica` · PR #5 y `fase-4-cierre` · PR #9 fusionados | 2026-11-14 | Sí, 2026-11-14 |
 | 5 · Cuentas y sincronización | Cerrada con T8 pendiente (SMTP aplazado por el propietario al final del proyecto) | `fase-5-cuentas` · PR #11 fusionado | 2026-11-15 | Sí, 2026-11-15 |
 | 6 · Progreso y adaptativo | Cerrada (comprobaciones en el móvil pendientes del propietario) | `fase-6-progreso` · PR #13 fusionado | 2026-11-15 | Sí, 2026-11-15 |
-| 7 · Pago | En curso (T1–T6 hechas; falta T7, bloqueada por las cuentas de tienda) | `fase-7-pago` | | |
+| 7 · Pago | Cerrada con T7 pendiente (pruebas en tiendas: faltan las cuentas de Apple, Google y RevenueCat) | `fase-7-pago` · PR pendiente de abrir | 2026-11-15 | Pendiente de su aprobación |
 | 8 · Contenido ampliado y panel interno | Pendiente | | | |
 | 9 · Beta y lanzamiento | Pendiente | | | |
 
 ## Registro
+
+**2026-11-15 · Fase 7 · Cierre**
+
+- **Entregado:**
+  - reglas del plan gratuito en el motor: 1 Sesión de hoy al día, 1 simulacro por semana (lunes a domingo) y práctica solo en Series numéricas, Comparación de datos y Ordenación alfabética (tabla «Monetización»);
+  - capa de compras con RevenueCat (`react-native-purchases`): Premium = permiso `premium`, las compras siguen a la cuenta, y modo local de prueba **solo en desarrollo** (PAY-01, PAY-02, PAY-03);
+  - muro de pago tras el primer simulacro, una vez, siempre cerrable, con anual destacado y 7 días de prueba, mensual y pases de 3 y 6 meses; errores explicados y «Reintentar» (PAY-01, PAY-02);
+  - candados en Inicio, Práctica, Simulacro e Historial que abren el muro; nivel por aptitud, historial completo y repaso espaciado solo en Premium;
+  - «Tu plan» en Cuenta: estado, renovación o fin del pase, gestionar la suscripción en la tienda y restaurar compras (PAY-03);
+  - prototipos aprobados por el propietario el 2026-11-15 («Aprobados, sigue») antes de T4.
+- **Revisores:**
+  - `revisor-contenido`: sin bloqueantes; aplicada la prueba del lunes siguiente y un mensaje de error más claro;
+  - `revisor-interfaz`: 1 bloqueante (el aviso del simulacro agrupaba su botón para el lector de pantalla) e importantes de texto legal, avisos en iPhone, muro bloqueado sin red, «Reintentar» y entradilla de Historial. Corregidos; segunda pasada: sin bloqueantes (queda como menor que la fila «Restaurar compras» de Cuenta no se ve ocupada mientras trabaja);
+  - `verificador-fase`: sin bloqueantes con T7 aplazada; corregidos el modo local en producción (regalaba Premium), los flujos de Maestro (ahora cierran el muro) y la prueba de la Sesión de hoy sin repaso;
+  - `ponytail-review`: corregido que cada arranque cerraba la sesión de RevenueCat (sin red, un Premium veía candados); Práctica y Simulacro preguntan el plan al entrar; quitado un campo sin uso del motor.
+- **Comprobaciones:** `pnpm typecheck`, `pnpm lint` y `pnpm test` en verde (motor 274, app 114, componentes 24, tokens 1); `pnpm test:stress` en verde. Capturas Android en `docs/capturas/fase-7-*.png`.
+- **Pendiente, sin bloquear el cierre:**
+  - **T7**, criterio de aceptación: compra, renovación, cancelación y restauración en las tiendas. Pasos en `docs/planes/fase-7-prueba-tiendas.md`;
+  - enlaces a Términos y Privacidad en el muro (norma 3.1.2 de Apple): imprescindibles antes de publicar;
+  - «7 días gratis» está escrito en la pantalla: si se cambia la duración en la tienda, hay que cambiar el texto (anotado en el código);
+  - en Android hay que comprobar que RevenueCat marca la prueba gratuita;
+  - el plan empieza como gratuito hasta que contesta RevenueCat; sin red se usa su caché, pero no hay un estado «cargando»;
+  - los límites usan la fecha del móvil: cambiándola se puede conseguir otro simulacro gratis;
+  - abandonar un simulacro o una Sesión de hoy antes de terminar no los gasta;
+  - faltan: captura del Inicio con el simulacro de la semana hecho, flujo de Maestro propio del plan gratuito, pruebas de pantalla de Práctica, Simulacro y la apertura del muro desde Resultado, y `.env.example` con las claves (los permisos de esta sesión no dejan editarlo);
+  - para compilar Android en este Windows hace falta Java 17 (`JAVA_HOME` al JDK que descargó Gradle): Java 27 falla con «Unsupported class file major version 71».
+- **Para que pruebes tú en un dispositivo real:** el flujo completo de la T7 cuando tengas las cuentas; mientras, en desarrollo, que el muro aparece al terminar el primer simulacro y que los candados llevan a él.
+- **Decisiones tuyas pendientes:**
+  - la Sesión de hoy gratuita mezcla los 6 tipos (la tabla solo limita la práctica por tipo) — ¿la limitamos a los 3 gratuitos?;
+  - el muro dice «sin perder nada», pero en gratis el historial antiguo se oculta (la tabla dice «del último simulacro») — ¿cambiamos el texto o dejamos ver lo ya hecho?;
+  - el muro se abre en cuanto carga el resultado del primer simulacro — ¿mejor al salir del resultado?
 
 **2026-11-15 · Fase 6 · Aprobación**
 

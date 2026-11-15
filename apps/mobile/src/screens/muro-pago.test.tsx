@@ -43,7 +43,7 @@ test('muestra los cuatro planes con el anual elegido y su prueba gratuita', asyn
   expect(await screen.findByRole('radio', { name: 'Anual, 7 días gratis, 3,33 € al mes, 39,99 €', checked: true })).toBeOnTheScreen();
   expect(screen.getAllByRole('radio')).toHaveLength(4);
   expect(screen.getByRole('button', { name: 'Probar 7 días gratis' })).toBeOnTheScreen();
-  expect(screen.getByText(/Después, 39,99 € al año/)).toBeOnTheScreen();
+  expect(screen.getByText(/Si no cancelas antes de que acaben los 7 días, se cobran 39,99 € al año/)).toBeOnTheScreen();
 });
 
 test('al elegir un pase el texto dice que no se renueva, y al comprarlo se cierra', async () => {

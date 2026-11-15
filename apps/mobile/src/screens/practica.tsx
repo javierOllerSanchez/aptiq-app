@@ -30,7 +30,7 @@ const SESSION_QUESTIONS = 10;
 export function Practica() {
   const store = useStore();
   const { aptitud } = useLocalSearchParams<{ aptitud?: string }>();
-  const { plan } = usePlan();
+  const { plan, api } = usePlan();
   const [items, setItems] = useState<Item[] | null>(null);
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<(number | null)[]>([]);
@@ -41,10 +41,12 @@ export function Practica() {
     (async () => {
       // Sin aptitud: la Sesión de hoy (ENT-02). Con aptitud: práctica de esa aptitud al nivel adaptativo (ENT-03).
       const progreso = await loadProgress(store);
-      const a = permiso(progreso, plan.premium);
+      // Se pregunta ahora: el plan del contexto puede no haber llegado aún al abrir la app.
+      const premium = await api.plan().then((p) => p.premium, () => plan.premium);
+      const a = permiso(progreso, premium);
       // Lo que no incluye el plan gratuito lleva al muro de pago (tabla «Monetización»).
       if (aptitud ? tiposDe(aptitud, a.tipos).length === 0 : !a.sesionHoy) return router.replace('/muro-pago');
-      if (!aptitud) return setItems(await startToday(store, Date.now(), plan.premium));
+      if (!aptitud) return setItems(await startToday(store, Date.now(), premium));
       const { levels } = progreso;
       setItems(
         await startRun(store, {

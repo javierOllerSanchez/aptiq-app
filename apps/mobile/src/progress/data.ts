@@ -86,7 +86,7 @@ export async function loadProgress(store: Store, now: number = Date.now()): Prom
 
 /** Qué permite el plan hoy (tabla «Monetización»). */
 export function permiso(p: Progress, premium: boolean): Allowance {
-  return allowance({ premium, hoy: p.hoy, diasSesionHoy: p.hoyHecha ? [p.hoy] : [], diasSimulacro: p.diasSimulacro });
+  return allowance({ premium, hoy: p.hoy, sesionHoyHecha: p.hoyHecha, diasSimulacro: p.diasSimulacro });
 }
 
 /** Aptitud claramente más floja: la única con el nivel más bajo. Con empate en el mínimo, ninguna. */
@@ -102,7 +102,7 @@ export function aptitudFloja(porAptitud: Record<string, number>): string | null 
  * Preguntas de la Sesión de hoy (ENT-02), reservando sus semillas (CON-02).
  * La repetición espaciada (REP-01) es de Premium: en el plan gratuito no hay tipos de repaso.
  */
-export async function startToday(store: Store, now: number = Date.now(), premium = true): Promise<Item[]> {
+export async function startToday(store: Store, now: number, premium: boolean): Promise<Item[]> {
   const p = await loadProgress(store, now);
   const due = premium ? p.due : [];
   const specs = buildToday({ dia: p.hoy, due, fallos: p.fallos, levels: p.levels, usedSeeds: await store.usedSeeds() });

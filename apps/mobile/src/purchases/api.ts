@@ -25,7 +25,10 @@ export interface Oferta {
   precio: string;
   /** Precio equivalente al mes, si la tienda lo da (para el anual y los pases). */
   porMes: string | null;
-  /** Tiene prueba gratuita (solo el anual, configurado en la tienda). */
+  /**
+   * Tiene prueba gratuita (solo el anual, configurado en la tienda).
+   * shortcut: la pantalla dice «7 días» fijo; si la tienda cambia la duración, leer introPrice.periodNumberOfUnits.
+   */
   prueba: boolean;
 }
 

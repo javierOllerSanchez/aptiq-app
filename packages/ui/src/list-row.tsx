@@ -19,6 +19,7 @@ export function ListRow({
   weak = false,
   weakLabel = 'a reforzar',
   locked = false,
+  lockedLabel = 'incluido en Premium',
   onPress,
 }: {
   label: string;
@@ -32,10 +33,12 @@ export function ListRow({
   weakLabel?: string;
   /** No incluido en el plan gratuito: candado y «Premium» en lugar del valor (fase 7). */
   locked?: boolean;
+  /** Qué lee el lector de pantalla en una fila bloqueada. */
+  lockedLabel?: string;
   onPress: () => void;
 }) {
   const a11y = locked
-    ? [label, detail, 'incluido en Premium'].filter(Boolean).join(', ')
+    ? [label, detail, lockedLabel].filter(Boolean).join(', ')
     : [label, detail, valueLabel ?? value, weak ? weakLabel : null].filter(Boolean).join(', ');
   return (
     <Pressable

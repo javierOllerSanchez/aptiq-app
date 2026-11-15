@@ -2,7 +2,7 @@ import { tokens } from '@aptiq/tokens';
 import { ListRow, Text, withAlpha } from '@aptiq/ui';
 import { router } from 'expo-router';
 import { useState } from 'react';
-import { Linking, Platform, StyleSheet, View } from 'react-native';
+import { AccessibilityInfo, Linking, Platform, StyleSheet, View } from 'react-native';
 
 import { fechaCorta } from '@/history/rows';
 import type { Plan } from '@/purchases/api';
@@ -25,15 +25,24 @@ export function detallePlan(plan: Plan): string {
 /** «Tu plan» en Cuenta (PAY-03): estado, gestionar la suscripción en la tienda y restaurar compras. */
 export function TuPlan() {
   const { plan, api } = usePlan();
-  const [aviso, setAviso] = useState<string | null>(null);
+  const [aviso, setAvisoState] = useState<string | null>(null);
+  const [ocupado, setOcupado] = useState(false);
+  const setAviso = (texto: string | null) => {
+    setAvisoState(texto);
+    if (texto && Platform.OS === 'ios') AccessibilityInfo.announceForAccessibility(texto);
+  };
 
   const restaurar = async () => {
+    if (ocupado) return;
+    setOcupado(true);
     setAviso(null);
     try {
       const p = await api.restaurar();
       setAviso(p.premium ? 'Compras restauradas: ya tienes Premium.' : 'No hay compras que restaurar con esta cuenta de la tienda.');
     } catch {
       setAviso('No hay conexión. Comprueba tu red y vuelve a intentarlo.');
+    } finally {
+      setOcupado(false);
     }
   };
 
@@ -54,7 +63,7 @@ export function TuPlan() {
             <ListRow
               label="Gestionar suscripción"
               detail="Cambiar o cancelar en la tienda"
-              onPress={() => Linking.openURL(plan.gestionUrl ?? GESTION)}
+              onPress={() => Linking.openURL(plan.gestionUrl ?? GESTION).catch(() => setAviso('No se ha podido abrir la tienda. Inténtalo desde los ajustes de tu cuenta de la tienda.'))}
             />
           )}
         </>
@@ -68,7 +77,7 @@ export function TuPlan() {
       )}
       <ListRow label="Restaurar compras" onPress={restaurar} />
       {aviso && (
-        <Text color="graphiteStrong" accessibilityLiveRegion="polite" style={styles.aviso}>
+        <Text color="graphiteStrong" accessibilityLiveRegion="polite" accessibilityRole="alert" style={styles.aviso}>
           {aviso}
         </Text>
       )}

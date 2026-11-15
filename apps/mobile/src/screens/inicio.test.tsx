@@ -58,7 +58,7 @@ test('plan gratuito: candados, Sesión de hoy hecha y simulacro de la semana gas
   );
   expect(await screen.findByText(/El próximo simulacro gratuito está disponible el lunes/)).toBeOnTheScreen();
   expect(screen.queryByRole('button', { name: 'Empezar simulacro' })).toBeNull();
-  expect(screen.getByRole('button', { name: 'Sesión de hoy, Hecha · vuelve mañana, incluido en Premium' })).toBeOnTheScreen();
+  expect(screen.getByRole('button', { name: 'Sesión de hoy, Hecha · vuelve mañana, ilimitada con Premium' })).toBeOnTheScreen();
   await fireEvent.press(screen.getByRole('button', { name: 'Abstracta, incluido en Premium' }));
   expect(router.push).toHaveBeenCalledWith('/muro-pago');
   expect(screen.getByRole('button', { name: /^Numérica, / })).toBeOnTheScreen();
