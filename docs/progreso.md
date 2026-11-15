@@ -9,13 +9,19 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 | 2 · Motor de contenido v1 | Cerrada (rediseño de distractores pendiente para el inicio de la fase 3) | `fase-2-motor` · PR #3 fusionado | 2026-11-12 | Sí, 2026-11-12 |
 | 3 · Perfil de examen y puntuación | Cerrada | `fase-3-perfil` · PR #4 fusionado | 2026-11-12 | Sí, 2026-11-13 |
 | 4 · Práctica y simulacro sin conexión | Cerrada (VoiceOver y Maestro en iPhone pendientes del propietario) | `fase-4-practica` · PR #5 y `fase-4-cierre` · PR #9 fusionados | 2026-11-14 | Sí, 2026-11-14 |
-| 5 · Cuentas y sincronización | Pendiente | | | |
+| 5 · Cuentas y sincronización | En curso (T1–T7 hechas; T8 pendiente del correo SMTP) | `fase-5-cuentas` | | |
 | 6 · Progreso y adaptativo | Pendiente | | | |
 | 7 · Pago | Pendiente | | | |
 | 8 · Contenido ampliado y panel interno | Pendiente | | | |
 | 9 · Beta y lanzamiento | Pendiente | | | |
 
 ## Registro
+
+**2026-11-15 · Fase 5 · T1–T7 hechas, T8 pendiente**
+
+- Hecho: proyecto Supabase `aptiq` en la UE, esquema con RLS probado en el servidor, cola de sincronización, inicio con código por correo, pantallas de Cuenta, código e Historial (prototipo aprobado), borrar cuenta y exportar, búsqueda de secretos en la CI.
+- **Pendiente (decisión del propietario, 2026-11-15):** correo propio por SMTP (Brevo). Sin él, Supabase envía un enlace en vez del código y solo a miembros del equipo; la plantilla no se puede editar. Lo configura el propietario; después Claude pone la plantilla con `{{ .Token }}`.
+- Bloqueado por lo anterior: T8 (flujos `cuenta-enviar` / `cuenta-entrar` de Maestro y la prueba con dos móviles de `docs/planes/fase-5-prueba-dos-moviles.md`) y el criterio «el progreso aparece en un segundo dispositivo».
 
 **2026-11-14 · Fase 4 · Aprobación**
 

@@ -82,6 +82,7 @@
 - [x] Aplazar a la fase 5 la pantalla de historial (PRO-02) y a la fase 6 el nivel por aptitud con su evolución (PRO-01). Confirmado por el propietario el 2026-11-13
 - [x] T8 / NFR-02: medir arranque en frío y pregunta nueva en Android de gama media, en release, aplazado a la beta (decidido por el propietario el 2026-11-13)
 - [x] Diseño de Inicio y Resultado (decidido el 2026-11-13): filas de lista con acierto en Inicio, nota «/ 30» con sello y barras por aptitud en Resultado; la barra de pestañas llega en la fase 5
+- [ ] Correo propio por SMTP para Supabase (Brevo, plan gratuito): crear la cuenta, verificar el remitente y guardar los datos en Supabase → desbloquea el código por correo y T8 de la fase 5
 - [ ] Cuentas: Expo/EAS, Apple Developer, Google Play Console, Supabase (región UE), RevenueCat, PostHog, Sentry
 - [ ] Psicólogo o preparador que revise el contenido
 - [ ] Precios definitivos y prueba con 5–8 opositores
