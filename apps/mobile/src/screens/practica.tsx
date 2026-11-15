@@ -1,4 +1,4 @@
-import type { Item, Level, TypeCode } from '@aptiq/engine';
+import type { Item } from '@aptiq/engine';
 import { tokens } from '@aptiq/tokens';
 import {
   Button,
@@ -15,6 +15,7 @@ import { StyleSheet, View } from 'react-native';
 
 import { useStore } from '@/data/provider';
 import { APTITUDE_LABELS, LETTERS, startRun, toSaved } from '@/practice/run';
+import { AJUSTE_HOY, diaLocal, loadProgress, startToday } from '@/progress/data';
 import { Explicacion } from '@/screens/explicacion';
 import { Loading } from '@/screens/loading';
 import { Pregunta } from '@/screens/pregunta';
@@ -33,16 +34,16 @@ export function Practica() {
 
   useEffect(() => {
     (async () => {
-      // Nivel de cada tipo según el test de nivel; sin dato, nivel 2.
-      const raw = await store.getSetting('niveles');
-      const niveles = (raw ? JSON.parse(raw) : {}) as Partial<Record<TypeCode, Level | null>>;
+      // Sin aptitud: la Sesión de hoy (ENT-02). Con aptitud: práctica de esa aptitud al nivel adaptativo (ENT-03).
+      if (!aptitud) return setItems(await startToday(store));
+      const { levels } = await loadProgress(store);
       setItems(
         await startRun(store, {
           count: SESSION_QUESTIONS,
-          reparto: aptitud ? 'equitativo' : 'prioritario',
-          ...(aptitud ? { aptitude: aptitud } : {}),
+          reparto: 'equitativo',
+          aptitude: aptitud,
           sessionSeed: `p-${Date.now()}`,
-          levelFor: (t) => niveles[t] ?? 2,
+          levelFor: (t) => levels[t],
         }),
       );
     })();
@@ -73,11 +74,13 @@ export function Practica() {
       setRevealed(false);
       return;
     }
+    const ahora = Date.now();
     await store.saveSession({
-      id: `p-${Date.now()}`,
-      creada: Date.now(),
+      id: `p-${ahora}`,
+      creada: ahora,
       questions: toSaved(items!, nuevas),
     });
+    if (!aptitud) await store.setSetting(AJUSTE_HOY, diaLocal(ahora));
     router.replace('/inicio');
   }
 
