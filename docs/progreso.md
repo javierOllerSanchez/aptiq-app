@@ -20,7 +20,7 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 **2026-11-15 · Fase 5 · T1–T7 hechas, T8 pendiente**
 
 - Hecho: proyecto Supabase `aptiq` en la UE, esquema con RLS probado en el servidor, cola de sincronización, inicio con código por correo, pantallas de Cuenta, código e Historial (prototipo aprobado), borrar cuenta y exportar, búsqueda de secretos en la CI.
-- **Pendiente (decisión del propietario, 2026-11-15):** correo propio por SMTP (Brevo). Sin él, Supabase envía un enlace en vez del código y solo a miembros del equipo; la plantilla no se puede editar. Lo configura el propietario; después Claude pone la plantilla con `{{ .Token }}`.
+- **Pendiente, aplazado al final del proyecto (decisión del propietario, 2026-11-15):** correo propio por SMTP (buzón de Arsys). Sin él, Supabase envía un enlace en vez del código y solo a miembros del equipo; la plantilla no se puede editar. Lo configura el propietario; después Claude pone la plantilla con `{{ .Token }}`.
 - Bloqueado por lo anterior: T8 (flujos `cuenta-enviar` / `cuenta-entrar` de Maestro y la prueba con dos móviles de `docs/planes/fase-5-prueba-dos-moviles.md`) y el criterio «el progreso aparece en un segundo dispositivo».
 
 **2026-11-14 · Fase 4 · Aprobación**
