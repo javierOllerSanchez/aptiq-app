@@ -10,8 +10,9 @@ import { Historial } from './historial';
 
 const mockPush = jest.fn();
 const mockNavigate = jest.fn();
+const mockReplace = jest.fn();
 jest.mock('expo-router', () => ({
-  router: { push: (...a: unknown[]) => mockPush(...a), navigate: (...a: unknown[]) => mockNavigate(...a) },
+  router: { push: (...a: unknown[]) => mockPush(...a), navigate: (...a: unknown[]) => mockNavigate(...a), replace: (...a: unknown[]) => mockReplace(...a) },
   useFocusEffect: (cb: () => void | (() => void)) => jest.requireActual('react').useEffect(cb, [cb]),
 }));
 
@@ -83,6 +84,23 @@ test('con sesión: correo, estado de sincronización y cerrar sesión', async ()
   expect(syncNow).toHaveBeenCalled();
   await fireEvent.press(screen.getByRole('button', { name: /Cerrar sesión/ }));
   await waitFor(() => expect(signOut).toHaveBeenCalledTimes(1));
+});
+
+test('borrar cuenta: pide confirmación y, al confirmar, borra y vuelve al principio', async () => {
+  const deleteAccount = jest.fn(async () => ({ ok: true }));
+  mockAuth = {
+    auth: { deleteAccount },
+    session: { user: { email: 'ana@correo.es' } },
+    status: { lastSync: 1, pending: 0 },
+    syncNow: () => {},
+  };
+  await wrap(<Cuenta />);
+  await fireEvent.press(screen.getByRole('button', { name: /^Borrar cuenta, Elimina/ }));
+  expect(deleteAccount).not.toHaveBeenCalled();
+  expect(screen.getByText('¿Borrar tu cuenta?')).toBeOnTheScreen();
+  await fireEvent.press(screen.getByRole('button', { name: 'Borrar cuenta' }));
+  await waitFor(() => expect(deleteAccount).toHaveBeenCalledTimes(1));
+  expect(mockReplace).toHaveBeenCalledWith('/onboarding');
 });
 
 test('Historial vacío lo explica; con datos, abre la revisión de la sesión', async () => {

@@ -70,6 +70,7 @@
 | 2026-11-14 | Dependencias nuevas: `@supabase/supabase-js` (cliente de Supabase), `expo-secure-store` (sesión cifrada, en trozos de 1.800 caracteres por el límite de 2 KB) y `expo-network` (avisar al recuperar la red). Sin AsyncStorage ni aes-js | Fase 5 · T4 (ONB-03, NFR-06); previstas en el plan salvo `expo-network`, que es del SDK de Expo |
 | 2026-11-14 | Cerrar sesión sube antes lo pendiente y cierra solo en este móvil (`scope: local`) | Cerrar en un móvil no debe echar al usuario de los demás |
 | 2026-11-14 | Si el móvil ya estaba vinculado a otra cuenta, al entrar con una nueva no se sube nada de la anterior (se vacía la cola) | Evita mezclar datos de dos personas; confirmado por el propietario |
+| 2026-11-15 | Borrado de cuenta con la función `borrar-cuenta` de Supabase (clave de servicio solo en el servidor; identifica al usuario por su propio token). El móvil se vacía solo si el servidor confirma. Exportación como texto JSON con el menú Compartir del sistema (sin dependencias nuevas). Token nuevo `opacity.scrim` 0,32 para el velo de la confirmación | Fase 5 · T6 (SOP-02, NFR-05, NFR-06); prototipo aprobado |
 
 ## Pendientes (las decide el propietario)
 

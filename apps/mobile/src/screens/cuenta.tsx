@@ -1,8 +1,8 @@
 import { tokens } from '@aptiq/tokens';
-import { Button, GlassCard, Icon, ListRow, PaperBackground, Text, textStyle } from '@aptiq/ui';
+import { Button, GlassCard, Icon, ListRow, PaperBackground, Text, textStyle, withAlpha } from '@aptiq/ui';
 import { router, useFocusEffect } from 'expo-router';
 import { useCallback, useState } from 'react';
-import { StyleSheet, TextInput, View } from 'react-native';
+import { Modal, Pressable, Share, StyleSheet, TextInput, View } from 'react-native';
 
 import { AUTH_MESSAGES, estadoSync, haceCuanto } from '@/auth/messages';
 import { useAuth } from '@/auth/provider';
@@ -125,6 +125,9 @@ function Invitacion() {
 function ConSesion({ email }: { email: string }) {
   const { auth, status, syncNow } = useAuth();
   const [saliendo, setSaliendo] = useState(false);
+  const [confirmar, setConfirmar] = useState(false);
+  const [borrando, setBorrando] = useState(false);
+  const [aviso, setAviso] = useState<string | null>(null);
   const [ahora, setAhora] = useState(() => Date.now());
 
   // Al entrar en Cuenta se sincroniza y se refresca el «hace X min».
@@ -141,6 +144,24 @@ function ConSesion({ email }: { email: string }) {
     setSaliendo(true);
     await auth.signOut();
     setSaliendo(false);
+  };
+
+  const exportar = async () => {
+    if (!auth) return;
+    setAviso(null);
+    const r = await auth.exportData();
+    if (!r.ok) return setAviso(AUTH_MESSAGES[r.error]);
+    await Share.share({ title: 'Mis datos de Aptiq', message: r.json });
+  };
+
+  const borrar = async () => {
+    if (!auth || borrando) return;
+    setBorrando(true);
+    const r = await auth.deleteAccount();
+    setBorrando(false);
+    setConfirmar(false);
+    if (!r.ok) return setAviso(AUTH_MESSAGES[r.error]);
+    router.replace('/onboarding');
   };
 
   return (
@@ -175,9 +196,31 @@ function ConSesion({ email }: { email: string }) {
       <Text variant="label" color="graphite" accessibilityRole="header" style={styles.seccion}>
         Tus datos
       </Text>
+      {aviso && (
+        <Text color="sealText" accessibilityLiveRegion="polite" accessibilityRole="alert">
+          {aviso}
+        </Text>
+      )}
       <View>
+        <ListRow label="Exportar mis datos" detail="Archivo JSON con todo lo guardado" onPress={exportar} />
         <ListRow label="Cerrar sesión" detail="Lo pendiente se sube antes de salir" onPress={cerrar} />
+        <ListRow label="Borrar cuenta" detail="Elimina la cuenta y todos sus datos" onPress={() => setConfirmar(true)} />
       </View>
+      <Modal visible={confirmar} transparent animationType="slide" onRequestClose={() => setConfirmar(false)}>
+        <Pressable style={styles.velo} onPress={() => setConfirmar(false)} accessible={false} />
+        <View style={styles.hoja} accessibilityViewIsModal>
+          <Text variant="questionTitle" accessibilityRole="header">
+            ¿Borrar tu cuenta?
+          </Text>
+          <Text color="graphite">
+            Se eliminan de nuestros servidores tu cuenta, tus simulacros, tus sesiones y tus ajustes, y
+            también lo guardado en este móvil. No se puede deshacer.
+          </Text>
+          <Text color="graphite">Si quieres conservar una copia, exporta tus datos antes.</Text>
+          <Button label="Borrar cuenta" variant="secondary" onPress={borrar} disabled={borrando} />
+          <Button label="Cancelar" variant="secondary" onPress={() => setConfirmar(false)} />
+        </View>
+      </Modal>
     </>
   );
 }
@@ -198,6 +241,15 @@ const styles = StyleSheet.create({
   seccion: { marginTop: tokens.spacing.m },
   cabecera: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
   estado: { flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.s },
+  velo: { flex: 1, backgroundColor: withAlpha(tokens.color.ink, tokens.opacity.scrim) },
+  hoja: {
+    gap: tokens.spacing.m,
+    padding: tokens.spacing.xl,
+    paddingBottom: tokens.spacing.xxl * 2,
+    backgroundColor: tokens.color.paperCard,
+    borderTopLeftRadius: tokens.radius.cardLarge,
+    borderTopRightRadius: tokens.radius.cardLarge,
+  },
   punto: {
     width: tokens.spacing.s,
     height: tokens.spacing.s,
