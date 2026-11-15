@@ -129,3 +129,5 @@
 
 - Si la Sesión de hoy debe tener 12 preguntas o otro número. Lo dejo en 12, como la práctica actual, salvo que digas otra cosa.
 - Cómo se comportan las notificaciones locales con el ahorro de batería de cada fabricante Android. Se comprueba a mano en un dispositivo.
+
+**Estado del plan:** confirmado por el propietario el 2026-11-15, con las cuatro propuestas tal cual (8/10 y 4/10; 1, 3, 7 y 14 días; «Tu nivel» en Historial; recordatorio en Cuenta, desactivado, con `expo-notifications`) y 12 preguntas en la Sesión de hoy.

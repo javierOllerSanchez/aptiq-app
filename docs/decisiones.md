@@ -74,6 +74,7 @@
 | 2026-11-15 | Búsqueda de secretos propia (`scripts/buscar-secretos.mjs`, sin dependencias) en la CI: revisa los archivos versionados y el paquete Android exportado; detecta claves `sb_secret_`, JWT `service_role` y la variable de servicio con valor. Supabase sin avisos de seguridad ni tablas sin RLS; `.env` ignorado y nunca versionado | Fase 5 · T7 (NFR-06) |
 | 2026-11-15 | Excepción a la guía §4: el formulario de correo de Cuenta va sobre cristal (`GlassCard accessible={false}`), como en el prototipo aprobado | Decisión del propietario tras la revisión de interfaz de la fase 5 |
 | 2026-11-15 | Sin cuenta no hay exportación ni borrado desde la app: los datos solo están en el móvil y se borran al desinstalar | Decisión del propietario (SOP-02, NFR-05) |
+| 2026-11-15 | Fase 6: dificultad por bloques de 10 respuestas del nivel actual (≥ 8 sube, ≤ 4 baja, de 1 a 5); repaso espaciado de tipos fallados a 1, 3, 7 y 14 días; «Tu nivel» como sección de Historial; recordatorio diario local en Cuenta, desactivado por defecto (`expo-notifications`); Sesión de hoy de 12 preguntas | Decisión del propietario (ENT-02, ENT-03, PRO-01, REP-01, NOT-01) |
 
 ## Pendientes (las decide el propietario)
 
