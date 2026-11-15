@@ -101,9 +101,12 @@ export function createSqliteStore(name = 'aptiq.db', now: () => number = Date.no
       }
     },
     async clearAll() {
-      for (const tabla of [ajustes, semillasUsadas, sesiones, intentos, colaSync]) {
-        await db.delete(tabla);
-      }
+      // Todo o nada: tras borrar la cuenta en el servidor no hay reintento si se queda a medias.
+      raw.withTransactionSync(() => {
+        for (const t of ['ajustes', 'semilla_usada', 'sesion', 'intento_simulacro', 'cola_sync']) {
+          raw.execSync(`DELETE FROM ${t}`);
+        }
+      });
     },
   };
 }
