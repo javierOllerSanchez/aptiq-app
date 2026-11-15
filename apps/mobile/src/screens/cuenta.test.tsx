@@ -115,3 +115,10 @@ test('Historial lista la práctica y abre su revisión', async () => {
   await fireEvent.press(fila);
   expect(mockPush).toHaveBeenCalledWith({ pathname: '/repasar', params: { sesion: 's1' } });
 });
+
+test('Historial abre con «Tu nivel»: nivel global, gráfico legible y nivel por aptitud', async () => {
+  await wrap(<Historial />);
+  expect(await screen.findByLabelText('Nivel global 2,0 de 5')).toBeOnTheScreen();
+  expect(screen.getByLabelText(/^Nivel global en las últimas 4 semanas/)).toBeOnTheScreen();
+  expect(screen.getByRole('button', { name: /^Numérica, nivel 2,0 de 5/ })).toBeOnTheScreen();
+});
