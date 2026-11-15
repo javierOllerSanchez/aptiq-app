@@ -63,7 +63,7 @@ Respetar el texto dinámico del sistema. Ningún texto de lectura por debajo de 
 
 ## 4. Cristal (plantilla de corrección)
 
-**Solo en:** barra de navegación inferior, cronómetro, tarjetas de resumen (nivel estimado, aciertos/fallos/en blanco).
+**Solo en:** barra de navegación inferior, cronómetro, tarjetas de resumen (nivel estimado, aciertos/fallos/en blanco). Excepción aprobada (2026-11-15): el formulario de correo de Cuenta; una tarjeta de cristal con controles dentro no agrupa su contenido para el lector de pantalla (`accessible={false}`).
 **Nunca en:** la tarjeta de la pregunta ni en las opciones (deben leerse perfectamente).
 
 Receta: relleno blanco del 82 % (arriba izquierda) al 55 % (abajo derecha), desenfoque 14–16, saturación 140–150 %, borde 1 px blanco al 95 %, reflejo interior superior blanco de 1 px, sombra `ink` al 12 % con desplazamiento vertical 12 y difuminado 30.
