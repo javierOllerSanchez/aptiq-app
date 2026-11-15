@@ -17,7 +17,9 @@ import { useStore } from '@/data/provider';
 import { APTITUDE_LABELS, LETTERS, startRun, toSaved } from '@/practice/run';
 import { expoReminderApi } from '@/notifications/expo-api';
 import { syncReminders } from '@/notifications/reminder';
-import { AJUSTE_HOY, diaLocal, loadProgress, startToday } from '@/progress/data';
+import { AJUSTE_HOY, diaLocal, loadProgress, permiso, startToday } from '@/progress/data';
+import { usePlan } from '@/purchases/provider';
+import { tiposDe } from '@/purchases/muro';
 import { Explicacion } from '@/screens/explicacion';
 import { Loading } from '@/screens/loading';
 import { Pregunta } from '@/screens/pregunta';
@@ -28,6 +30,7 @@ const SESSION_QUESTIONS = 10;
 export function Practica() {
   const store = useStore();
   const { aptitud } = useLocalSearchParams<{ aptitud?: string }>();
+  const { plan, api } = usePlan();
   const [items, setItems] = useState<Item[] | null>(null);
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<(number | null)[]>([]);
@@ -37,18 +40,27 @@ export function Practica() {
   useEffect(() => {
     (async () => {
       // Sin aptitud: la Sesión de hoy (ENT-02). Con aptitud: práctica de esa aptitud al nivel adaptativo (ENT-03).
-      if (!aptitud) return setItems(await startToday(store));
-      const { levels } = await loadProgress(store);
+      const progreso = await loadProgress(store);
+      // Se pregunta ahora: el plan del contexto puede no haber llegado aún al abrir la app.
+      const premium = await api.plan().then((p) => p.premium, () => plan.premium);
+      const a = permiso(progreso, premium);
+      // Lo que no incluye el plan gratuito lleva al muro de pago (tabla «Monetización»).
+      if (aptitud ? tiposDe(aptitud, a.tipos).length === 0 : !a.sesionHoy) return router.replace('/muro-pago');
+      if (!aptitud) return setItems(await startToday(store, Date.now(), premium));
+      const { levels } = progreso;
       setItems(
         await startRun(store, {
           count: SESSION_QUESTIONS,
           reparto: 'equitativo',
           aptitude: aptitud,
+          types: a.tipos,
           sessionSeed: `p-${Date.now()}`,
           levelFor: (t) => levels[t],
         }),
       );
     })();
+    // El plan se lee al empezar: comprar a mitad de sesión no la reinicia.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [store, aptitud]);
 
   if (!items) return <Loading text="Preparando la sesión…" />;

@@ -26,6 +26,8 @@ import { router, Stack } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 import { Alert, BackHandler, Pressable, StyleSheet, View } from 'react-native';
 
+import { loadProgress, permiso } from '@/progress/data';
+import { usePlan } from '@/purchases/provider';
 import { useStore } from '@/data/provider';
 import type { Store } from '@/data/store';
 import { useExamClock } from '@/hooks/use-exam-clock';
@@ -56,6 +58,7 @@ interface Listo {
  */
 export function Simulacro() {
   const store = useStore();
+  const { plan, api } = usePlan();
   const [listo, setListo] = useState<Listo | null>(null);
 
   useEffect(() => {
@@ -75,6 +78,8 @@ export function Simulacro() {
         });
         return;
       }
+      const premium = await api.plan().then((p) => p.premium, () => plan.premium);
+      if (!permiso(await loadProgress(store), premium).simulacro) return router.replace('/muro-pago');
       const { preguntas, minutos } = guardiaCivil2026.format;
       if (preguntas === null || minutos === null)
         throw new Error('El perfil no tiene el formato completo');
@@ -92,6 +97,8 @@ export function Simulacro() {
         exam: createExam(items.length, empezado, minutos * 60_000),
       });
     })();
+    // El plan se lee al entrar: un simulacro empezado no se corta si cambia.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [store]);
 
   if (!listo) return <Loading text="Preparando el simulacro…" />;

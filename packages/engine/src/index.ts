@@ -48,6 +48,7 @@ export { adaptLevels } from './level/adapt';
 export { estimateLevels, type LevelAnswer } from './level/estimate';
 export { type DatedAnswer, levelHistory, mondayOf, type WeekLevel } from './progress/history';
 export { daysToExam, streak } from './progress/streak';
+export { type Allowance, allowance, type PlanInput, TIPOS_GRATIS } from './plan/limits';
 export { buildToday, HOY_PREGUNTAS, type TodayInput } from './session/today';
 export { addDays, type DayResult, daysBetween, dueTypes, INTERVALOS } from './review/spaced';
 

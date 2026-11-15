@@ -44,6 +44,8 @@ export interface StartOptions {
   reparto: 'equitativo' | 'prioritario';
   /** Aptitud del engine («numerica», «verbal», «atencion», «abstracta»). Sin ella, todos los tipos. */
   aptitude?: string;
+  /** Solo estos tipos (plan gratuito, fase 7). */
+  types?: readonly TypeCode[];
   sessionSeed: string;
   levelFor: (type: TypeCode) => Level;
 }
@@ -58,6 +60,7 @@ export async function startRun(store: Store, opts: StartOptions): Promise<Item[]
     count: opts.count,
     reparto: opts.reparto,
     ...(opts.aptitude !== undefined ? { aptitude: opts.aptitude } : {}),
+    ...(opts.types !== undefined ? { types: opts.types } : {}),
     usedSeeds: await store.usedSeeds(),
     fallos: await failuresByType(store),
     levelFor: opts.levelFor,

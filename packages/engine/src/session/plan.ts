@@ -8,6 +8,8 @@ export interface PracticeInput {
   count: number;
   /** Si se indica, solo entran los tipos de esa aptitud (ENT-01). */
   aptitude?: string;
+  /** Si se indica, solo entran estos tipos (plan gratuito, fase 7). */
+  types?: readonly TypeCode[];
   /** `equitativo`: mezcla de simulacro; `prioritario`: más preguntas donde se falla (ENT-02). */
   reparto: 'equitativo' | 'prioritario';
   /** Fallos recientes por tipo; con `prioritario`, pesan más. */
@@ -29,10 +31,12 @@ export interface PracticeItemSpec {
  */
 export function buildPractice(input: PracticeInput): PracticeItemSpec[] {
   const candidates = typeCodes.filter(
-    (code) => input.aptitude === undefined || taxonomy[code].aptitud === input.aptitude,
+    (code) =>
+      (input.aptitude === undefined || taxonomy[code].aptitud === input.aptitude) &&
+      (input.types === undefined || input.types.includes(code)),
   );
   if (candidates.length === 0)
-    throw new Error(`Ningún tipo de ejercicio tiene la aptitud ${input.aptitude}`);
+    throw new Error(`Ningún tipo permitido para la aptitud ${input.aptitude ?? '(todas)'}`);
 
   const rng: Rng = createRng(input.sessionSeed);
   const taken = new Set(input.usedSeeds ?? []);

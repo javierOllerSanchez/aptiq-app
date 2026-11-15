@@ -21,6 +21,10 @@ jest.mock('@/auth/provider', () => ({ useAuth: () => mockAuth }));
 
 let mockStore = createMemoryStore();
 jest.mock('@/data/provider', () => ({ useStore: () => mockStore }));
+let mockPremium = true;
+jest.mock('@/purchases/provider', () => ({
+  usePlan: () => ({ plan: { premium: mockPremium }, api: jest.requireActual('@/purchases/local').createLocalPurchases() }),
+}));
 
 const metrics = {
   frame: { x: 0, y: 0, width: 390, height: 844 },
@@ -34,6 +38,7 @@ beforeEach(() => {
   mockPush.mockClear();
   mockNavigate.mockClear();
   mockStore = createMemoryStore();
+  mockPremium = true;
 });
 
 test('sin Supabase configurado lo dice y no ofrece crear cuenta', async () => {
@@ -128,4 +133,16 @@ test('Historial abre con «Tu nivel»: nivel global, gráfico legible y nivel po
   expect(await screen.findByLabelText('Nivel global 2,0 de 5')).toBeOnTheScreen();
   expect(screen.getByLabelText(/^Nivel global en las últimas 4 semanas/)).toBeOnTheScreen();
   expect(screen.getByRole('button', { name: /^Numérica, nivel 2,0 de 5/ })).toBeOnTheScreen();
+});
+
+test('plan gratuito: Historial muestra el último simulacro, oculta el resto y el nivel por aptitud (fase 7)', async () => {
+  mockPremium = false;
+  await mockStore.setSetting('niveles', JSON.stringify({ 'NUM.SERIE': 2, 'VER.ORDEN': 2 }));
+  await mockStore.saveSession({ id: 's1', creada: Date.UTC(2026, 10, 14, 10), questions: [q] });
+  await wrap(<Historial />);
+  expect(await screen.findByLabelText('Nivel global 2,0 de 5')).toBeOnTheScreen();
+  expect(screen.queryByRole('button', { name: /^Numérica, nivel/ })).toBeNull();
+  expect(screen.queryByRole('button', { name: /Práctica · 1 pregunta/ })).toBeNull();
+  await fireEvent.press(screen.getByRole('button', { name: /^Historial completo, 1 entrada más.*incluido en Premium$/ }));
+  expect(mockPush).toHaveBeenCalledWith('/muro-pago');
 });

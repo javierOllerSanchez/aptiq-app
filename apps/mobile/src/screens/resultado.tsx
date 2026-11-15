@@ -16,6 +16,8 @@ import { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 
 import { useStore } from '@/data/provider';
+import { AJUSTE_MURO, debeAbrirMuro } from '@/purchases/muro';
+import { usePlan } from '@/purchases/provider';
 import { APTITUDE_LABELS, AVISO_MEZCLA, formatNota, OPTION_COUNT } from '@/practice/run';
 import { Loading } from '@/screens/loading';
 
@@ -32,6 +34,7 @@ export function Resultado() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const [resumen, setResumen] = useState<Resumen | null | 'no-encontrado'>(null);
   const [verTipos, setVerTipos] = useState(false);
+  const { plan } = usePlan();
 
   useEffect(() => {
     store.attempts().then((list) => {
@@ -47,7 +50,14 @@ export function Resultado() {
         fallos: desglose.total.fallos,
       });
       setResumen({ nota, desglose });
+      // Muro de pago al terminar el primer simulacro, una sola vez y nunca en el primer arranque.
+      store.getSetting(AJUSTE_MURO).then((visto) => {
+        if (!debeAbrirMuro({ premium: plan.premium, visto: visto !== null, terminados: list.filter((a) => a.finishedAt !== null).length })) return;
+        store.setSetting(AJUSTE_MURO, '1').then(() => router.push('/muro-pago'));
+      });
     });
+    // Solo al abrir el resultado: si el plan cambia después, no se vuelve a evaluar.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [store, id]);
 
   if (resumen === null) return <Loading />;

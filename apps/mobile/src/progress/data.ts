@@ -1,5 +1,7 @@
 import {
+  type Allowance,
   adaptLevels,
+  allowance,
   buildToday,
   type DatedAnswer,
   daysToExam,
@@ -38,6 +40,8 @@ export interface Progress {
   /** null si no hay fecha de examen o ya pasó. */
   diasExamen: number | null;
   hoyHecha: boolean;
+  /** Días en que se empezó un simulacro que se ha guardado (terminado o abierto). */
+  diasSimulacro: string[];
 }
 
 /** Respuestas de sesiones y simulacros terminados, de la más antigua a la más reciente, con su día local. */
@@ -76,7 +80,13 @@ export async function loadProgress(store: Store, now: number = Date.now()): Prom
     ),
     diasExamen: daysToExam(hoy, await store.getSetting('fecha')),
     hoyHecha: (await store.getSetting(AJUSTE_HOY)) === hoy,
+    diasSimulacro: (await store.attempts()).map((a) => diaLocal(a.empezado)),
   };
+}
+
+/** Qué permite el plan hoy (tabla «Monetización»). */
+export function permiso(p: Progress, premium: boolean): Allowance {
+  return allowance({ premium, hoy: p.hoy, sesionHoyHecha: p.hoyHecha, diasSimulacro: p.diasSimulacro });
 }
 
 /** Aptitud claramente más floja: la única con el nivel más bajo. Con empate en el mínimo, ninguna. */
@@ -88,9 +98,13 @@ export function aptitudFloja(porAptitud: Record<string, number>): string | null 
   return enMin.length === 1 ? enMin[0]![0] : null;
 }
 
-/** Preguntas de la Sesión de hoy (ENT-02), reservando sus semillas (CON-02). */
-export async function startToday(store: Store, now: number = Date.now()): Promise<Item[]> {
+/**
+ * Preguntas de la Sesión de hoy (ENT-02), reservando sus semillas (CON-02).
+ * La repetición espaciada (REP-01) es de Premium: en el plan gratuito no hay tipos de repaso.
+ */
+export async function startToday(store: Store, now: number, premium: boolean): Promise<Item[]> {
   const p = await loadProgress(store, now);
-  const specs = buildToday({ dia: p.hoy, due: p.due, fallos: p.fallos, levels: p.levels, usedSeeds: await store.usedSeeds() });
+  const due = premium ? p.due : [];
+  const specs = buildToday({ dia: p.hoy, due, fallos: p.fallos, levels: p.levels, usedSeeds: await store.usedSeeds() });
   return generarSinRepetir(store, specs);
 }

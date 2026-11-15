@@ -54,3 +54,10 @@ test('AptitudeBar marca la aptitud a reforzar', async () => {
   await render(<AptitudeBar label="Verbal" percent={58} weak />);
   expect(screen.getByLabelText('Verbal, a reforzar: 58 % de acierto')).toBeTruthy();
 });
+
+test('ListRow bloqueada muestra candado y «Premium» y lo anuncia (fase 7)', async () => {
+  await render(<ListRow label="Abstracta" value="40 %" locked onPress={() => {}} />);
+  expect(screen.getByRole('button', { name: 'Abstracta, incluido en Premium' })).toBeTruthy();
+  expect(screen.getByText('Premium')).toBeTruthy();
+  expect(screen.queryByText('40 %')).toBeNull();
+});

@@ -38,6 +38,10 @@ appId: com.javioller.aptiq
     element: "Entregar simulacro"
 - tapOn: "Entregar simulacro"
 - tapOn: "Entregar ahora"
+# Fase 7: al terminar el primer simulacro se abre el muro de pago; se cierra con la X.
+- assertVisible: "Entrena sin límites hasta el examen"
+- takeScreenshot: capturas/fase-7-muro-pago
+- tapOn: "Cerrar, seguir con el plan gratuito"
 - takeScreenshot: capturas/fase-4-resultado
 - scrollUntilVisible:
     element: "Ver explicaciones"

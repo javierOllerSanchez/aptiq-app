@@ -57,6 +57,9 @@ appId: com.javioller.aptiq
     element: "Entregar simulacro"
 - tapOn: "Entregar simulacro"
 - tapOn: "Entregar ahora"
+# Fase 7: al terminar el primer simulacro se abre el muro de pago; se cierra con la X.
+- assertVisible: "Entrena sin límites hasta el examen"
+- tapOn: "Cerrar, seguir con el plan gratuito"
 - assertVisible: "Resultado · simulacro.*"
 - assertVisible: '\(.* aciertos? − .* fallos? ÷ 3\) × 30/80 = .*'
 - scrollUntilVisible:
