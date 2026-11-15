@@ -22,7 +22,7 @@ export function createRevenueCat(clave: string): PurchasesApi {
       return paquetes.flatMap((p): Oferta[] => {
         const periodo = PERIODOS[p.packageType];
         return periodo
-          ? [{ id: p.identifier, periodo, precio: p.product.priceString, prueba: p.product.introPrice?.price === 0 }]
+          ? [{ id: p.identifier, periodo, precio: p.product.priceString, porMes: periodo === 'mensual' ? null : p.product.pricePerMonthString, prueba: p.product.introPrice?.price === 0 }]
           : [];
       });
     },

@@ -23,6 +23,8 @@ export interface Oferta {
   periodo: Periodo;
   /** Precio ya formateado por la tienda en la moneda del usuario. */
   precio: string;
+  /** Precio equivalente al mes, si la tienda lo da (para el anual y los pases). */
+  porMes: string | null;
   /** Tiene prueba gratuita (solo el anual, configurado en la tienda). */
   prueba: boolean;
 }

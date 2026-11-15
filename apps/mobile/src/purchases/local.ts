@@ -2,10 +2,10 @@ import { type Oferta, type Plan, PLAN_GRATIS, type PurchasesApi } from './api';
 
 /** Precios decididos por el propietario (fase 7). Solo para el modo local: en la tienda los pone RevenueCat. */
 export const OFERTAS_LOCALES: Oferta[] = [
-  { id: 'anual', periodo: 'anual', precio: '39,99 €', prueba: true },
-  { id: 'mensual', periodo: 'mensual', precio: '7,99 €', prueba: false },
-  { id: 'tres-meses', periodo: 'tres-meses', precio: '19,99 €', prueba: false },
-  { id: 'seis-meses', periodo: 'seis-meses', precio: '29,99 €', prueba: false },
+  { id: 'anual', periodo: 'anual', precio: '39,99 €', porMes: '3,33 €', prueba: true },
+  { id: 'mensual', periodo: 'mensual', precio: '7,99 €', porMes: null, prueba: false },
+  { id: 'tres-meses', periodo: 'tres-meses', precio: '19,99 €', porMes: '6,66 €', prueba: false },
+  { id: 'seis-meses', periodo: 'seis-meses', precio: '29,99 €', porMes: '5,00 €', prueba: false },
 ];
 
 /**
