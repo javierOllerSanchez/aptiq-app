@@ -1,8 +1,7 @@
+import fc from 'fast-check';
 import { expect, test } from 'vitest';
 
 import type { TypeCode } from '../taxonomy';
-import fc from 'fast-check';
-
 import { addDays, type DayResult, daysBetween, dueTypes, INTERVALOS } from './spaced';
 
 // Fase 6 · T2 (REP-01): 1, 3, 7 y 14 días; ≥ 70 % en el día de repaso avanza; por debajo vuelve a 1 día.
