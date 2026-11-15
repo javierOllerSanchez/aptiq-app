@@ -76,7 +76,8 @@ export function createAuth({ client, store, remote, link }: AuthDeps) {
       return { ok: true, firstLink: false };
     }
     if (linked !== null) {
-      await store.removeOps(await store.pendingOps());
+      // Otra persona en este móvil: se vacía (también la cola) y se traen solo sus datos (decisión 2026-11-15).
+      await store.clearAll();
       await link.set(userId);
       void base.pull();
       return { ok: true, firstLink: false };
@@ -97,7 +98,7 @@ export function createAuth({ client, store, remote, link }: AuthDeps) {
     /**
      * Comprueba el código. La primera vez que este móvil se vincula a una cuenta, sube lo guardado
      * sin cuenta (con aviso previo en pantalla, decisión 4). Si el móvil ya estaba vinculado a otra
-     * cuenta, no sube nada de la anterior.
+     * cuenta, no sube nada de la anterior y vacía el móvil.
      */
     async verifyCode(email: string, code: string): Promise<AuthResult<{ firstLink: boolean }>> {
       const token = code.trim();

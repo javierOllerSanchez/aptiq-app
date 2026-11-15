@@ -278,6 +278,8 @@ describe('inicio de sesión con código por correo', () => {
     expect(await auth.verifyCode('bea@ejemplo.es', '123456')).toEqual({ ok: true, firstLink: false });
     expect(remote.uploaded).toEqual([]);
     expect(await store.pendingOps()).toHaveLength(0);
+    // Decisión del propietario (2026-11-15): el móvil se vacía para no mezclar datos de dos personas.
+    expect(await store.sessions()).toHaveLength(0);
   });
 
   test('al entrar con otra cuenta, una sincronización lanzada durante la comprobación no sube lo de la anterior', async () => {
