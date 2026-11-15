@@ -70,7 +70,7 @@ export function LevelChart({ semanas }: { semanas: readonly WeekLevel[] }) {
             <Circle key={s.semana} cx={x(i)} cy={y(s.global)} r={tokens.radius.bar} fill={tokens.color.ink} />
           ))}
           {semanas.map((s, i) => (
-            <SvgText key={`d${s.semana}`} x={x(i)} y={ALTO - 6} textAnchor="middle" {...etiqueta}>
+            <SvgText key={`d${s.semana}`} x={x(i)} y={ALTO - 6} textAnchor={i === semanas.length - 1 ? 'end' : 'middle'} {...etiqueta}>
               {fechaCorta(new Date(`${s.semana}T12:00:00`).getTime())}
             </SvgText>
           ))}

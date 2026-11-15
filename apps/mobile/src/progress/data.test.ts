@@ -4,7 +4,7 @@ import { createMemoryStore } from '@/data/memory-store';
 import type { SavedQuestion } from '@/data/store';
 import { OPTION_COUNT } from '@/practice/run';
 
-import { AJUSTE_HOY, diaLocal, loadProgress, startToday } from './data';
+import { AJUSTE_HOY, aptitudFloja, diaLocal, loadProgress, startToday } from './data';
 
 // Fase 6 · T3–T5 en la app: el historial guardado alimenta al motor.
 
@@ -71,4 +71,10 @@ test('la Sesión de hoy no repite el mismo enunciado aunque el tipo flojo reciba
     const items = await startToday(store, at(2026, 11, d));
     expect(new Set(items.map((it) => it.stem.text)).size).toBe(items.length);
   }
+});
+
+test('«a reforzar» solo marca la aptitud que está sola en el mínimo', () => {
+  expect(aptitudFloja({ numerica: 2, verbal: 3, abstracta: 3 })).toBe('numerica');
+  expect(aptitudFloja({ numerica: 2, verbal: 2, abstracta: 3 })).toBeNull();
+  expect(aptitudFloja({ numerica: 2 })).toBeNull();
 });
