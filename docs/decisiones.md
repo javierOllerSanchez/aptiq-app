@@ -73,6 +73,7 @@
 | 2026-11-15 | Borrado de cuenta con la función `borrar-cuenta` de Supabase (clave de servicio solo en el servidor; identifica al usuario por su propio token). El móvil se vacía solo si el servidor confirma. Exportación como texto JSON con el menú Compartir del sistema (sin dependencias nuevas). Token nuevo `opacity.scrim` 0,32 para el velo de la confirmación | Fase 5 · T6 (SOP-02, NFR-05, NFR-06); prototipo aprobado |
 | 2026-11-15 | Búsqueda de secretos propia (`scripts/buscar-secretos.mjs`, sin dependencias) en la CI: revisa los archivos versionados y el paquete Android exportado; detecta claves `sb_secret_`, JWT `service_role` y la variable de servicio con valor. Supabase sin avisos de seguridad ni tablas sin RLS; `.env` ignorado y nunca versionado | Fase 5 · T7 (NFR-06) |
 | 2026-11-15 | Excepción a la guía §4: el formulario de correo de Cuenta va sobre cristal (`GlassCard accessible={false}`), como en el prototipo aprobado | Decisión del propietario tras la revisión de interfaz de la fase 5 |
+| 2026-11-15 | Sin cuenta no hay exportación ni borrado desde la app: los datos solo están en el móvil y se borran al desinstalar | Decisión del propietario (SOP-02, NFR-05) |
 
 ## Pendientes (las decide el propietario)
 
