@@ -12,7 +12,7 @@ const base = { dia: '2026-11-15', due: [] as TypeCode[], fallos: {}, levels: niv
 const cuenta = (out: { type: TypeCode }[]) =>
   Object.fromEntries(typeCodes.map((c) => [c, out.filter((x) => x.type === c).length])) as Record<TypeCode, number>;
 
-test('tiene 12 preguntas y es la misma durante todo el día', () => {
+test('tiene 12 preguntas y es determinista para el mismo día y las mismas semillas usadas', () => {
   expect(HOY_PREGUNTAS).toBe(12);
   expect(buildToday(base)).toHaveLength(12);
   expect(buildToday(base)).toEqual(buildToday(base));
@@ -38,7 +38,8 @@ test('cada pregunta va al nivel adaptativo de su tipo', () => {
 
 test('sin fallos ni repasos reparte entre todos los tipos', () => {
   const out = cuenta(buildToday(base));
-  for (const c of typeCodes) expect(out[c]).toBe(12 / typeCodes.length);
+  const n = typeCodes.map((c) => out[c]);
+  expect(Math.max(...n) - Math.min(...n)).toBeLessThanOrEqual(1);
 });
 
 test('no repite semillas usadas ni dentro de la sesión', () => {

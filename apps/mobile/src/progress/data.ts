@@ -7,7 +7,6 @@ import {
   type Item,
   type Level,
   levelHistory,
-  registry,
   streak,
   type TypeCode,
   typeCodes,
@@ -15,7 +14,7 @@ import {
 } from '@aptiq/engine';
 
 import type { SavedQuestion, Store } from '@/data/store';
-import { isCorrect, OPTION_COUNT } from '@/practice/run';
+import { generarSinRepetir, isCorrect } from '@/practice/run';
 
 /** Día LOCAL del móvil, «AAAA-MM-DD» (el motor no usa relojes: la app le pasa el día). */
 export function diaLocal(ms: number): string {
@@ -80,11 +79,18 @@ export async function loadProgress(store: Store, now: number = Date.now()): Prom
   };
 }
 
+/** Aptitud claramente más floja: la única con el nivel más bajo. Con empate en el mínimo, ninguna. */
+export function aptitudFloja(porAptitud: Record<string, number>): string | null {
+  const vals = Object.entries(porAptitud);
+  if (vals.length < 2) return null;
+  const min = Math.min(...vals.map(([, v]) => v));
+  const enMin = vals.filter(([, v]) => v === min);
+  return enMin.length === 1 ? enMin[0]![0] : null;
+}
+
 /** Preguntas de la Sesión de hoy (ENT-02), reservando sus semillas (CON-02). */
 export async function startToday(store: Store, now: number = Date.now()): Promise<Item[]> {
   const p = await loadProgress(store, now);
   const specs = buildToday({ dia: p.hoy, due: p.due, fallos: p.fallos, levels: p.levels, usedSeeds: await store.usedSeeds() });
-  const items = specs.map((s) => registry[s.type].generator.generate(s.seed, s.level, OPTION_COUNT));
-  await store.addUsedSeeds(items.map((it) => it.seed));
-  return items;
+  return generarSinRepetir(store, specs);
 }

@@ -7,7 +7,7 @@ import type { PracticeItemSpec } from './plan';
 export const HOY_PREGUNTAS = 12;
 
 export interface TodayInput {
-  /** Día local «AAAA-MM-DD»: la misma sesión durante todo el día. */
+  /** Día local «AAAA-MM-DD»: semilla de la sesión. Las semillas ya usadas se saltan (CON-02), así que repetirla el mismo día da preguntas nuevas. */
   dia: string;
   /** Tipos que tocan repaso hoy (`dueTypes`, REP-01). */
   due: readonly TypeCode[];

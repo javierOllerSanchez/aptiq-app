@@ -7,7 +7,7 @@ import { StyleSheet, View } from 'react-native';
 import { useStore } from '@/data/provider';
 import { fechaCorta, type HistoryRow, historyRows } from '@/history/rows';
 import { APTITUDE_LABELS } from '@/practice/run';
-import { loadProgress, type Progress } from '@/progress/data';
+import { aptitudFloja, loadProgress, type Progress } from '@/progress/data';
 import { LevelChart, nivelTexto } from '@/screens/level-chart';
 import { Loading } from '@/screens/loading';
 import { TabSpacer } from '@/screens/tab-spacer';
@@ -40,7 +40,7 @@ export function Historial() {
       <Text color="graphite">
         {vacio
           ? 'Aquí aparecerán tus simulacros y sesiones de práctica cuando termines el primero.'
-          : 'Toca un simulacro o una sesión para repasar tus fallos con su explicación.'}
+          : 'Tu nivel por aptitud y todo lo que has practicado. Toca un simulacro o una sesión para repasar tus fallos.'}
       </Text>
       <TuNivel progreso={progreso} />
       {rows.simulacros.length > 0 && (
@@ -77,12 +77,10 @@ function TuNivel({ progreso }: { progreso: Progress }) {
   if (!actual || !primera) return null;
   const delta = actual.global - primera.global;
   const aptitudes = Object.entries(APTITUDE_LABELS).filter(([id]) => actual.porAptitud[id] !== undefined);
-  const flojo = aptitudes.length
-    ? aptitudes.reduce((a, b) => (actual.porAptitud[b[0]]! < actual.porAptitud[a[0]]! ? b : a))[0]
-    : null;
+  const flojo = aptitudFloja(actual.porAptitud);
   return (
     <Seccion titulo="Tu nivel" columna="De 5">
-      <GlassCard>
+      <GlassCard accessible={false}>
         <View style={styles.cabecera}>
           <View
             accessible
@@ -110,7 +108,7 @@ function TuNivel({ progreso }: { progreso: Progress }) {
             label={label}
             value={nivelTexto(actual.porAptitud[id]!)}
             valueLabel={`nivel ${nivelTexto(actual.porAptitud[id]!)} de 5`}
-            weak={id === flojo && aptitudes.length > 1}
+            weak={id === flojo}
             onPress={() => router.push({ pathname: '/practica', params: { aptitud: id } })}
           />
         ))}

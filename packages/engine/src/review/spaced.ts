@@ -58,7 +58,7 @@ interface Estado {
  * Tipos que tocan repaso `hoy` (REP-01). Un día con fallos mete el tipo en repaso para el día
  * siguiente. En el día que toca, con al menos el 70 % de acierto pasa al siguiente intervalo
  * (1, 3, 7 y 14 días; tras el último sale del repaso) y con menos vuelve a 1 día. Practicar antes
- * de tiempo solo cuenta si hay fallos (vuelve a 1 día).
+ * de tiempo solo cuenta si baja del 70 % (vuelve a 1 día); con 70 % o más no adelanta el repaso.
  */
 export function dueTypes(history: readonly DayResult[], hoy: string): TypeCode[] {
   // Aciertos y total por tipo y día, en orden de fecha («AAAA-MM-DD» se ordena como texto).

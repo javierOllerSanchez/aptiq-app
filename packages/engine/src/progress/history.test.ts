@@ -42,3 +42,13 @@ test('la aptitud es la media de sus tipos y el global la media de todos', () => 
   const media = (typeCodes.length * 2 + 3) / typeCodes.length;
   expect(h.global).toBeCloseTo(media, 5);
 });
+
+test('sin test de un tipo, ese tipo no entra en la media: no se inventa un nivel', () => {
+  const sinTest = Object.fromEntries(typeCodes.map((c) => [c, null])) as Record<TypeCode, Level | null>;
+  expect(levelHistory(sinTest, [], '2026-11-15', 4)).toEqual([]);
+  const num = typeCodes.filter((c) => c.startsWith('NUM'));
+  const parcial = { ...sinTest, ...Object.fromEntries(num.map((c) => [c, 4])) } as Record<TypeCode, Level | null>;
+  const [s] = levelHistory(parcial, [], '2026-11-15', 1);
+  expect(s!.global).toBe(4);
+  expect(Object.keys(s!.porAptitud)).toEqual(['numerica']);
+});

@@ -1,10 +1,8 @@
 import {
   type Breakdown,
   guardiaCivil2026,
-  type Level,
+  HOY_PREGUNTAS,
   type Tally,
-  taxonomy,
-  type TypeCode,
 } from '@aptiq/engine';
 import { tokens } from '@aptiq/tokens';
 import {
@@ -23,6 +21,7 @@ import { StyleSheet, View } from 'react-native';
 import { useStore } from '@/data/provider';
 import { APTITUDE_LABELS, AVISO_MEZCLA, CITA, historyBreakdown } from '@/practice/run';
 import { loadProgress, type Progress } from '@/progress/data';
+import { nivelTexto } from '@/screens/level-chart';
 import { TabSpacer } from '@/screens/tab-spacer';
 
 const { preguntas, minutos, opciones } = guardiaCivil2026.format;
@@ -33,38 +32,23 @@ const acierto = (t?: Tally) =>
   t && t.total ? `${Math.round((t.correct / t.total) * 100)} %` : '—';
 /** Lo que dice el lector de pantalla: «81 % de acierto» o «sin datos». */
 const lectura = (t?: Tally) => (t && t.total ? `${acierto(t)} de acierto` : 'sin datos');
-const media = (xs: number[]) => Math.round(xs.reduce((a, b) => a + b, 0) / xs.length);
-
-interface Niveles {
-  global: number | null;
-  porAptitud: [string, number][];
-}
 
 /** Inicio: nivel estimado, simulacro, sesión de hoy y práctica por aptitud (ENT-01, ENT-02, SIM-01, ONB-02). */
 export function Inicio() {
   const store = useStore();
-  const [niveles, setNiveles] = useState<Niveles | 'sin-test'>('sin-test');
   const [abierto, setAbierto] = useState(false);
   const [historial, setHistorial] = useState<Breakdown | null>(null);
   const [progreso, setProgreso] = useState<Progress | null>(null);
+  const [hayTest, setHayTest] = useState(false);
+  // Mismo nivel que «Tu nivel» en Historial (ENT-03, PRO-01): semana actual, solo tipos con test.
+  const nivel = progreso?.semanas[progreso.semanas.length - 1] ?? null;
 
   // Al volver a Inicio se relee: el test o un simulacro pueden haber cambiado los datos.
   useFocusEffect(
     useCallback(() => {
       Promise.all([store.getSetting('niveles'), loadProgress(store)]).then(([raw, p]) => {
+        setHayTest(raw !== null);
         setProgreso(p);
-        if (!raw) return setNiveles('sin-test');
-        const test = JSON.parse(raw) as Record<TypeCode, Level | null>;
-        const grupos: Record<string, number[]> = {};
-        // Nivel adaptativo (ENT-03) de los tipos que tienen dato: sin test de un tipo no se inventa.
-        for (const code of Object.keys(test) as TypeCode[]) {
-          if (test[code] !== null) (grupos[taxonomy[code].aptitud] ??= []).push(p.levels[code]);
-        }
-        const todos = Object.values(grupos).flat();
-        setNiveles({
-          global: todos.length ? media(todos) : null,
-          porAptitud: Object.entries(grupos).map(([apt, xs]) => [apt, media(xs)]),
-        });
       });
       store.attempts().then((list) => setAbierto(list.some((a) => a.finishedAt === null)));
       historyBreakdown(store).then(setHistorial);
@@ -91,8 +75,8 @@ export function Inicio() {
             : `Faltan ${progreso.diasExamen} ${progreso.diasExamen === 1 ? 'día' : 'días'} para el examen.`}
         </Text>
       )}
-      {niveles !== 'sin-test' && (
-        <GlassCard accessible={niveles.global !== null}>
+      {hayTest && progreso !== null && (
+        <GlassCard accessible={nivel !== null}>
           <View style={styles.cabeceraTarjeta}>
             <Text variant="label" color="graphiteStrong">
               Nivel estimado · orientativo
@@ -103,7 +87,7 @@ export function Inicio() {
               </Text>
             )}
           </View>
-          {niveles.global === null ? (
+          {nivel === null ? (
             <>
               <Text>Sin datos suficientes para estimar tu nivel.</Text>
               <Button
@@ -117,17 +101,17 @@ export function Inicio() {
               <View
                 style={styles.nivel}
                 accessible
-                accessibilityLabel={`Nivel ${niveles.global} de 5`}
+                accessibilityLabel={`Nivel ${nivelTexto(nivel.global)} de 5`}
               >
-                <Text variant="bigNumber">{niveles.global}</Text>
+                <Text variant="bigNumber">{nivelTexto(nivel.global)}</Text>
                 <Text variant="label" color="graphite">
                   de 5
                 </Text>
               </View>
-              <LevelBubbles level={niveles.global} max={5} />
-              {niveles.porAptitud.map(([apt, n]) => (
-                <Text key={apt} color="graphite">
-                  {APTITUDE_LABELS[apt] ?? apt}: nivel {n}
+              <LevelBubbles level={Math.round(nivel.global)} max={5} />
+              {Object.entries(nivel.porAptitud).map(([apt, n]) => (
+                <Text key={apt} color="graphiteStrong">
+                  {APTITUDE_LABELS[apt] ?? apt}: nivel {nivelTexto(n)}
                 </Text>
               ))}
             </>
@@ -162,11 +146,9 @@ export function Inicio() {
               : progreso.hoyHecha
                 ? 'Hecha · puedes repetirla'
                 : progreso.due.length
-                  ? `12 preguntas · ${progreso.due.length} ${progreso.due.length === 1 ? 'tipo' : 'tipos'} de repaso`
-                  : '12 preguntas · prioriza lo más flojo'
+                  ? `${HOY_PREGUNTAS} preguntas · ${progreso.due.length} ${progreso.due.length === 1 ? 'tipo' : 'tipos'} de repaso`
+                  : `${HOY_PREGUNTAS} preguntas · prioriza lo más flojo`
           }
-          value={historial ? acierto(sumar(historial)) : undefined}
-          valueLabel={historial ? lectura(sumar(historial)) : undefined}
           onPress={() => router.push('/practica')}
         />
         {Object.entries(APTITUDE_LABELS).map(([id, label]) => {
@@ -193,12 +175,6 @@ export function Inicio() {
     </PaperBackground>
   );
 }
-
-/** Acierto global del historial, para la fila de práctica mixta. */
-const sumar = (h: Breakdown): Tally => {
-  const { aciertos, fallos, enBlanco } = h.total;
-  return { correct: aciertos, wrong: fallos, blank: enBlanco, total: aciertos + fallos + enBlanco };
-};
 
 const styles = StyleSheet.create({
   cabeceraTarjeta: {

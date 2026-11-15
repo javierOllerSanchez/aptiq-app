@@ -62,8 +62,18 @@ export async function startRun(store: Store, opts: StartOptions): Promise<Item[]
     fallos: await failuresByType(store),
     levelFor: opts.levelFor,
   });
-  // Una semilla distinta puede dar el mismo enunciado (p. ej. series de letras): dentro de la sesión
-  // se cambia por otra derivada, sin repetir semillas usadas (CON-02).
+  return generarSinRepetir(store, specs);
+}
+
+/**
+ * Genera las preguntas y reserva sus semillas (CON-02). Una semilla distinta puede dar el mismo
+ * enunciado (p. ej. series de letras): dentro de la sesión se cambia por otra derivada, sin repetir
+ * semillas usadas. Lo usan la práctica y la Sesión de hoy.
+ */
+export async function generarSinRepetir(
+  store: Store,
+  specs: readonly { type: TypeCode; level: Level; seed: string }[],
+): Promise<Item[]> {
   const used = await store.usedSeeds();
   const seen = new Set<string>();
   const items = specs.map((s) => {

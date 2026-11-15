@@ -64,9 +64,10 @@ test('un repaso por debajo del 70 % vuelve a 1 día', () => {
   expect(dueTypes(h, '2026-11-06')).toEqual(['NUM.CALC']);
 });
 
-test('practicar antes de tiempo con fallos lo devuelve a 1 día; sin fallos no cambia nada', () => {
+test('practicar antes de tiempo por debajo del 70 % lo devuelve a 1 día; con 70 % o más no cambia nada', () => {
   const base = [...r('2026-11-01', 'NUM.CALC', 0, 1), ...r('2026-11-02', 'NUM.CALC', 10, 0)]; // toca el 05
   expect(dueTypes([...base, ...r('2026-11-03', 'NUM.CALC', 5, 0)], '2026-11-04')).toEqual([]);
+  expect(dueTypes([...base, ...r('2026-11-03', 'NUM.CALC', 8, 2)], '2026-11-04')).toEqual([]);
   expect(dueTypes([...base, ...r('2026-11-03', 'NUM.CALC', 3, 2)], '2026-11-04')).toEqual(['NUM.CALC']);
 });
 

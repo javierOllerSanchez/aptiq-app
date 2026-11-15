@@ -25,7 +25,8 @@ const media = (xs: readonly number[]) => xs.reduce((a, b) => a + b, 0) / xs.leng
 
 /**
  * Evolución del nivel (PRO-01): para cada una de las últimas `semanas`, el nivel adaptativo con
- * las respuestas hasta el domingo de esa semana, por aptitud y global. `answers` en orden de respuesta.
+ * las respuestas hasta el domingo de esa semana, por aptitud y global, solo con los tipos que tienen
+ * test de nivel. `answers` en orden de respuesta.
  */
 export function levelHistory(
   start: Record<TypeCode, Level | null>,
@@ -33,6 +34,9 @@ export function levelHistory(
   hoy: string,
   semanas: number,
 ): WeekLevel[] {
+  // Solo los tipos con test de nivel: de los demás no hay dato y no se inventa (vacío si no hay ninguno).
+  const tipos = typeCodes.filter((c) => start[c] !== null);
+  if (tipos.length === 0) return [];
   const actual = mondayOf(hoy);
   const out: WeekLevel[] = [];
   for (let k = semanas - 1; k >= 0; k--) {
@@ -40,10 +44,10 @@ export function levelHistory(
     const domingo = addDays(semana, 6);
     const niveles = adaptLevels(start, answers.filter((a) => a.dia <= domingo));
     const grupos: Record<string, number[]> = {};
-    for (const c of typeCodes) (grupos[taxonomy[c].aptitud] ??= []).push(niveles[c]);
+    for (const c of tipos) (grupos[taxonomy[c].aptitud] ??= []).push(niveles[c]);
     out.push({
       semana,
-      global: media(typeCodes.map((c) => niveles[c])),
+      global: media(tipos.map((c) => niveles[c])),
       porAptitud: Object.fromEntries(Object.entries(grupos).map(([apt, xs]) => [apt, media(xs)])),
     });
   }

@@ -22,7 +22,8 @@ export function resumenGrafico(semanas: readonly WeekLevel[]): string {
   const primero = semanas[0]!.global;
   const ultimo = semanas[semanas.length - 1]!.global;
   const tendencia = ultimo > primero ? 'Sube.' : ultimo < primero ? 'Baja.' : 'Se mantiene.';
-  return `Nivel global en las últimas ${semanas.length} semanas: ${vals.join('; ')} de 5. ${tendencia}`;
+  const lista = vals.length > 1 ? `${vals.slice(0, -1).join('; ')} y ${vals[vals.length - 1]}` : vals[0];
+  return `Nivel global en las últimas ${semanas.length} semanas: ${lista} de 5. ${tendencia}`;
 }
 
 /** Evolución del nivel global, escala 1–5 (PRO-01). Prototipo: docs/prototipos/historial-nivel.html. */
