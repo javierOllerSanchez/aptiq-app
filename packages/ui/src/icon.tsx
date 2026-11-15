@@ -21,6 +21,7 @@ const icons = {
   chevron: { paths: ['M9 6l6 6-6 6'] },
   history: { paths: ['M12 7.5V12l3 2'], circles: [[12, 12, 8.5]] },
   back: { paths: ['M15 6l-6 6 6 6'] },
+  lock: { paths: ['M7 11h10a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-6a2 2 0 0 1 2-2z', 'M8 11V8a4 4 0 0 1 8 0v3'] },
   clock: { paths: ['M12 9v4l2.5 2M9.5 3h5'], circles: [[12, 13, 8]] },
 } satisfies Record<string, { paths: string[]; circles?: number[][] }>;
 

@@ -8,6 +8,7 @@ import { useStore } from '@/data/provider';
 import { fechaCorta, type HistoryRow, historyRows } from '@/history/rows';
 import { APTITUDE_LABELS } from '@/practice/run';
 import { aptitudFloja, loadProgress, type Progress } from '@/progress/data';
+import { usePlan } from '@/purchases/provider';
 import { LevelChart, nivelTexto } from '@/screens/level-chart';
 import { Loading } from '@/screens/loading';
 import { TabSpacer } from '@/screens/tab-spacer';
@@ -20,6 +21,7 @@ export function Historial() {
   const store = useStore();
   const [rows, setRows] = useState<ReturnType<typeof historyRows> | null>(null);
   const [progreso, setProgreso] = useState<Progress | null>(null);
+  const { plan } = usePlan();
 
   // Se relee al volver: puede haber llegado algo de otro dispositivo o un simulacro nuevo.
   useFocusEffect(
@@ -31,6 +33,10 @@ export function Historial() {
 
   if (!rows || !progreso) return <Loading />;
   const vacio = rows.simulacros.length === 0 && rows.practica.length === 0;
+  // Plan gratuito: solo el último simulacro; el historial completo es de Premium (tabla «Monetización»).
+  const simulacros = plan.premium ? rows.simulacros : rows.simulacros.slice(0, 1);
+  const practica = plan.premium ? rows.practica : [];
+  const oculto = rows.simulacros.length - simulacros.length + rows.practica.length;
 
   return (
     <PaperBackground scroll style={styles.content}>
@@ -42,10 +48,10 @@ export function Historial() {
           ? 'Aquí aparecerán tus simulacros y sesiones de práctica cuando termines el primero.'
           : 'Tu nivel por aptitud y todo lo que has practicado. Toca un simulacro o una sesión para repasar tus fallos.'}
       </Text>
-      <TuNivel progreso={progreso} />
-      {rows.simulacros.length > 0 && (
+      <TuNivel progreso={progreso} porAptitud={plan.premium} />
+      {simulacros.length > 0 && (
         <Seccion titulo="Simulacros" columna="Nota">
-          {rows.simulacros.map((r) => (
+          {simulacros.map((r) => (
             <Fila
               key={r.id}
               row={r}
@@ -54,9 +60,17 @@ export function Historial() {
           ))}
         </Seccion>
       )}
-      {rows.practica.length > 0 && (
+      {oculto > 0 && (
+        <ListRow
+          label="Historial completo"
+          detail={`${oculto} ${oculto === 1 ? 'entrada más' : 'entradas más'} con repaso de fallos`}
+          locked
+          onPress={() => router.push('/muro-pago')}
+        />
+      )}
+      {practica.length > 0 && (
         <Seccion titulo="Práctica" columna="Aciertos">
-          {rows.practica.map((r) => (
+          {practica.map((r) => (
             <Fila
               key={r.id}
               row={r}
@@ -70,7 +84,7 @@ export function Historial() {
   );
 }
 
-function TuNivel({ progreso }: { progreso: Progress }) {
+function TuNivel({ progreso, porAptitud }: { progreso: Progress; porAptitud: boolean }) {
   const { semanas } = progreso;
   const actual = semanas[semanas.length - 1];
   const primera = semanas[0];
@@ -102,7 +116,8 @@ function TuNivel({ progreso }: { progreso: Progress }) {
         <LevelChart semanas={semanas} />
       </GlassCard>
       <View>
-        {aptitudes.map(([id, label]) => (
+        {/* Nivel por aptitud: Premium. Gratis, solo el global (tabla «Monetización»). */}
+        {porAptitud && aptitudes.map(([id, label]) => (
           <ListRow
             key={id}
             label={label}

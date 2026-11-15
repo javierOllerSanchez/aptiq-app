@@ -3,7 +3,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import type { PurchasesApi } from '@/purchases/api';
 import { createLocalPurchases } from '@/purchases/local';
-import { debeAbrirMuro } from '@/purchases/muro';
+import { debeAbrirMuro, tiposDe } from '@/purchases/muro';
 
 import { MuroPago } from './muro-pago';
 
@@ -68,4 +68,10 @@ test('restaurar sin compras lo dice; la X cierra sin comprar', async () => {
   expect(await screen.findByText(/No hay compras que restaurar/)).toBeOnTheScreen();
   await fireEvent.press(screen.getByRole('button', { name: 'Cerrar, seguir con el plan gratuito' }));
   expect(mockRouter.back).toHaveBeenCalled();
+});
+
+test('tiposDe: abstracta no tiene tipos gratis; numérica solo series', () => {
+  const gratis = ['NUM.SERIE', 'DAT.COMPARA', 'VER.ORDEN'] as const;
+  expect(tiposDe('abstracta', gratis)).toEqual([]);
+  expect(tiposDe('numerica', gratis)).toEqual(['NUM.SERIE']);
 });

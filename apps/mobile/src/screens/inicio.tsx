@@ -20,7 +20,9 @@ import { StyleSheet, View } from 'react-native';
 
 import { useStore } from '@/data/provider';
 import { APTITUDE_LABELS, AVISO_MEZCLA, CITA, historyBreakdown } from '@/practice/run';
-import { loadProgress, type Progress } from '@/progress/data';
+import { loadProgress, permiso, type Progress } from '@/progress/data';
+import { tiposDe } from '@/purchases/muro';
+import { usePlan } from '@/purchases/provider';
 import { nivelTexto } from '@/screens/level-chart';
 import { TabSpacer } from '@/screens/tab-spacer';
 
@@ -33,6 +35,11 @@ const acierto = (t?: Tally) =>
 /** Lo que dice el lector de pantalla: «81 % de acierto» o «sin datos». */
 const lectura = (t?: Tally) => (t && t.total ? `${acierto(t)} de acierto` : 'sin datos');
 
+const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+/** «2026-11-23» → «23 de noviembre». */
+const diaYMes = (dia: string) => `${Number(dia.slice(8, 10))} de ${MESES[Number(dia.slice(5, 7)) - 1]}`;
+const alMuro = () => router.push('/muro-pago');
+
 /** Inicio: nivel estimado, simulacro, sesión de hoy y práctica por aptitud (ENT-01, ENT-02, SIM-01, ONB-02). */
 export function Inicio() {
   const store = useStore();
@@ -42,6 +49,9 @@ export function Inicio() {
   const [hayTest, setHayTest] = useState(false);
   // Mismo nivel que «Tu nivel» en Historial (ENT-03, PRO-01): semana actual, solo tipos con test.
   const nivel = progreso?.semanas[progreso.semanas.length - 1] ?? null;
+  const { plan } = usePlan();
+  // Lo que permite el plan hoy (tabla «Monetización»); con Premium, todo.
+  const a = progreso ? permiso(progreso, plan.premium) : null;
 
   // Al volver a Inicio se relee: el test o un simulacro pueden haber cambiado los datos.
   useFocusEffect(
@@ -109,7 +119,7 @@ export function Inicio() {
                 </Text>
               </View>
               <LevelBubbles level={Math.round(nivel.global)} max={5} />
-              {Object.entries(nivel.porAptitud).map(([apt, n]) => (
+              {plan.premium && Object.entries(nivel.porAptitud).map(([apt, n]) => (
                 <Text key={apt} color="graphiteStrong">
                   {APTITUDE_LABELS[apt] ?? apt}: nivel {nivelTexto(n)}
                 </Text>
@@ -118,11 +128,23 @@ export function Inicio() {
           )}
         </GlassCard>
       )}
-      <Button
-        label={abierto ? 'Continuar simulacro' : 'Empezar simulacro'}
-        onPress={() => router.push('/simulacro')}
-        variant="primary"
-      />
+      {a && !a.simulacro && !abierto ? (
+        <GlassCard>
+          <Text variant="label" color="graphiteStrong">
+            Simulacro de esta semana · hecho
+          </Text>
+          <Text color="graphiteStrong">
+            El próximo simulacro gratuito está disponible el lunes {diaYMes(a.proximoSimulacro!)}.
+          </Text>
+          <Button label="Simulacros ilimitados con Premium" onPress={alMuro} variant="secondary" />
+        </GlassCard>
+      ) : (
+        <Button
+          label={abierto ? 'Continuar simulacro' : 'Empezar simulacro'}
+          onPress={() => router.push('/simulacro')}
+          variant="primary"
+        />
+      )}
       {AVISO_MEZCLA && (
         <Text variant="caption" color="graphite">
           {AVISO_MEZCLA}
@@ -144,15 +166,19 @@ export function Inicio() {
             progreso === null
               ? undefined
               : progreso.hoyHecha
-                ? 'Hecha · puedes repetirla'
-                : progreso.due.length
+                ? plan.premium
+                  ? 'Hecha · puedes repetirla'
+                  : 'Hecha · vuelve mañana'
+                : plan.premium && progreso.due.length
                   ? `${HOY_PREGUNTAS} preguntas · ${progreso.due.length} ${progreso.due.length === 1 ? 'tipo' : 'tipos'} de repaso`
                   : `${HOY_PREGUNTAS} preguntas · prioriza lo más flojo`
           }
-          onPress={() => router.push('/practica')}
+          locked={a !== null && !a.sesionHoy}
+          onPress={() => (a && !a.sesionHoy ? alMuro() : router.push('/practica'))}
         />
         {Object.entries(APTITUDE_LABELS).map(([id, label]) => {
           const t = historial?.byAptitude[id];
+          const bloqueada = a !== null && tiposDe(id, a.tipos).length === 0;
           return (
             <ListRow
               key={id}
@@ -160,7 +186,8 @@ export function Inicio() {
               value={historial ? acierto(t) : undefined}
               valueLabel={historial ? lectura(t) : undefined}
               weak={historial?.weakest === id}
-              onPress={() => router.push({ pathname: '/practica', params: { aptitud: id } })}
+              locked={bloqueada}
+              onPress={() => (bloqueada ? alMuro() : router.push({ pathname: '/practica', params: { aptitud: id } }))}
             />
           );
         })}

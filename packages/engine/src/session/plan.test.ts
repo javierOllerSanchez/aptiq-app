@@ -69,3 +69,10 @@ test('el reparto equitativo no sigue un ciclo fijo de tipos', () => {
   const second = out.slice(6, 12).map((it) => it.type);
   expect(first).not.toEqual(second);
 });
+
+test('fase 7 · con tipos permitidos solo salen esos, también dentro de una aptitud', () => {
+  const tipos: TypeCode[] = ['NUM.SERIE', 'DAT.COMPARA', 'VER.ORDEN'];
+  for (const s of buildPractice({ ...base, count: 30, types: tipos })) expect(tipos).toContain(s.type);
+  for (const s of buildPractice({ ...base, aptitude: 'numerica', types: tipos })) expect(s.type).toBe('NUM.SERIE');
+  expect(() => buildPractice({ ...base, aptitude: 'abstracta', types: tipos })).toThrow();
+});

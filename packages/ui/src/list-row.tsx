@@ -18,6 +18,7 @@ export function ListRow({
   valueLabel,
   weak = false,
   weakLabel = 'a reforzar',
+  locked = false,
   onPress,
 }: {
   label: string;
@@ -29,9 +30,13 @@ export function ListRow({
   weak?: boolean;
   /** Qué significa el valor en rojo; se escribe junto al nombre para no depender del color. */
   weakLabel?: string;
+  /** No incluido en el plan gratuito: candado y «Premium» en lugar del valor (fase 7). */
+  locked?: boolean;
   onPress: () => void;
 }) {
-  const a11y = [label, detail, valueLabel ?? value, weak ? weakLabel : null].filter(Boolean).join(', ');
+  const a11y = locked
+    ? [label, detail, 'incluido en Premium'].filter(Boolean).join(', ')
+    : [label, detail, valueLabel ?? value, weak ? weakLabel : null].filter(Boolean).join(', ');
   return (
     <Pressable
       onPress={onPress}
@@ -42,7 +47,7 @@ export function ListRow({
       <View style={styles.label}>
         <Text variant="bodyStrong">
           {label}
-          {weak ? ` · ${weakLabel}` : ''}
+          {weak && !locked ? ` · ${weakLabel}` : ''}
         </Text>
         {detail !== undefined && (
           <Text variant="caption" color="graphite">
@@ -50,12 +55,23 @@ export function ListRow({
           </Text>
         )}
       </View>
-      {value !== undefined && (
-        <Text variant="timer" color={weak ? 'sealText' : 'ink'}>
-          {value}
-        </Text>
+      {locked ? (
+        <View style={styles.lock}>
+          <Icon name="lock" size={size.chevron} color="graphiteStrong" />
+          <Text variant="label" color="graphiteStrong">
+            Premium
+          </Text>
+        </View>
+      ) : (
+        <>
+          {value !== undefined && (
+            <Text variant="timer" color={weak ? 'sealText' : 'ink'}>
+              {value}
+            </Text>
+          )}
+          <Icon name="chevron" size={size.chevron} />
+        </>
       )}
-      <Icon name="chevron" size={size.chevron} />
     </Pressable>
   );
 }
@@ -72,4 +88,5 @@ const styles = StyleSheet.create({
   },
   pressed: { opacity: opacity.pressed },
   label: { flex: 1 },
+  lock: { flexDirection: 'row', alignItems: 'center', gap: spacing.xs },
 });

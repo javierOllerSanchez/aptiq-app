@@ -1,4 +1,5 @@
-import { render, screen } from '@testing-library/react-native';
+import { fireEvent, render, screen } from '@testing-library/react-native';
+import { router } from 'expo-router';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { createMemoryStore } from '@/data/memory-store';
@@ -44,4 +45,21 @@ test('sin fecha de examen no hay cuenta atrás', async () => {
   );
   expect(await screen.findByRole('button', { name: /^Sesión de hoy/ })).toBeOnTheScreen();
   expect(screen.queryByText(/para el examen/)).toBeNull();
+});
+
+test('plan gratuito: candados, Sesión de hoy hecha y simulacro de la semana gastado llevan al muro (fase 7)', async () => {
+  mockStore = createMemoryStore();
+  await mockStore.setSetting('sesion_hoy', diaLocal(Date.now()));
+  await mockStore.saveAttempt({ id: 'i1', empezado: Date.now(), durationMs: 1, finishedAt: Date.now(), questions: [q] });
+  await render(
+    <SafeAreaProvider initialMetrics={metrics}>
+      <Inicio />
+    </SafeAreaProvider>,
+  );
+  expect(await screen.findByText(/El próximo simulacro gratuito está disponible el lunes/)).toBeOnTheScreen();
+  expect(screen.queryByRole('button', { name: 'Empezar simulacro' })).toBeNull();
+  expect(screen.getByRole('button', { name: 'Sesión de hoy, Hecha · vuelve mañana, incluido en Premium' })).toBeOnTheScreen();
+  await fireEvent.press(screen.getByRole('button', { name: 'Abstracta, incluido en Premium' }));
+  expect(router.push).toHaveBeenCalledWith('/muro-pago');
+  expect(screen.getByRole('button', { name: /^Numérica, / })).toBeOnTheScreen();
 });
