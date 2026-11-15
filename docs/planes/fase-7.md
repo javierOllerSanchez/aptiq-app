@@ -3,6 +3,7 @@
 **Rama:** `fase-7-pago`
 **Requisitos:** PAY-01, PAY-02, PAY-03 (y la tabla «Monetización» de `docs/requisitos.md`).
 **Criterio de aceptación (`docs/plan-fases.md`):** compra, renovación, cancelación y restauración probadas en los entornos de prueba de ambas tiendas.
+**Estado:** plan confirmado por el propietario el 2026-11-15 («Sí, tal cual»), con las propuestas de las decisiones 1–4.
 **Skills:** la ficha no nombra ninguna. Uso `aptiq-design-system` (muro de pago y pantallas), `animate-expo` solo como criterio y `supabase-postgres-best-practices` si hiciera falta tocar el servidor (no está previsto).
 
 ## Punto de partida
