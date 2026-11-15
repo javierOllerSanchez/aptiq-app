@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { AuthProvider } from '@/auth/provider';
 import { StoreProvider } from '@/data/provider';
 import { fontAssets } from '@/fonts';
+import { PurchasesProvider } from '@/purchases/provider';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -22,12 +23,14 @@ export default function RootLayout() {
   return (
     <StoreProvider>
       <AuthProvider>
-        <Stack
-          screenOptions={{
-            headerShown: false,
-            contentStyle: { backgroundColor: tokens.color.paper },
-          }}
-        />
+        <PurchasesProvider>
+          <Stack
+            screenOptions={{
+              headerShown: false,
+              contentStyle: { backgroundColor: tokens.color.paper },
+            }}
+          />
+        </PurchasesProvider>
       </AuthProvider>
     </StoreProvider>
   );

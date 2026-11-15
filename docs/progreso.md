@@ -11,7 +11,7 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 | 4 · Práctica y simulacro sin conexión | Cerrada (VoiceOver y Maestro en iPhone pendientes del propietario) | `fase-4-practica` · PR #5 y `fase-4-cierre` · PR #9 fusionados | 2026-11-14 | Sí, 2026-11-14 |
 | 5 · Cuentas y sincronización | Cerrada con T8 pendiente (SMTP aplazado por el propietario al final del proyecto) | `fase-5-cuentas` · PR #11 fusionado | 2026-11-15 | Sí, 2026-11-15 |
 | 6 · Progreso y adaptativo | Cerrada (comprobaciones en el móvil pendientes del propietario) | `fase-6-progreso` · PR #13 fusionado | 2026-11-15 | Sí, 2026-11-15 |
-| 7 · Pago | En curso (plan confirmado; T1 hecha) | `fase-7-pago` | | |
+| 7 · Pago | En curso (plan confirmado; T1–T2 hechas) | `fase-7-pago` | | |
 | 8 · Contenido ampliado y panel interno | Pendiente | | | |
 | 9 · Beta y lanzamiento | Pendiente | | | |
 
