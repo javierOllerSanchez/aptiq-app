@@ -6,3 +6,6 @@ coverage/
 .env.*
 !.env.example
 .DS_Store
+
+# Export de Expo para la búsqueda de secretos en CI
+dist-android/

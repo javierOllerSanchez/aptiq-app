@@ -71,6 +71,7 @@
 | 2026-11-14 | Cerrar sesión sube antes lo pendiente y cierra solo en este móvil (`scope: local`) | Cerrar en un móvil no debe echar al usuario de los demás |
 | 2026-11-14 | Si el móvil ya estaba vinculado a otra cuenta, al entrar con una nueva no se sube nada de la anterior (se vacía la cola) | Evita mezclar datos de dos personas; confirmado por el propietario |
 | 2026-11-15 | Borrado de cuenta con la función `borrar-cuenta` de Supabase (clave de servicio solo en el servidor; identifica al usuario por su propio token). El móvil se vacía solo si el servidor confirma. Exportación como texto JSON con el menú Compartir del sistema (sin dependencias nuevas). Token nuevo `opacity.scrim` 0,32 para el velo de la confirmación | Fase 5 · T6 (SOP-02, NFR-05, NFR-06); prototipo aprobado |
+| 2026-11-15 | Búsqueda de secretos propia (`scripts/buscar-secretos.mjs`, sin dependencias) en la CI: revisa los archivos versionados y el paquete Android exportado; detecta claves `sb_secret_`, JWT `service_role` y la variable de servicio con valor. Supabase sin avisos de seguridad ni tablas sin RLS; `.env` ignorado y nunca versionado | Fase 5 · T7 (NFR-06) |
 
 ## Pendientes (las decide el propietario)
 
