@@ -46,6 +46,7 @@ export {
 } from './review/review';
 export { adaptLevels } from './level/adapt';
 export { estimateLevels, type LevelAnswer } from './level/estimate';
+export { addDays, type DayResult, daysBetween, dueTypes, INTERVALOS } from './review/spaced';
 
 /** Un generador y su solucionador por cada tipo de la taxonomía. */
 export const registry: Record<TypeCode, { generator: Generator; solver: Solver }> = {
