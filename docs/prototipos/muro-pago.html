@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aptiq · Muro de pago</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Fase 5 · T5 · Estilos comunes de los prototipos de Cuenta e Historial.
+   Valores de docs/tokens.json; mismas recetas que inicio.html. */
+body{margin:0;background:#EFEEE9;display:flex;justify-content:center;align-items:flex-start}
+.screen{position:relative;width:390px;height:844px;overflow:hidden;box-sizing:border-box;padding:56px 20px 0;display:flex;flex-direction:column;
+  font-family:'Instrument Sans',system-ui,sans-serif;color:#121316;background-color:#EFEEE9;
+  background-image:linear-gradient(rgba(18,19,22,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(18,19,22,.045) 1px,transparent 1px);background-size:24px 24px}
+.top{display:flex;align-items:center;justify-content:space-between;min-height:44px}
+.back{display:flex;align-items:center;justify-content:center;width:44px;height:44px;margin-left:-10px;border:0;background:transparent;cursor:pointer}
+h1{margin:26px 0 0;font-weight:700;font-size:30px;line-height:1.15;letter-spacing:-.02em}
+.lead{margin:6px 0 0;font-size:16px;line-height:1.45;color:#4A4C52}
+.label{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.1em;color:#5E6066}
+.mono{font-family:'IBM Plex Mono',monospace}
+.glass{display:flex;flex-direction:column;gap:16px;padding:20px;border-radius:24px;
+  background:linear-gradient(160deg,rgba(255,255,255,.8),rgba(255,255,255,.5));border:1px solid rgba(255,255,255,.95);
+  box-shadow:inset 0 1px 0 #FFFFFF,0 1px 2px rgba(18,19,22,.06),0 12px 30px rgba(18,19,22,.08);
+  backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%)}
+.btn{width:100%;min-height:54px;border-radius:14px;border:1.5px solid #121316;cursor:pointer;font-family:'Instrument Sans',sans-serif;font-size:17px;font-weight:700;color:#121316;background:transparent}
+.btn.primary{background:#DBFF3E}
+.btn.text{border-color:transparent;font-weight:600}
+.field{display:flex;flex-direction:column;gap:8px}
+.input{box-sizing:border-box;width:100%;min-height:54px;padding:0 16px;border-radius:14px;border:1.5px solid #121316;background:transparent;
+  font-family:'Instrument Sans',sans-serif;font-size:16px;color:#121316}
+.note{display:flex;align-items:flex-start;gap:8px;font-size:13px;line-height:1.4;color:#4A4C52}
+.note svg{flex:none;margin-top:1px}
+.rows{display:flex;flex-direction:column}
+.row{display:flex;align-items:center;gap:14px;min-height:52px;padding:0;border:0;border-bottom:1px solid rgba(18,19,22,.14);background:transparent;
+  cursor:pointer;text-align:left;font-family:'Instrument Sans',sans-serif;color:#121316;width:100%}
+.row .name{flex:1;font-size:17px;font-weight:600}
+.row .sub{display:block;font-size:13px;font-weight:400;color:#4A4C52;margin-top:2px}
+.row .value{font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:600}
+.section{margin-top:24px;display:flex;align-items:baseline;justify-content:space-between}
+.code{display:flex;gap:8px}
+.code span{flex:1;height:60px;border-radius:14px;border:1.5px solid #121316;display:flex;align-items:center;justify-content:center;
+  font-family:'IBM Plex Mono',monospace;font-size:26px;font-weight:600}
+.code span.empty{border-color:rgba(18,19,22,.3)}
+.code span.caret{box-shadow:inset 0 -3px 0 #121316}
+.dot{width:8px;height:8px;border-radius:50%;background:#121316;flex:none}
+.scrim{position:absolute;inset:0;background:rgba(18,19,22,.32)}
+.sheet{position:absolute;left:0;right:0;bottom:0;padding:24px 20px 34px;border-radius:24px 24px 0 0;background:#FBFAF6;display:flex;flex-direction:column;gap:14px}
+.sheet h2{margin:0;font-size:22px;line-height:1.2;letter-spacing:-.01em}
+.sheet p{margin:0;font-size:16px;line-height:1.45;color:#4A4C52}
+.tabbar{position:absolute;left:20px;right:20px;bottom:24px;display:flex;align-items:center;justify-content:space-around;padding:8px 10px;border-radius:22px;
+  background:linear-gradient(160deg,rgba(255,255,255,.82),rgba(255,255,255,.55));border:1px solid rgba(255,255,255,.95);
+  box-shadow:inset 0 1px 0 #FFFFFF,0 1px 2px rgba(18,19,22,.06),0 12px 30px rgba(18,19,22,.12);
+  backdrop-filter:blur(16px) saturate(150%);-webkit-backdrop-filter:blur(16px) saturate(150%)}
+.tab{width:88px;height:48px;border-radius:14px;border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;background:transparent}
+.tab.on{background:#121316}
+
+.chart{width:100%;height:150px;display:block}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:#4A4C52}
+.legend i{display:inline-block;width:14px;height:3px;border-radius:2px;margin-right:6px;vertical-align:middle}
+.toggle{width:52px;height:32px;border-radius:999px;background:#121316;position:relative;flex:none}
+.toggle::after{content:'';position:absolute;top:4px;right:4px;width:24px;height:24px;border-radius:50%;background:#DBFF3E}
+.toggle.off{background:rgba(18,19,22,.18)}
+.toggle.off::after{right:auto;left:4px;background:#FBFAF6}
+.hours{display:flex;gap:8px;flex-wrap:wrap}
+.hours span{min-width:64px;min-height:44px;display:flex;align-items:center;justify-content:center;border-radius:999px;border:1.5px solid #121316;font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:600}
+.hours span.on{background:#121316;color:#FBFAF6}
+
+.x{position:absolute;top:52px;right:12px;width:44px;height:44px;border:0;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.ticks{display:flex;flex-direction:column;gap:10px;margin:0;padding:0;list-style:none;font-size:15px;line-height:1.35}
+.ticks li{display:flex;gap:10px}
+.ticks svg{flex:none;margin-top:2px}
+.opt{display:flex;align-items:center;gap:12px;min-height:60px;padding:0 16px;border-radius:14px;border:1.5px solid rgba(18,19,22,.3);background:transparent;width:100%;box-sizing:border-box;font-family:'Instrument Sans',sans-serif;color:#121316;text-align:left}
+.opt.on{border:2px solid #121316;background:#FFFFFF}
+.opt .n{flex:1;font-size:17px;font-weight:600}
+.opt .n small{display:block;font-size:13px;font-weight:400;color:#4A4C52;margin-top:2px}
+.opt .p{font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:600}
+.radio{width:22px;height:22px;border-radius:50%;border:2px solid #121316;flex:none;box-sizing:border-box}
+.opt.on .radio{border-width:7px}
+.tag{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.08em;padding:3px 8px;border-radius:999px;background:#121316;color:#FBFAF6;margin-left:6px;vertical-align:2px}
+.legal{font-size:12px;line-height:1.45;color:#5E6066;margin:0}
+.lock{display:flex;align-items:center;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;color:#4A4C52}
+</style>
+</head>
+<body>
+<!-- Fase 7 · T3 · PAY-01, PAY-02. Aparece al terminar el primer simulacro; precios de ejemplo (en la app los da la tienda). -->
+<div class="screen">
+<button class="x" aria-label="Cerrar, seguir con el plan gratuito"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#121316" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+<span class="label" style="margin-top:26px">APTIQ PREMIUM</span>
+<h1 style="margin-top:8px">Entrena sin límites hasta el examen</h1>
+<ul class="ticks" style="margin-top:16px">
+<li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#121316" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Sesión de hoy y simulacros oficiales ilimitados</span></li>
+<li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#121316" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Los 6 tipos de pregunta y todos los niveles</span></li>
+<li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#121316" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Nivel por aptitud, historial completo y repaso espaciado</span></li>
+</ul>
+<div role="radiogroup" aria-label="Plan" style="display:flex;flex-direction:column;gap:8px;margin-top:20px">
+<button class="opt on" role="radio" aria-checked="true"><span class="radio"></span><span class="n">Anual<span class="tag">7 DÍAS GRATIS</span><small>3,33 € al mes</small></span><span class="p">39,99 €</span></button>
+<button class="opt" role="radio" aria-checked="false"><span class="radio"></span><span class="n">Mensual</span><span class="p">7,99 €</span></button>
+<button class="opt" role="radio" aria-checked="false"><span class="radio"></span><span class="n">Pase 3 meses<small>Pago único, no se renueva</small></span><span class="p">19,99 €</span></button>
+<button class="opt" role="radio" aria-checked="false"><span class="radio"></span><span class="n">Pase 6 meses<small>Pago único, no se renueva</small></span><span class="p">29,99 €</span></button>
+</div>
+<button class="btn primary" style="margin-top:16px">Probar 7 días gratis</button>
+<p class="legal" style="margin-top:10px">Después, 39,99 € al año. Se renueva solo hasta que lo canceles en la tienda, como mínimo 24 horas antes de la renovación. Lo que ya has hecho sigue siendo tuyo.</p>
+<button class="btn text" style="min-height:44px;margin-top:2px;font-size:15px">Restaurar compras</button>
+</div>
+</body>
+</html>
