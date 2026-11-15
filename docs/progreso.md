@@ -11,11 +11,15 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 | 4 · Práctica y simulacro sin conexión | Cerrada (VoiceOver y Maestro en iPhone pendientes del propietario) | `fase-4-practica` · PR #5 y `fase-4-cierre` · PR #9 fusionados | 2026-11-14 | Sí, 2026-11-14 |
 | 5 · Cuentas y sincronización | Cerrada con T8 pendiente (SMTP aplazado por el propietario al final del proyecto) | `fase-5-cuentas` · PR #11 fusionado | 2026-11-15 | Sí, 2026-11-15 |
 | 6 · Progreso y adaptativo | Cerrada (comprobaciones en el móvil pendientes del propietario) | `fase-6-progreso` · PR #13 fusionado | 2026-11-15 | Sí, 2026-11-15 |
-| 7 · Pago | Cerrada con T7 pendiente (pruebas en tiendas: faltan las cuentas de Apple, Google y RevenueCat) | `fase-7-pago` · PR pendiente de abrir | 2026-11-15 | Pendiente de su aprobación |
+| 7 · Pago | Cerrada con T7 pendiente (pruebas en tiendas: faltan las cuentas de Apple, Google y RevenueCat) | `fase-7-pago` · PR #15 fusionado | 2026-11-15 | Sí, 2026-11-15 |
 | 8 · Contenido ampliado y panel interno | Pendiente | | | |
 | 9 · Beta y lanzamiento | Pendiente | | | |
 
 ## Registro
+
+**2026-11-15 · Fase 7 · Aprobación**
+
+- El propietario aprueba la fase 7 y se fusiona el PR #15. Siguen pendientes T7 (pruebas en tiendas, sin cuentas), los enlaces legales del muro y tres decisiones (Sesión de hoy gratuita, texto «sin perder nada» y momento del muro).
 
 **2026-11-15 · Fase 7 · Cierre**
 
