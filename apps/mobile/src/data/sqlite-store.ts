@@ -1,14 +1,26 @@
-import { asc, eq } from 'drizzle-orm';
+import { and, asc, eq, sql } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/expo-sqlite';
 import { openDatabaseSync } from 'expo-sqlite';
 
-import { ajustes, createTablesSql, intentos, semillasUsadas, sesiones } from './schema';
+import {
+  addedColumns,
+  ajustes,
+  colaSync,
+  createTablesSql,
+  intentos,
+  semillasUsadas,
+  sesiones,
+} from './schema';
 import type { Store } from './store';
 
 /** Abre la base local y crea las tablas si no existen. Verificado en dispositivo (T9), no con Jest. */
-export function createSqliteStore(name = 'aptiq.db'): Store {
+export function createSqliteStore(name = 'aptiq.db', now: () => number = Date.now): Store {
   const raw = openDatabaseSync(name);
-  for (const sql of createTablesSql) raw.execSync(sql);
+  for (const stmt of createTablesSql) raw.execSync(stmt);
+  for (const c of addedColumns) {
+    const cols = raw.getAllSync<{ name: string }>(`PRAGMA table_info(${c.table})`);
+    if (!cols.some((x) => x.name === c.column)) raw.execSync(c.sql);
+  }
   const db = drizzle(raw);
 
   return {
@@ -16,11 +28,14 @@ export function createSqliteStore(name = 'aptiq.db'): Store {
       const [row] = await db.select().from(ajustes).where(eq(ajustes.clave, key));
       return row?.valor ?? null;
     },
-    async setSetting(key, value) {
+    async setSetting(key, value, actualizado = now()) {
       await db
         .insert(ajustes)
-        .values({ clave: key, valor: value })
-        .onConflictDoUpdate({ target: ajustes.clave, set: { valor: value } });
+        .values({ clave: key, valor: value, actualizado })
+        .onConflictDoUpdate({ target: ajustes.clave, set: { valor: value, actualizado } });
+    },
+    async settings() {
+      return db.select().from(ajustes);
     },
     async addUsedSeeds(list) {
       for (const semilla of list) {
@@ -60,6 +75,38 @@ export function createSqliteStore(name = 'aptiq.db'): Store {
         finishedAt: r.fin,
         questions: r.preguntas,
       }));
+    },
+    async enqueue(entidad, id, creada) {
+      await db
+        .insert(colaSync)
+        .values({ entidad, id, creada })
+        .onConflictDoUpdate({ target: [colaSync.entidad, colaSync.id], set: { creada } });
+    },
+    async pendingOps() {
+      return db.select().from(colaSync).orderBy(asc(colaSync.creada));
+    },
+    async removeOps(ops) {
+      for (const o of ops) {
+        await db
+          .delete(colaSync)
+          .where(and(eq(colaSync.entidad, o.entidad), eq(colaSync.id, o.id), eq(colaSync.creada, o.creada)));
+      }
+    },
+    async markFailed(ops) {
+      for (const o of ops) {
+        await db
+          .update(colaSync)
+          .set({ intentos: sql`${colaSync.intentos} + 1` })
+          .where(and(eq(colaSync.entidad, o.entidad), eq(colaSync.id, o.id)));
+      }
+    },
+    async clearAll() {
+      // Todo o nada: tras borrar la cuenta en el servidor no hay reintento si se queda a medias.
+      raw.withTransactionSync(() => {
+        for (const t of ['ajustes', 'semilla_usada', 'sesion', 'intento_simulacro', 'cola_sync']) {
+          raw.execSync(`DELETE FROM ${t}`);
+        }
+      });
     },
   };
 }

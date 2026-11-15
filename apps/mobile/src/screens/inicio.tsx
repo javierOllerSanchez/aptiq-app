@@ -22,6 +22,7 @@ import { StyleSheet, View } from 'react-native';
 
 import { useStore } from '@/data/provider';
 import { APTITUDE_LABELS, AVISO_MEZCLA, CITA, historyBreakdown } from '@/practice/run';
+import { TabSpacer } from '@/screens/tab-spacer';
 
 const { preguntas, minutos, opciones } = guardiaCivil2026.format;
 const dato = (n: number | null, texto: string) =>
@@ -80,7 +81,7 @@ export function Inicio() {
         {opciones !== null ? `; ${opciones - 1} fallos restan 1 acierto.` : '.'}
       </Text>
       {niveles !== 'sin-test' && (
-        <GlassCard>
+        <GlassCard accessible={niveles.global !== null}>
           <Text variant="label" color="graphite">
             Nivel estimado · orientativo
           </Text>
@@ -161,6 +162,7 @@ export function Inicio() {
           opositores en la beta. Aptiq es independiente de la Administración.
         </Text>
       </View>
+      <TabSpacer />
     </PaperBackground>
   );
 }

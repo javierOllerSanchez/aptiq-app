@@ -36,7 +36,8 @@
         }
       ],
       "expo-sqlite",
-      "./plugins/with-windows-cmake"
+      "./plugins/with-windows-cmake",
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true,

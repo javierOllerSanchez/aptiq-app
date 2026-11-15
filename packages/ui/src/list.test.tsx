@@ -20,6 +20,25 @@ test('ListRow es un botón con nombre, valor y punto débil anunciados', async (
   expect(onPress).toHaveBeenCalledTimes(1);
 });
 
+test('ListRow con detalle y aviso propio los lee en orden', async () => {
+  await render(
+    <ListRow
+      label="Simulacro"
+      detail="14 nov · 55 min"
+      value="12,50 / 30"
+      valueLabel="12,50 sobre 30"
+      weak
+      weakLabel="no llega al mínimo"
+      onPress={() => {}}
+    />,
+  );
+  expect(
+    screen.getByRole('button', { name: 'Simulacro, 14 nov · 55 min, 12,50 sobre 30, no llega al mínimo' }),
+  ).toBeTruthy();
+  expect(screen.getByText('14 nov · 55 min')).toBeTruthy();
+  expect(screen.getByText('Simulacro · no llega al mínimo')).toBeTruthy();
+});
+
 test('ListRow sin valor no inventa un dato', async () => {
   await render(<ListRow label="Numérica" onPress={() => {}} />);
   expect(screen.getByRole('button', { name: 'Numérica' })).toBeTruthy();

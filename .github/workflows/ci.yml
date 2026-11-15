@@ -18,3 +18,18 @@ jobs:
       - run: pnpm typecheck
       - run: pnpm lint
       - run: pnpm test
+
+  # Fase 5 · T7 (NFR-06): ninguna clave secreta de Supabase en el código ni en el paquete de la app.
+  secretos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: node --test scripts/buscar-secretos.test.mjs
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter mobile exec expo export --platform android --output-dir ../../dist-android
+      - run: node scripts/buscar-secretos.mjs dist-android

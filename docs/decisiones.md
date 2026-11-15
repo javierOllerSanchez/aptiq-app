@@ -60,6 +60,20 @@
 | 2026-11-13 | Resultado: nota «x / 30» con el sello al lado, mínimo en el veredicto, barras por aptitud (`AptitudeBar`) y desglose por tipo plegado. Se mantiene la escala del BOE (el prototipo dice «/ 40») | Decisión del propietario: seguir el prototipo |
 | 2026-11-13 | La barra de pestañas se añade en la fase 5, cuando haya un segundo destino (Historial y Cuenta) | Decisión del propietario |
 | 2026-11-13 | Tokens nuevos: `size.listRow` 52, `size.bar` 8, `size.chevron` 18, `radius.bar` 4, `opacity.barTrack` 0,1; icono `chevron` | Medidas de la guía §5 y de los prototipos |
+| 2026-11-14 | Supabase: un proyecto en una organización propia «Aptiq», plan gratuito, región UE; se separa en pruebas y producción antes de la beta | Decisión del propietario (NFR-05) |
+| 2026-11-14 | Cuentas solo con correo y código de un solo uso; Apple y Google cuando existan sus cuentas de desarrollador | Decisión del propietario; ONB-03 parcial hasta entonces |
+| 2026-11-14 | Al iniciar sesión por primera vez, lo guardado sin cuenta se sube con aviso previo en pantalla | Decisión del propietario |
+| 2026-11-14 | Esquema del servidor: `ajuste`, `semilla_usada`, `sesion`, `intento_simulacro`; clave primaria `(user_id, …)`, RLS forzado, sin permisos para `anon`, borrado en cascada desde `auth.users`; ni texto de preguntas ni correo en tablas propias | NFR-05, NFR-06, SOP-02 |
+| 2026-11-14 | Proyecto Supabase `aptiq` (ref `enlsulwnqimpbscqlbdw`) creado en la organización aptiq-app, región `eu-central-1` (Fráncfort), plan gratuito (0 $/mes) | Decisión del propietario (NFR-05); coste confirmado antes de crear |
+| 2026-11-14 | La app usa la clave publicable moderna (`sb_publishable_…`) en `EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, no la `anon` heredada; URL y clave públicas en `apps/mobile/.env.example` (versionado) | Recomendación de Supabase: se rota sin tocar JWT; la seguridad la da RLS (NFR-06) |
+| 2026-11-14 | Sincronización: cola local `cola_sync` (una fila por dato pendiente); subida por upsert en orden ajustes → semillas → sesiones → intentos; el simulacro abierto no se sube; en ajustes gana el cambio más reciente (en la app y con un disparador en el servidor); reintentos 5 s → 15 min | Fase 5 · T3 (NFR-01, PRO-02). Conectar los avisos de «abrir app» y «recuperar red» queda para T4, con la sesión |
+| 2026-11-14 | Dependencias nuevas: `@supabase/supabase-js` (cliente de Supabase), `expo-secure-store` (sesión cifrada, en trozos de 1.800 caracteres por el límite de 2 KB) y `expo-network` (avisar al recuperar la red). Sin AsyncStorage ni aes-js | Fase 5 · T4 (ONB-03, NFR-06); previstas en el plan salvo `expo-network`, que es del SDK de Expo |
+| 2026-11-14 | Cerrar sesión sube antes lo pendiente y cierra solo en este móvil (`scope: local`) | Cerrar en un móvil no debe echar al usuario de los demás |
+| 2026-11-14 | Si el móvil ya estaba vinculado a otra cuenta, al entrar con una nueva no se sube nada de la anterior (se vacía la cola) | Evita mezclar datos de dos personas; confirmado por el propietario. Ampliado el 2026-11-15: además se vacía el móvil (lo ya subido sigue en la cuenta anterior) |
+| 2026-11-15 | Borrado de cuenta con la función `borrar-cuenta` de Supabase (clave de servicio solo en el servidor; identifica al usuario por su propio token). El móvil se vacía solo si el servidor confirma. Exportación como texto JSON con el menú Compartir del sistema (sin dependencias nuevas). Token nuevo `opacity.scrim` 0,32 para el velo de la confirmación | Fase 5 · T6 (SOP-02, NFR-05, NFR-06); prototipo aprobado |
+| 2026-11-15 | Búsqueda de secretos propia (`scripts/buscar-secretos.mjs`, sin dependencias) en la CI: revisa los archivos versionados y el paquete Android exportado; detecta claves `sb_secret_`, JWT `service_role` y la variable de servicio con valor. Supabase sin avisos de seguridad ni tablas sin RLS; `.env` ignorado y nunca versionado | Fase 5 · T7 (NFR-06) |
+| 2026-11-15 | Excepción a la guía §4: el formulario de correo de Cuenta va sobre cristal (`GlassCard accessible={false}`), como en el prototipo aprobado | Decisión del propietario tras la revisión de interfaz de la fase 5 |
+| 2026-11-15 | Sin cuenta no hay exportación ni borrado desde la app: los datos solo están en el móvil y se borran al desinstalar | Decisión del propietario (SOP-02, NFR-05) |
 
 ## Pendientes (las decide el propietario)
 
@@ -70,6 +84,7 @@
 - [x] Aplazar a la fase 5 la pantalla de historial (PRO-02) y a la fase 6 el nivel por aptitud con su evolución (PRO-01). Confirmado por el propietario el 2026-11-13
 - [x] T8 / NFR-02: medir arranque en frío y pregunta nueva en Android de gama media, en release, aplazado a la beta (decidido por el propietario el 2026-11-13)
 - [x] Diseño de Inicio y Resultado (decidido el 2026-11-13): filas de lista con acierto en Inicio, nota «/ 30» con sello y barras por aptitud en Resultado; la barra de pestañas llega en la fase 5
+- [ ] Correo propio por SMTP para Supabase con el buzón de Arsys (`smtp.serviciodecorreo.es`, 465): **aplazado al final del proyecto** (decisión del propietario, 2026-11-15). Desbloquea el código por correo, T8 de la fase 5 y la plantilla con `{{ .Token }}`
 - [ ] Cuentas: Expo/EAS, Apple Developer, Google Play Console, Supabase (región UE), RevenueCat, PostHog, Sentry
 - [ ] Psicólogo o preparador que revise el contenido
 - [ ] Precios definitivos y prueba con 5–8 opositores

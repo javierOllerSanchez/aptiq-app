@@ -1,0 +1,15 @@
+# Fase 5 · T8 (ONB-03) · Paso 2 de 2: escribe el código del correo y comprueba la sesión.
+# maestro test -e CORREO=tu-correo-de-prueba -e CODIGO=123456 .maestro/cuenta-entrar.yaml
+appId: com.javioller.aptiq
+---
+- assertVisible: "Escribe el código"
+- inputText: ${CODIGO}
+- extendedWaitUntil:
+    visible: "Sincronización"
+    timeout: 15000
+- assertVisible: ${CORREO}
+- assertVisible: "(Todo guardado en tu cuenta|Sincronizando…)"
+- takeScreenshot: capturas/fase-5-cuenta
+- tapOn: "Historial"
+- assertVisible: "Historial"
+- takeScreenshot: capturas/fase-5-historial

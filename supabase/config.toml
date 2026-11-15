@@ -1,0 +1,7 @@
+# Configuración de Supabase para Aptiq (fase 5 · T1).
+# Proyecto remoto: aptiq (ref enlsulwnqimpbscqlbdw), organización aptiq-app, región eu-central-1 (UE, NFR-05).
+# Las migraciones viven en supabase/migrations/ y se versionan en git; nada se cambia a mano en el panel.
+project_id = "aptiq"
+
+[db]
+major_version = 17

@@ -20,6 +20,7 @@ export const tokens = {
     pendingTick: 0.12,
     emptyBubbleBorder: 0.25,
     barTrack: 0.1,
+    scrim: 0.32,
   },
   font: {
     ui: 'InstrumentSans',
