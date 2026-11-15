@@ -34,6 +34,7 @@ const CODE = /^\d{6}$/;
 
 function reason(error: unknown): AuthErrorReason {
   if (isAuthRetryableFetchError(error)) return 'sin_red';
+  if (error instanceof Error && error.name === 'FunctionsFetchError') return 'sin_red';
   if (isAuthApiError(error)) {
     switch (error.code) {
       case 'over_email_send_rate_limit':
@@ -53,8 +54,37 @@ function reason(error: unknown): AuthErrorReason {
  * Apple y Google llegan cuando existan sus cuentas de desarrollador).
  */
 export function createAuth({ client, store, remote, link }: AuthDeps) {
-  const sync = createSync({ store, remote });
+  const base = createSync({ store, remote });
+  // Mientras verifyCode decide de quién es la cola, la sincronización automática espera (devuelve false y se reintenta).
+  let verificando = false;
+  const sync = {
+    ...base,
+    push: () => (verificando ? Promise.resolve(false) : base.push()),
+    sync: () => (verificando ? Promise.resolve(false) : base.sync()),
+  };
   const normalize = (email: string) => email.trim().toLowerCase();
+
+  /** Tras comprobar el código: decide de quién es la cola y qué se sube (decisión 4 y regla de otra cuenta). */
+  async function vincular(email: string, token: string): Promise<AuthResult<{ firstLink: boolean }>> {
+    const { data, error } = await client.auth.verifyOtp({ email: normalize(email), token, type: 'email' });
+    if (error || !data.user) return { ok: false, error: reason(error) };
+
+    const userId = data.user.id;
+    const linked = await link.get();
+    if (linked === userId) {
+      void base.sync();
+      return { ok: true, firstLink: false };
+    }
+    if (linked !== null) {
+      await store.removeOps(await store.pendingOps());
+      await link.set(userId);
+      void base.pull();
+      return { ok: true, firstLink: false };
+    }
+    await link.set(userId);
+    await base.uploadAll(); // si falla, queda en la cola y se reintenta
+    return { ok: true, firstLink: true };
+  }
 
   return {
     async sendCode(email: string): Promise<AuthResult> {
@@ -72,24 +102,12 @@ export function createAuth({ client, store, remote, link }: AuthDeps) {
     async verifyCode(email: string, code: string): Promise<AuthResult<{ firstLink: boolean }>> {
       const token = code.trim();
       if (!CODE.test(token)) return { ok: false, error: 'codigo_no_valido' };
-      const { data, error } = await client.auth.verifyOtp({ email: normalize(email), token, type: 'email' });
-      if (error || !data.user) return { ok: false, error: reason(error) };
-
-      const userId = data.user.id;
-      const linked = await link.get();
-      if (linked === userId) {
-        void sync.sync();
-        return { ok: true, firstLink: false };
+      verificando = true;
+      try {
+        return await vincular(email, token);
+      } finally {
+        verificando = false;
       }
-      if (linked !== null) {
-        await store.removeOps(await store.pendingOps());
-        await link.set(userId);
-        void sync.pull();
-        return { ok: true, firstLink: false };
-      }
-      await link.set(userId);
-      await sync.uploadAll(); // si falla, queda en la cola y se reintenta
-      return { ok: true, firstLink: true };
     },
 
     /** Sube lo pendiente si puede y cierra la sesión solo en este móvil. */

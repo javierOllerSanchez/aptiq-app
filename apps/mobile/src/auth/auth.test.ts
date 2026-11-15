@@ -280,6 +280,39 @@ describe('inicio de sesión con código por correo', () => {
     expect(await store.pendingOps()).toHaveLength(0);
   });
 
+  test('al entrar con otra cuenta, una sincronización lanzada durante la comprobación no sube lo de la anterior', async () => {
+    const store = createMemoryStore();
+    await store.saveSession({ id: 's-de-a', creada: 1, questions: [q] });
+    await store.enqueue('sesion', 's-de-a', 1);
+    const remote = createEmptyRemote();
+    const fake = createFakeAuthClient({ userId: 'user-b' });
+    const auth = createAuth({ client: fake.client, store, remote, link: createMemoryLink('user-a') });
+    // Como hace AuthProvider: el cambio de sesión dispara una sincronización antes de que verifyCode termine.
+    const verify = fake.client.auth.verifyOtp.bind(fake.client.auth);
+    let enCurso: Promise<boolean> | null = null;
+    fake.client.auth.verifyOtp = (async (args: Parameters<typeof verify>[0]) => {
+      const r = await verify(args);
+      enCurso = auth.sync.sync();
+      return r;
+    }) as typeof verify;
+
+    await auth.verifyCode('bea@ejemplo.es', '123456');
+    expect(await enCurso).toBe(false);
+    await auth.sync.sync();
+    expect(remote.uploaded).toEqual([]);
+  });
+
+  test('un fallo de red al llamar a una función se explica como sin red', async () => {
+    const fake = createFakeAuthClient();
+    (fake.client as unknown as { functions: unknown }).functions = {
+      async invoke() {
+        return { data: null, error: Object.assign(new Error('fetch'), { name: 'FunctionsFetchError' }) };
+      },
+    };
+    const auth = createAuth({ client: fake.client, store: createMemoryStore(), remote: createEmptyRemote(), link: createMemoryLink('user-a') });
+    expect(await auth.deleteAccount()).toEqual({ ok: false, error: 'sin_red' });
+  });
+
   test('cerrar sesión intenta subir antes lo pendiente', async () => {
     const store = createMemoryStore();
     await store.saveSession({ id: 's1', creada: 1, questions: [q] });
