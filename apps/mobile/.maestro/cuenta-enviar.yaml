@@ -1,0 +1,12 @@
+# Fase 5 · T8 (ONB-03) · Paso 1 de 2: pide el código para la cuenta de prueba.
+# maestro test -e CORREO=tu-correo-de-prueba .maestro/cuenta-enviar.yaml
+# Luego mira el correo y sigue con cuenta-entrar.yaml (Maestro no puede leer el correo).
+appId: com.javioller.aptiq
+---
+- launchApp
+- tapOn: "Cuenta"
+- assertVisible: "Guarda tu progreso"
+- tapOn: "Correo electrónico"
+- inputText: ${CORREO}
+- tapOn: "Enviar código"
+- assertVisible: "Escribe el código"
