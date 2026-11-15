@@ -92,7 +92,24 @@ export const toSaved = (
     seed: it.seed,
     answer: answers[i] ?? null,
     marked: marked[i] ?? false,
+    correct: answers[i] != null && answers[i] === it.answerIndex,
   }));
+
+// Respuesta correcta de las preguntas antiguas sin `correct`: se regenera una sola vez por pregunta.
+const respuestaCorrecta = new Map<string, number>();
+
+/** ¿Se acertó? Usa `correct` si está guardado; si no (datos anteriores a la fase 6), regenera y lo recuerda. */
+export function isCorrect(q: SavedQuestion): boolean {
+  if (q.answer === null) return false;
+  if (q.correct !== undefined) return q.correct;
+  const k = `${q.type}:${q.level}:${q.seed}`;
+  let idx = respuestaCorrecta.get(k);
+  if (idx === undefined) {
+    idx = registry[q.type].generator.generate(q.seed, q.level, OPTION_COUNT).answerIndex;
+    respuestaCorrecta.set(k, idx);
+  }
+  return q.answer === idx;
+}
 
 export const fromSaved = (questions: readonly SavedQuestion[]): Item[] =>
   questions.map((q) => registry[q.type].generator.generate(q.seed, q.level, OPTION_COUNT));
@@ -103,10 +120,7 @@ async function historyResults(store: Store): Promise<Result[]> {
     ...(await store.sessions()).flatMap((s) => s.questions),
     ...(await store.attempts()).filter((a) => a.finishedAt !== null).flatMap((a) => a.questions),
   ];
-  return questions.map((q) => {
-    const item = registry[q.type].generator.generate(q.seed, q.level, OPTION_COUNT);
-    return { type: q.type, correct: q.answer === item.answerIndex, blank: q.answer === null };
-  });
+  return questions.map((q) => ({ type: q.type, correct: isCorrect(q), blank: q.answer === null }));
 }
 
 /** Fallos por tipo en sesiones y simulacros terminados: alimenta el reparto prioritario (ENT-02). */

@@ -8,6 +8,11 @@ export interface SavedQuestion {
   /** Opción elegida, o null si quedó en blanco. */
   answer: number | null;
   marked: boolean;
+  /**
+   * Si se acertó, guardado al responder (desde la fase 6). Evita regenerar todo el historial para
+   * calcular niveles y aciertos. Falta en datos antiguos: entonces se regenera la pregunta.
+   */
+  correct?: boolean;
 }
 
 export interface SavedSession {

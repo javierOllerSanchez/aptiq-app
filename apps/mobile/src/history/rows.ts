@@ -1,7 +1,7 @@
-import { guardiaCivil2026, registry, reviewOf, score, taxonomy } from '@aptiq/engine';
+import { guardiaCivil2026, score, taxonomy } from '@aptiq/engine';
 
 import type { SavedAttempt, SavedSession } from '@/data/store';
-import { APTITUDE_LABELS, formatNota, OPTION_COUNT } from '@/practice/run';
+import { APTITUDE_LABELS, formatNota, isCorrect } from '@/practice/run';
 
 export interface HistoryRow {
   id: string;
@@ -21,9 +21,6 @@ export function fechaCorta(ms: number): string {
   return `${d.getDate()} ${MESES[d.getMonth()]}`;
 }
 
-const items = (questions: SavedAttempt['questions']) =>
-  questions.map((q) => ({ q, item: registry[q.type].generator.generate(q.seed, q.level, OPTION_COUNT) }));
-
 /** Filas del Historial (PRO-02): simulacros terminados y sesiones, lo más reciente primero. */
 export function historyRows(sessions: SavedSession[], attempts: SavedAttempt[]) {
   const simulacros: HistoryRow[] = attempts
@@ -32,9 +29,9 @@ export function historyRows(sessions: SavedSession[], attempts: SavedAttempt[]) 
     .map((a) => {
       let aciertos = 0;
       let fallos = 0;
-      for (const { q, item } of items(a.questions)) {
+      for (const q of a.questions) {
         if (q.answer === null) continue;
-        if (q.answer === item.answerIndex) aciertos++;
+        if (isCorrect(q)) aciertos++;
         else fallos++;
       }
       const nota = score(guardiaCivil2026, { aciertos, fallos });
@@ -53,9 +50,8 @@ export function historyRows(sessions: SavedSession[], attempts: SavedAttempt[]) 
   const practica: HistoryRow[] = [...sessions]
     .sort((a, b) => b.creada - a.creada)
     .map((s) => {
-      const list = items(s.questions);
-      const ok = list.filter(({ q, item }) => reviewOf(item, q.answer).correct).length;
-      const n = list.length;
+      const ok = s.questions.filter(isCorrect).length;
+      const n = s.questions.length;
       const aptitudes = [...new Set(s.questions.map((q) => taxonomy[q.type].aptitud))]
         .map((id) => APTITUDE_LABELS[id] ?? id)
         .join(', ');

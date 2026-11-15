@@ -15,7 +15,7 @@ import {
 } from '@aptiq/engine';
 
 import type { SavedQuestion, Store } from '@/data/store';
-import { OPTION_COUNT } from '@/practice/run';
+import { isCorrect, OPTION_COUNT } from '@/practice/run';
 
 /** Día LOCAL del móvil, «AAAA-MM-DD» (el motor no usa relojes: la app le pasa el día). */
 export function diaLocal(ms: number): string {
@@ -50,16 +50,7 @@ async function datedAnswers(store: Store): Promise<DatedAnswer[]> {
       .map((a) => ({ t: a.empezado, qs: a.questions })),
   ].sort((a, b) => a.t - b.t);
   return bloques.flatMap(({ t, qs }) =>
-    qs.map((q) => {
-      const item = registry[q.type].generator.generate(q.seed, q.level, OPTION_COUNT);
-      return {
-        dia: diaLocal(t),
-        type: q.type,
-        level: q.level,
-        correct: q.answer === item.answerIndex,
-        blank: q.answer === null,
-      };
-    }),
+    qs.map((q) => ({ dia: diaLocal(t), type: q.type, level: q.level, correct: isCorrect(q), blank: q.answer === null })),
   );
 }
 
