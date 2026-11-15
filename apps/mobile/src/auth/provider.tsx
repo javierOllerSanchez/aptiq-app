@@ -1,6 +1,6 @@
 import type { Session } from '@supabase/supabase-js';
 import * as Network from 'expo-network';
-import { createContext, type ReactNode, useContext, useEffect, useState } from 'react';
+import { createContext, type ReactNode, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { AppState } from 'react-native';
 
 import { useBaseStore } from '@/data/provider';
@@ -12,13 +12,27 @@ import { createSupabaseRemote } from './supabase-remote';
 
 type Auth = ReturnType<typeof createAuth>;
 
+export interface SyncStatus {
+  /** Última sincronización correcta (ms), o null si aún no ha habido ninguna en esta apertura. */
+  lastSync: number | null;
+  pending: number;
+}
+
 interface AuthState {
   /** null si Supabase no está configurado: la app funciona sin cuenta. */
   auth: Auth | null;
   session: Session | null;
+  status: SyncStatus;
+  /** Sincroniza ya (al abrir la pantalla Cuenta, tras cerrar un simulacro…). */
+  syncNow: () => void;
 }
 
-const AuthContext = createContext<AuthState>({ auth: null, session: null });
+const AuthContext = createContext<AuthState>({
+  auth: null,
+  session: null,
+  status: { lastSync: null, pending: 0 },
+  syncNow: () => {},
+});
 
 /**
  * Sesión de Supabase y sincronización automática: al abrir la app (volver a primer plano)
@@ -34,6 +48,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   });
   const auth = setup?.auth ?? null;
   const [session, setSession] = useState<Session | null>(null);
+  const [status, setStatus] = useState<SyncStatus>({ lastSync: null, pending: 0 });
+  const trigger = useRef<() => void>(() => {});
+  const syncNow = useCallback(() => trigger.current(), []);
 
   useEffect(() => {
     if (!setup) return;
@@ -58,12 +75,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!auth || !signedIn) return;
     const retrier = createRetrier({
-      run: () => auth.sync.sync(),
+      run: async () => {
+        const ok = await auth.sync.sync();
+        const pending = (await base.pendingOps()).length;
+        setStatus((prev) => ({ lastSync: ok ? Date.now() : prev.lastSync, pending }));
+        return ok;
+      },
       schedule: (fn, ms) => {
         const t = setTimeout(fn, ms);
         return () => clearTimeout(t);
       },
     });
+    trigger.current = () => void retrier.trigger();
     void retrier.trigger();
 
     let wasOnline = true;
@@ -76,13 +99,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (state === 'active') void retrier.trigger();
     });
     return () => {
+      trigger.current = () => {};
       retrier.stop();
       netSub.remove();
       appSub.remove();
     };
-  }, [auth, signedIn]);
+  }, [auth, base, signedIn]);
 
-  return <AuthContext.Provider value={{ auth, session }}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ auth, session, status, syncNow }}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth(): AuthState {

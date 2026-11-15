@@ -5,15 +5,16 @@ import { SourceNote } from './source-note';
 import { TabBar } from './tab-bar';
 import { Text } from './text';
 
-test('TabBar: cuatro pestañas con nombre y la activa marcada', async () => {
+test('TabBar: tres pestañas con nombre y la activa marcada (fase 5)', async () => {
   const onSelect = jest.fn();
   await render(<TabBar active="home" onSelect={onSelect} />);
-  for (const name of ['Inicio', 'Tests', 'Estadísticas', 'Perfil']) {
+  for (const name of ['Inicio', 'Historial', 'Cuenta']) {
     expect(screen.getByRole('tab', { name })).toBeOnTheScreen();
   }
+  expect(screen.getAllByRole('tab')).toHaveLength(3);
   expect(screen.getByRole('tab', { name: 'Inicio' })).toBeSelected();
-  fireEvent.press(screen.getByRole('tab', { name: 'Perfil' }));
-  expect(onSelect).toHaveBeenCalledWith('profile');
+  fireEvent.press(screen.getByRole('tab', { name: 'Cuenta' }));
+  expect(onSelect).toHaveBeenCalledWith('account');
 });
 
 test('GlassCard muestra su contenido', async () => {

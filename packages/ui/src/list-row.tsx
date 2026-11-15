@@ -1,5 +1,5 @@
 import { tokens } from '@aptiq/tokens';
-import { Pressable, StyleSheet } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 
 import { withAlpha } from './color';
 import { Icon } from './icon';
@@ -13,19 +13,25 @@ const { color, opacity, size, spacing } = tokens;
  */
 export function ListRow({
   label,
+  detail,
   value,
   valueLabel,
   weak = false,
+  weakLabel = 'a reforzar',
   onPress,
 }: {
   label: string;
+  /** Segunda línea en gris (fecha, duración…). */
+  detail?: string | undefined;
   value?: string | undefined;
   /** Lectura del valor para VoiceOver y TalkBack (p. ej. «81 % de acierto»). */
   valueLabel?: string | undefined;
   weak?: boolean;
+  /** Qué significa el valor en rojo; se escribe junto al nombre para no depender del color. */
+  weakLabel?: string;
   onPress: () => void;
 }) {
-  const a11y = [label, valueLabel ?? value, weak ? 'a reforzar' : null].filter(Boolean).join(', ');
+  const a11y = [label, detail, valueLabel ?? value, weak ? weakLabel : null].filter(Boolean).join(', ');
   return (
     <Pressable
       onPress={onPress}
@@ -33,10 +39,17 @@ export function ListRow({
       accessibilityLabel={a11y}
       style={({ pressed }) => [styles.row, pressed && styles.pressed]}
     >
-      <Text variant="bodyStrong" style={styles.label}>
-        {label}
-        {weak ? ' · a reforzar' : ''}
-      </Text>
+      <View style={styles.label}>
+        <Text variant="bodyStrong">
+          {label}
+          {weak ? ` · ${weakLabel}` : ''}
+        </Text>
+        {detail !== undefined && (
+          <Text variant="caption" color="graphite">
+            {detail}
+          </Text>
+        )}
+      </View>
       {value !== undefined && (
         <Text variant="timer" color={weak ? 'sealText' : 'ink'}>
           {value}

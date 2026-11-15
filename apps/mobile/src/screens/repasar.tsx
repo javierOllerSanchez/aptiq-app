@@ -17,23 +17,25 @@ interface Fallo {
   answer: number | null;
 }
 
-/** Repasar fallos y preguntas en blanco con su explicación (RES-03, EXP-01–03). */
+/** Repasar fallos y preguntas en blanco con su explicación (RES-03, EXP-01–03). De un simulacro (`id`) o de una sesión de práctica del Historial (`sesion`, PRO-02). */
 export function Repasar() {
   const store = useStore();
-  const { id } = useLocalSearchParams<{ id: string }>();
+  const { id, sesion } = useLocalSearchParams<{ id?: string; sesion?: string }>();
   const [fallos, setFallos] = useState<Fallo[] | null>(null);
 
   useEffect(() => {
-    store.attempts().then((list) => {
-      const attempt = list.find((a) => a.id === id);
+    const cargar = sesion
+      ? store.sessions().then((list) => list.find((s) => s.id === sesion)?.questions)
+      : store.attempts().then((list) => list.find((a) => a.id === id)?.questions);
+    cargar.then((questions) => {
       const out: Fallo[] = [];
-      attempt?.questions.forEach((q, i) => {
+      questions?.forEach((q, i) => {
         const item = registry[q.type].generator.generate(q.seed, q.level, OPTION_COUNT);
         if (!reviewOf(item, q.answer).correct) out.push({ n: i + 1, item, answer: q.answer });
       });
       setFallos(out);
     });
-  }, [store, id]);
+  }, [store, id, sesion]);
 
   if (!fallos) return <Loading />;
   return (
@@ -59,7 +61,7 @@ export function Repasar() {
           <Explicacion item={item} answer={answer} />
         </View>
       ))}
-      <Button label="Volver al resultado" onPress={() => router.back()} variant="secondary" />
+      <Button label={sesion ? 'Volver al historial' : 'Volver al resultado'} onPress={() => router.back()} variant="secondary" />
     </PaperBackground>
   );
 }

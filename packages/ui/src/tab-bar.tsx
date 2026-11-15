@@ -6,13 +6,13 @@ import { Icon, type IconName } from './icon';
 
 const { color, radius, size, spacing } = tokens;
 
-export type Tab = 'home' | 'tests' | 'stats' | 'profile';
+export type Tab = 'home' | 'history' | 'account';
 
+// Fase 5: tres destinos (prototipo aprobado, docs/prototipos/cuenta.html).
 const tabs: { key: Tab; icon: IconName; label: string }[] = [
   { key: 'home', icon: 'home', label: 'Inicio' },
-  { key: 'tests', icon: 'tests', label: 'Tests' },
-  { key: 'stats', icon: 'stats', label: 'Estadísticas' },
-  { key: 'profile', icon: 'profile', label: 'Perfil' },
+  { key: 'history', icon: 'history', label: 'Historial' },
+  { key: 'account', icon: 'profile', label: 'Cuenta' },
 ];
 
 /** Barra de navegación flotante en cristal. Activa: fondo tinta, icono subrayador. */
