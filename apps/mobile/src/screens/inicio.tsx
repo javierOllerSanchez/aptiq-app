@@ -22,6 +22,7 @@ import { StyleSheet, View } from 'react-native';
 
 import { useStore } from '@/data/provider';
 import { APTITUDE_LABELS, AVISO_MEZCLA, CITA, historyBreakdown } from '@/practice/run';
+import { loadProgress, type Progress } from '@/progress/data';
 import { TabSpacer } from '@/screens/tab-spacer';
 
 const { preguntas, minutos, opciones } = guardiaCivil2026.format;
@@ -45,16 +46,19 @@ export function Inicio() {
   const [niveles, setNiveles] = useState<Niveles | 'sin-test'>('sin-test');
   const [abierto, setAbierto] = useState(false);
   const [historial, setHistorial] = useState<Breakdown | null>(null);
+  const [progreso, setProgreso] = useState<Progress | null>(null);
 
   // Al volver a Inicio se relee: el test o un simulacro pueden haber cambiado los datos.
   useFocusEffect(
     useCallback(() => {
-      store.getSetting('niveles').then((raw) => {
+      Promise.all([store.getSetting('niveles'), loadProgress(store)]).then(([raw, p]) => {
+        setProgreso(p);
         if (!raw) return setNiveles('sin-test');
-        const porTipo = JSON.parse(raw) as Record<TypeCode, Level | null>;
+        const test = JSON.parse(raw) as Record<TypeCode, Level | null>;
         const grupos: Record<string, number[]> = {};
-        for (const [code, nivel] of Object.entries(porTipo) as [TypeCode, Level | null][]) {
-          if (nivel !== null) (grupos[taxonomy[code].aptitud] ??= []).push(nivel);
+        // Nivel adaptativo (ENT-03) de los tipos que tienen dato: sin test de un tipo no se inventa.
+        for (const code of Object.keys(test) as TypeCode[]) {
+          if (test[code] !== null) (grupos[taxonomy[code].aptitud] ??= []).push(p.levels[code]);
         }
         const todos = Object.values(grupos).flat();
         setNiveles({
@@ -80,11 +84,25 @@ export function Inicio() {
         {dato(opciones, 'opciones')}
         {opciones !== null ? `; ${opciones - 1} fallos restan 1 acierto.` : '.'}
       </Text>
+      {progreso?.diasExamen != null && (
+        <Text variant="bodyStrong">
+          {progreso.diasExamen === 0
+            ? 'El examen es hoy.'
+            : `Faltan ${progreso.diasExamen} ${progreso.diasExamen === 1 ? 'día' : 'días'} para el examen.`}
+        </Text>
+      )}
       {niveles !== 'sin-test' && (
         <GlassCard accessible={niveles.global !== null}>
-          <Text variant="label" color="graphite">
-            Nivel estimado · orientativo
-          </Text>
+          <View style={styles.cabeceraTarjeta}>
+            <Text variant="label" color="graphiteStrong">
+              Nivel estimado · orientativo
+            </Text>
+            {progreso !== null && progreso.racha > 0 && (
+              <Text variant="formula" color="graphiteStrong">
+                Racha · {progreso.racha} {progreso.racha === 1 ? 'día' : 'días'}
+              </Text>
+            )}
+          </View>
           {niveles.global === null ? (
             <>
               <Text>Sin datos suficientes para estimar tu nivel.</Text>
@@ -137,7 +155,16 @@ export function Inicio() {
       </View>
       <View>
         <ListRow
-          label="Todas las aptitudes"
+          label="Sesión de hoy"
+          detail={
+            progreso === null
+              ? undefined
+              : progreso.hoyHecha
+                ? 'Hecha · puedes repetirla'
+                : progreso.due.length
+                  ? `12 preguntas · ${progreso.due.length} ${progreso.due.length === 1 ? 'tipo' : 'tipos'} de repaso`
+                  : '12 preguntas · prioriza lo más flojo'
+          }
           value={historial ? acierto(sumar(historial)) : undefined}
           valueLabel={historial ? lectura(sumar(historial)) : undefined}
           onPress={() => router.push('/practica')}
@@ -174,6 +201,13 @@ const sumar = (h: Breakdown): Tally => {
 };
 
 const styles = StyleSheet.create({
+  cabeceraTarjeta: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'baseline',
+    justifyContent: 'space-between',
+    columnGap: tokens.spacing.m,
+  },
   content: { gap: tokens.spacing.m },
   nivel: { flexDirection: 'row', alignItems: 'baseline', gap: tokens.spacing.s },
   aviso: { paddingTop: tokens.spacing.s },
