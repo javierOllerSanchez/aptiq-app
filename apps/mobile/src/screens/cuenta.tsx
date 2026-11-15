@@ -19,6 +19,7 @@ import { AUTH_MESSAGES, estadoSync, haceCuanto } from '@/auth/messages';
 import { useAuth } from '@/auth/provider';
 import { useStore } from '@/data/provider';
 import { Recordatorio } from '@/screens/recordatorio';
+import { TuPlan } from '@/screens/tu-plan';
 import { TabSpacer } from '@/screens/tab-spacer';
 
 /**
@@ -31,7 +32,12 @@ export function Cuenta() {
     <PaperBackground scroll style={styles.content}>
       {!auth ? <SinConfigurar /> : session ? <ConSesion email={session.user.email ?? ''} /> : <Invitacion />}
       {/* Con sesión va dentro de ConSesion, antes de «Tus datos». El recordatorio no necesita cuenta. */}
-      {!(auth && session) && <Recordatorio />}
+      {!(auth && session) && (
+        <>
+          <TuPlan />
+          <Recordatorio />
+        </>
+      )}
       <TabSpacer />
     </PaperBackground>
   );
@@ -222,6 +228,7 @@ function ConSesion({ email }: { email: string }) {
           </Text>
         </View>
       </GlassCard>
+      <TuPlan />
       <Recordatorio />
       <Text variant="label" color="graphite" accessibilityRole="header" style={styles.seccion}>
         Tus datos

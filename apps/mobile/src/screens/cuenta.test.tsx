@@ -22,7 +22,9 @@ jest.mock('@/auth/provider', () => ({ useAuth: () => mockAuth }));
 let mockStore = createMemoryStore();
 jest.mock('@/data/provider', () => ({ useStore: () => mockStore }));
 let mockPremium = true;
-jest.mock('@/purchases/provider', () => ({ usePlan: () => ({ plan: { premium: mockPremium } }) }));
+jest.mock('@/purchases/provider', () => ({
+  usePlan: () => ({ plan: { premium: mockPremium }, api: jest.requireActual('@/purchases/local').createLocalPurchases() }),
+}));
 
 const metrics = {
   frame: { x: 0, y: 0, width: 390, height: 844 },
