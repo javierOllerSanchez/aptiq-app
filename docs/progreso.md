@@ -12,7 +12,7 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 | 5 · Cuentas y sincronización | Cerrada con T8 pendiente (SMTP aplazado por el propietario al final del proyecto) | `fase-5-cuentas` · PR #11 fusionado | 2026-11-15 | Sí, 2026-11-15 |
 | 6 · Progreso y adaptativo | Cerrada (comprobaciones en el móvil pendientes del propietario) | `fase-6-progreso` · PR #13 fusionado | 2026-11-15 | Sí, 2026-11-15 |
 | 7 · Pago | Cerrada con T7 pendiente (pruebas en tiendas: faltan las cuentas de Apple, Google y RevenueCat) | `fase-7-pago` · PR #15 fusionado | 2026-11-15 | Sí, 2026-11-15 |
-| 8 · Contenido ampliado y panel interno | Pendiente | | | |
+| 8 · Contenido ampliado y panel interno | En curso | `fase-8-contenido` | | |
 | 9 · Beta y lanzamiento | Pendiente | | | |
 
 ## Registro
