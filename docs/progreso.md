@@ -17,6 +17,18 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 
 ## Registro
 
+**2026-11-19 · Fase 8 · En curso**
+
+- **Hecho (con pruebas en verde):**
+  - T1–T4: aptitud «espacial» con Figuras giradas, Series de figuras y Desarrollos de cubos; dibujos SVG desde el motor; muestras en `docs/muestras/*.html`; `revisor-contenido` pasado dos veces y sus bloqueantes corregidos (pistas para acertar sin resolver, reintentos agotados); estrés de 10.000 en verde;
+  - T5: prototipos `pregunta-figuras`, `pregunta-verbal`, `reportar` y `ficha-metodo` (**pendientes de tu aprobación**);
+  - T7: banco de verbales en Supabase (solo las aprobadas llegan a la app, RLS probado) y en el motor;
+  - T9 (servidor), T14: tabla `reporte` y función `metricas()` (agregados, índice de discriminación), con prueba calculada a mano;
+  - T12: perfiles de Policía Nacional 2026 y Auxiliar Administrativo 2025 solo con datos del BOE y del INAP (**pendientes de tu revisión**);
+  - T13: perfiles y verbales se descargan, validan y guardan en el móvil sin publicar la app.
+- **Bloqueado:** T10–T11 (panel). `pnpm` no puede descargar Next.js: «unable to verify the first certificate» al conectar con registry.npmjs.org.
+- **Pendiente:** T6, T8 (pantallas y borradores), T9 (pantalla de reporte), T15 y T16.
+
 **2026-11-15 · Fase 7 · Aprobación**
 
 - El propietario aprueba la fase 7 y se fusiona el PR #15. Siguen pendientes T7 (pruebas en tiendas, sin cuentas), los enlaces legales del muro y tres decisiones (Sesión de hoy gratuita, texto «sin perder nada» y momento del muro).
