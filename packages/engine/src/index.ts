@@ -13,6 +13,8 @@ import { letSerie } from './series/let-serie';
 import { letSerieSolver } from './series/let-serie.solver';
 import { numSerie } from './series/num-serie';
 import { numSerieSolver } from './series/num-serie.solver';
+import { espGiro } from './spatial/esp-giro';
+import { espGiroSolver } from './spatial/esp-giro.solver';
 import type { TypeCode } from './taxonomy';
 import type { Generator, Solver } from './types';
 
@@ -61,4 +63,5 @@ export const registry: Record<TypeCode, { generator: Generator; solver: Solver }
   'COD.CRIPTO': { generator: codCripto, solver: codCriptoSolver },
   'VER.ORDEN': { generator: verOrden, solver: verOrdenSolver },
   'DAT.COMPARA': { generator: datCompara, solver: datComparaSolver },
+  'ESP.GIRO': { generator: espGiro, solver: espGiroSolver },
 };

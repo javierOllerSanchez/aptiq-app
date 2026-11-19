@@ -108,7 +108,7 @@ test('ningún enunciado se repite dentro de un simulacro (CON-02)', async () => 
       sessionSeed,
       levelFor: () => 3,
     });
-    expect(new Set(items.map((it) => it.stem.text)).size).toBe(80);
+    expect(new Set(items.map((it) => JSON.stringify(it.stem))).size).toBe(80);
   }
 });
 

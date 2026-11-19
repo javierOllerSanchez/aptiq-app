@@ -82,11 +82,12 @@ export async function generarSinRepetir(
   const items = specs.map((s) => {
     let item = registry[s.type].generator.generate(s.seed, s.level, OPTION_COUNT);
     // ponytail: 50 intentos; si un tipo y nivel tienen menos enunciados que preguntas, se acepta la repetición.
-    for (let k = 1; seen.has(item.stem.text) && k <= 50; k++) {
+    // El enunciado entero: en los tipos con figuras el texto es siempre la misma pregunta.
+    for (let k = 1; seen.has(JSON.stringify(item.stem)) && k <= 50; k++) {
       const seed = `${s.seed}${k.toString(36)}`;
       if (!used.has(seed)) item = registry[s.type].generator.generate(seed, s.level, OPTION_COUNT);
     }
-    seen.add(item.stem.text);
+    seen.add(JSON.stringify(item.stem));
     return item;
   });
   await store.addUsedSeeds(items.map((it) => it.seed));

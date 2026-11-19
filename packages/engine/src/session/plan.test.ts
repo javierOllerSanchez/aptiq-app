@@ -38,8 +38,8 @@ test('con aptitud solo sale ese tipo de ejercicio', () => {
   for (const it of out) expect(taxonomy[it.type as TypeCode].aptitud).toBe('numerica');
 });
 
-test('la mezcla equitativa reparte a partes iguales entre los 6 tipos', () => {
-  const out = buildPractice({ ...base, count: 60 });
+test('la mezcla equitativa reparte a partes iguales entre todos los tipos', () => {
+  const out = buildPractice({ ...base, count: typeCodes.length * 10 });
   for (const code of typeCodes) {
     expect(out.filter((it) => it.type === code)).toHaveLength(10);
   }

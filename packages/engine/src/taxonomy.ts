@@ -41,6 +41,12 @@ export const taxonomy = {
     descripcion: 'Contar cuántas filas de dos columnas son exactamente iguales.',
     segundosEsperados: [20, 30, 40, 50, 60],
   },
+  'ESP.GIRO': {
+    nombre: 'Figuras giradas',
+    aptitud: 'espacial',
+    descripcion: 'Elegir la figura que es el modelo girado, sin confundirla con su imagen en espejo.',
+    segundosEsperados: [20, 25, 35, 45, 55],
+  },
 } as const;
 
 export type TypeCode = keyof typeof taxonomy;
