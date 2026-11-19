@@ -19,6 +19,7 @@ import type { Generator, Solver } from './types';
 export { createRng, type Rng } from './rng';
 export { taxonomy, typeCodes, type TypeCode } from './taxonomy';
 export * from './types';
+export type { Drawing, Paint, Shape } from './figures/draw';
 export { validateProfile, type ExamProfile } from './profile';
 
 /** Perfil oficial de la Guardia Civil (fase 3): datos con su fuente en el propio JSON. */

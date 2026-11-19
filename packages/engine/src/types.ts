@@ -1,3 +1,4 @@
+import type { Drawing } from './figures/draw';
 import type { TypeCode } from './taxonomy';
 
 export type Level = 1 | 2 | 3 | 4 | 5;
@@ -39,6 +40,13 @@ export interface Generator<S extends Stem = Stem> {
   families: Readonly<Record<Level, readonly string[]>>;
   /** Orden por valor de las opciones, si lo tienen (números, letras, palabras). */
   compareOptions?: (a: string, b: string) => number;
+  /** Tipos con figuras: la opción en palabras (lector de pantalla, muestras y explicación). */
+  describe?: (option: string) => string;
+  /** Tipos con figuras: dibujos del enunciado (con su texto alternativo) y de cada opción. */
+  draw?: {
+    stem(stem: S): { drawings: Drawing[]; alt: string };
+    option(option: string): Drawing;
+  };
   generate(seed: string, level: Level, optionCount: OptionCount): Item<S>;
 }
 
