@@ -18,7 +18,7 @@ import {
 import { useState, type ReactNode } from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { CITA } from '@/practice/run';
+import { cita } from '@/practice/run';
 
 const { color, spacing, radius } = tokens;
 const answered = Array.from({ length: 40 }, (_, i) => i < 11);
@@ -131,7 +131,7 @@ export function Catalogo() {
       </Section>
 
       <Section title="Fuente">
-        <SourceNote cita={CITA} />
+        <SourceNote cita={cita()} />
       </Section>
 
       <Section title="Navegación">

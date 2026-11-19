@@ -58,8 +58,9 @@ export function generatorSuite<S extends Stem>(
               expect(solver.validOptions(item), `ambigua o errónea: ${ctx}`).toEqual([
                 item.answerIndex,
               ]);
+              const answer = item.options[item.answerIndex]!;
               expect(item.explanation.apply, `la explicación no llega a la respuesta: ${ctx}`).toContain(
-                item.options[item.answerIndex],
+                gen.describe ? gen.describe(answer) : answer,
               );
               const explained = item.explanation.distractors.map((d) => d.optionIndex).sort();
               const wrong = item.options.map((_, j) => j).filter((j) => j !== item.answerIndex);
@@ -74,7 +75,8 @@ export function generatorSuite<S extends Stem>(
               }
               guessed += centerGuess(item.options, item.answerIndex);
               families.set(item.meta.family, (families.get(item.meta.family) ?? 0) + 1);
-              if (i < 1_000) stems.add(item.stem.text);
+              // Con figuras, el texto es siempre la misma pregunta: cuenta el enunciado entero.
+              if (i < 1_000) stems.add(JSON.stringify(item.stem));
             }
             // La correcta no puede delatarse por su posición (A, B, C, D)…
             for (const p of positions) expect(Math.abs(p - N / oc)).toBeLessThan((N / oc) * 0.2);

@@ -1,0 +1,38 @@
+{
+  "id": "policia-nacional-2026",
+  "oposicion": "Policía Nacional · Escala Básica, categoría de Policía",
+  "convocatoria": "2026",
+  "version": 1,
+  "sources": [
+    {
+      "organismo": "BOE",
+      "titulo": "Resolución de 7 de julio de 2026, de la Dirección General de la Policía, por la que se convoca oposición libre para cubrir plazas de alumnos/as de la Escuela Nacional de Policía, aspirantes a ingreso en la Escala Básica, categoría de Policía, del Cuerpo Nacional de Policía (BOE n.º 167, de 10 de julio de 2026)",
+      "url": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-15055",
+      "tipo": "bases",
+      "fechaConsulta": "2026-11-19",
+      "apartado": "bases 6.1.3.c, 6.7 y 6.11"
+    }
+  ],
+  "format": {
+    "preguntas": null,
+    "minutos": 60,
+    "opciones": null,
+    "puntuacion": { "maxima": 10, "minima": null }
+  },
+  "mix": null,
+  "fieldSources": {
+    "format.minutos": 0,
+    "format.puntuacion.maxima": 0
+  },
+  "pendiente": ["format.preguntas", "format.opciones", "format.puntuacion.minima", "mix"],
+  "notas": {
+    "format.preguntas": "Pendiente: la base 6.1.3.c solo dice que consistirá en «uno o varios test»; no fija el número de preguntas.",
+    "format.minutos": "Base 6.1.3.c: «duración total máxima de sesenta minutos» para todos los test psicotécnicos.",
+    "format.opciones": "Pendiente: la fórmula usa «n», el número de alternativas de respuesta, pero las bases no dicen cuántas son.",
+    "format.puntuacion.maxima": "Base 6.1.3.c: fórmula [A − E/(n − 1)] × 10/P (A aciertos, E errores, n alternativas, P preguntas); el máximo es 10. Con varios ejercicios, la media aritmética de todos.",
+    "format.puntuacion.minima": "Pendiente: «el tribunal calificador» determina la puntuación mínima exigible; no está en las bases.",
+    "calificacion": "Base 6.1.3.c: la calificación final es «apto» o «no apto»; quien no es apto queda excluido. No suma a la nota de la oposición (base 6.11) y solo se usa como último criterio de desempate (base 6.11.d).",
+    "acto": "Base 6.7: se realiza junto con la primera prueba (conocimientos), en un acto único.",
+    "mix": "Pendiente: las bases hablan de «inteligencia general y específica» sin tipos de ejercicio, y la Dirección General de la Policía no publica el cuestionario psicotécnico. Ver profiles/analysis/policia-nacional-2026.md."
+  }
+}

@@ -41,6 +41,39 @@ export const taxonomy = {
     descripcion: 'Contar cuántas filas de dos columnas son exactamente iguales.',
     segundosEsperados: [20, 30, 40, 50, 60],
   },
+  'ESP.GIRO': {
+    nombre: 'Figuras giradas',
+    aptitud: 'espacial',
+    descripcion: 'Elegir la figura que es el modelo girado, sin confundirla con su imagen en espejo.',
+    segundosEsperados: [20, 25, 35, 45, 55],
+  },
+  'ABS.FIGURAS': {
+    nombre: 'Series de figuras',
+    aptitud: 'espacial',
+    descripcion: 'Elegir la figura que continúa una serie en la que una flecha gira o un punto avanza.',
+    segundosEsperados: [20, 30, 40, 50, 60],
+  },
+  'ESP.CUBO': {
+    nombre: 'Desarrollos de cubos',
+    aptitud: 'espacial',
+    descripcion: 'Elegir el cubo que se forma al plegar un desarrollo con dibujos en sus caras.',
+    segundosEsperados: [30, 40, 50, 60, 75],
+  },
+  // Verbales redactadas (banco): solo aparecen con preguntas aprobadas por una persona (fase 8).
+  'VER.SINON': {
+    nombre: 'Sinónimos y antónimos',
+    aptitud: 'verbal',
+    descripcion: 'Elegir la palabra que significa lo mismo, o lo contrario, que otra.',
+    segundosEsperados: [15, 20, 25, 30, 35],
+    banco: true,
+  },
+  'VER.ANALOG': {
+    nombre: 'Analogías verbales',
+    aptitud: 'verbal',
+    descripcion: 'Completar un par de palabras con la misma relación que otro par.',
+    segundosEsperados: [20, 25, 30, 40, 50],
+    banco: true,
+  },
 } as const;
 
 export type TypeCode = keyof typeof taxonomy;

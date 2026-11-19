@@ -1,8 +1,15 @@
-import { createExam, estimateLevels, type ExamState, type Item, type Level } from '@aptiq/engine';
+import {
+  createExam,
+  estimateLevels,
+  type ExamState,
+  isBankType,
+  type Item,
+  type Level,
+  typeCodes,
+} from '@aptiq/engine';
 import { tokens } from '@aptiq/tokens';
 import {
   Button,
-  OptionBubble,
   PaperBackground,
   ProgressTicks,
   SourceNote,
@@ -17,10 +24,13 @@ import { StyleSheet, TextInput, View } from 'react-native';
 import { useStore } from '@/data/provider';
 import type { Store } from '@/data/store';
 import { useExamClock } from '@/hooks/use-exam-clock';
-import { CITA, LETTERS, startRun, toSaved } from '@/practice/run';
+import { cita, startRun, toSaved } from '@/practice/run';
+import { Opciones } from '@/screens/opciones';
 import { Pregunta } from '@/screens/pregunta';
 
-const TEST_QUESTIONS = 12; // 2 por tipo (ONB-02)
+/** Tipos del test de nivel: los generados por código (las verbales del banco dependen de lo aprobado). */
+const TIPOS_TEST = typeCodes.filter((t) => !isBankType(t));
+const TEST_QUESTIONS = 2 * TIPOS_TEST.length; // 2 por tipo (ONB-02; 18 desde la fase 8)
 const TEST_MINUTES = 10;
 /** AAAA-MM-DD y que la fecha exista (rechaza 2027-02-31). */
 export function fechaReal(texto: string): boolean {
@@ -48,6 +58,7 @@ export function Onboarding() {
     const items = await startRun(store, {
       count: TEST_QUESTIONS,
       reparto: 'equitativo',
+      types: TIPOS_TEST,
       sessionSeed: `test-${now}`,
       levelFor: () => 2 as Level,
     });
@@ -69,7 +80,7 @@ export function Onboarding() {
           onPress={() => setStep('fecha')}
           variant="primary"
         />
-        <SourceNote cita={CITA} />
+        <SourceNote cita={cita()} />
         <Text variant="caption" color="graphite">
           Aptiq es independiente de la Administración.
         </Text>
@@ -173,18 +184,8 @@ function TestDeNivel({ store, items, exam }: { store: Store; items: Item[]; exam
         current={index}
         answered={items.map((_, i) => i < answers.length)}
       />
-      <Pregunta texto={item.stem.text} />
-      <View accessibilityRole="radiogroup" style={styles.options}>
-        {item.options.map((value, i) => (
-          <OptionBubble
-            key={i}
-            letter={LETTERS[i] ?? ''}
-            value={value}
-            state={selected === i ? 'marked' : 'empty'}
-            onPress={() => setSelected(i)}
-          />
-        ))}
-      </View>
+      <Pregunta item={item} />
+      <Opciones item={item} stateOf={(i) => (selected === i ? 'marked' : 'empty')} onPress={setSelected} />
       <Button
         label={ultima ? 'Ver mi nivel' : 'Siguiente'}
         onPress={() => siguiente(selected)}
@@ -203,7 +204,6 @@ const styles = StyleSheet.create({
   content: { gap: tokens.spacing.m },
   header: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', gap: tokens.spacing.s },
   shrink: { flexShrink: 1, flexGrow: 1 },
-  options: { gap: tokens.spacing.s },
   input: {
     minHeight: tokens.size.buttonHeight,
     borderWidth: tokens.border.default,

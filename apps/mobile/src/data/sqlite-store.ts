@@ -100,6 +100,12 @@ export function createSqliteStore(name = 'aptiq.db', now: () => number = Date.no
           .where(and(eq(colaSync.entidad, o.entidad), eq(colaSync.id, o.id)));
       }
     },
+    async getContent(key) {
+      return raw.getFirstSync<{ valor: string }>('SELECT valor FROM contenido WHERE clave = ?', key)?.valor ?? null;
+    },
+    async setContent(key, value) {
+      raw.runSync('INSERT INTO contenido (clave, valor) VALUES (?, ?) ON CONFLICT (clave) DO UPDATE SET valor = excluded.valor', key, value);
+    },
     async clearAll() {
       // Todo o nada: tras borrar la cuenta en el servidor no hay reintento si se queda a medias.
       raw.withTransactionSync(() => {

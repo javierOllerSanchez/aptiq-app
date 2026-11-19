@@ -48,6 +48,8 @@ export const createTablesSql = [
   'CREATE TABLE IF NOT EXISTS sesion (id TEXT PRIMARY KEY NOT NULL, creada INTEGER NOT NULL, preguntas TEXT NOT NULL)',
   'CREATE TABLE IF NOT EXISTS intento_simulacro (id TEXT PRIMARY KEY NOT NULL, empezado INTEGER NOT NULL, duracion_ms INTEGER NOT NULL, fin INTEGER, preguntas TEXT NOT NULL)',
   'CREATE TABLE IF NOT EXISTS cola_sync (entidad TEXT NOT NULL, id TEXT NOT NULL, creada INTEGER NOT NULL, intentos INTEGER NOT NULL DEFAULT 0, PRIMARY KEY (entidad, id))',
+  // Fase 8: contenido descargado (verbales aprobadas, perfil). No es del usuario: no se sincroniza.
+  'CREATE TABLE IF NOT EXISTS contenido (clave TEXT PRIMARY KEY NOT NULL, valor TEXT NOT NULL)',
 ];
 
 /** Columnas añadidas después de la fase 4: se crean en bases ya existentes si faltan. */

@@ -1,5 +1,7 @@
 // Motor de contenido de Aptiq: generadores deterministas con solucionador independiente.
+import auxiliar2025Json from '../profiles/auxiliar-administrativo-2025.json';
 import guardiaCivil2026Json from '../profiles/guardia-civil-2026.json';
+import policiaNacional2026Json from '../profiles/policia-nacional-2026.json';
 import type { ExamProfile } from './profile';
 import { datCompara } from './compare/dat-compara';
 import { datComparaSolver } from './compare/dat-compara.solver';
@@ -13,16 +15,30 @@ import { letSerie } from './series/let-serie';
 import { letSerieSolver } from './series/let-serie.solver';
 import { numSerie } from './series/num-serie';
 import { numSerieSolver } from './series/num-serie.solver';
+import { absFiguras } from './spatial/abs-figuras';
+import { absFigurasSolver } from './spatial/abs-figuras.solver';
+import { espCubo } from './spatial/esp-cubo';
+import { espCuboSolver } from './spatial/esp-cubo.solver';
+import { espGiro } from './spatial/esp-giro';
+import { espGiroSolver } from './spatial/esp-giro.solver';
 import type { TypeCode } from './taxonomy';
+import { bankGenerator, bankSolver } from './verbal/bank';
 import type { Generator, Solver } from './types';
 
 export { createRng, type Rng } from './rng';
 export { taxonomy, typeCodes, type TypeCode } from './taxonomy';
 export * from './types';
+export type { Drawing, Paint, Shape } from './figures/draw';
 export { validateProfile, type ExamProfile } from './profile';
 
 /** Perfil oficial de la Guardia Civil (fase 3): datos con su fuente en el propio JSON. */
 export const guardiaCivil2026 = guardiaCivil2026Json as ExamProfile;
+/** Perfiles de la fase 8 (CON-04): preparados, aún no se muestran en la app (decisión del propietario). */
+export const profiles: Record<string, ExamProfile> = {
+  [guardiaCivil2026.id]: guardiaCivil2026,
+  'policia-nacional-2026': policiaNacional2026Json as ExamProfile,
+  'auxiliar-administrativo-2025': auxiliar2025Json as ExamProfile,
+};
 export { score, type ScoreResult } from './score';
 export {
   createExam,
@@ -45,6 +61,7 @@ export {
   type Result,
 } from './review/review';
 export { adaptLevels } from './level/adapt';
+export { type Method, methods } from './methods';
 export { estimateLevels, type LevelAnswer } from './level/estimate';
 export { type DatedAnswer, levelHistory, mondayOf, type WeekLevel } from './progress/history';
 export { daysToExam, streak } from './progress/streak';
@@ -60,4 +77,18 @@ export const registry: Record<TypeCode, { generator: Generator; solver: Solver }
   'COD.CRIPTO': { generator: codCripto, solver: codCriptoSolver },
   'VER.ORDEN': { generator: verOrden, solver: verOrdenSolver },
   'DAT.COMPARA': { generator: datCompara, solver: datComparaSolver },
+  'ESP.GIRO': { generator: espGiro, solver: espGiroSolver },
+  'ABS.FIGURAS': { generator: absFiguras, solver: absFigurasSolver },
+  'ESP.CUBO': { generator: espCubo, solver: espCuboSolver },
+  'VER.SINON': { generator: bankGenerator('VER.SINON'), solver: bankSolver('VER.SINON') },
+  'VER.ANALOG': { generator: bankGenerator('VER.ANALOG'), solver: bankSolver('VER.ANALOG') },
 };
+export {
+  availableTypes,
+  isBankType,
+  loadBank,
+  MIN_APROBADAS,
+  validateVerbal,
+  type VerbalEntry,
+  type VerbalType,
+} from './verbal/bank';

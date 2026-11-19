@@ -1,0 +1,226 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ESP.GIRO v1 > nivel 1: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 3,
+  "explanation": {
+    "apply": "Gira el modelo 90° en sentido contrario a las agujas del reloj: queda fila 1: cuadro 1; fila 2: cuadros 1, 2 y 3; fila 3: cuadro 3.",
+    "distractors": [
+      {
+        "error": "Tiene un cuadro en otro sitio: por mucho que la gires, no coincide con el modelo.",
+        "optionIndex": 0,
+      },
+      {
+        "error": "Ocupa el mismo espacio, pero tiene un cuadro en otro sitio: compárala fila a fila con el modelo girado.",
+        "optionIndex": 1,
+      },
+      {
+        "error": "Es el modelo en espejo: los detalles que en el modelo salen hacia un lado aquí salen hacia el contrario, y eso no se consigue girando.",
+        "optionIndex": 2,
+      },
+    ],
+    "observe": "Elige un detalle del modelo fácil de seguir (un cuadro que sobresale o una muesca) y fíjate hacia qué lado mira respecto al resto.",
+    "rule": "Al girar, cada detalle sigue mirando hacia el mismo lado respecto al resto de la figura; en un espejo, mira hacia el lado contrario. Solo vale la que coincide con el modelo girado, cuadro a cuadro.",
+    "tip": "Gira mentalmente un solo detalle (un cuadro que sobresale, una muesca o una esquina) y descarta primero las figuras que lo tienen al otro lado: son el espejo. Solo entonces comprueba el resto cuadro a cuadro.",
+  },
+  "id": "ESP.GIRO:1:muestra:1",
+  "level": 1,
+  "meta": {
+    "expectedSeconds": 20,
+    "family": "giro",
+    "generatorVersion": "1",
+  },
+  "options": [
+    "2.0,0.1,1.1,2.1,1.2",
+    "1.0,2.0,0.1,1.1,1.2",
+    "2.0,0.1,1.1,2.1,0.2",
+    "0.0,0.1,1.1,2.1,2.2",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "model": "1.0,2.0,1.1,0.2,1.2",
+    "text": "¿Qué figura es el modelo girado, sin darle la vuelta?",
+  },
+  "type": "ESP.GIRO",
+}
+`;
+
+exports[`ESP.GIRO v1 > nivel 2: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 0,
+  "explanation": {
+    "apply": "Gira el modelo 90° en el sentido de las agujas del reloj: queda fila 1: cuadros 1 y 2; fila 2: cuadros 1, 2 y 3; fila 3: cuadro 1.",
+    "distractors": [
+      {
+        "error": "Es el modelo en espejo: los detalles que en el modelo salen hacia un lado aquí salen hacia el contrario, y eso no se consigue girando.",
+        "optionIndex": 1,
+      },
+      {
+        "error": "Ocupa el mismo espacio, pero tiene un cuadro en otro sitio: compárala fila a fila con el modelo girado.",
+        "optionIndex": 2,
+      },
+      {
+        "error": "Tiene un cuadro en otro sitio: por mucho que la gires, no coincide con el modelo.",
+        "optionIndex": 3,
+      },
+    ],
+    "observe": "Elige un detalle del modelo fácil de seguir (un cuadro que sobresale o una muesca) y fíjate hacia qué lado mira respecto al resto.",
+    "rule": "Al girar, cada detalle sigue mirando hacia el mismo lado respecto al resto de la figura; en un espejo, mira hacia el lado contrario. Solo vale la que coincide con el modelo girado, cuadro a cuadro.",
+    "tip": "Gira mentalmente un solo detalle (un cuadro que sobresale, una muesca o una esquina) y descarta primero las figuras que lo tienen al otro lado: son el espejo. Solo entonces comprueba el resto cuadro a cuadro.",
+  },
+  "id": "ESP.GIRO:1:muestra:2",
+  "level": 2,
+  "meta": {
+    "expectedSeconds": 25,
+    "family": "giro",
+    "generatorVersion": "1",
+  },
+  "options": [
+    "0.0,1.0,0.1,1.1,2.1,0.2",
+    "1.0,2.0,0.1,1.1,2.1,2.2",
+    "0.0,0.1,1.1,2.1,0.2,2.2",
+    "0.0,1.0,1.1,0.2,1.2,2.2",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "model": "1.0,0.1,1.1,0.2,1.2,2.2",
+    "text": "¿Qué figura es el modelo girado, sin darle la vuelta?",
+  },
+  "type": "ESP.GIRO",
+}
+`;
+
+exports[`ESP.GIRO v1 > nivel 3: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 3,
+  "explanation": {
+    "apply": "Gira el modelo 90° en sentido contrario a las agujas del reloj: queda fila 1: cuadro 3; fila 2: cuadros 1, 2, 3 y 4; fila 3: cuadros 2 y 3.",
+    "distractors": [
+      {
+        "error": "Tiene un cuadro en otro sitio: por mucho que la gires, no coincide con el modelo.",
+        "optionIndex": 0,
+      },
+      {
+        "error": "Es el modelo en espejo: los detalles que en el modelo salen hacia un lado aquí salen hacia el contrario, y eso no se consigue girando.",
+        "optionIndex": 1,
+      },
+      {
+        "error": "Ocupa el mismo espacio, pero tiene un cuadro en otro sitio: compárala fila a fila con el modelo girado.",
+        "optionIndex": 2,
+      },
+    ],
+    "observe": "Elige un detalle del modelo fácil de seguir (un cuadro que sobresale o una muesca) y fíjate hacia qué lado mira respecto al resto.",
+    "rule": "Al girar, cada detalle sigue mirando hacia el mismo lado respecto al resto de la figura; en un espejo, mira hacia el lado contrario. Solo vale la que coincide con el modelo girado, cuadro a cuadro.",
+    "tip": "Gira mentalmente un solo detalle (un cuadro que sobresale, una muesca o una esquina) y descarta primero las figuras que lo tienen al otro lado: son el espejo. Solo entonces comprueba el resto cuadro a cuadro.",
+  },
+  "id": "ESP.GIRO:1:muestra:3",
+  "level": 3,
+  "meta": {
+    "expectedSeconds": 35,
+    "family": "giro",
+    "generatorVersion": "1",
+  },
+  "options": [
+    "1.0,2.0,1.1,2.1,0.2,1.2,1.3",
+    "1.0,0.1,1.1,2.1,3.1,1.2,2.2",
+    "0.0,1.0,0.1,1.1,1.2,2.2,1.3",
+    "2.0,0.1,1.1,2.1,3.1,1.2,2.2",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "model": "1.0,0.1,1.1,0.2,1.2,2.2,1.3",
+    "text": "¿Qué figura es el modelo girado, sin darle la vuelta?",
+  },
+  "type": "ESP.GIRO",
+}
+`;
+
+exports[`ESP.GIRO v1 > nivel 4: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 3,
+  "explanation": {
+    "apply": "Gira el modelo 90° en el sentido de las agujas del reloj: queda fila 1: cuadros 2 y 3; fila 2: cuadros 1, 2 y 3; fila 3: cuadros 1 y 3; fila 4: cuadro 3.",
+    "distractors": [
+      {
+        "error": "Ocupa el mismo espacio, pero tiene un cuadro en otro sitio: compárala fila a fila con el modelo girado.",
+        "optionIndex": 0,
+      },
+      {
+        "error": "Tiene un cuadro en otro sitio: por mucho que la gires, no coincide con el modelo.",
+        "optionIndex": 1,
+      },
+      {
+        "error": "Es el modelo en espejo: los detalles que en el modelo salen hacia un lado aquí salen hacia el contrario, y eso no se consigue girando.",
+        "optionIndex": 2,
+      },
+    ],
+    "observe": "Elige un detalle del modelo fácil de seguir (un cuadro que sobresale o una muesca) y fíjate hacia qué lado mira respecto al resto.",
+    "rule": "Al girar, cada detalle sigue mirando hacia el mismo lado respecto al resto de la figura; en un espejo, mira hacia el lado contrario. Solo vale la que coincide con el modelo girado, cuadro a cuadro.",
+    "tip": "Gira mentalmente un solo detalle (un cuadro que sobresale, una muesca o una esquina) y descarta primero las figuras que lo tienen al otro lado: son el espejo. Solo entonces comprueba el resto cuadro a cuadro.",
+  },
+  "id": "ESP.GIRO:1:muestra:4",
+  "level": 4,
+  "meta": {
+    "expectedSeconds": 45,
+    "family": "giro",
+    "generatorVersion": "1",
+  },
+  "options": [
+    "1.0,2.0,3.0,0.1,1.1,2.1,2.2,3.2",
+    "1.0,0.1,1.1,0.2,1.2,2.2,0.3,2.3",
+    "0.0,1.0,0.1,1.1,2.1,0.2,2.2,0.3",
+    "1.0,2.0,0.1,1.1,2.1,0.2,2.2,2.3",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "model": "0.0,1.0,2.0,3.0,0.1,1.1,1.2,2.2",
+    "text": "¿Qué figura es el modelo girado, sin darle la vuelta?",
+  },
+  "type": "ESP.GIRO",
+}
+`;
+
+exports[`ESP.GIRO v1 > nivel 5: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 0,
+  "explanation": {
+    "apply": "Gira el modelo 180° (media vuelta): queda fila 1: cuadro 2; fila 2: cuadros 1 y 2; fila 3: cuadros 1, 2 y 3; fila 4: cuadros 2 y 3.",
+    "distractors": [
+      {
+        "error": "Tiene un cuadro en otro sitio: por mucho que la gires, no coincide con el modelo.",
+        "optionIndex": 1,
+      },
+      {
+        "error": "Es el modelo en espejo: los detalles que en el modelo salen hacia un lado aquí salen hacia el contrario, y eso no se consigue girando.",
+        "optionIndex": 2,
+      },
+      {
+        "error": "Ocupa el mismo espacio, pero tiene un cuadro en otro sitio: compárala fila a fila con el modelo girado.",
+        "optionIndex": 3,
+      },
+    ],
+    "observe": "Elige un detalle del modelo fácil de seguir (un cuadro que sobresale o una muesca) y fíjate hacia qué lado mira respecto al resto.",
+    "rule": "Al girar, cada detalle sigue mirando hacia el mismo lado respecto al resto de la figura; en un espejo, mira hacia el lado contrario. Solo vale la que coincide con el modelo girado, cuadro a cuadro.",
+    "tip": "Gira mentalmente un solo detalle (un cuadro que sobresale, una muesca o una esquina) y descarta primero las figuras que lo tienen al otro lado: son el espejo. Solo entonces comprueba el resto cuadro a cuadro.",
+  },
+  "id": "ESP.GIRO:1:muestra:5",
+  "level": 5,
+  "meta": {
+    "expectedSeconds": 55,
+    "family": "giro",
+    "generatorVersion": "1",
+  },
+  "options": [
+    "1.0,0.1,1.1,0.2,1.2,2.2,1.3,2.3",
+    "1.0,2.0,1.1,2.1,0.2,1.2,2.2,0.3",
+    "1.0,2.0,0.1,1.1,2.1,0.2,1.2,1.3",
+    "0.0,0.1,1.1,2.1,1.2,2.2,1.3,2.3",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "model": "0.0,1.0,0.1,1.1,2.1,1.2,2.2,1.3",
+    "text": "¿Qué figura es el modelo girado, sin darle la vuelta?",
+  },
+  "type": "ESP.GIRO",
+}
+`;

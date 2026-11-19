@@ -1,9 +1,9 @@
 import {
   type Breakdown,
-  guardiaCivil2026,
   HOY_PREGUNTAS,
   type Tally,
 } from '@aptiq/engine';
+import { perfil } from '@/content/content';
 import { tokens } from '@aptiq/tokens';
 import {
   Button,
@@ -19,14 +19,14 @@ import { useCallback, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { useStore } from '@/data/provider';
-import { APTITUDE_LABELS, AVISO_MEZCLA, CITA, historyBreakdown } from '@/practice/run';
+import { APTITUDE_LABELS, avisoMezcla, cita, historyBreakdown } from '@/practice/run';
 import { loadProgress, permiso, type Progress } from '@/progress/data';
 import { tiposDe } from '@/purchases/muro';
 import { usePlan } from '@/purchases/provider';
 import { nivelTexto } from '@/screens/level-chart';
 import { TabSpacer } from '@/screens/tab-spacer';
 
-const { preguntas, minutos, opciones } = guardiaCivil2026.format;
+const formato = () => perfil().format;
 const dato = (n: number | null, texto: string) =>
   n === null ? `${texto} pendiente de confirmar` : `${n} ${texto}`;
 /** «81 %», o «—» si aún no hay respuestas de esa aptitud (no se inventa un dato). */
@@ -74,9 +74,9 @@ export function Inicio() {
         Sesión de hoy
       </Text>
       <Text color="graphite">
-        Simulacro con formato oficial: {dato(preguntas, 'preguntas')} en {dato(minutos, 'minutos')},{' '}
-        {dato(opciones, 'opciones')}
-        {opciones !== null ? `; ${opciones - 1} fallos restan 1 acierto.` : '.'}
+        Simulacro con formato oficial: {dato(formato().preguntas, 'preguntas')} en {dato(formato().minutos, 'minutos')},{' '}
+        {dato(formato().opciones, 'opciones')}
+        {formato().opciones !== null ? `; ${formato().opciones! - 1} fallos restan 1 acierto.` : '.'}
       </Text>
       {progreso?.diasExamen != null && (
         <Text variant="bodyStrong">
@@ -146,12 +146,12 @@ export function Inicio() {
           variant="primary"
         />
       )}
-      {AVISO_MEZCLA && (
+      {avisoMezcla() && (
         <Text variant="caption" color="graphite">
-          {AVISO_MEZCLA}
+          {avisoMezcla()}
         </Text>
       )}
-      <SourceNote cita={CITA} />
+      <SourceNote cita={cita()} />
       <View style={styles.cabeceraLista}>
         <Text variant="label" color="graphite" accessibilityRole="header">
           Práctica por aptitud

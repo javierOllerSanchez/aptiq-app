@@ -5,16 +5,15 @@ import {
   type ExamState,
   finish,
   goTo,
-  guardiaCivil2026,
   type Item,
   mark,
   taxonomy,
 } from '@aptiq/engine';
+import { perfil } from '@/content/content';
 import { tokens } from '@aptiq/tokens';
 import {
   Button,
   Icon,
-  OptionBubble,
   type OptionState,
   PaperBackground,
   ProgressTicks,
@@ -33,17 +32,16 @@ import type { Store } from '@/data/store';
 import { useExamClock } from '@/hooks/use-exam-clock';
 import {
   APTITUDE_LABELS,
-  AVISO_MEZCLA,
-  CITA,
+  avisoMezcla,
+  cita,
   fromSaved,
-  LETTERS,
   startRun,
   toSaved,
 } from '@/practice/run';
 import { Loading } from '@/screens/loading';
+import { Opciones } from '@/screens/opciones';
 import { Pregunta } from '@/screens/pregunta';
 
-const { opciones } = guardiaCivil2026.format;
 const plural = (n: number, uno: string, varios: string) => `${n} ${n === 1 ? uno : varios}`;
 
 interface Listo {
@@ -80,7 +78,7 @@ export function Simulacro() {
       }
       const premium = await api.plan().then((p) => p.premium, () => plan.premium);
       if (!permiso(await loadProgress(store), premium).simulacro) return router.replace('/muro-pago');
-      const { preguntas, minutos } = guardiaCivil2026.format;
+      const { preguntas, minutos } = perfil().format;
       if (preguntas === null || minutos === null)
         throw new Error('El perfil no tiene el formato completo');
       const items = await startRun(store, {
@@ -110,6 +108,15 @@ function SimulacroEnCurso({ store, id, items, exam: initial }: Listo & { store: 
   const remaining = useExamClock(exam);
   const item = items[exam.current];
   const cerrado = useRef(false);
+  // Tiempo en cada pregunta (métricas ADM-02): se suma cada vez que se sale de ella.
+  const tiempos = useRef<number[]>([]);
+  const vista = useRef<{ i: number; desde: number } | null>(null);
+  const actual = exam.current;
+  useEffect(() => {
+    const v = vista.current;
+    if (v) tiempos.current[v.i] = (tiempos.current[v.i] ?? 0) + Date.now() - v.desde;
+    vista.current = { i: actual, desde: Date.now() };
+  }, [actual]);
 
   function confirmarSalida() {
     Alert.alert('¿Salir del simulacro?', 'El intento se descarta y no cuenta en tu historial.', [
@@ -139,14 +146,18 @@ function SimulacroEnCurso({ store, id, items, exam: initial }: Listo & { store: 
   // Se guarda tras cada cambio: si el sistema cierra la app, el simulacro se retoma (NFR-03).
   useEffect(() => {
     if (cerrado.current) return;
-    if (closedAt !== null) cerrado.current = true;
+    if (closedAt !== null) {
+      cerrado.current = true;
+      const v = vista.current;
+      if (v) tiempos.current[v.i] = (tiempos.current[v.i] ?? 0) + Date.now() - v.desde;
+    }
     store
       .saveAttempt({
         id,
         empezado: exam.startedAt,
         durationMs: exam.durationMs,
         finishedAt: closedAt,
-        questions: toSaved(items, exam.answers, exam.marked),
+        questions: toSaved(items, exam.answers, exam.marked, tiempos.current),
       })
       .then(() => {
         if (closedAt !== null) router.replace({ pathname: '/resultado', params: { id } });
@@ -201,24 +212,14 @@ function SimulacroEnCurso({ store, id, items, exam: initial }: Listo & { store: 
         <Text variant="label" color="graphite" style={styles.tipo}>
           {APTITUDE_LABELS[tipo.aptitud] ?? tipo.aptitud} · {tipo.nombre}
         </Text>
-        {opciones !== null && (
+        {perfil().format.opciones !== null && (
           <Text variant="label" color="graphite">
-            {opciones - 1} fallos restan 1 acierto
+            {perfil().format.opciones! - 1} fallos restan 1 acierto
           </Text>
         )}
       </View>
-      <Pregunta texto={item.stem.text} />
-      <View accessibilityRole="radiogroup" style={styles.options}>
-        {item.options.map((value, i) => (
-          <OptionBubble
-            key={i}
-            letter={LETTERS[i] ?? ''}
-            value={value}
-            state={stateOf(i)}
-            onPress={() => setExam((e) => answer(e, e.current, i, Date.now()))}
-          />
-        ))}
-      </View>
+      <Pregunta item={item} />
+      <Opciones item={item} stateOf={stateOf} onPress={(i) => setExam((e) => answer(e, e.current, i, Date.now()))} />
       <View style={styles.row}>
         <Button
           label="Dejar en blanco"
@@ -258,12 +259,12 @@ function SimulacroEnCurso({ store, id, items, exam: initial }: Listo & { store: 
       <Text variant="caption" color="graphite">
         Sin explicaciones hasta el final del simulacro.
       </Text>
-      {AVISO_MEZCLA && (
+      {avisoMezcla() && (
         <Text variant="caption" color="graphite">
-          {AVISO_MEZCLA}
+          {avisoMezcla()}
         </Text>
       )}
-      <SourceNote cita={CITA} />
+      <SourceNote cita={cita()} />
     </PaperBackground>
   );
 }
@@ -288,6 +289,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  options: { gap: tokens.spacing.s },
   row: { flexDirection: 'row', flexWrap: 'wrap', gap: tokens.spacing.s },
 });

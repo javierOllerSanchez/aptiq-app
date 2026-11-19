@@ -1,0 +1,252 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ABS.FIGURAS v1 > nivel 1: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 2,
+  "explanation": {
+    "apply": "La flecha apunta hacia arriba y gira 45°: queda apuntando hacia arriba a la derecha. La siguiente figura tiene: flecha hacia arriba a la derecha.",
+    "distractors": [
+      {
+        "error": "La flecha gira 45° de más.",
+        "optionIndex": 0,
+      },
+      {
+        "error": "La flecha se queda como en la última figura: falta aplicar el cambio.",
+        "optionIndex": 1,
+      },
+      {
+        "error": "La flecha gira en sentido contrario.",
+        "optionIndex": 3,
+      },
+    ],
+    "observe": "Solo cambia un elemento: la flecha. Mira cuánto se mueve entre una figura y la siguiente.",
+    "rule": "La flecha gira 45° en el sentido de las agujas del reloj cada vez.",
+    "tip": "No mires la serie entera de golpe: sigue un solo elemento cada vez y anota cuánto gira o avanza de una figura a la siguiente. Si los pasos no son iguales, comprueba si se alternan.",
+  },
+  "id": "ABS.FIGURAS:1:muestra:1",
+  "level": 1,
+  "meta": {
+    "expectedSeconds": 20,
+    "family": "giro",
+    "generatorVersion": "1",
+  },
+  "options": [
+    "f2",
+    "f0",
+    "f1",
+    "f7",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "terms": [
+      "f5",
+      "f6",
+      "f7",
+      "f0",
+    ],
+    "text": "¿Qué figura continúa la serie?",
+  },
+  "type": "ABS.FIGURAS",
+}
+`;
+
+exports[`ABS.FIGURAS v1 > nivel 2: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 3,
+  "explanation": {
+    "apply": "La flecha apunta hacia abajo a la izquierda y gira 90°: queda apuntando hacia arriba a la izquierda. La siguiente figura tiene: flecha hacia arriba a la izquierda.",
+    "distractors": [
+      {
+        "error": "La flecha gira en sentido contrario.",
+        "optionIndex": 0,
+      },
+      {
+        "error": "La flecha aplica el cambio dos veces.",
+        "optionIndex": 1,
+      },
+      {
+        "error": "La flecha gira 45° de más.",
+        "optionIndex": 2,
+      },
+    ],
+    "observe": "Solo cambia un elemento: la flecha. Mira cuánto se mueve entre una figura y la siguiente.",
+    "rule": "La flecha gira 90° en el sentido de las agujas del reloj cada vez.",
+    "tip": "No mires la serie entera de golpe: sigue un solo elemento cada vez y anota cuánto gira o avanza de una figura a la siguiente. Si los pasos no son iguales, comprueba si se alternan.",
+  },
+  "id": "ABS.FIGURAS:1:muestra:2",
+  "level": 2,
+  "meta": {
+    "expectedSeconds": 30,
+    "family": "giro",
+    "generatorVersion": "1",
+  },
+  "options": [
+    "f3",
+    "f1",
+    "f0",
+    "f7",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "terms": [
+      "f7",
+      "f1",
+      "f3",
+      "f5",
+    ],
+    "text": "¿Qué figura continúa la serie?",
+  },
+  "type": "ABS.FIGURAS",
+}
+`;
+
+exports[`ABS.FIGURAS v1 > nivel 3: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 0,
+  "explanation": {
+    "apply": "La flecha apunta hacia abajo a la derecha y gira 90°: queda apuntando hacia arriba a la derecha. El punto está a la derecha y avanza 1 casilla: pasa a estar arriba a la derecha. La siguiente figura tiene: flecha hacia arriba a la derecha, punto arriba a la derecha.",
+    "distractors": [
+      {
+        "error": "La flecha gira 45° de más. El punto avanza en sentido contrario.",
+        "optionIndex": 1,
+      },
+      {
+        "error": "La flecha gira 45° de más.",
+        "optionIndex": 2,
+      },
+      {
+        "error": "El punto avanza en sentido contrario.",
+        "optionIndex": 3,
+      },
+    ],
+    "observe": "Cambian 2 elementos a la vez. Síguelos por separado, uno cada vez.",
+    "rule": "La flecha gira 90° en sentido contrario a las agujas del reloj cada vez. El punto avanza 1 casilla por el borde en sentido contrario a las agujas del reloj cada vez.",
+    "tip": "No mires la serie entera de golpe: sigue un solo elemento cada vez y anota cuánto gira o avanza de una figura a la siguiente. Si los pasos no son iguales, comprueba si se alternan.",
+  },
+  "id": "ABS.FIGURAS:1:muestra:3",
+  "level": 3,
+  "meta": {
+    "expectedSeconds": 40,
+    "family": "doble",
+    "generatorVersion": "1",
+  },
+  "options": [
+    "f1 p2",
+    "f0 p4",
+    "f0 p2",
+    "f1 p4",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "terms": [
+      "f1 p6",
+      "f7 p5",
+      "f5 p4",
+      "f3 p3",
+    ],
+    "text": "¿Qué figura continúa la serie?",
+  },
+  "type": "ABS.FIGURAS",
+}
+`;
+
+exports[`ABS.FIGURAS v1 > nivel 4: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 1,
+  "explanation": {
+    "apply": "La flecha apunta hacia arriba a la izquierda y gira 90°: queda apuntando hacia arriba a la derecha. La siguiente figura tiene: flecha hacia arriba a la derecha.",
+    "distractors": [
+      {
+        "error": "La flecha aplica el cambio dos veces.",
+        "optionIndex": 0,
+      },
+      {
+        "error": "La flecha repite el paso anterior, pero los pasos se alternan.",
+        "optionIndex": 2,
+      },
+      {
+        "error": "La flecha se queda como en la última figura: falta aplicar el cambio.",
+        "optionIndex": 3,
+      },
+    ],
+    "observe": "Solo cambia un elemento: la flecha. Mira cuánto se mueve entre una figura y la siguiente.",
+    "rule": "La flecha gira 90° y luego 45°, siempre en el sentido de las agujas del reloj, y así se van alternando.",
+    "tip": "No mires la serie entera de golpe: sigue un solo elemento cada vez y anota cuánto gira o avanza de una figura a la siguiente. Si los pasos no son iguales, comprueba si se alternan.",
+  },
+  "id": "ABS.FIGURAS:1:muestra:4",
+  "level": 4,
+  "meta": {
+    "expectedSeconds": 50,
+    "family": "alterna",
+    "generatorVersion": "1",
+  },
+  "options": [
+    "f3",
+    "f1",
+    "f0",
+    "f7",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "terms": [
+      "f1",
+      "f3",
+      "f4",
+      "f6",
+      "f7",
+    ],
+    "text": "¿Qué figura continúa la serie?",
+  },
+  "type": "ABS.FIGURAS",
+}
+`;
+
+exports[`ABS.FIGURAS v1 > nivel 5: instantánea de una semilla fija (si cambia, subir version) 1`] = `
+{
+  "answerIndex": 3,
+  "explanation": {
+    "apply": "La flecha apunta hacia abajo y gira 90°: queda apuntando hacia la derecha. El punto está arriba y avanza 3 casillas: pasa a estar abajo a la izquierda. El aro está abajo y avanza 1 casilla: pasa a estar abajo a la derecha. La siguiente figura tiene: flecha hacia la derecha, punto abajo a la izquierda, aro abajo a la derecha.",
+    "distractors": [
+      {
+        "error": "La flecha gira 45° de más. El aro avanza una casilla de más.",
+        "optionIndex": 0,
+      },
+      {
+        "error": "La flecha gira 45° de más. El punto avanza una casilla de más. El aro avanza una casilla de más.",
+        "optionIndex": 1,
+      },
+      {
+        "error": "El punto avanza una casilla de más.",
+        "optionIndex": 2,
+      },
+    ],
+    "observe": "Cambian 3 elementos a la vez. Síguelos por separado, uno cada vez.",
+    "rule": "La flecha gira 90° en sentido contrario a las agujas del reloj cada vez. El punto avanza 3 casillas por el borde en sentido contrario a las agujas del reloj cada vez. El aro avanza 1 casilla por el borde en sentido contrario a las agujas del reloj cada vez.",
+    "tip": "No mires la serie entera de golpe: sigue un solo elemento cada vez y anota cuánto gira o avanza de una figura a la siguiente. Si los pasos no son iguales, comprueba si se alternan.",
+  },
+  "id": "ABS.FIGURAS:1:muestra:5",
+  "level": 5,
+  "meta": {
+    "expectedSeconds": 60,
+    "family": "triple",
+    "generatorVersion": "1",
+  },
+  "options": [
+    "f1 p6 a3",
+    "f1 p5 a3",
+    "f2 p5 a4",
+    "f2 p6 a4",
+  ],
+  "seed": "muestra",
+  "stem": {
+    "terms": [
+      "f2 p2 a0",
+      "f0 p7 a7",
+      "f6 p4 a6",
+      "f4 p1 a5",
+    ],
+    "text": "¿Qué figura continúa la serie?",
+  },
+  "type": "ABS.FIGURAS",
+}
+`;

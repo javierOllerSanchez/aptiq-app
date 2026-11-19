@@ -14,6 +14,8 @@ export default defineConfig([
     '.claude/',
     'docs/',
     'scripts/',
+    '**/.next/',
+    '**/next-env.d.ts',
   ]),
   { files: ['apps/mobile/**', 'packages/ui/**'], extends: [expoConfig] },
   {
@@ -22,7 +24,7 @@ export default defineConfig([
     settings: { 'import/resolver': { typescript: { project: 'apps/mobile/tsconfig.json' } } },
   },
   {
-    files: ['packages/engine/**/*.ts', 'packages/tokens/**/*.ts'],
+    files: ['packages/engine/**/*.ts', 'packages/tokens/**/*.ts', 'apps/admin/**/*.{ts,tsx}'],
     extends: [tseslint.configs.recommended],
   },
   {

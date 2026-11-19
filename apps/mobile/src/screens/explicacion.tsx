@@ -1,10 +1,14 @@
 import { type Item, reviewOf } from '@aptiq/engine';
 import { tokens } from '@aptiq/tokens';
-import { Text } from '@aptiq/ui';
-import { useEffect } from 'react';
+import { ListRow, Text } from '@aptiq/ui';
+import { router } from 'expo-router';
+import { useEffect, useState } from 'react';
 import { AccessibilityInfo, StyleSheet, View } from 'react-native';
 
-import { LETTERS } from '@/practice/run';
+import { useStore } from '@/data/provider';
+import { nombreOpcion } from '@/practice/run';
+import { yaReportada } from '@/reports/reports';
+import { Reportar } from '@/screens/reportar';
 
 /** Explicación paso a paso, error de cada opción incorrecta y truco (EXP-01, EXP-02, EXP-03). */
 export function Explicacion({
@@ -18,7 +22,13 @@ export function Explicacion({
   anunciar?: boolean;
 }) {
   const r = reviewOf(item, answer);
-  const correcta = `${LETTERS[item.answerIndex]} · ${item.options[item.answerIndex]}`;
+  const correcta = nombreOpcion(item, item.answerIndex);
+  const store = useStore();
+  const [hoja, setHoja] = useState(false);
+  const [reportada, setReportada] = useState(false);
+  useEffect(() => {
+    void yaReportada(store, item.type, item.seed).then(setReportada);
+  }, [store, item.type, item.seed]);
   const veredicto = r.correct
     ? 'Correcta.'
     : r.blank
@@ -44,12 +54,37 @@ export function Explicacion({
           return (
             <Text key={d.optionIndex} color={tuya ? 'sealText' : 'ink'}>
               {tuya ? 'Tu respuesta, ' : ''}
-              {LETTERS[d.optionIndex]} · {item.options[d.optionIndex]}: {d.error}
+              {nombreOpcion(item, d.optionIndex)}: {d.error}
             </Text>
           );
         })}
       </View>
       <Paso titulo="Truco" texto={r.tip} />
+      {/* Prototipo reportar (aprobado): ficha de método y reporte al final de la explicación. */}
+      <View>
+        <ListRow
+          label="Cómo se resuelve este tipo"
+          onPress={() => router.push({ pathname: '/metodo', params: { tipo: item.type } })}
+        />
+        {reportada ? (
+          <Text color="graphite" style={styles.gracias}>
+            Error reportado. Gracias.
+          </Text>
+        ) : (
+          <ListRow label="Reportar un error" onPress={() => setHoja(true)} />
+        )}
+      </View>
+      <Reportar
+        item={item}
+        answer={answer}
+        visible={hoja}
+        onClose={() => setHoja(false)}
+        onSent={() => {
+          setHoja(false);
+          setReportada(true);
+          AccessibilityInfo.announceForAccessibility('Error reportado. Gracias.');
+        }}
+      />
     </View>
   );
 }
@@ -68,4 +103,5 @@ function Paso({ titulo, texto }: { titulo: string; texto: string }) {
 const styles = StyleSheet.create({
   box: { gap: tokens.spacing.m },
   paso: { gap: tokens.spacing.xs },
+  gracias: { minHeight: tokens.size.listRow, textAlignVertical: 'center', paddingVertical: tokens.spacing.m },
 });

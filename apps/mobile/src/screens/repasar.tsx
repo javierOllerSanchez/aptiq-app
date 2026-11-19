@@ -1,15 +1,16 @@
-import { type Item, registry, reviewOf } from '@aptiq/engine';
+import type { Item } from '@aptiq/engine';
 import { tokens } from '@aptiq/tokens';
-import { Button, OptionBubble, PaperBackground, Text } from '@aptiq/ui';
+import { Button, PaperBackground, Text } from '@aptiq/ui';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { useStore } from '@/data/provider';
-import { LETTERS, OPTION_COUNT } from '@/practice/run';
+import { isCorrect, regenerar } from '@/practice/run';
 import { Explicacion } from '@/screens/explicacion';
 import { Loading } from '@/screens/loading';
-import { cardStyle } from '@/screens/pregunta';
+import { Opciones } from '@/screens/opciones';
+import { Pregunta } from '@/screens/pregunta';
 
 interface Fallo {
   n: number;
@@ -22,6 +23,7 @@ export function Repasar() {
   const store = useStore();
   const { id, sesion } = useLocalSearchParams<{ id?: string; sesion?: string }>();
   const [fallos, setFallos] = useState<Fallo[] | null>(null);
+  const [retiradas, setRetiradas] = useState(0);
 
   useEffect(() => {
     const cargar = sesion
@@ -29,11 +31,15 @@ export function Repasar() {
       : store.attempts().then((list) => list.find((a) => a.id === id)?.questions);
     cargar.then((questions) => {
       const out: Fallo[] = [];
+      let fuera = 0;
       questions?.forEach((q, i) => {
-        const item = registry[q.type].generator.generate(q.seed, q.level, OPTION_COUNT);
-        if (!reviewOf(item, q.answer).correct) out.push({ n: i + 1, item, answer: q.answer });
+        if (isCorrect(q)) return;
+        const item = regenerar(q);
+        if (item) out.push({ n: i + 1, item, answer: q.answer });
+        else fuera++;
       });
       setFallos(out);
+      setRetiradas(fuera);
     });
   }, [store, id, sesion]);
 
@@ -43,21 +49,21 @@ export function Repasar() {
       <Text variant="screenTitle" accessibilityRole="header">
         Fallos y en blanco ({fallos.length})
       </Text>
-      {fallos.length === 0 && <Text color="graphite">No hay fallos ni preguntas en blanco.</Text>}
+      {fallos.length === 0 && retiradas === 0 && <Text color="graphite">No hay fallos ni preguntas en blanco.</Text>}
+      {retiradas > 0 && (
+        <Text color="graphite">
+          {retiradas === 1
+            ? 'Una pregunta ya no está disponible: se retiró del banco tras revisarla.'
+            : `${retiradas} preguntas ya no están disponibles: se retiraron del banco tras revisarlas.`}
+        </Text>
+      )}
       {fallos.map(({ n, item, answer }) => (
         <View key={n} style={styles.card}>
           <Text variant="label" color="graphite">
             Pregunta {n} · {answer === null ? 'en blanco' : 'fallo'}
           </Text>
-          <Text variant="questionTitle">{item.stem.text}</Text>
-          {item.options.map((value, i) => (
-            <OptionBubble
-              key={i}
-              letter={LETTERS[i] ?? ''}
-              value={value}
-              state={i === item.answerIndex ? 'correct' : i === answer ? 'wrong' : 'empty'}
-            />
-          ))}
+          <Pregunta item={item} />
+          <Opciones item={item} stateOf={(i) => (i === item.answerIndex ? 'correct' : i === answer ? 'wrong' : 'empty')} />
           <Explicacion item={item} answer={answer} />
         </View>
       ))}
@@ -68,5 +74,6 @@ export function Repasar() {
 
 const styles = StyleSheet.create({
   content: { gap: tokens.spacing.m },
-  card: { ...cardStyle, gap: tokens.spacing.s },
+  // La pregunta ya trae su tarjeta: sin otra alrededor (las figuras no caben en dos).
+  card: { gap: tokens.spacing.s },
 });

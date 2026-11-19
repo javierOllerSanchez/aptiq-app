@@ -14,3 +14,4 @@ export * from './tab-bar';
 export * from './timer';
 export * from './list-row';
 export * from './aptitude-bar';
+export * from './figure';

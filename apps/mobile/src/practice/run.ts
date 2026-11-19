@@ -1,8 +1,8 @@
 import {
+  availableTypes,
   type Breakdown,
   breakdown,
   buildPractice,
-  guardiaCivil2026,
   type Item,
   type Level,
   registry,
@@ -11,22 +11,35 @@ import {
   typeCodes,
 } from '@aptiq/engine';
 
+import { perfil } from '@/content/content';
 import type { SavedQuestion, Store } from '@/data/store';
 
 /** Opciones por pregunta del perfil de la Guardia Civil (base 7.3, N = 4). */
 export const OPTION_COUNT = 4 as const;
 export const LETTERS = ['A', 'B', 'C', 'D'] as const;
 
-const bases = guardiaCivil2026.sources.find((s) => s.tipo === 'bases');
-/** Cita de las bases que respaldan el formato (para `SourceNote`): solo lo que el perfil acredita. */
-export const CITA = bases
-  ? `${bases.url.match(/id=([A-Z0-9-]+)/)?.[1] ?? bases.organismo}, ${bases.apartado ?? ''}`
-  : 'pendiente de confirmar';
+/** Una opción en palabras: el texto, o la descripción de la figura en los tipos espaciales. */
+export function textoOpcion(item: Item, i: number) {
+  const describe = registry[item.type].generator.describe;
+  return describe ? describe(item.options[i]!) : item.options[i]!;
+}
+/** «la B · 63», o solo «la B» si la opción es una figura (se ve encima). */
+export const nombreOpcion = (item: Item, i: number) =>
+  registry[item.type].generator.draw ? `${LETTERS[i]}` : `${LETTERS[i]} · ${item.options[i]}`;
+
+/** Cita de las bases que respaldan el formato (para `SourceNote`): solo lo que el perfil vigente acredita. */
+export function cita() {
+  const bases = perfil().sources.find((s) => s.tipo === 'bases');
+  return bases
+    ? `${bases.url.match(/id=([A-Z0-9-]+)/)?.[1] ?? bases.organismo}, ${bases.apartado ?? ''}`
+    : 'pendiente de confirmar';
+}
 
 /** Aviso de la decisión de la fase 3: mientras la proporción de tipos no tenga fuente, se dice. */
-export const AVISO_MEZCLA = guardiaCivil2026.pendiente.includes('mix')
-  ? 'Mezcla de entrenamiento: los 6 tipos a partes casi iguales. La proporción no es oficial: la Guardia Civil no publica el cuestionario de aptitudes.'
-  : null;
+export const avisoMezcla = () =>
+  perfil().pendiente.includes('mix')
+    ? `Mezcla de entrenamiento: los ${availableTypes().length} tipos a partes casi iguales. La proporción no es oficial: la Guardia Civil no publica el cuestionario de aptitudes.`
+    : null;
 
 /** «0,13» con coma y signo menos tipográfico. */
 export const formatNota = (n: number) => n.toFixed(2).replace('.', ',').replace('-', '−');
@@ -37,6 +50,7 @@ export const APTITUDE_LABELS: Record<string, string> = {
   verbal: 'Verbal',
   atencion: 'Atención y percepción',
   abstracta: 'Abstracta',
+  espacial: 'Espacial',
 };
 
 export interface StartOptions {
@@ -82,11 +96,12 @@ export async function generarSinRepetir(
   const items = specs.map((s) => {
     let item = registry[s.type].generator.generate(s.seed, s.level, OPTION_COUNT);
     // ponytail: 50 intentos; si un tipo y nivel tienen menos enunciados que preguntas, se acepta la repetición.
-    for (let k = 1; seen.has(item.stem.text) && k <= 50; k++) {
+    // El enunciado entero: en los tipos con figuras el texto es siempre la misma pregunta.
+    for (let k = 1; seen.has(JSON.stringify(item.stem)) && k <= 50; k++) {
       const seed = `${s.seed}${k.toString(36)}`;
       if (!used.has(seed)) item = registry[s.type].generator.generate(seed, s.level, OPTION_COUNT);
     }
-    seen.add(item.stem.text);
+    seen.add(JSON.stringify(item.stem));
     return item;
   });
   await store.addUsedSeeds(items.map((it) => it.seed));
@@ -98,6 +113,7 @@ export const toSaved = (
   items: readonly Item[],
   answers: readonly (number | null | undefined)[],
   marked: readonly boolean[] = [],
+  ms: readonly (number | undefined)[] = [],
 ): SavedQuestion[] =>
   items.map((it, i) => ({
     type: it.type,
@@ -106,7 +122,22 @@ export const toSaved = (
     answer: answers[i] ?? null,
     marked: marked[i] ?? false,
     correct: answers[i] != null && answers[i] === it.answerIndex,
+    family: it.meta.family,
+    version: it.meta.generatorVersion,
+    ...(ms[i] !== undefined ? { ms: Math.round(ms[i]!) } : {}),
   }));
+
+/**
+ * La pregunta guardada, regenerada con el motor; null si ya no se puede: una verbal retirada que
+ * este móvil nunca descargó (p. ej., historial llegado de otro dispositivo).
+ */
+export function regenerar(q: SavedQuestion): Item | null {
+  try {
+    return registry[q.type].generator.generate(q.seed, q.level, OPTION_COUNT);
+  } catch {
+    return null;
+  }
+}
 
 // Respuesta correcta de las preguntas antiguas sin `correct`: se regenera una sola vez por pregunta.
 const respuestaCorrecta = new Map<string, number>();

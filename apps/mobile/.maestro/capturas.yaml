@@ -11,7 +11,7 @@ appId: com.javioller.aptiq
 - tapOn: "Opción A, .*"
 - takeScreenshot: capturas/fase-4-test-nivel
 - repeat:
-    times: 12
+    times: 18
     commands:
       - scrollUntilVisible:
           element: "Opción A, .*"

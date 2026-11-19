@@ -13,6 +13,11 @@ export interface SavedQuestion {
    * calcular niveles y aciertos. Falta en datos antiguos: entonces se regenera la pregunta.
    */
   correct?: boolean;
+  /** Familia de reglas y versión del generador (fase 8): métricas por familia y reportes reproducibles. */
+  family?: string;
+  version?: string;
+  /** Milisegundos que tardó en responder (fase 8, métricas ADM-02). */
+  ms?: number;
 }
 
 export interface SavedSession {
@@ -72,6 +77,10 @@ export interface Store {
   removeOps(ops: SyncOp[]): Promise<void>;
   markFailed(ops: SyncOp[]): Promise<void>;
 
-  /** Borra todo lo guardado en el móvil (cuenta eliminada, SOP-02). */
+  /** Contenido descargado (verbales aprobadas, perfil): caché local que no se sincroniza. */
+  getContent(key: string): Promise<string | null>;
+  setContent(key: string, value: string): Promise<void>;
+
+  /** Borra todo lo guardado en el móvil (cuenta eliminada, SOP-02). El contenido descargado se queda: no es del usuario. */
   clearAll(): Promise<void>;
 }

@@ -1,0 +1,60 @@
+/* Panel interno de Aptiq: solo variables de la guía (definidas en layout.tsx desde @aptiq/tokens). */
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: var(--t-body);
+  line-height: 1.45;
+}
+main { max-width: 1100px; margin: 0 auto; padding: var(--s-xxl) var(--s-xl); }
+h1 { font-size: var(--t-title); margin: 0 0 var(--s-l); letter-spacing: -0.02em; }
+h2 { font-size: var(--t-question); margin: var(--s-xl) 0 var(--s-m); }
+.label { font-family: var(--font-mono), monospace; font-size: var(--t-label); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--graphiteStrong); }
+.muted { color: var(--graphiteStrong); }
+.error { color: var(--sealText); }
+.nav { display: flex; gap: var(--s-s); align-items: center; padding: var(--s-m) var(--s-xl); border-bottom: var(--b-hairline) solid var(--line); background: var(--paperCard); flex-wrap: wrap; }
+.nav a { color: var(--ink); text-decoration: none; padding: var(--s-s) var(--s-m); border-radius: var(--r-pill); min-height: var(--touch); display: inline-flex; align-items: center; font-weight: 600; }
+.nav a[aria-current='page'] { background: var(--ink); color: var(--paperCard); }
+.nav .grow { flex: 1; }
+.card { background: var(--paperCard); border: var(--b-hairline) solid var(--line); border-radius: var(--r-card); padding: var(--s-xl); }
+.grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: var(--s-l); align-items: start; }
+@media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
+button, .button {
+  min-height: var(--touch); padding: 0 var(--s-l); border-radius: var(--r-button);
+  border: var(--b-default) solid var(--ink); background: transparent; color: var(--ink);
+  font: inherit; font-weight: 700; cursor: pointer;
+}
+button.main { background: var(--highlighter); }
+/* Filtros: el activo en tinta (como la navegación), sin competir con el botón principal. */
+button.filtro[aria-pressed='true'] { background: var(--ink); color: var(--paperCard); }
+.notice.info { border-left-color: var(--ink); }
+button:disabled { opacity: var(--o-disabled); cursor: not-allowed; }
+input, select, textarea {
+  font: inherit; color: var(--ink); background: var(--white); border: var(--b-hairline) solid var(--line);
+  border-radius: var(--r-tile); padding: var(--s-s) var(--s-m); min-height: var(--touch); width: 100%;
+}
+textarea { min-height: 88px; }
+label { display: flex; flex-direction: column; gap: var(--s-xs); }
+.row { display: flex; gap: var(--s-s); align-items: center; flex-wrap: wrap; }
+.stack { display: flex; flex-direction: column; gap: var(--s-m); }
+.list { list-style: none; margin: 0; padding: 0; }
+.list li button {
+  width: 100%; text-align: left; border: none; border-bottom: var(--b-hairline) solid var(--line);
+  border-radius: 0; font-weight: 400; padding: var(--s-m) var(--s-s); display: block;
+}
+.list li button[aria-current='true'] { background: var(--white); }
+table { border-collapse: collapse; width: 100%; background: var(--paperCard); }
+th, td { text-align: left; padding: var(--s-s) var(--s-m); border-bottom: var(--b-hairline) solid var(--line); }
+th { font-family: var(--font-mono), monospace; font-size: var(--t-label); text-transform: uppercase; letter-spacing: 0.06em; }
+td.num { text-align: right; font-variant-numeric: tabular-nums; }
+tr.total td { font-weight: 700; }
+.option { display: flex; gap: var(--s-m); align-items: center; padding: var(--s-s) var(--s-m); border: var(--b-hairline) solid var(--line); border-radius: var(--r-option); background: var(--paperCard); min-height: var(--option-h); }
+.option.correct { border: var(--b-default) solid var(--ink); background: var(--white); }
+.bubble { width: var(--bubble); height: var(--bubble); border-radius: 50%; border: 2px solid var(--ink); display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-mono), monospace; font-weight: 600; flex: none; }
+.option.correct .bubble { background: var(--ink); color: var(--highlighter); }
+.stem { white-space: pre-wrap; font-weight: 700; font-size: var(--t-question); }
+.figure { width: 120px; height: 120px; }
+.figure.big { width: 220px; height: 220px; }
+.notice { border-left: calc(var(--b-default) * 2) solid var(--seal); padding: var(--s-s) var(--s-m); background: var(--white); }

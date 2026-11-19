@@ -1,6 +1,10 @@
 import { expect, test } from 'vitest';
 
-import { taxonomy, type TypeCode, typeCodes } from '../taxonomy';
+import { taxonomy, type TypeCode } from '../taxonomy';
+import { availableTypes } from '../verbal/bank';
+
+// Sin banco de verbales cargado: los tipos que se pueden proponer.
+const typeCodes = availableTypes();
 import { buildPractice, type PracticeInput } from './plan';
 
 const base: PracticeInput = {
@@ -38,8 +42,8 @@ test('con aptitud solo sale ese tipo de ejercicio', () => {
   for (const it of out) expect(taxonomy[it.type as TypeCode].aptitud).toBe('numerica');
 });
 
-test('la mezcla equitativa reparte a partes iguales entre los 6 tipos', () => {
-  const out = buildPractice({ ...base, count: 60 });
+test('la mezcla equitativa reparte a partes iguales entre todos los tipos', () => {
+  const out = buildPractice({ ...base, count: typeCodes.length * 10 });
   for (const code of typeCodes) {
     expect(out.filter((it) => it.type === code)).toHaveLength(10);
   }
