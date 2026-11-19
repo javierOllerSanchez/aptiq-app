@@ -20,7 +20,7 @@ export const SYMBOLS = {
   raya: { name: 'raya', the: 'la raya', period: 2 },
   flecha: { name: 'flecha', the: 'la flecha', period: 4 },
   triangulo: { name: 'triángulo', the: 'el triángulo', period: 4 },
-  media: { name: 'cuadrado medio relleno', the: 'el cuadrado medio relleno', period: 4 },
+  media: { name: 'cuadrado', the: 'el cuadrado a medio rellenar', period: 4 },
 } as const;
 export type Sym = keyof typeof SYMBOLS;
 
@@ -124,18 +124,23 @@ export const decodeNet = (code: string): NetFace[] =>
     return { x: x!, y: y!, sym: sym as Sym, rho: Number(rho) };
   });
 
-// --- Textos.
+// --- Textos. En la cara de arriba del cubo, «arriba» del dibujo es el fondo.
 const DIRS = ['hacia arriba', 'hacia la derecha', 'hacia abajo', 'hacia la izquierda'];
-export function describeSym(sym: Sym, r: number) {
-  const s = SYMBOLS[sym];
-  if (s.period === 1) return s.name;
-  if (sym === 'raya') return `raya ${r % 2 === 0 ? 'vertical' : 'horizontal'}`;
-  if (sym === 'media') return `cuadrado relleno por ${['arriba', 'la derecha', 'abajo', 'la izquierda'][r]}`;
-  return `${s.name} ${DIRS[r]}`;
+const DIRS_TOP = ['hacia el fondo', 'hacia la derecha', 'hacia delante', 'hacia la izquierda'];
+const HALF = ['de arriba', 'derecha', 'de abajo', 'izquierda'];
+const HALF_TOP = ['del fondo', 'derecha', 'de delante', 'izquierda'];
+/** Orientación del dibujo en palabras («hacia la derecha», «horizontal»…); vacía si no tiene. */
+export function orientation(sym: Sym, r: number, onTop = false) {
+  if (SYMBOLS[sym].period === 1) return '';
+  if (sym === 'raya') return onTop ? (r % 2 === 0 ? 'de delante a atrás' : 'de lado a lado') : r % 2 === 0 ? 'vertical' : 'horizontal';
+  if (sym === 'media') return `con la mitad ${(onTop ? HALF_TOP : HALF)[r]} rellena`;
+  return (onTop ? DIRS_TOP : DIRS)[r]!;
 }
+export const describeSym = (sym: Sym, r: number, onTop = false) =>
+  [SYMBOLS[sym].name, orientation(sym, r, onTop)].filter(Boolean).join(' ');
 export const describeView = (view: string) => {
   const [t, f, r] = parseView(view);
-  return `arriba ${describeSym(t!.sym, t!.r)}, delante ${describeSym(f!.sym, f!.r)}, a la derecha ${describeSym(r!.sym, r!.r)}`;
+  return `arriba ${describeSym(t!.sym, t!.r, true)}, delante ${describeSym(f!.sym, f!.r)}, a la derecha ${describeSym(r!.sym, r!.r)}`;
 };
 
 // --- Dibujo. Los símbolos se definen en un cuadro unidad con y hacia arriba.
@@ -183,7 +188,7 @@ export function netDrawing(net: readonly NetFace[]): Drawing {
 
 /** Cubo en perspectiva caballera: arriba, delante y derecha. */
 export function viewDrawing(view: string): Drawing {
-  const [k, d, size, pad] = [0.45, 0.35, 1.6, 0.075];
+  const [k, d, size, pad] = [0.5, 0.45, 1.7, 0.075];
   const project = (x: number, y: number, z: number): Point => [pad + x + k * y, size - pad - (z + d * y) - 0.1];
   const faces: ((s: number, t: number) => Point)[] = [
     (s, t) => project(s, t, 1),

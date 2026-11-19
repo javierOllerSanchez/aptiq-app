@@ -20,6 +20,11 @@ export interface Draft<S extends Stem> {
    * para no desequilibrar el sorteo de las demás preguntas del mismo nivel.
    */
   rankIsSolution?: boolean;
+  /**
+   * Elige los distractores sabiendo cuántos hacen falta (opciones − 1). Para tipos cuyas pistas
+   * dependen del conjunto entero de opciones (figuras con varios elementos). Sustituye al reparto común.
+   */
+  pick?: (need: number, rng: Rng) => Distractor[] | null;
 }
 
 /**
@@ -102,7 +107,9 @@ export function buildItem<S extends Stem, F extends (rng: Rng) => Draft<S> | nul
     const candidates = draft.distractors.filter((d) => !seen.has(d.value) && seen.add(d.value));
     const avoidCenter = spec.avoidCenter ?? spec.compare === byNumber;
     const strict = n < STRICT_ATTEMPTS && !draft.rankIsSolution;
-    const chosen = choose(candidates, draft.answer, need, rng, spec.compare, strict ? target : null, avoidCenter);
+    const chosen = draft.pick
+      ? draft.pick(need, rng)
+      : choose(candidates, draft.answer, need, rng, spec.compare, strict ? target : null, avoidCenter);
     if (!chosen) continue;
 
     const options = rng.shuffle([{ value: draft.answer, error: '' }, ...chosen]);

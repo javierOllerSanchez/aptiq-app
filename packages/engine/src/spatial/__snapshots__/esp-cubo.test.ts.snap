@@ -4,7 +4,7 @@ exports[`ESP.CUBO v1 > nivel 1: instantánea de una semilla fija (si cambia, sub
 {
   "answerIndex": 2,
   "explanation": {
-    "apply": "Plegando el desarrollo y girando el cubo se llega a: arriba aro, delante cruz, a la derecha círculo.",
+    "apply": "Sin caras opuestas juntas y con las caras en el orden del desarrollo, solo vale: arriba aro, delante cruz, a la derecha círculo.",
     "distractors": [
       {
         "error": "Junta el círculo y el aspa, que son caras opuestas: en el cubo nunca se ven a la vez.",
@@ -49,18 +49,18 @@ exports[`ESP.CUBO v1 > nivel 2: instantánea de una semilla fija (si cambia, sub
 {
   "answerIndex": 2,
   "explanation": {
-    "apply": "Plegando el desarrollo y girando el cubo se llega a: arriba cuadrado negro, delante círculo, a la derecha cruz.",
+    "apply": "Sin caras opuestas juntas y con las caras en el orden del desarrollo, solo vale: arriba cuadrado negro, delante círculo, a la derecha cruz.",
     "distractors": [
       {
         "error": "Junta el cuadrado negro y el aro, que son caras opuestas: en el cubo nunca se ven a la vez.",
         "optionIndex": 0,
       },
       {
-        "error": "Las tres caras se tocan en el cubo, pero están en orden inverso: es el cubo visto en un espejo.",
+        "error": "Las tres caras se tocan en el cubo, pero alrededor de la esquina van en el orden inverso.",
         "optionIndex": 1,
       },
       {
-        "error": "Las tres caras se tocan en el cubo, pero están en orden inverso: es el cubo visto en un espejo.",
+        "error": "Las tres caras se tocan en el cubo, pero alrededor de la esquina van en el orden inverso.",
         "optionIndex": 3,
       },
     ],
@@ -94,10 +94,10 @@ exports[`ESP.CUBO v1 > nivel 3: instantánea de una semilla fija (si cambia, sub
 {
   "answerIndex": 0,
   "explanation": {
-    "apply": "Plegando el desarrollo y girando el cubo se llega a: arriba cuadrado blanco, delante cuadrado negro, a la derecha raya horizontal.",
+    "apply": "Sin caras opuestas juntas y con las caras en el orden del desarrollo, solo vale: arriba cuadrado blanco, delante cuadrado negro, a la derecha raya horizontal.",
     "distractors": [
       {
-        "error": "Las tres caras se tocan en el cubo, pero están en orden inverso: es el cubo visto en un espejo.",
+        "error": "Las tres caras se tocan en el cubo, pero alrededor de la esquina van en el orden inverso.",
         "optionIndex": 1,
       },
       {
@@ -139,18 +139,18 @@ exports[`ESP.CUBO v1 > nivel 4: instantánea de una semilla fija (si cambia, sub
 {
   "answerIndex": 1,
   "explanation": {
-    "apply": "Plegando el desarrollo y girando el cubo se llega a: arriba triángulo hacia abajo, delante flecha hacia la izquierda, a la derecha círculo.",
+    "apply": "Al plegar, la flecha apunta hacia el cuadrado blanco; el triángulo apunta hacia la flecha. Sin caras opuestas juntas y con las caras en el orden del desarrollo, solo vale: arriba triángulo hacia delante, delante flecha hacia la izquierda, a la derecha círculo.",
     "distractors": [
       {
         "error": "Junta el aro y la flecha, que son caras opuestas: en el cubo nunca se ven a la vez.",
         "optionIndex": 0,
       },
       {
-        "error": "Las tres caras se tocan en el cubo, pero están en orden inverso: es el cubo visto en un espejo.",
+        "error": "Las tres caras se tocan en el cubo, pero alrededor de la esquina van en el orden inverso.",
         "optionIndex": 2,
       },
       {
-        "error": "Las caras pueden ir juntas, pero la flecha no queda así: en esa posición quedaría hacia arriba.",
+        "error": "Las caras pueden ir juntas, pero la flecha no queda así: en esa posición quedaría hacia el fondo.",
         "optionIndex": 3,
       },
     ],
@@ -184,10 +184,10 @@ exports[`ESP.CUBO v1 > nivel 5: instantánea de una semilla fija (si cambia, sub
 {
   "answerIndex": 3,
   "explanation": {
-    "apply": "Plegando el desarrollo y girando el cubo se llega a: arriba cuadrado blanco, delante triángulo hacia arriba, a la derecha cuadrado relleno por la izquierda.",
+    "apply": "Al plegar, la flecha apunta hacia el cuadrado a medio rellenar; el triángulo apunta hacia el cuadrado blanco; el cuadrado a medio rellenar apunta hacia el triángulo. Sin caras opuestas juntas y con las caras en el orden del desarrollo, solo vale: arriba cuadrado blanco, delante triángulo hacia arriba, a la derecha cuadrado con la mitad izquierda rellena.",
     "distractors": [
       {
-        "error": "Las tres caras se tocan en el cubo, pero están en orden inverso: es el cubo visto en un espejo.",
+        "error": "Las tres caras se tocan en el cubo, pero alrededor de la esquina van en el orden inverso.",
         "optionIndex": 0,
       },
       {
@@ -200,7 +200,7 @@ exports[`ESP.CUBO v1 > nivel 5: instantánea de una semilla fija (si cambia, sub
       },
     ],
     "observe": "Empieza por las caras opuestas: en el cubo nunca se ven dos a la vez.",
-    "rule": "Caras opuestas: el cuadrado negro y el cuadrado medio relleno; el cuadrado blanco y la flecha; la raya y el triángulo. Alrededor de una esquina, las tres caras van siempre en el mismo orden; en un espejo, ese orden se invierte. Un dibujo con dirección apunta siempre hacia la misma cara vecina.",
+    "rule": "Caras opuestas: el cuadrado negro y el cuadrado a medio rellenar; el cuadrado blanco y la flecha; la raya y el triángulo. Alrededor de una esquina, las tres caras van siempre en el mismo orden; en un espejo, ese orden se invierte. Un dibujo con dirección apunta siempre hacia la misma cara vecina.",
     "tip": "Descarta primero las opciones que juntan dos caras opuestas. Después fíjate en una esquina: las tres caras que la forman van siempre en el mismo orden. Si una cara tiene un dibujo con dirección, comprueba hacia qué cara vecina apunta en el desarrollo.",
   },
   "id": "ESP.CUBO:1:muestra:5",

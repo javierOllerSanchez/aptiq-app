@@ -55,3 +55,33 @@ test('con varios elementos, elegir «el valor que más se repite» no delata la 
     expect(hits / N, `${oc} opciones`).toBeLessThan(1.5 / oc);
   }
 });
+
+test('no se acierta eligiendo la opción «del medio» (vecinas a 45° o a una casilla)', () => {
+  const N = 600;
+  for (const oc of [3, 4] as const)
+    for (const level of [1, 2, 3, 4, 5] as const) {
+      let hits = 0;
+      for (let i = 0; i < N; i++) {
+        const item = absFiguras.generate(`h${i}`, level, oc);
+        const opts = item.options.map(decodeTerm);
+        const part = Object.keys(opts[0]!)[0] as 'f' | 'p' | 'a';
+        const near = (x: number, y: number) => Math.min((x - y + 8) % 8, (y - x + 8) % 8) === 1;
+        const nb = opts.map((o, j) => opts.filter((q, k) => k !== j && near(o[part]!, q[part]!)).length);
+        const top = Math.max(...nb);
+        const winners = nb.flatMap((n, j) => (n === top ? [j] : []));
+        if (winners.includes(item.answerIndex)) hits += 1 / winners.length;
+      }
+      expect(hits / N, `nivel ${level}, ${oc} opciones`).toBeLessThan(1.5 / oc);
+    }
+});
+
+test('con varios elementos y 4 opciones, resolver solo uno no basta', () => {
+  for (let i = 0; i < 300; i++) {
+    const item = absFiguras.generate(`u${i}`, ([3, 4, 5] as const)[i % 3]!, 4);
+    const opts = item.options.map(decodeTerm);
+    const answer = opts[item.answerIndex]!;
+    if (Object.keys(answer).length === 1) continue;
+    for (const p of Object.keys(answer) as ('f' | 'p' | 'a')[])
+      expect(opts.filter((o) => o[p] === answer[p]).length, `semilla u${i}`).toBeGreaterThanOrEqual(2);
+  }
+});

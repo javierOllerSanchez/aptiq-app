@@ -7,6 +7,7 @@ import {
   CROSS_NETS,
   decodeNet,
   describeSym,
+  orientation,
   describeView,
   encodeNet,
   fold,
@@ -63,7 +64,7 @@ const cubo = (cfg: Config) => (rng: Rng): Draft<EspCuboStem> | null => {
       [v[a!], v[b!]] = [v[b!]!, v[a!]!];
       return {
         value: join(v),
-        error: 'Las tres caras se tocan en el cubo, pero están en orden inverso: es el cubo visto en un espejo.',
+        error: 'Las tres caras se tocan en el cubo, pero alrededor de la esquina van en el orden inverso.',
       };
     },
     rot: () => {
@@ -77,7 +78,7 @@ const cubo = (cfg: Config) => (rng: Rng): Draft<EspCuboStem> | null => {
         v[i] = { sym, r: (r + rng.int(1, period - 1)) % period };
         return {
           value: join(v),
-          error: `Las caras pueden ir juntas, pero ${the(sym)} no queda así: en esa posición quedaría ${describeSym(sym, r).replace(SYMBOLS[sym].name, '').trim() || 'de otra forma'}.`,
+          error: `Las caras pueden ir juntas, pero ${the(sym)} no queda así: en esa posición quedaría ${orientation(sym, r, i === 0)}.`,
         };
       }
       return null;
@@ -91,6 +92,10 @@ const cubo = (cfg: Config) => (rng: Rng): Draft<EspCuboStem> | null => {
       const o = opposite(bySym(s)).sym;
       return out.some((p) => p.includes(the(o))) ? out : [...out, `${the(s)} y ${the(o)}`];
     }, []);
+  // Hacia qué cara apunta cada dibujo con dirección: no cambia al plegar ni al girar el cubo.
+  const pointsTo = faces
+    .filter((f) => SYMBOLS[f.sym].period === 4)
+    .map((f) => `${the(f.sym)} apunta hacia ${the(faces.find((g) => g.normal.every((n, k) => n === f.up[k]))!.sym)}`);
   const directional = faces.some((f) => SYMBOLS[f.sym].period > 1);
   return {
     stem: { text: '¿Qué cubo se puede formar con este desarrollo?', net: encodeNet(net) },
@@ -100,7 +105,9 @@ const cubo = (cfg: Config) => (rng: Rng): Draft<EspCuboStem> | null => {
     rule:
       `Caras opuestas: ${pairs.join('; ')}. Alrededor de una esquina, las tres caras van siempre en el mismo orden; en un espejo, ese orden se invierte.` +
       (directional ? ' Un dibujo con dirección apunta siempre hacia la misma cara vecina.' : ''),
-    apply: `Plegando el desarrollo y girando el cubo se llega a: ${describeView(answer)}.`,
+    apply:
+      (pointsTo.length ? `Al plegar, ${pointsTo.join('; ')}. ` : '') +
+      `Sin caras opuestas juntas y con las caras en el orden del desarrollo, solo vale: ${describeView(answer)}.`,
   };
 };
 

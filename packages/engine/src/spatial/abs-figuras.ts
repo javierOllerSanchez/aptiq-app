@@ -85,57 +85,89 @@ const serie = (cfg: Config) => (rng: Rng): Draft<AbsFigurasStem> | null => {
     const verb = p === 'f' ? 'gira' : 'avanza';
     const out = rng.shuffle([
       { value: last[p]! + s + Math.sign(s), error: `${NAME[p]} ${verb} ${unit} de más.` },
-      { value: last[p]! + s - Math.sign(s), error: `${NAME[p]} ${verb} ${unit} de menos.` },
+      // Con paso de 1, «uno de menos» es no moverse: ese error ya está abajo.
+      ...(Math.abs(s) > 1 ? [{ value: last[p]! + s - Math.sign(s), error: `${NAME[p]} ${verb} ${unit} de menos.` }] : []),
     ]);
     if (steps[p].length === 2)
       out.unshift({ value: last[p]! + steps[p][shown % 2]!, error: `${NAME[p]} repite el paso anterior, pero los pasos se alternan.` });
     out.push(
-      { value: last[p]! - s, error: `${NAME[p]} se mueve en el sentido contrario.` },
+      { value: last[p]! - s, error: `${NAME[p]} ${verb} en sentido contrario.` },
       { value: last[p]!, error: `${NAME[p]} se queda como en la última figura: falta aplicar el cambio.` },
       { value: last[p]! + 2 * s, error: `${NAME[p]} aplica el cambio dos veces.` },
     );
     return out
       .map((v) => ({ ...v, value: mod8(v.value) }))
-      .filter((v, i, all) => v.value !== answer[p] && all.findIndex((w) => w.value === v.value) === i);
+      .filter((v, i, all) => v.value !== answer[p] && all.findIndex((w) => w.value === v.value) === i)
+      .slice(0, cfg.parts.length === 1 ? 6 : 3);
   };
-  const wrong = Object.fromEntries(cfg.parts.map((p) => [p, variants(p)])) as Record<Part, ReturnType<typeof variants>>;
-  /** Distractor con un error elegido (índice en `wrong`) por elemento; null = ese elemento bien. */
-  const combo = (pick: Partial<Record<Part, number>>): Distractor => {
-    const t: Term = { ...answer };
-    const errors: string[] = [];
-    for (const p of cfg.parts)
-      if (pick[p] !== undefined) {
-        t[p] = wrong[p][pick[p]]!.value;
-        errors.push(wrong[p][pick[p]]!.error);
-      }
-    return { value: encodeTerm(t), error: errors.join(' ') };
-  };
-  const [p1, p2, p3] = cfg.parts;
-  // Con varios elementos, cada valor correcto no puede ser el más repetido entre las opciones
-  // (se acertaría eligiendo «lo que más se repite»). Por eso los distractores comparten errores.
-  const distractors: Distractor[] =
-    cfg.parts.length === 1
-      ? wrong[p1!].map((_, i) => combo({ [p1!]: i }))
-      : cfg.parts.length === 2
-        ? [combo({ [p1!]: 0, [p2!]: 0 }), combo({ [p1!]: 1, [p2!]: 0 }), combo({ [p1!]: 0 })]
-        : [combo({ [p1!]: 0, [p2!]: 0, [p3!]: 0 }), combo({ [p1!]: 1, [p2!]: 0, [p3!]: 0 }), combo({ [p1!]: 0 })];
+  // Candidatos: cada elemento bien o con uno de sus errores (al menos uno mal).
+  const options = cfg.parts.reduce<{ term: Term; errors: string[] }[]>(
+    (acc, p) =>
+      acc.flatMap((c) => [
+        { term: { ...c.term, [p]: answer[p] }, errors: c.errors },
+        ...variants(p).map((v) => ({ term: { ...c.term, [p]: v.value }, errors: [...c.errors, v.error] })),
+      ]),
+    [{ term: {}, errors: [] }],
+  ).filter((c) => c.errors.length > 0);
 
+  // Las opciones no pueden delatar la correcta sin resolver la serie (pruebas en abs-figuras.test.ts).
+  const fair = (set: Term[], need: number, r: Rng) => {
+    const all = [answer, ...set];
+    const near = (x: number, y: number) => Math.min(mod8(x - y), mod8(y - x)) === 1;
+    /** ¿Gana la correcta sola? Solo cuentan las opciones con otro valor (las iguales empatan con ella). */
+    // Con un solo elemento, empatar arriba también ayuda a adivinar: se acepta la mitad de las veces.
+    const wins = (scores: number[], same: boolean[], tieCounts = false) => {
+      const rival = Math.max(...scores.filter((_, i) => !same[i]));
+      return scores[0]! > 0 && (scores[0]! > rival || (tieCounts && scores[0] === rival && r.next() < 0.5));
+    };
+    const total = all.map(() => 0);
+    for (const p of cfg.parts) {
+      const vals = all.map((t) => t[p]!);
+      const count = (v: number) => vals.filter((x) => x === v).length;
+      // «Lo que más se repite» y «la del medio» (vecinas a 45° o a una casilla).
+      const same = vals.map((v) => v === answer[p]);
+      if (wins(vals.map(count), same)) return false;
+      const nb = vals.map((v, i) => vals.filter((w, j) => j !== i && near(v, w)).length);
+      if (wins(nb, same, cfg.parts.length === 1)) return false;
+      nb.forEach((n, i) => (total[i]! += n));
+      // Con varios elementos y 4 opciones, resolver solo uno no basta.
+      if (cfg.parts.length > 1 && need >= 3 && count(answer[p]!) < 2) return false;
+    }
+    return !wins(total, all.map((_, i) => i === 0));
+  };
+  const pick = (need: number, r: Rng): Distractor[] | null => {
+    for (let t = 0; t < 300; t++) {
+      const set = r.shuffle(options).slice(0, need);
+      if (set.length === need && fair(set.map((c) => c.term), need, r))
+        return set.map((c) => ({ value: encodeTerm(c.term), error: c.errors.join(' ') }));
+    }
+    return null;
+  };
+
+  const sense2 = (s: number) => (s > 0 ? 'en el sentido de las agujas del reloj' : 'en sentido contrario a las agujas del reloj');
+  const amount = (p: Part, s: number) =>
+    p === 'f' ? `${Math.abs(s) * 45}°` : `${Math.abs(s)} ${Math.abs(s) === 1 ? 'casilla' : 'casillas'}`;
   const rules = cfg.parts.map((p) =>
     steps[p].length === 2
-      ? `${NAME[p].toLowerCase()} ${move(p, steps[p][0]!)} y luego ${move(p, steps[p][1]!).replace(/^(gira|avanza) /, '')}, y así se van alternando`
+      ? `${NAME[p].toLowerCase()} ${p === 'f' ? 'gira' : 'avanza'} ${amount(p, steps[p][0]!)} y luego ${amount(p, steps[p][1]!)}, siempre ${sense2(steps[p][0]!)}, y así se van alternando`
       : `${NAME[p].toLowerCase()} ${move(p, steps[p][0]!)} cada vez`,
+  );
+  const where = (p: Part, v: number) => (p === 'f' ? `apunta hacia ${DIR[v]}` : `está ${POS[v]}`);
+  const steps_ = cfg.parts.map(
+    (p) => `${NAME[p]} ${where(p, last[p]!)} y ${p === 'f' ? 'gira' : 'avanza'} ${amount(p, nextStep(p))}: ${p === 'f' ? 'queda' : 'pasa a estar'} ${where(p, answer[p]!).replace(/^(apunta|está) /, p === 'f' ? 'apuntando ' : '')}.`,
   );
   const firstUpper = (s: string) => s[0]!.toUpperCase() + s.slice(1);
   return {
     stem: { text: '¿Qué figura continúa la serie?', terms: terms.map(encodeTerm) },
     answer: encodeTerm(answer),
-    distractors,
+    distractors: [],
+    pick,
     observe:
       cfg.parts.length === 1
         ? `Solo cambia un elemento: ${NAME[cfg.parts[0]!].toLowerCase()}. Mira cuánto se mueve entre una figura y la siguiente.`
         : `Cambian ${cfg.parts.length} elementos a la vez. Síguelos por separado, uno cada vez.`,
     rule: rules.map((r) => `${firstUpper(r)}.`).join(' '),
-    apply: `Aplicado a la última figura, la siguiente tiene: ${describeTerm(answer)}.`,
+    apply: `${steps_.join(' ')} La siguiente figura tiene: ${describeTerm(answer)}.`,
   };
 };
 
