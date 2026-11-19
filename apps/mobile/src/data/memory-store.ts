@@ -9,8 +9,15 @@ export function createMemoryStore(now: () => number = Date.now): Store {
   const sessionList: SavedSession[] = [];
   const attemptList: SavedAttempt[] = [];
   const queue = new Map<string, SyncOp>();
+  const content = new Map<string, string>();
 
   return {
+    async getContent(key) {
+      return content.get(key) ?? null;
+    },
+    async setContent(key, value) {
+      content.set(key, value);
+    },
     async getSetting(key) {
       return settings.get(key)?.valor ?? null;
     },

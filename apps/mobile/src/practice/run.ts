@@ -1,8 +1,8 @@
 import {
+  availableTypes,
   type Breakdown,
   breakdown,
   buildPractice,
-  guardiaCivil2026,
   type Item,
   type Level,
   registry,
@@ -11,22 +11,26 @@ import {
   typeCodes,
 } from '@aptiq/engine';
 
+import { perfil } from '@/content/content';
 import type { SavedQuestion, Store } from '@/data/store';
 
 /** Opciones por pregunta del perfil de la Guardia Civil (base 7.3, N = 4). */
 export const OPTION_COUNT = 4 as const;
 export const LETTERS = ['A', 'B', 'C', 'D'] as const;
 
-const bases = guardiaCivil2026.sources.find((s) => s.tipo === 'bases');
-/** Cita de las bases que respaldan el formato (para `SourceNote`): solo lo que el perfil acredita. */
-export const CITA = bases
-  ? `${bases.url.match(/id=([A-Z0-9-]+)/)?.[1] ?? bases.organismo}, ${bases.apartado ?? ''}`
-  : 'pendiente de confirmar';
+/** Cita de las bases que respaldan el formato (para `SourceNote`): solo lo que el perfil vigente acredita. */
+export function cita() {
+  const bases = perfil().sources.find((s) => s.tipo === 'bases');
+  return bases
+    ? `${bases.url.match(/id=([A-Z0-9-]+)/)?.[1] ?? bases.organismo}, ${bases.apartado ?? ''}`
+    : 'pendiente de confirmar';
+}
 
 /** Aviso de la decisión de la fase 3: mientras la proporción de tipos no tenga fuente, se dice. */
-export const AVISO_MEZCLA = guardiaCivil2026.pendiente.includes('mix')
-  ? 'Mezcla de entrenamiento: los 6 tipos a partes casi iguales. La proporción no es oficial: la Guardia Civil no publica el cuestionario de aptitudes.'
-  : null;
+export const avisoMezcla = () =>
+  perfil().pendiente.includes('mix')
+    ? `Mezcla de entrenamiento: los ${availableTypes().length} tipos a partes casi iguales. La proporción no es oficial: la Guardia Civil no publica el cuestionario de aptitudes.`
+    : null;
 
 /** «0,13» con coma y signo menos tipográfico. */
 export const formatNota = (n: number) => n.toFixed(2).replace('.', ',').replace('-', '−');

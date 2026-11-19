@@ -94,3 +94,9 @@ test('el validador rechaza preguntas incompletas o incoherentes', () => {
   const sinError = { ...entry('a'), explicacion: { ...entry('a').explicacion, distractors: [] } };
   expect(validateVerbal(sinError)).toContain('Falta explicar por qué falla cada opción incorrecta.');
 });
+
+test('una pregunta retirada se regenera para el historial, pero no se propone ni cuenta', () => {
+  loadBank([...bank(MIN_APROBADAS - 1), { ...entry('vieja'), retirada: true }]);
+  expect(availableTypes()).not.toContain('VER.SINON');
+  expect(bankGenerator('VER.SINON').generate('vieja~1', 2, 4).options).toContain('veloz');
+});

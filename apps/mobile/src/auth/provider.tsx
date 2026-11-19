@@ -3,6 +3,8 @@ import * as Network from 'expo-network';
 import { createContext, type ReactNode, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { AppState } from 'react-native';
 
+import { actualizarContenido, cargarContenido } from '@/content/content';
+import { createSupabaseContent } from '@/content/supabase-content';
 import { useBaseStore } from '@/data/provider';
 import { createRetrier } from '@/sync/backoff';
 
@@ -70,6 +72,28 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       client.auth.stopAutoRefresh();
     };
   }, [setup]);
+
+  // Contenido público (verbales aprobadas y perfil): con o sin cuenta, al abrir y al recuperar la red.
+  useEffect(() => {
+    void cargarContenido(base);
+    if (!setup) return;
+    const remote = createSupabaseContent(setup.client);
+    const refresh = () => void actualizarContenido(base, remote);
+    refresh();
+    let wasOnline = true;
+    const netSub = Network.addNetworkStateListener((s) => {
+      const online = s.isConnected === true && s.isInternetReachable !== false;
+      if (online && !wasOnline) refresh();
+      wasOnline = online;
+    });
+    const appSub = AppState.addEventListener('change', (state) => {
+      if (state === 'active') refresh();
+    });
+    return () => {
+      netSub.remove();
+      appSub.remove();
+    };
+  }, [setup, base]);
 
   const signedIn = session !== null;
   useEffect(() => {

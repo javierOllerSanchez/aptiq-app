@@ -1,8 +1,8 @@
 import { createMemoryStore } from '@/data/memory-store';
 
 import {
-  AVISO_MEZCLA,
-  CITA,
+  avisoMezcla,
+  cita,
   failuresByType,
   fromSaved,
   isCorrect,
@@ -113,8 +113,8 @@ test('ningún enunciado se repite dentro de un simulacro (CON-02)', async () => 
 });
 
 test('la cita de la fuente sale del perfil y no habla de exámenes publicados', () => {
-  expect(CITA).toBe('BOE-A-2026-9982, bases 6.1.2.a, 7.3 y 7.8');
-  expect(AVISO_MEZCLA).toMatch(/no es oficial/);
+  expect(cita()).toBe('BOE-A-2026-9982, bases 6.1.2.a, 7.3 y 7.8');
+  expect(avisoMezcla()).toMatch(/no es oficial/);
 });
 
 test('al guardar se apunta si se acertó; sin ese dato (historial antiguo) se calcula igual', async () => {

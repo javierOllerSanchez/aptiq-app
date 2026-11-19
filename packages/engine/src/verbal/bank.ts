@@ -21,6 +21,8 @@ export interface VerbalEntry {
   opciones: string[];
   correcta: number;
   explicacion: Item['explanation'];
+  /** Ya no está aprobada: se guarda para regenerar el historial, pero no se propone. */
+  retirada?: boolean;
 }
 
 /** Preguntas aprobadas que necesita un tipo verbal para aparecer en la app (decisión del propietario). */
@@ -38,7 +40,8 @@ export function loadBank(entries: readonly VerbalEntry[]) {
 }
 
 export const isBankType = (t: TypeCode) => 'banco' in taxonomy[t];
-export const bankEntries = (t: TypeCode): VerbalEntry[] => [...(banks.get(t)?.values() ?? [])];
+/** Preguntas que se pueden proponer (aprobadas y no retiradas). */
+export const bankEntries = (t: TypeCode): VerbalEntry[] => [...(banks.get(t)?.values() ?? [])].filter((e) => !e.retirada);
 
 /** Tipos que se pueden proponer ahora: los generados siempre; los del banco, con bastantes preguntas. */
 export const availableTypes = (): TypeCode[] =>

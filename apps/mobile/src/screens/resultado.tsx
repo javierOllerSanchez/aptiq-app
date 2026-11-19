@@ -1,7 +1,6 @@
 import {
   type Breakdown,
   breakdown,
-  guardiaCivil2026,
   registry,
   score,
   type ScoreResult,
@@ -9,6 +8,7 @@ import {
   taxonomy,
   type TypeCode,
 } from '@aptiq/engine';
+import { perfil } from '@/content/content';
 import { tokens } from '@aptiq/tokens';
 import { AptitudeBar, Button, GlassCard, Icon, PaperBackground, Stamp, Text } from '@aptiq/ui';
 import { router, useLocalSearchParams } from 'expo-router';
@@ -18,7 +18,7 @@ import { Pressable, StyleSheet, View } from 'react-native';
 import { useStore } from '@/data/provider';
 import { AJUSTE_MURO, debeAbrirMuro } from '@/purchases/muro';
 import { usePlan } from '@/purchases/provider';
-import { APTITUDE_LABELS, AVISO_MEZCLA, formatNota, OPTION_COUNT } from '@/practice/run';
+import { APTITUDE_LABELS, avisoMezcla, formatNota, OPTION_COUNT } from '@/practice/run';
 import { Loading } from '@/screens/loading';
 
 interface Resumen {
@@ -45,7 +45,7 @@ export function Resultado() {
         return { type: q.type, correct: q.answer === item.answerIndex, blank: q.answer === null };
       });
       const desglose = breakdown(results);
-      const nota = score(guardiaCivil2026, {
+      const nota = score(perfil(), {
         aciertos: desglose.total.aciertos,
         fallos: desglose.total.fallos,
       });
@@ -95,7 +95,7 @@ export function Resultado() {
         )}
       </View>
       <Text variant="formula" color="graphiteStrong">
-        ({nota.formula}) × {nota.maxima}/{guardiaCivil2026.format.preguntas} = {puntos}
+        ({nota.formula}) × {nota.maxima}/{perfil().format.preguntas} = {puntos}
       </Text>
       {nota.puntos < 0 && (
         <Text variant="caption" color="graphite">
@@ -105,9 +105,9 @@ export function Resultado() {
       <Text variant="bodyStrong">
         {nota.supera ? 'Llegas' : 'No llegas'} a la nota mínima ({nota.minima}).
       </Text>
-      {AVISO_MEZCLA && (
+      {avisoMezcla() && (
         <Text variant="caption" color="graphite">
-          {AVISO_MEZCLA}
+          {avisoMezcla()}
         </Text>
       )}
       <GlassCard>

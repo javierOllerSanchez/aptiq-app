@@ -17,7 +17,7 @@ import { StyleSheet, TextInput, View } from 'react-native';
 import { useStore } from '@/data/provider';
 import type { Store } from '@/data/store';
 import { useExamClock } from '@/hooks/use-exam-clock';
-import { CITA, LETTERS, startRun, toSaved } from '@/practice/run';
+import { cita, LETTERS, startRun, toSaved } from '@/practice/run';
 import { Pregunta } from '@/screens/pregunta';
 
 const TEST_QUESTIONS = 12; // 2 por tipo (ONB-02)
@@ -69,7 +69,7 @@ export function Onboarding() {
           onPress={() => setStep('fecha')}
           variant="primary"
         />
-        <SourceNote cita={CITA} />
+        <SourceNote cita={cita()} />
         <Text variant="caption" color="graphite">
           Aptiq es independiente de la Administración.
         </Text>

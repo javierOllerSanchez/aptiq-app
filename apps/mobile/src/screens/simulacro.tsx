@@ -5,11 +5,11 @@ import {
   type ExamState,
   finish,
   goTo,
-  guardiaCivil2026,
   type Item,
   mark,
   taxonomy,
 } from '@aptiq/engine';
+import { perfil } from '@/content/content';
 import { tokens } from '@aptiq/tokens';
 import {
   Button,
@@ -33,8 +33,8 @@ import type { Store } from '@/data/store';
 import { useExamClock } from '@/hooks/use-exam-clock';
 import {
   APTITUDE_LABELS,
-  AVISO_MEZCLA,
-  CITA,
+  avisoMezcla,
+  cita,
   fromSaved,
   LETTERS,
   startRun,
@@ -43,7 +43,6 @@ import {
 import { Loading } from '@/screens/loading';
 import { Pregunta } from '@/screens/pregunta';
 
-const { opciones } = guardiaCivil2026.format;
 const plural = (n: number, uno: string, varios: string) => `${n} ${n === 1 ? uno : varios}`;
 
 interface Listo {
@@ -80,7 +79,7 @@ export function Simulacro() {
       }
       const premium = await api.plan().then((p) => p.premium, () => plan.premium);
       if (!permiso(await loadProgress(store), premium).simulacro) return router.replace('/muro-pago');
-      const { preguntas, minutos } = guardiaCivil2026.format;
+      const { preguntas, minutos } = perfil().format;
       if (preguntas === null || minutos === null)
         throw new Error('El perfil no tiene el formato completo');
       const items = await startRun(store, {
@@ -201,9 +200,9 @@ function SimulacroEnCurso({ store, id, items, exam: initial }: Listo & { store: 
         <Text variant="label" color="graphite" style={styles.tipo}>
           {APTITUDE_LABELS[tipo.aptitud] ?? tipo.aptitud} · {tipo.nombre}
         </Text>
-        {opciones !== null && (
+        {perfil().format.opciones !== null && (
           <Text variant="label" color="graphite">
-            {opciones - 1} fallos restan 1 acierto
+            {perfil().format.opciones! - 1} fallos restan 1 acierto
           </Text>
         )}
       </View>
@@ -258,12 +257,12 @@ function SimulacroEnCurso({ store, id, items, exam: initial }: Listo & { store: 
       <Text variant="caption" color="graphite">
         Sin explicaciones hasta el final del simulacro.
       </Text>
-      {AVISO_MEZCLA && (
+      {avisoMezcla() && (
         <Text variant="caption" color="graphite">
-          {AVISO_MEZCLA}
+          {avisoMezcla()}
         </Text>
       )}
-      <SourceNote cita={CITA} />
+      <SourceNote cita={cita()} />
     </PaperBackground>
   );
 }

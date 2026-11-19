@@ -207,6 +207,55 @@ begin
 end
 $$;
 
+-- === Perfiles: públicos, solo el administrador publica versiones nuevas y nunca se editan ===
+
+reset role;
+set local role authenticated;
+select set_config('request.jwt.claims',
+  '{"sub":"00000000-0000-4000-8000-0000000000f1","role":"authenticated","app_metadata":{"rol":"admin"}}', true);
+insert into public.perfil_examen (id, version, datos) values ('prueba-perfil', 2, '{"id":"prueba-perfil","version":2}');
+do $$
+declare
+  n integer;
+begin
+  begin
+    insert into public.perfil_examen (id, version, datos) values ('prueba-perfil', 3, '{"id":"otro","version":3}');
+    raise exception 'Se publica un perfil con otro id dentro';
+  exception when check_violation then
+    null;
+  end;
+  update public.perfil_examen set datos = '{"id":"prueba-perfil","version":2,"x":1}' where id = 'prueba-perfil';
+  get diagnostics n = row_count;
+  if n <> 0 then raise exception 'Se edita una versión publicada'; end if;
+exception when insufficient_privilege then
+  null; -- esperado: nadie tiene permiso para editar versiones publicadas
+end
+$$;
+
+select set_config('request.jwt.claims',
+  '{"sub":"00000000-0000-4000-8000-0000000000a1","role":"authenticated","app_metadata":{}}', true);
+do $$
+begin
+  begin
+    insert into public.perfil_examen (id, version, datos) values ('prueba-perfil', 9, '{"id":"prueba-perfil","version":9}');
+    raise exception 'Un usuario normal publica un perfil';
+  exception when insufficient_privilege then
+    null;
+  end;
+end
+$$;
+
+reset role;
+set local role anon;
+select set_config('request.jwt.claims', '{"role":"anon"}', true);
+do $$
+begin
+  if (select count(*) from public.perfil_examen where id = 'prueba-perfil') <> 1 then
+    raise exception 'anon no lee los perfiles publicados';
+  end if;
+end
+$$;
+
 reset role;
 select 'RLS de la fase 8: OK' as resultado;
 
