@@ -1,5 +1,6 @@
 import { createRng, type Rng } from '../rng';
-import { taxonomy, type TypeCode, typeCodes } from '../taxonomy';
+import { taxonomy, type TypeCode } from '../taxonomy';
+import { availableTypes, bankEntries, isBankType } from '../verbal/bank';
 import type { Level } from '../types';
 
 export interface PracticeInput {
@@ -30,7 +31,7 @@ export interface PracticeItemSpec {
  * Solo decide tipo, nivel y semilla; el enunciado lo genera el generador del tipo.
  */
 export function buildPractice(input: PracticeInput): PracticeItemSpec[] {
-  const candidates = typeCodes.filter(
+  const candidates = availableTypes().filter(
     (code) =>
       (input.aptitude === undefined || taxonomy[code].aptitud === input.aptitude) &&
       (input.types === undefined || input.types.includes(code)),
@@ -48,12 +49,8 @@ export function buildPractice(input: PracticeInput): PracticeItemSpec[] {
       input.reparto === 'equitativo'
         ? order[i % order.length]!
         : pickWeighted(rng, candidates, input.fallos);
-    let seed: string;
-    do {
-      seed = rng.int(0, 2_147_483_647).toString(36);
-    } while (taken.has(seed));
-    taken.add(seed);
-    out.push({ type, level: input.levelFor(type), seed });
+    const level = input.levelFor(type);
+    out.push({ type, level, seed: nextSeed(type, level, rng, taken) });
   }
   // Barajado: el tipo de la siguiente pregunta no se puede prever (A, B, C… A, B, C…).
   return input.reparto === 'equitativo' ? rng.shuffle(out) : out;
@@ -71,4 +68,27 @@ function pickWeighted(
     if (r < 0) return types[i]!;
   }
   return types[types.length - 1]!;
+}
+
+/**
+ * Semilla nueva para una pregunta (CON-02: no repetir). En los tipos del banco, la semilla elige
+ * una pregunta aún no vista, del nivel más cercano; si ya se han visto todas, se repite alguna.
+ */
+export function nextSeed(type: TypeCode, level: Level, rng: Rng, taken: Set<string>): string {
+  let seed: string;
+  if (isBankType(type)) {
+    const seen = new Set([...taken].map((s) => s.split('~')[0]));
+    const entries = bankEntries(type);
+    const fresh = entries.filter((e) => !seen.has(e.id));
+    const pool = fresh.length ? fresh : entries;
+    const best = Math.min(...pool.map((e) => Math.abs(e.nivel - level)));
+    const id = rng.pick(pool.filter((e) => Math.abs(e.nivel - level) === best)).id;
+    do seed = `${id}~${rng.int(0, 1_679_615).toString(36)}`;
+    while (taken.has(seed));
+  } else {
+    do seed = rng.int(0, 2_147_483_647).toString(36);
+    while (taken.has(seed));
+  }
+  taken.add(seed);
+  return seed;
 }

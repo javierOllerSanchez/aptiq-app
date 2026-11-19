@@ -1,6 +1,10 @@
 import { expect, test } from 'vitest';
 
-import { taxonomy, type TypeCode, typeCodes } from '../taxonomy';
+import { taxonomy, type TypeCode } from '../taxonomy';
+import { availableTypes } from '../verbal/bank';
+
+// Sin banco de verbales cargado: los tipos que se pueden proponer.
+const typeCodes = availableTypes();
 import { buildPractice, type PracticeInput } from './plan';
 
 const base: PracticeInput = {

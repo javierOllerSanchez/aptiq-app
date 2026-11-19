@@ -59,6 +59,21 @@ export const taxonomy = {
     descripcion: 'Elegir el cubo que se forma al plegar un desarrollo con dibujos en sus caras.',
     segundosEsperados: [30, 40, 50, 60, 75],
   },
+  // Verbales redactadas (banco): solo aparecen con preguntas aprobadas por una persona (fase 8).
+  'VER.SINON': {
+    nombre: 'Sinónimos y antónimos',
+    aptitud: 'verbal',
+    descripcion: 'Elegir la palabra que significa lo mismo, o lo contrario, que otra.',
+    segundosEsperados: [15, 20, 25, 30, 35],
+    banco: true,
+  },
+  'VER.ANALOG': {
+    nombre: 'Analogías verbales',
+    aptitud: 'verbal',
+    descripcion: 'Completar un par de palabras con la misma relación que otro par.',
+    segundosEsperados: [20, 25, 30, 40, 50],
+    banco: true,
+  },
 } as const;
 
 export type TypeCode = keyof typeof taxonomy;

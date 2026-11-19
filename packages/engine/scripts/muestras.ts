@@ -4,7 +4,7 @@ import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 
 import { test } from 'vitest';
 
-import { levels, registry, taxonomy, typeCodes, type Drawing, type Generator, type Item } from '../src';
+import { isBankType, levels, registry, taxonomy, typeCodes, type Drawing, type Generator, type Item } from '../src';
 
 const PER_LEVEL = 4; // 4 por nivel × 5 niveles = 20 por tipo (decisión del propietario)
 const LETTERS = 'ABCD';
@@ -61,7 +61,8 @@ function renderHtml(gen: Generator, item: Item, n: number) {
 
 test('exportar muestras', () => {
   mkdirSync(out, { recursive: true });
-  for (const code of typeCodes) {
+  // Las verbales del banco se revisan en el panel, no aquí.
+  for (const code of typeCodes.filter((c) => !isBankType(c))) {
     const { generator } = registry[code];
     const items = levels.flatMap((level) =>
       Array.from({ length: PER_LEVEL }, (_, k) => generator.generate(`muestra-${level}-${k + 1}`, level, 4)),

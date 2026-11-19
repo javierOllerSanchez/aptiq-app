@@ -20,6 +20,7 @@ import { espCuboSolver } from './spatial/esp-cubo.solver';
 import { espGiro } from './spatial/esp-giro';
 import { espGiroSolver } from './spatial/esp-giro.solver';
 import type { TypeCode } from './taxonomy';
+import { bankGenerator, bankSolver } from './verbal/bank';
 import type { Generator, Solver } from './types';
 
 export { createRng, type Rng } from './rng';
@@ -70,4 +71,15 @@ export const registry: Record<TypeCode, { generator: Generator; solver: Solver }
   'ESP.GIRO': { generator: espGiro, solver: espGiroSolver },
   'ABS.FIGURAS': { generator: absFiguras, solver: absFigurasSolver },
   'ESP.CUBO': { generator: espCubo, solver: espCuboSolver },
+  'VER.SINON': { generator: bankGenerator('VER.SINON'), solver: bankSolver('VER.SINON') },
+  'VER.ANALOG': { generator: bankGenerator('VER.ANALOG'), solver: bankSolver('VER.ANALOG') },
 };
+export {
+  availableTypes,
+  isBankType,
+  loadBank,
+  MIN_APROBADAS,
+  validateVerbal,
+  type VerbalEntry,
+  type VerbalType,
+} from './verbal/bank';

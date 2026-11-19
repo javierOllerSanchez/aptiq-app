@@ -1,7 +1,8 @@
 import { createRng } from '../rng';
-import { type TypeCode, typeCodes } from '../taxonomy';
+import { type TypeCode } from '../taxonomy';
+import { availableTypes } from '../verbal/bank';
 import type { Level } from '../types';
-import type { PracticeItemSpec } from './plan';
+import { nextSeed, type PracticeItemSpec } from './plan';
 
 /** Preguntas de la Sesión de hoy (decisión del propietario 2026-11-15). */
 export const HOY_PREGUNTAS = 12;
@@ -38,21 +39,18 @@ function repartir(n: number, pesos: readonly number[]): number[] {
  * sesión va por fallos.
  */
 export function buildToday(input: TodayInput): PracticeItemSpec[] {
-  const repaso = input.due.length ? Math.floor(HOY_PREGUNTAS / 2) : 0;
+  const tiposHoy = availableTypes();
+  // Un tipo del banco que se ha quedado sin preguntas aprobadas no se repasa.
+  const due = input.due.filter((t) => tiposHoy.includes(t));
+  const repaso = due.length ? Math.floor(HOY_PREGUNTAS / 2) : 0;
   const tipos: TypeCode[] = [];
-  repartir(repaso, input.due.map(() => 1)).forEach((k, i) => tipos.push(...Array<TypeCode>(k).fill(input.due[i]!)));
-  repartir(HOY_PREGUNTAS - repaso, typeCodes.map((c) => 1 + (input.fallos[c] ?? 0))).forEach((k, i) =>
-    tipos.push(...Array<TypeCode>(k).fill(typeCodes[i]!)),
+  repartir(repaso, due.map(() => 1)).forEach((k, i) => tipos.push(...Array<TypeCode>(k).fill(due[i]!)));
+  repartir(HOY_PREGUNTAS - repaso, tiposHoy.map((c) => 1 + (input.fallos[c] ?? 0))).forEach((k, i) =>
+    tipos.push(...Array<TypeCode>(k).fill(tiposHoy[i]!)),
   );
 
   const rng = createRng(`hoy:${input.dia}`);
   const taken = new Set(input.usedSeeds ?? []);
-  const out = tipos.map((type) => {
-    let seed: string;
-    do seed = rng.int(0, 2_147_483_647).toString(36);
-    while (taken.has(seed));
-    taken.add(seed);
-    return { type, level: input.levels[type], seed };
-  });
+  const out = tipos.map((type) => ({ type, level: input.levels[type], seed: nextSeed(type, input.levels[type], rng, taken) }));
   return rng.shuffle(out);
 }

@@ -1,7 +1,11 @@
 import fc from 'fast-check';
 import { expect, test } from 'vitest';
 
-import { type TypeCode, typeCodes } from '../taxonomy';
+import { type TypeCode } from '../taxonomy';
+import { availableTypes } from '../verbal/bank';
+
+// Sin banco de verbales cargado: los tipos que se pueden proponer.
+const typeCodes = availableTypes();
 import type { Level } from '../types';
 import { buildToday, HOY_PREGUNTAS } from './today';
 
