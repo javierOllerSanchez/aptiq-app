@@ -79,12 +79,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   // Contenido público (verbales aprobadas y perfil): con o sin cuenta, al abrir y al recuperar la red.
   useEffect(() => {
-    void cargarContenido(base);
+    // Primero la copia del móvil y después la descarga: si no, la copia antigua podría pisar la nueva.
+    const local = cargarContenido(base);
     if (!setup) return;
     const remote = createSupabaseContent(setup.client);
     const reportes = setup.reportes;
     const refresh = () => {
-      void actualizarContenido(base, remote);
+      void local.then(() => actualizarContenido(base, remote));
       void enviarPendientes(base, reportes);
     };
     refresh();

@@ -5,7 +5,6 @@ import { useState } from 'react';
 import {
   KeyboardAvoidingView,
   Modal,
- 
   Pressable,
   ScrollView,
   StyleSheet,
@@ -84,10 +83,7 @@ export function Reportar({
       statusBarTranslucent
       onRequestClose={onClose}
     >
-      <KeyboardAvoidingView
-        style={styles.flex}
-        behavior="padding"
-      >
+      <KeyboardAvoidingView style={styles.flex} behavior="padding">
         <Pressable style={styles.velo} onPress={onClose} accessible={false} />
         <ScrollView
           style={styles.hojaScroll}

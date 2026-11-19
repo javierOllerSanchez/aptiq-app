@@ -100,3 +100,21 @@ test('una pregunta retirada se regenera para el historial, pero no se propone ni
   expect(availableTypes()).not.toContain('VER.SINON');
   expect(bankGenerator('VER.SINON').generate('vieja~1', 2, 4).options).toContain('veloz');
 });
+
+test('la misma semilla da la misma práctica aunque el banco llegue en otro orden (NFR-09)', () => {
+  const b = bank(MIN_APROBADAS);
+  const spec = { sessionSeed: 'q', count: 5, reparto: 'equitativo' as const, types: ['VER.SINON' as const], levelFor };
+  loadBank(b);
+  const una = buildPractice(spec);
+  loadBank([...b].reverse());
+  expect(buildPractice(spec)).toEqual(una);
+});
+
+test('el validador rechaza una correcta no entera y errores que apuntan a la correcta', () => {
+  expect(validateVerbal({ ...entry('a'), correcta: 0.5 })).toContain('La respuesta correcta no es ninguna de las opciones.');
+  const mal = { ...entry('a'), explicacion: { ...entry('a').explicacion, distractors: [
+    { optionIndex: 0, error: 'Este texto explica la correcta, no un error.' },
+    ...entry('a').explicacion.distractors,
+  ] } };
+  expect(validateVerbal(mal)).toContain('Hay un error explicado para la respuesta correcta o para una opción que no existe.');
+});

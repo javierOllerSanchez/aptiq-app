@@ -12,29 +12,41 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 | 5 · Cuentas y sincronización | Cerrada con T8 pendiente (SMTP aplazado por el propietario al final del proyecto) | `fase-5-cuentas` · PR #11 fusionado | 2026-11-15 | Sí, 2026-11-15 |
 | 6 · Progreso y adaptativo | Cerrada (comprobaciones en el móvil pendientes del propietario) | `fase-6-progreso` · PR #13 fusionado | 2026-11-15 | Sí, 2026-11-15 |
 | 7 · Pago | Cerrada con T7 pendiente (pruebas en tiendas: faltan las cuentas de Apple, Google y RevenueCat) | `fase-7-pago` · PR #15 fusionado | 2026-11-15 | Sí, 2026-11-15 |
-| 8 · Contenido ampliado y panel interno | En curso | `fase-8-contenido` | | |
+| 8 · Contenido ampliado y panel interno | Cerrada (pendiente que el propietario vea un reporte en el panel y apruebe verbales y perfiles) | `fase-8-contenido` | 2026-11-19 | |
 | 9 · Beta y lanzamiento | Pendiente | | | |
 
 ## Registro
 
-**2026-11-19 · Fase 8 · En curso**
+**2026-11-19 · Fase 8 · Cierre**
 
-- **Hecho (con pruebas en verde):**
-  - T1–T4: aptitud «espacial» con Figuras giradas, Series de figuras y Desarrollos de cubos; dibujos SVG desde el motor; muestras en `docs/muestras/*.html`; `revisor-contenido` pasado dos veces y sus bloqueantes corregidos (pistas para acertar sin resolver, reintentos agotados); estrés de 10.000 en verde;
-  - T5: prototipos `pregunta-figuras`, `pregunta-verbal`, `reportar` y `ficha-metodo` (**pendientes de tu aprobación**);
-  - T7: banco de verbales en Supabase (solo las aprobadas llegan a la app, RLS probado) y en el motor;
-  - T9 (servidor), T14: tabla `reporte` y función `metricas()` (agregados, índice de discriminación), con prueba calculada a mano;
-  - T12: perfiles de Policía Nacional 2026 y Auxiliar Administrativo 2025 solo con datos del BOE y del INAP (**pendientes de tu revisión**);
-  - T13: perfiles y verbales se descargan, validan y guardan en el móvil sin publicar la app.
-- T10–T11: panel `apps/admin` (Next.js 16.4.5) con reportes que regeneran la pregunta desde la semilla, verbales (editar, aprobar, rechazar, importar borradores), perfiles (publicar versión nueva validada) y métricas. Compila y arranca en `localhost:3000`; sin probar con sesión de administrador;
-- T8: 60 borradores verbales en `content/verbales/borradores.json`, validados por prueba; se suben con el botón del panel.
-- Propietario marcado como administrador (cuenta creada con su permiso desde el panel); prototipos aprobados.
-- T6, T9, T15: figuras en la app (cuadrícula 2 × 2), aptitud «Espacial», test de nivel de 18 preguntas, hoja «Reportar un error» con envío diferido, fichas de método de los 11 tipos y tiempo de cada respuesta. Flujo de Maestro `reportar.yaml`.
-- Hallazgos de `revisor-interfaz` corregidos (figuras con el tamaño del prototipo y medidas sobre el hueco real, Repasar sin tarjeta doble, palabra clave subrayada, «Practicar este tipo», hoja de reporte que no espera a la red).
-- **Criterio de aceptación comprobado en el emulador Android (release):** reporte enviado desde la explicación de una pregunta → llega a `reporte` con tipo, nivel, semilla `m50vwl` y versión 3 → el motor la regenera idéntica (mismas opciones y correcta). Las verbales en borrador no las ve ni `anon` ni un usuario normal (`supabase/tests/rls-fase8.sql`).
-- Capturas: `docs/capturas/fase-8-{cubo,serie-figuras,giro,explicacion,ficha-metodo,reportar}.png`.
-- Pruebas: motor 446 en `test:stress`; app 125; componentes 26; tokens 1.
-- **Pendiente:** `/cerrar-fase 8` (verificador, revisor de contenido, Ponytail) y que el propietario revise y apruebe verbales y perfiles.
+- **Entregado:**
+  - aptitud «Espacial» con Figuras giradas (`ESP.GIRO`), Series de figuras (`ABS.FIGURAS`) y Desarrollos de cubos (`ESP.CUBO`): figuras como datos y trazos SVG desde el motor, solucionador independiente, pruebas de pistas (la del medio, la que más se repite, la figura distinta), estrés de 10.000 en verde; muestras en `docs/muestras/*.html`;
+  - verbales con aprobación (ADM-01): tabla `pregunta_verbal` con RLS (la app solo lee las aprobadas), banco en el motor (semilla = pregunta + orden), 60 borradores originales en `content/verbales/borradores.json`, que se importan desde el panel;
+  - reportar un error desde la explicación (SOP-01): hoja con motivo y comentario, guardado en el móvil y envío con reintento, sin usuario ni correo;
+  - panel interno `apps/admin` (Next.js, solo en tu ordenador): reportes con la pregunta regenerada desde la semilla, verbales (editar, aprobar, rechazar, importar), perfiles (versión nueva validada, ADM-03) y métricas (ADM-02);
+  - perfiles editables: la app descarga, valida y guarda el último perfil y las verbales aprobadas (sin red, la copia);
+  - perfiles de Policía Nacional 2026 y Auxiliar Administrativo 2025 (CON-04), solo con datos del BOE y del INAP; no se muestran aún en la app;
+  - fichas de método de los 11 tipos (EXP-04), con «Practicar este tipo»; test de nivel de 18 preguntas; tiempo de cada respuesta.
+- **Criterio de aceptación:** comprobado en el emulador Android (release) que un reporte llega a `reporte` con tipo, nivel, semilla (`m50vwl`) y versión, y que el motor la regenera idéntica. Las verbales en borrador no las ve ni `anon` ni un usuario normal (`supabase/tests/rls-fase8.sql`, ejecutada en el proyecto). **Falta que tú veas ese reporte en el panel** con tu sesión (no se puede hacer aquí).
+- **Revisores:**
+  - `revisor-contenido` (tres pasadas): corregidos los bloqueantes de los generadores (pistas para acertar sin resolver, reintentos agotados) y de los borradores (44 preludio, 45 ayuno, 46 gramo → litro, 58 sustituido; «prístino» cambiado). También: la pareja de contrarios ya no delata la respuesta en la mitad de sinónimos, la correcta cambia de puesto, banco ordenado por id (NFR-09), validador más estricto y `metricas()` v2 (percentiles con empates, mínimo de 10 por grupo, datos mal formados ignorados);
+  - `revisor-interfaz` (dos pasadas): sin bloqueantes; corregidos tamaños de figura (tokens nuevos), Repasar, palabra clave subrayada, ficha con botón principal, hoja de reporte (teclado, envío en segundo plano) y filtros del panel;
+  - `verificador-fase`: técnica en verde; su bloqueante es que veas el reporte en el panel (arriba);
+  - `ponytail-review`: corregida la cola de reportes (podía perder uno) y que Repasar se rompiera con una verbal retirada.
+- **Comprobaciones:** `pnpm -r typecheck`, `pnpm -r lint` y `pnpm -r test` en verde (motor 448, app 126, componentes 26, tokens 1) y `test:stress` en verde. `pnpm typecheck` con Turbo no arranca en este Windows: el sistema bloquea `turbo.exe` («Permission denied»), ya antes de esta fase. Capturas en `docs/capturas/fase-8-*.png`.
+- **Pendiente, sin bloquear el cierre:**
+  - **ADM-03:** un simulacro no guarda la versión del perfil con la que empezó: si se publica un perfil con otra fórmula, se recalculan las notas guardadas. Hoy no hay ningún perfil publicado; hay que resolverlo antes de publicar el primero;
+  - borradores verbales (revisor-contenido, importantes): palabras repetidas entre preguntas, niveles algo desiguales (sobre todo en analogías), algunos distractores flojos y trucos iguales por tipo. Revísalo al aprobarlos en el panel;
+  - el nivel adaptativo de las verbales no avanza si faltan preguntas del nivel pedido (se elige el más cercano y esa respuesta no cuenta para subir o bajar);
+  - el panel no tiene pruebas automáticas (`reproducir()` está probado a mano);
+  - Maestro no está instalado en este Windows: `reportar.yaml` no se ha ejecutado (el mismo recorrido se hizo con adb);
+  - Turbo bloqueado por Windows (arriba).
+- **Para que pruebes tú:**
+  1. `pnpm --filter admin dev`, entra en el panel y abre «Reportes»: el de la semilla `m50vwl` debe mostrar la serie 4, 8, 16, 32, 64 con la D (128) correcta; descarta el de prueba del cubo;
+  2. «Verbales» → importar los borradores, revisar y aprobar 10 de un tipo → en la app aparece ese tipo en Verbal;
+  3. en el móvil: una pregunta con figuras en Práctica (con Premium) y «Reportar un error»;
+  4. revisar los perfiles de Policía Nacional y Auxiliar.
+- **Decisiones tuyas pendientes:** las tres que seguían de la fase 7.
 
 **2026-11-15 · Fase 7 · Aprobación**
 

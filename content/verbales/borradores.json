@@ -5,7 +5,7 @@
     "enunciado": "¿Qué palabra significa lo mismo que «comenzar»?",
     "opciones": [
       "empezar",
-      "terminar",
+      "intentar",
       "continuar",
       "conseguir"
     ],
@@ -17,7 +17,7 @@
       "distractors": [
         {
           "optionIndex": 1,
-          "error": "Terminar es lo contrario: es un antónimo."
+          "error": "Intentar es tratar de hacer algo, no darle comienzo."
         },
         {
           "optionIndex": 2,
@@ -36,19 +36,19 @@
     "nivel": 1,
     "enunciado": "¿Qué palabra significa lo contrario de «antiguo»?",
     "opciones": [
-      "moderno",
       "viejo",
+      "moderno",
       "caro",
       "famoso"
     ],
-    "correcta": 0,
+    "correcta": 1,
     "explicacion": {
       "observe": "Te piden lo contrario, no lo mismo. Piensa en una frase: «un edificio antiguo».",
-      "rule": "Un antónimo significa lo opuesto: no pueden decirse a la vez de lo mismo.",
+      "rule": "Un antónimo significa lo contrario dentro de la misma idea: alto y bajo hablan de altura; abrir y cerrar, de una puerta.",
       "apply": "Un edificio no puede ser a la vez antiguo y moderno. La respuesta es moderno.",
       "distractors": [
         {
-          "optionIndex": 1,
+          "optionIndex": 0,
           "error": "Viejo significa casi lo mismo que antiguo: es un sinónimo."
         },
         {
@@ -68,23 +68,23 @@
     "nivel": 1,
     "enunciado": "¿Qué palabra significa lo mismo que «alegre»?",
     "opciones": [
-      "contento",
       "triste",
       "ruidoso",
+      "contento",
       "amable"
     ],
-    "correcta": 0,
+    "correcta": 2,
     "explicacion": {
       "observe": "Piensa en una frase con «alegre»: «está alegre por el aprobado».",
       "rule": "Un sinónimo significa lo mismo y se puede poner en su lugar sin cambiar el sentido de la frase.",
       "apply": "«Está contento por el aprobado» dice lo mismo. La respuesta es contento.",
       "distractors": [
         {
-          "optionIndex": 1,
+          "optionIndex": 0,
           "error": "Triste es lo contrario: es un antónimo."
         },
         {
-          "optionIndex": 2,
+          "optionIndex": 1,
           "error": "Ruidoso es que hace ruido; se puede estar alegre en silencio."
         },
         {
@@ -100,27 +100,27 @@
     "nivel": 1,
     "enunciado": "¿Qué palabra significa lo contrario de «ancho»?",
     "opciones": [
-      "estrecho",
-      "amplio",
+      "grueso",
       "largo",
-      "alto"
+      "alto",
+      "estrecho"
     ],
-    "correcta": 0,
+    "correcta": 3,
     "explicacion": {
       "observe": "Te piden lo contrario, no lo mismo. Piensa en una frase: «un pasillo ancho».",
-      "rule": "Un antónimo significa lo opuesto: no pueden decirse a la vez de lo mismo.",
+      "rule": "Un antónimo significa lo contrario dentro de la misma idea: alto y bajo hablan de altura; abrir y cerrar, de una puerta.",
       "apply": "Un pasillo no puede ser a la vez ancho y estrecho. La respuesta es estrecho.",
       "distractors": [
         {
-          "optionIndex": 1,
-          "error": "Amplio significa casi lo mismo que ancho: es un sinónimo."
+          "optionIndex": 0,
+          "error": "Grueso habla del espesor, no de la anchura."
         },
         {
-          "optionIndex": 2,
+          "optionIndex": 1,
           "error": "Largo mide otra dirección: un pasillo puede ser largo y ancho a la vez."
         },
         {
-          "optionIndex": 3,
+          "optionIndex": 2,
           "error": "Alto habla de la altura, no de la anchura."
         }
       ],
@@ -133,7 +133,7 @@
     "enunciado": "¿Qué palabra significa lo mismo que «responder»?",
     "opciones": [
       "contestar",
-      "preguntar",
+      "reclamar",
       "escuchar",
       "escribir"
     ],
@@ -145,7 +145,7 @@
       "distractors": [
         {
           "optionIndex": 1,
-          "error": "Preguntar es lo que se hace antes de responder: es lo opuesto."
+          "error": "Reclamar es pedir lo que se considera debido, no dar una respuesta."
         },
         {
           "optionIndex": 2,
@@ -164,19 +164,19 @@
     "nivel": 1,
     "enunciado": "¿Qué palabra significa lo contrario de «aumentar»?",
     "opciones": [
-      "disminuir",
       "crecer",
+      "disminuir",
       "cambiar",
       "repetir"
     ],
-    "correcta": 0,
+    "correcta": 1,
     "explicacion": {
       "observe": "Te piden lo contrario, no lo mismo. Piensa en una frase: «aumentar el precio».",
-      "rule": "Un antónimo significa lo opuesto: no pueden decirse a la vez de lo mismo.",
+      "rule": "Un antónimo significa lo contrario dentro de la misma idea: alto y bajo hablan de altura; abrir y cerrar, de una puerta.",
       "apply": "Lo contrario de que el precio aumente es que disminuya. La respuesta es disminuir.",
       "distractors": [
         {
-          "optionIndex": 1,
+          "optionIndex": 0,
           "error": "Crecer significa casi lo mismo que aumentar: es un sinónimo."
         },
         {
@@ -196,23 +196,23 @@
     "nivel": 2,
     "enunciado": "¿Qué palabra significa lo mismo que «diminuto»?",
     "opciones": [
-      "minúsculo",
       "enorme",
       "delgado",
+      "minúsculo",
       "escaso"
     ],
-    "correcta": 0,
+    "correcta": 2,
     "explicacion": {
       "observe": "Piensa en una frase con «diminuto»: «un insecto diminuto».",
       "rule": "Un sinónimo significa lo mismo y se puede poner en su lugar sin cambiar el sentido de la frase.",
       "apply": "«Un insecto minúsculo» dice lo mismo: muy pequeño. La respuesta es minúsculo.",
       "distractors": [
         {
-          "optionIndex": 1,
+          "optionIndex": 0,
           "error": "Enorme es lo contrario: es un antónimo."
         },
         {
-          "optionIndex": 2,
+          "optionIndex": 1,
           "error": "Delgado habla del grosor, no del tamaño total."
         },
         {
@@ -228,27 +228,27 @@
     "nivel": 2,
     "enunciado": "¿Qué palabra significa lo contrario de «generoso»?",
     "opciones": [
-      "tacaño",
-      "espléndido",
+      "pobre",
       "rico",
-      "amable"
+      "amable",
+      "tacaño"
     ],
-    "correcta": 0,
+    "correcta": 3,
     "explicacion": {
       "observe": "Te piden lo contrario, no lo mismo. Piensa en una frase: «un vecino generoso».",
-      "rule": "Un antónimo significa lo opuesto: no pueden decirse a la vez de lo mismo.",
+      "rule": "Un antónimo significa lo contrario dentro de la misma idea: alto y bajo hablan de altura; abrir y cerrar, de una puerta.",
       "apply": "Quien no quiere dar ni gastar es tacaño: lo opuesto de generoso. La respuesta es tacaño.",
       "distractors": [
         {
-          "optionIndex": 1,
-          "error": "Espléndido, dicho de una persona, es casi sinónimo de generoso."
+          "optionIndex": 0,
+          "error": "Pobre habla de lo que se tiene, no de si se comparte."
         },
         {
-          "optionIndex": 2,
+          "optionIndex": 1,
           "error": "Rico habla de lo que se tiene, no de si se comparte."
         },
         {
-          "optionIndex": 3,
+          "optionIndex": 2,
           "error": "Amable describe el trato, no la disposición a dar."
         }
       ],
@@ -261,7 +261,7 @@
     "enunciado": "¿Qué palabra significa lo mismo que «obstáculo»?",
     "opciones": [
       "impedimento",
-      "ayuda",
+      "atajo",
       "camino",
       "peligro"
     ],
@@ -273,7 +273,7 @@
       "distractors": [
         {
           "optionIndex": 1,
-          "error": "Una ayuda facilita las cosas: es lo contrario."
+          "error": "Un atajo es un camino más corto, no algo que impide avanzar."
         },
         {
           "optionIndex": 2,
@@ -292,19 +292,19 @@
     "nivel": 2,
     "enunciado": "¿Qué palabra significa lo contrario de «permitir»?",
     "opciones": [
-      "prohibir",
       "autorizar",
+      "prohibir",
       "obligar",
       "pedir"
     ],
-    "correcta": 0,
+    "correcta": 1,
     "explicacion": {
       "observe": "Te piden lo contrario, no lo mismo. Piensa en una frase: «permitir la entrada».",
-      "rule": "Un antónimo significa lo opuesto: no pueden decirse a la vez de lo mismo.",
+      "rule": "Un antónimo significa lo contrario dentro de la misma idea: alto y bajo hablan de altura; abrir y cerrar, de una puerta.",
       "apply": "Lo contrario de permitir la entrada es prohibirla. La respuesta es prohibir.",
       "distractors": [
         {
-          "optionIndex": 1,
+          "optionIndex": 0,
           "error": "Autorizar significa lo mismo que permitir: es un sinónimo."
         },
         {
@@ -324,23 +324,23 @@
     "nivel": 2,
     "enunciado": "¿Qué palabra significa lo mismo que «sincero»?",
     "opciones": [
-      "franco",
       "falso",
       "serio",
+      "franco",
       "tímido"
     ],
-    "correcta": 0,
+    "correcta": 2,
     "explicacion": {
       "observe": "Piensa en una frase con «sincero»: «una opinión sincera».",
       "rule": "Un sinónimo significa lo mismo y se puede poner en su lugar sin cambiar el sentido de la frase.",
       "apply": "Una persona franca dice lo que piensa, igual que una sincera. La respuesta es franco.",
       "distractors": [
         {
-          "optionIndex": 1,
+          "optionIndex": 0,
           "error": "Falso es lo contrario: es un antónimo."
         },
         {
-          "optionIndex": 2,
+          "optionIndex": 1,
           "error": "Serio describe el carácter o el gesto, no si se dice la verdad."
         },
         {
@@ -356,27 +356,27 @@
     "nivel": 2,
     "enunciado": "¿Qué palabra significa lo contrario de «valiente»?",
     "opciones": [
-      "cobarde",
-      "osado",
+      "débil",
       "fuerte",
-      "prudente"
+      "prudente",
+      "cobarde"
     ],
-    "correcta": 0,
+    "correcta": 3,
     "explicacion": {
       "observe": "Te piden lo contrario, no lo mismo. Piensa en una frase: «un rescate valiente».",
-      "rule": "Un antónimo significa lo opuesto: no pueden decirse a la vez de lo mismo.",
+      "rule": "Un antónimo significa lo contrario dentro de la misma idea: alto y bajo hablan de altura; abrir y cerrar, de una puerta.",
       "apply": "Quien no se atreve ante el peligro es cobarde: lo opuesto de valiente. La respuesta es cobarde.",
       "distractors": [
         {
-          "optionIndex": 1,
-          "error": "Osado significa casi lo mismo que valiente: es un sinónimo."
+          "optionIndex": 0,
+          "error": "Débil habla de la fuerza física, no del valor ante el peligro."
         },
         {
-          "optionIndex": 2,
+          "optionIndex": 1,
           "error": "Fuerte habla de fuerza física; se puede ser fuerte y cobarde."
         },
         {
-          "optionIndex": 3,
+          "optionIndex": 2,
           "error": "Prudente es quien actúa con cuidado; se puede ser valiente y prudente a la vez."
         }
       ],
@@ -389,7 +389,7 @@
     "enunciado": "¿Qué palabra significa lo mismo que «escaso»?",
     "opciones": [
       "insuficiente",
-      "abundante",
+      "lejano",
       "pequeño",
       "barato"
     ],
@@ -401,7 +401,7 @@
       "distractors": [
         {
           "optionIndex": 1,
-          "error": "Abundante es lo contrario: es un antónimo."
+          "error": "Lejano habla de la distancia, no de la cantidad."
         },
         {
           "optionIndex": 2,
@@ -420,19 +420,19 @@
     "nivel": 3,
     "enunciado": "¿Qué palabra significa lo contrario de «superfluo»?",
     "opciones": [
-      "necesario",
       "innecesario",
+      "necesario",
       "elevado",
       "costoso"
     ],
-    "correcta": 0,
+    "correcta": 1,
     "explicacion": {
       "observe": "Te piden lo contrario, no lo mismo. Piensa en una frase: «un gasto superfluo».",
-      "rule": "Un antónimo significa lo opuesto: no pueden decirse a la vez de lo mismo.",
+      "rule": "Un antónimo significa lo contrario dentro de la misma idea: alto y bajo hablan de altura; abrir y cerrar, de una puerta.",
       "apply": "Superfluo es lo que sobra; lo contrario es lo que hace falta: necesario. La respuesta es necesario.",
       "distractors": [
         {
-          "optionIndex": 1,
+          "optionIndex": 0,
           "error": "Innecesario significa lo mismo que superfluo: es un sinónimo."
         },
         {
@@ -452,23 +452,23 @@
     "nivel": 3,
     "enunciado": "¿Qué palabra significa lo mismo que «perplejo»?",
     "opciones": [
-      "desconcertado",
       "tranquilo",
       "enfadado",
+      "desconcertado",
       "aburrido"
     ],
-    "correcta": 0,
+    "correcta": 2,
     "explicacion": {
       "observe": "Piensa en una frase con «perplejo»: «se quedó perplejo ante la noticia».",
       "rule": "Un sinónimo significa lo mismo y se puede poner en su lugar sin cambiar el sentido de la frase.",
       "apply": "Quedarse perplejo es no saber qué pensar: quedarse desconcertado. La respuesta es desconcertado.",
       "distractors": [
         {
-          "optionIndex": 1,
+          "optionIndex": 0,
           "error": "Tranquilo es lo contrario de estar confundido."
         },
         {
-          "optionIndex": 2,
+          "optionIndex": 1,
           "error": "Enfadado es estar molesto; se puede estar perplejo sin enfado."
         },
         {
@@ -484,27 +484,27 @@
     "nivel": 3,
     "enunciado": "¿Qué palabra significa lo contrario de «sumiso»?",
     "opciones": [
-      "rebelde",
-      "obediente",
+      "perezoso",
       "humilde",
-      "callado"
+      "callado",
+      "rebelde"
     ],
-    "correcta": 0,
+    "correcta": 3,
     "explicacion": {
       "observe": "Te piden lo contrario, no lo mismo. Piensa en una frase: «una actitud sumisa».",
-      "rule": "Un antónimo significa lo opuesto: no pueden decirse a la vez de lo mismo.",
+      "rule": "Un antónimo significa lo contrario dentro de la misma idea: alto y bajo hablan de altura; abrir y cerrar, de una puerta.",
       "apply": "Quien no acepta someterse es rebelde: lo opuesto de sumiso. La respuesta es rebelde.",
       "distractors": [
         {
-          "optionIndex": 1,
-          "error": "Obediente significa casi lo mismo que sumiso: es un sinónimo."
+          "optionIndex": 0,
+          "error": "Perezoso habla de las ganas de trabajar, no de obedecer."
         },
         {
-          "optionIndex": 2,
+          "optionIndex": 1,
           "error": "Humilde es quien no presume; no es lo opuesto de sumiso."
         },
         {
-          "optionIndex": 3,
+          "optionIndex": 2,
           "error": "Callado es quien habla poco; no habla de obedecer o no."
         }
       ],
@@ -517,7 +517,7 @@
     "enunciado": "¿Qué palabra significa lo mismo que «sosegado»?",
     "opciones": [
       "tranquilo",
-      "inquieto",
+      "dormido",
       "cansado",
       "pensativo"
     ],
@@ -529,7 +529,7 @@
       "distractors": [
         {
           "optionIndex": 1,
-          "error": "Inquieto es lo contrario: es un antónimo."
+          "error": "Dormido es estar durmiendo; se puede estar sosegado y despierto."
         },
         {
           "optionIndex": 2,
@@ -548,19 +548,19 @@
     "nivel": 3,
     "enunciado": "¿Qué palabra significa lo contrario de «escasez»?",
     "opciones": [
-      "abundancia",
       "carencia",
+      "abundancia",
       "calidad",
       "demanda"
     ],
-    "correcta": 0,
+    "correcta": 1,
     "explicacion": {
       "observe": "Te piden lo contrario, no lo mismo. Piensa en una frase: «escasez de alimentos».",
-      "rule": "Un antónimo significa lo opuesto: no pueden decirse a la vez de lo mismo.",
+      "rule": "Un antónimo significa lo contrario dentro de la misma idea: alto y bajo hablan de altura; abrir y cerrar, de una puerta.",
       "apply": "Lo contrario de que falten alimentos es que sobren: abundancia. La respuesta es abundancia.",
       "distractors": [
         {
-          "optionIndex": 1,
+          "optionIndex": 0,
           "error": "Carencia significa casi lo mismo que escasez: es un sinónimo."
         },
         {
@@ -580,23 +580,23 @@
     "nivel": 4,
     "enunciado": "¿Qué palabra significa lo mismo que «pertinaz»?",
     "opciones": [
-      "obstinado",
       "pertinente",
       "dócil",
+      "obstinado",
       "breve"
     ],
-    "correcta": 0,
+    "correcta": 2,
     "explicacion": {
       "observe": "Piensa en una frase con «pertinaz»: «una tos pertinaz».",
       "rule": "Un sinónimo significa lo mismo y se puede poner en su lugar sin cambiar el sentido de la frase.",
       "apply": "Pertinaz es lo que se mantiene y no cede: obstinado. La respuesta es obstinado.",
       "distractors": [
         {
-          "optionIndex": 1,
+          "optionIndex": 0,
           "error": "Pertinente se parece en la forma, pero significa oportuno o adecuado."
         },
         {
-          "optionIndex": 2,
+          "optionIndex": 1,
           "error": "Dócil es quien obedece sin resistirse: es casi lo contrario."
         },
         {
@@ -612,27 +612,27 @@
     "nivel": 4,
     "enunciado": "¿Qué palabra significa lo contrario de «locuaz»?",
     "opciones": [
-      "callado",
-      "hablador",
+      "grosero",
       "elocuente",
-      "amable"
+      "amable",
+      "callado"
     ],
-    "correcta": 0,
+    "correcta": 3,
     "explicacion": {
       "observe": "Te piden lo contrario, no lo mismo. Piensa en una frase: «un invitado locuaz».",
-      "rule": "Un antónimo significa lo opuesto: no pueden decirse a la vez de lo mismo.",
+      "rule": "Un antónimo significa lo contrario dentro de la misma idea: alto y bajo hablan de altura; abrir y cerrar, de una puerta.",
       "apply": "Locuaz es quien habla mucho; lo contrario es callado. La respuesta es callado.",
       "distractors": [
         {
-          "optionIndex": 1,
-          "error": "Hablador significa lo mismo que locuaz: es un sinónimo."
+          "optionIndex": 0,
+          "error": "Grosero describe la educación, no cuánto se habla."
         },
         {
-          "optionIndex": 2,
+          "optionIndex": 1,
           "error": "Elocuente es quien habla bien y convence; locuaz es quien habla mucho. No son opuestos."
         },
         {
-          "optionIndex": 3,
+          "optionIndex": 2,
           "error": "Amable describe el trato, no cuánto se habla."
         }
       ],
@@ -645,7 +645,7 @@
     "enunciado": "¿Qué palabra significa lo mismo que «inocuo»?",
     "opciones": [
       "inofensivo",
-      "nocivo",
+      "inmune",
       "inicuo",
       "inútil"
     ],
@@ -657,7 +657,7 @@
       "distractors": [
         {
           "optionIndex": 1,
-          "error": "Nocivo es lo que hace daño: es un antónimo."
+          "error": "Inmune es quien no puede contraer algo; inocuo es lo que no hace daño."
         },
         {
           "optionIndex": 2,
@@ -676,19 +676,19 @@
     "nivel": 4,
     "enunciado": "¿Qué palabra significa lo contrario de «exiguo»?",
     "opciones": [
-      "cuantioso",
       "escaso",
+      "cuantioso",
       "estrecho",
       "breve"
     ],
-    "correcta": 0,
+    "correcta": 1,
     "explicacion": {
       "observe": "Te piden lo contrario, no lo mismo. Piensa en una frase: «un sueldo exiguo».",
-      "rule": "Un antónimo significa lo opuesto: no pueden decirse a la vez de lo mismo.",
+      "rule": "Un antónimo significa lo contrario dentro de la misma idea: alto y bajo hablan de altura; abrir y cerrar, de una puerta.",
       "apply": "Exiguo es muy escaso; lo contrario es abundante en cantidad: cuantioso. La respuesta es cuantioso.",
       "distractors": [
         {
-          "optionIndex": 1,
+          "optionIndex": 0,
           "error": "Escaso significa casi lo mismo que exiguo: es un sinónimo."
         },
         {
@@ -708,23 +708,23 @@
     "nivel": 4,
     "enunciado": "¿Qué palabra significa lo mismo que «ufano»?",
     "opciones": [
-      "orgulloso",
       "humilde",
       "profano",
+      "orgulloso",
       "apresurado"
     ],
-    "correcta": 0,
+    "correcta": 2,
     "explicacion": {
       "observe": "Piensa en una frase con «ufano»: «iba muy ufano con su premio».",
       "rule": "Un sinónimo significa lo mismo y se puede poner en su lugar sin cambiar el sentido de la frase.",
       "apply": "Ir ufano es ir satisfecho y presumiendo: orgulloso. La respuesta es orgulloso.",
       "distractors": [
         {
-          "optionIndex": 1,
+          "optionIndex": 0,
           "error": "Humilde es quien no presume: es lo contrario."
         },
         {
-          "optionIndex": 2,
+          "optionIndex": 1,
           "error": "Profano solo se parece en la terminación: significa no sagrado o no experto."
         },
         {
@@ -740,27 +740,27 @@
     "nivel": 4,
     "enunciado": "¿Qué palabra significa lo contrario de «procaz»?",
     "opciones": [
-      "recatado",
-      "insolente",
+      "sincero",
       "tenaz",
-      "mordaz"
+      "mordaz",
+      "recatado"
     ],
-    "correcta": 0,
+    "correcta": 3,
     "explicacion": {
       "observe": "Te piden lo contrario, no lo mismo. Piensa en una frase: «un comentario procaz».",
-      "rule": "Un antónimo significa lo opuesto: no pueden decirse a la vez de lo mismo.",
+      "rule": "Un antónimo significa lo contrario dentro de la misma idea: alto y bajo hablan de altura; abrir y cerrar, de una puerta.",
       "apply": "Procaz es desvergonzado; lo contrario es quien guarda la compostura: recatado. La respuesta es recatado.",
       "distractors": [
         {
-          "optionIndex": 1,
-          "error": "Insolente significa casi lo mismo que procaz: es un sinónimo."
+          "optionIndex": 0,
+          "error": "Sincero es quien dice lo que piensa; no es lo contrario de procaz."
         },
         {
-          "optionIndex": 2,
+          "optionIndex": 1,
           "error": "Tenaz es perseverante; solo se parece en la terminación."
         },
         {
-          "optionIndex": 3,
+          "optionIndex": 2,
           "error": "Mordaz es quien critica con ironía; no es lo contrario de procaz."
         }
       ],
@@ -773,7 +773,7 @@
     "enunciado": "¿Qué palabra significa lo mismo que «pusilánime»?",
     "opciones": [
       "apocado",
-      "magnánimo",
+      "pesimista",
       "unánime",
       "rencoroso"
     ],
@@ -785,7 +785,7 @@
       "distractors": [
         {
           "optionIndex": 1,
-          "error": "Magnánimo es quien tiene grandeza de ánimo: es casi lo contrario."
+          "error": "Pesimista es quien espera lo peor; el pusilánime no se atreve, que es distinto."
         },
         {
           "optionIndex": 2,
@@ -804,19 +804,19 @@
     "nivel": 5,
     "enunciado": "¿Qué palabra significa lo contrario de «abúlico»?",
     "opciones": [
-      "resuelto",
       "apático",
+      "resuelto",
       "bucólico",
       "lúcido"
     ],
-    "correcta": 0,
+    "correcta": 1,
     "explicacion": {
       "observe": "Te piden lo contrario, no lo mismo. Piensa en una frase: «un estudiante abúlico».",
-      "rule": "Un antónimo significa lo opuesto: no pueden decirse a la vez de lo mismo.",
+      "rule": "Un antónimo significa lo contrario dentro de la misma idea: alto y bajo hablan de altura; abrir y cerrar, de una puerta.",
       "apply": "Abúlico es quien no tiene voluntad para actuar; lo contrario es decidido: resuelto. La respuesta es resuelto.",
       "distractors": [
         {
-          "optionIndex": 1,
+          "optionIndex": 0,
           "error": "Apático significa casi lo mismo que abúlico: es un sinónimo."
         },
         {
@@ -836,23 +836,23 @@
     "nivel": 5,
     "enunciado": "¿Qué palabra significa lo mismo que «baladí»?",
     "opciones": [
-      "insignificante",
       "trascendental",
       "sencillo",
+      "insignificante",
       "barato"
     ],
-    "correcta": 0,
+    "correcta": 2,
     "explicacion": {
       "observe": "Piensa en una frase con «baladí»: «una discusión baladí».",
       "rule": "Un sinónimo significa lo mismo y se puede poner en su lugar sin cambiar el sentido de la frase.",
       "apply": "Baladí es lo que tiene poca importancia: insignificante. La respuesta es insignificante.",
       "distractors": [
         {
-          "optionIndex": 1,
+          "optionIndex": 0,
           "error": "Trascendental es lo muy importante: es lo contrario."
         },
         {
-          "optionIndex": 2,
+          "optionIndex": 1,
           "error": "Sencillo es fácil o sin adornos; baladí es lo que no importa."
         },
         {
@@ -866,30 +866,30 @@
   {
     "tipo": "VER.SINON",
     "nivel": 5,
-    "enunciado": "¿Qué palabra significa lo contrario de «prístino»?",
+    "enunciado": "¿Qué palabra significa lo contrario de «inmarcesible»?",
     "opciones": [
-      "adulterado",
-      "intacto",
-      "brillante",
-      "lejano"
+      "inmaculado",
+      "invisible",
+      "inmenso",
+      "perecedero"
     ],
-    "correcta": 0,
+    "correcta": 3,
     "explicacion": {
-      "observe": "Te piden lo contrario, no lo mismo. Piensa en una frase: «el agua prístina del manantial».",
-      "rule": "Un antónimo significa lo opuesto: no pueden decirse a la vez de lo mismo.",
-      "apply": "Prístino es puro, sin mezcla; lo contrario es mezclado o alterado: adulterado. La respuesta es adulterado.",
+      "observe": "Te piden lo contrario, no lo mismo. Piensa en una frase: «una gloria inmarcesible».",
+      "rule": "Un antónimo significa lo contrario dentro de la misma idea: alto y bajo hablan de altura; abrir y cerrar, de una puerta.",
+      "apply": "Inmarcesible es lo que no se marchita ni se acaba; lo contrario es lo que se acaba con el tiempo: perecedero. La respuesta es perecedero.",
       "distractors": [
         {
+          "optionIndex": 0,
+          "error": "Inmaculado significa sin mancha; solo se parece en el comienzo."
+        },
+        {
           "optionIndex": 1,
-          "error": "Intacto significa casi lo mismo que prístino: es un sinónimo."
+          "error": "Invisible es lo que no se ve; no tiene que ver con durar."
         },
         {
           "optionIndex": 2,
-          "error": "Brillante habla del brillo; prístino significa puro u original."
-        },
-        {
-          "optionIndex": 3,
-          "error": "Lejano habla de distancia; no tiene que ver con la pureza."
+          "error": "Inmenso habla del tamaño, no de la duración."
         }
       ],
       "tip": "Mete cada opción en una frase corta con la palabra del enunciado: el sinónimo no cambia el sentido y el antónimo lo da la vuelta. Desconfía de las palabras que solo se parecen en la forma (parónimos)."
@@ -901,7 +901,7 @@
     "enunciado": "¿Qué palabra significa lo mismo que «conspicuo»?",
     "opciones": [
       "ilustre",
-      "oculto",
+      "consciente",
       "sospechoso",
       "cuidadoso"
     ],
@@ -913,7 +913,7 @@
       "distractors": [
         {
           "optionIndex": 1,
-          "error": "Oculto es lo que no se ve: conspicuo es justo lo que destaca."
+          "error": "Consciente se parece al principio, pero significa que se da cuenta de algo."
         },
         {
           "optionIndex": 2,
@@ -932,19 +932,19 @@
     "nivel": 5,
     "enunciado": "¿Qué palabra significa lo contrario de «ecuánime»?",
     "opciones": [
-      "parcial",
       "sereno",
+      "parcial",
       "unánime",
       "generoso"
     ],
-    "correcta": 0,
+    "correcta": 1,
     "explicacion": {
       "observe": "Te piden lo contrario, no lo mismo. Piensa en una frase: «un árbitro ecuánime».",
-      "rule": "Un antónimo significa lo opuesto: no pueden decirse a la vez de lo mismo.",
+      "rule": "Un antónimo significa lo contrario dentro de la misma idea: alto y bajo hablan de altura; abrir y cerrar, de una puerta.",
       "apply": "Ecuánime es quien juzga con imparcialidad; lo contrario es quien favorece a una parte: parcial. La respuesta es parcial.",
       "distractors": [
         {
-          "optionIndex": 1,
+          "optionIndex": 0,
           "error": "Sereno se acerca a ecuánime (tener calma): no es su contrario."
         },
         {
@@ -964,23 +964,23 @@
     "nivel": 1,
     "enunciado": "Pez es a nadar como pájaro es a…",
     "opciones": [
-      "volar",
       "nido",
       "pluma",
+      "volar",
       "árbol"
     ],
-    "correcta": 0,
+    "correcta": 2,
     "explicacion": {
       "observe": "Busca primero qué une a «pez» con «nadar».",
       "rule": "Relación del primer par: el animal y la forma en que se mueve.",
       "apply": "El pájaro se mueve volando. La respuesta es volar.",
       "distractors": [
         {
-          "optionIndex": 1,
+          "optionIndex": 0,
           "error": "El nido es donde vive el pájaro, no cómo se mueve."
         },
         {
-          "optionIndex": 2,
+          "optionIndex": 1,
           "error": "La pluma es una parte del pájaro: sería una relación de parte y todo."
         },
         {
@@ -988,7 +988,7 @@
           "error": "El árbol es un lugar donde se posa, no una forma de moverse."
         }
       ],
-      "tip": "Di en una frase la relación del primer par («el pez se mueve nadando») y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
+      "tip": "Di en una frase la relación del primer par y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
     }
   },
   {
@@ -996,31 +996,31 @@
     "nivel": 1,
     "enunciado": "Día es a noche como frío es a…",
     "opciones": [
-      "calor",
       "invierno",
       "hielo",
-      "templado"
+      "templado",
+      "calor"
     ],
-    "correcta": 0,
+    "correcta": 3,
     "explicacion": {
       "observe": "Busca primero qué une a «día» con «noche».",
       "rule": "Relación del primer par: son opuestos.",
       "apply": "Lo opuesto del frío es el calor. La respuesta es calor.",
       "distractors": [
         {
-          "optionIndex": 1,
+          "optionIndex": 0,
           "error": "El invierno es una estación fría: es una relación de época, no de opuestos."
         },
         {
-          "optionIndex": 2,
+          "optionIndex": 1,
           "error": "El hielo es algo frío, no lo contrario del frío."
         },
         {
-          "optionIndex": 3,
+          "optionIndex": 2,
           "error": "Templado está entre frío y calor: es un grado intermedio, no el opuesto."
         }
       ],
-      "tip": "Di en una frase la relación del primer par («el pez se mueve nadando») y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
+      "tip": "Di en una frase la relación del primer par y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
     }
   },
   {
@@ -1052,7 +1052,7 @@
           "error": "El abrigo es otra prenda, no la parte del cuerpo que cubre."
         }
       ],
-      "tip": "Di en una frase la relación del primer par («el pez se mueve nadando») y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
+      "tip": "Di en una frase la relación del primer par y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
     }
   },
   {
@@ -1060,19 +1060,19 @@
     "nivel": 1,
     "enunciado": "Panadero es a pan como carpintero es a…",
     "opciones": [
-      "mueble",
       "madera",
+      "mueble",
       "sierra",
       "taller"
     ],
-    "correcta": 0,
+    "correcta": 1,
     "explicacion": {
       "observe": "Busca primero qué une a «panadero» con «pan».",
       "rule": "Relación del primer par: el oficio y lo que fabrica.",
       "apply": "El carpintero fabrica muebles. La respuesta es mueble.",
       "distractors": [
         {
-          "optionIndex": 1,
+          "optionIndex": 0,
           "error": "La madera es el material, no lo que fabrica; en el primer par sería la harina."
         },
         {
@@ -1084,7 +1084,7 @@
           "error": "El taller es el lugar donde trabaja."
         }
       ],
-      "tip": "Di en una frase la relación del primer par («el pez se mueve nadando») y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
+      "tip": "Di en una frase la relación del primer par y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
     }
   },
   {
@@ -1092,23 +1092,23 @@
     "nivel": 1,
     "enunciado": "Hoja es a árbol como página es a…",
     "opciones": [
-      "libro",
       "papel",
       "letra",
+      "libro",
       "leer"
     ],
-    "correcta": 0,
+    "correcta": 2,
     "explicacion": {
       "observe": "Busca primero qué une a «hoja» con «árbol».",
       "rule": "Relación del primer par: una parte y el todo al que pertenece.",
       "apply": "La página es una parte del libro. La respuesta es libro.",
       "distractors": [
         {
-          "optionIndex": 1,
+          "optionIndex": 0,
           "error": "El papel es el material de la página, no aquello de lo que forma parte."
         },
         {
-          "optionIndex": 2,
+          "optionIndex": 1,
           "error": "La letra es parte de la página: la relación va al revés."
         },
         {
@@ -1116,7 +1116,7 @@
           "error": "Leer es lo que se hace con el libro, no aquello de lo que forma parte la página."
         }
       ],
-      "tip": "Di en una frase la relación del primer par («el pez se mueve nadando») y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
+      "tip": "Di en una frase la relación del primer par y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
     }
   },
   {
@@ -1124,31 +1124,31 @@
     "nivel": 1,
     "enunciado": "Perro es a cachorro como gato es a…",
     "opciones": [
-      "gatito",
       "ratón",
       "maullido",
-      "felino"
+      "felino",
+      "gatito"
     ],
-    "correcta": 0,
+    "correcta": 3,
     "explicacion": {
       "observe": "Busca primero qué une a «perro» con «cachorro».",
       "rule": "Relación del primer par: el animal y su cría.",
       "apply": "La cría del gato es el gatito. La respuesta es gatito.",
       "distractors": [
         {
-          "optionIndex": 1,
+          "optionIndex": 0,
           "error": "El ratón es lo que caza el gato, no su cría."
         },
         {
-          "optionIndex": 2,
+          "optionIndex": 1,
           "error": "El maullido es el sonido del gato."
         },
         {
-          "optionIndex": 3,
+          "optionIndex": 2,
           "error": "Felino es la familia del gato, no su cría."
         }
       ],
-      "tip": "Di en una frase la relación del primer par («el pez se mueve nadando») y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
+      "tip": "Di en una frase la relación del primer par y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
     }
   },
   {
@@ -1180,7 +1180,7 @@
           "error": "Despertar es un uso del despertador, no lo que mide el reloj."
         }
       ],
-      "tip": "Di en una frase la relación del primer par («el pez se mueve nadando») y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
+      "tip": "Di en una frase la relación del primer par y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
     }
   },
   {
@@ -1188,19 +1188,19 @@
     "nivel": 2,
     "enunciado": "Sed es a beber como sueño es a…",
     "opciones": [
-      "dormir",
       "cama",
+      "dormir",
       "cansancio",
       "soñar"
     ],
-    "correcta": 0,
+    "correcta": 1,
     "explicacion": {
       "observe": "Busca primero qué une a «sed» con «beber».",
       "rule": "Relación del primer par: una necesidad y lo que la satisface.",
       "apply": "El sueño se quita durmiendo. La respuesta es dormir.",
       "distractors": [
         {
-          "optionIndex": 1,
+          "optionIndex": 0,
           "error": "La cama es el lugar donde se duerme, no lo que quita el sueño."
         },
         {
@@ -1212,7 +1212,7 @@
           "error": "Soñar es algo que pasa durmiendo, pero no es lo que quita el sueño."
         }
       ],
-      "tip": "Di en una frase la relación del primer par («el pez se mueve nadando») y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
+      "tip": "Di en una frase la relación del primer par y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
     }
   },
   {
@@ -1220,23 +1220,23 @@
     "nivel": 2,
     "enunciado": "Arquitecto es a plano como compositor es a…",
     "opciones": [
-      "partitura",
       "música",
       "piano",
+      "partitura",
       "concierto"
     ],
-    "correcta": 0,
+    "correcta": 2,
     "explicacion": {
       "observe": "Busca primero qué une a «arquitecto» con «plano».",
       "rule": "Relación del primer par: el autor y el documento en el que deja escrita su obra.",
       "apply": "El compositor escribe su obra en una partitura. La respuesta es partitura.",
       "distractors": [
         {
-          "optionIndex": 1,
+          "optionIndex": 0,
           "error": "La música corresponde al edificio, no al plano: es la obra, no su escritura."
         },
         {
-          "optionIndex": 2,
+          "optionIndex": 1,
           "error": "El piano es un instrumento con el que se toca la música."
         },
         {
@@ -1244,7 +1244,7 @@
           "error": "El concierto es donde se interpreta la obra."
         }
       ],
-      "tip": "Di en una frase la relación del primer par («el pez se mueve nadando») y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
+      "tip": "Di en una frase la relación del primer par y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
     }
   },
   {
@@ -1252,31 +1252,31 @@
     "nivel": 2,
     "enunciado": "Lento es a tortuga como rápido es a…",
     "opciones": [
-      "liebre",
       "carrera",
       "caracol",
-      "velocidad"
+      "velocidad",
+      "liebre"
     ],
-    "correcta": 0,
+    "correcta": 3,
     "explicacion": {
       "observe": "Busca primero qué une a «lento» con «tortuga».",
       "rule": "Relación del primer par: una cualidad y un animal que la representa.",
       "apply": "La liebre representa la rapidez. La respuesta es liebre.",
       "distractors": [
         {
-          "optionIndex": 1,
+          "optionIndex": 0,
           "error": "La carrera es una prueba de velocidad, no un animal."
         },
         {
-          "optionIndex": 2,
+          "optionIndex": 1,
           "error": "El caracol es lento: repite la cualidad del primer par."
         },
         {
-          "optionIndex": 3,
+          "optionIndex": 2,
           "error": "La velocidad es la cualidad misma, no un animal que la tenga."
         }
       ],
-      "tip": "Di en una frase la relación del primer par («el pez se mueve nadando») y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
+      "tip": "Di en una frase la relación del primer par y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
     }
   },
   {
@@ -1308,7 +1308,7 @@
           "error": "La tierra es el material donde excava, no el nombre de su casa."
         }
       ],
-      "tip": "Di en una frase la relación del primer par («el pez se mueve nadando») y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
+      "tip": "Di en una frase la relación del primer par y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
     }
   },
   {
@@ -1316,19 +1316,19 @@
     "nivel": 2,
     "enunciado": "Volante es a coche como timón es a…",
     "opciones": [
-      "barco",
       "agua",
+      "barco",
       "capitán",
       "ancla"
     ],
-    "correcta": 0,
+    "correcta": 1,
     "explicacion": {
       "observe": "Busca primero qué une a «volante» con «coche».",
       "rule": "Relación del primer par: la pieza que dirige y el vehículo.",
       "apply": "El timón dirige el barco. La respuesta es barco.",
       "distractors": [
         {
-          "optionIndex": 1,
+          "optionIndex": 0,
           "error": "El agua es por donde navega el barco."
         },
         {
@@ -1340,7 +1340,7 @@
           "error": "El ancla sirve para fijar el barco, no para dirigirlo."
         }
       ],
-      "tip": "Di en una frase la relación del primer par («el pez se mueve nadando») y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
+      "tip": "Di en una frase la relación del primer par y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
     }
   },
   {
@@ -1348,23 +1348,23 @@
     "nivel": 3,
     "enunciado": "Agricultor es a cosecha como pescador es a…",
     "opciones": [
-      "captura",
       "red",
       "mar",
+      "captura",
       "barca"
     ],
-    "correcta": 0,
+    "correcta": 2,
     "explicacion": {
       "observe": "Busca primero qué une a «agricultor» con «cosecha».",
       "rule": "Relación del primer par: el oficio y lo que obtiene con su trabajo.",
       "apply": "Lo que obtiene el pescador es la captura. La respuesta es captura.",
       "distractors": [
         {
-          "optionIndex": 1,
+          "optionIndex": 0,
           "error": "La red es la herramienta del pescador."
         },
         {
-          "optionIndex": 2,
+          "optionIndex": 1,
           "error": "El mar es el lugar donde pesca."
         },
         {
@@ -1372,7 +1372,7 @@
           "error": "La barca es el medio con el que sale a pescar."
         }
       ],
-      "tip": "Di en una frase la relación del primer par («el pez se mueve nadando») y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
+      "tip": "Di en una frase la relación del primer par y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
     }
   },
   {
@@ -1380,31 +1380,31 @@
     "nivel": 3,
     "enunciado": "Prólogo es a libro como preludio es a…",
     "opciones": [
-      "ópera",
       "final",
       "piano",
-      "partitura"
+      "compositor",
+      "ópera"
     ],
-    "correcta": 0,
+    "correcta": 3,
     "explicacion": {
       "observe": "Busca primero qué une a «prólogo» con «libro».",
       "rule": "Relación del primer par: la parte que sirve de introducción y la obra que introduce.",
       "apply": "El preludio introduce una obra musical como la ópera. La respuesta es ópera.",
       "distractors": [
         {
-          "optionIndex": 1,
+          "optionIndex": 0,
           "error": "El final es lo opuesto de una introducción."
         },
         {
-          "optionIndex": 2,
+          "optionIndex": 1,
           "error": "El piano es un instrumento, no la obra que se introduce."
         },
         {
-          "optionIndex": 3,
-          "error": "La partitura es donde se escribe la música, no la obra a la que el preludio sirve de entrada."
+          "optionIndex": 2,
+          "error": "El compositor es quien escribe la obra, no la obra que el preludio introduce."
         }
       ],
-      "tip": "Di en una frase la relación del primer par («el pez se mueve nadando») y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
+      "tip": "Di en una frase la relación del primer par y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
     }
   },
   {
@@ -1415,7 +1415,7 @@
       "comida",
       "hambre",
       "dieta",
-      "agua"
+      "cocina"
     ],
     "correcta": 0,
     "explicacion": {
@@ -1433,30 +1433,30 @@
         },
         {
           "optionIndex": 3,
-          "error": "La falta de agua daría sed; el ayuno es dejar de comer."
+          "error": "La cocina es donde se prepara la comida, no lo que falta durante el ayuno."
         }
       ],
-      "tip": "Di en una frase la relación del primer par («el pez se mueve nadando») y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
+      "tip": "Di en una frase la relación del primer par y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
     }
   },
   {
     "tipo": "VER.ANALOG",
     "nivel": 3,
-    "enunciado": "Gramo es a peso como metro es a…",
+    "enunciado": "Litro es a volumen como metro es a…",
     "opciones": [
-      "longitud",
       "regla",
+      "longitud",
       "kilómetro",
       "superficie"
     ],
-    "correcta": 0,
+    "correcta": 1,
     "explicacion": {
-      "observe": "Busca primero qué une a «gramo» con «peso».",
+      "observe": "Busca primero qué une a «litro» con «volumen».",
       "rule": "Relación del primer par: la unidad y la magnitud que mide.",
       "apply": "El metro es la unidad de longitud. La respuesta es longitud.",
       "distractors": [
         {
-          "optionIndex": 1,
+          "optionIndex": 0,
           "error": "La regla es el instrumento para medir, no la magnitud."
         },
         {
@@ -1468,7 +1468,7 @@
           "error": "La superficie se mide en metros cuadrados, no en metros."
         }
       ],
-      "tip": "Di en una frase la relación del primer par («el pez se mueve nadando») y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
+      "tip": "Di en una frase la relación del primer par y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
     }
   },
   {
@@ -1476,23 +1476,23 @@
     "nivel": 3,
     "enunciado": "Juez es a sentencia como médico es a…",
     "opciones": [
-      "diagnóstico",
       "hospital",
       "enfermo",
+      "diagnóstico",
       "bata"
     ],
-    "correcta": 0,
+    "correcta": 2,
     "explicacion": {
       "observe": "Busca primero qué une a «juez» con «sentencia».",
       "rule": "Relación del primer par: el profesional y la decisión que emite tras estudiar un caso.",
       "apply": "El médico emite un diagnóstico. La respuesta es diagnóstico.",
       "distractors": [
         {
-          "optionIndex": 1,
+          "optionIndex": 0,
           "error": "El hospital es el lugar de trabajo del médico."
         },
         {
-          "optionIndex": 2,
+          "optionIndex": 1,
           "error": "El enfermo es la persona a la que atiende."
         },
         {
@@ -1500,7 +1500,7 @@
           "error": "La bata es su ropa de trabajo."
         }
       ],
-      "tip": "Di en una frase la relación del primer par («el pez se mueve nadando») y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
+      "tip": "Di en una frase la relación del primer par y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
     }
   },
   {
@@ -1508,31 +1508,31 @@
     "nivel": 3,
     "enunciado": "Semilla es a árbol como huevo es a…",
     "opciones": [
-      "ave",
       "nido",
       "cáscara",
-      "tortilla"
+      "tortilla",
+      "ave"
     ],
-    "correcta": 0,
+    "correcta": 3,
     "explicacion": {
       "observe": "Busca primero qué une a «semilla» con «árbol».",
       "rule": "Relación del primer par: el origen y el ser adulto en que se convierte.",
       "apply": "Del huevo sale un ave. La respuesta es ave.",
       "distractors": [
         {
-          "optionIndex": 1,
+          "optionIndex": 0,
           "error": "El nido es donde se pone el huevo."
         },
         {
-          "optionIndex": 2,
+          "optionIndex": 1,
           "error": "La cáscara es una parte del huevo."
         },
         {
-          "optionIndex": 3,
+          "optionIndex": 2,
           "error": "La tortilla es un plato hecho con huevo, no en lo que se convierte de forma natural."
         }
       ],
-      "tip": "Di en una frase la relación del primer par («el pez se mueve nadando») y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
+      "tip": "Di en una frase la relación del primer par y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
     }
   },
   {
@@ -1564,7 +1564,7 @@
           "error": "El silencio es una consecuencia, no la capacidad que falta."
         }
       ],
-      "tip": "Di en una frase la relación del primer par («el pez se mueve nadando») y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
+      "tip": "Di en una frase la relación del primer par y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
     }
   },
   {
@@ -1572,19 +1572,19 @@
     "nivel": 4,
     "enunciado": "Avaro es a dinero como glotón es a…",
     "opciones": [
-      "comida",
       "hambre",
+      "comida",
       "gordo",
       "restaurante"
     ],
-    "correcta": 0,
+    "correcta": 1,
     "explicacion": {
       "observe": "Busca primero qué une a «avaro» con «dinero».",
       "rule": "Relación del primer par: la persona y aquello que desea en exceso.",
       "apply": "El glotón desea comida en exceso. La respuesta es comida.",
       "distractors": [
         {
-          "optionIndex": 1,
+          "optionIndex": 0,
           "error": "El hambre es la sensación, no aquello que el glotón ansía en exceso."
         },
         {
@@ -1596,7 +1596,7 @@
           "error": "El restaurante es un lugar donde se come."
         }
       ],
-      "tip": "Di en una frase la relación del primer par («el pez se mueve nadando») y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
+      "tip": "Di en una frase la relación del primer par y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
     }
   },
   {
@@ -1604,23 +1604,23 @@
     "nivel": 4,
     "enunciado": "Efímero es a duradero como escaso es a…",
     "opciones": [
-      "abundante",
       "poco",
       "breve",
+      "abundante",
       "caro"
     ],
-    "correcta": 0,
+    "correcta": 2,
     "explicacion": {
       "observe": "Busca primero qué une a «efímero» con «duradero».",
       "rule": "Relación del primer par: son antónimos.",
       "apply": "Lo opuesto de escaso es abundante. La respuesta es abundante.",
       "distractors": [
         {
-          "optionIndex": 1,
+          "optionIndex": 0,
           "error": "Poco significa casi lo mismo que escaso: sería un sinónimo, no un opuesto."
         },
         {
-          "optionIndex": 2,
+          "optionIndex": 1,
           "error": "Breve es sinónimo de efímero: mezcla el primer par con el segundo."
         },
         {
@@ -1628,7 +1628,7 @@
           "error": "Caro habla del precio, no de la cantidad."
         }
       ],
-      "tip": "Di en una frase la relación del primer par («el pez se mueve nadando») y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
+      "tip": "Di en una frase la relación del primer par y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
     }
   },
   {
@@ -1636,31 +1636,31 @@
     "nivel": 4,
     "enunciado": "Estetoscopio es a auscultar como telescopio es a…",
     "opciones": [
-      "observar",
       "estrella",
       "lente",
-      "astrónomo"
+      "astrónomo",
+      "observar"
     ],
-    "correcta": 0,
+    "correcta": 3,
     "explicacion": {
       "observe": "Busca primero qué une a «estetoscopio» con «auscultar».",
       "rule": "Relación del primer par: el instrumento y la acción que permite.",
       "apply": "El telescopio sirve para observar. La respuesta es observar.",
       "distractors": [
         {
-          "optionIndex": 1,
+          "optionIndex": 0,
           "error": "La estrella es lo que se observa, no la acción."
         },
         {
-          "optionIndex": 2,
+          "optionIndex": 1,
           "error": "La lente es una parte del telescopio."
         },
         {
-          "optionIndex": 3,
+          "optionIndex": 2,
           "error": "El astrónomo es quien lo usa."
         }
       ],
-      "tip": "Di en una frase la relación del primer par («el pez se mueve nadando») y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
+      "tip": "Di en una frase la relación del primer par y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
     }
   },
   {
@@ -1692,7 +1692,7 @@
           "error": "El alquiler es un uso económico del edificio."
         }
       ],
-      "tip": "Di en una frase la relación del primer par («el pez se mueve nadando») y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
+      "tip": "Di en una frase la relación del primer par y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
     }
   },
   {
@@ -1700,19 +1700,19 @@
     "nivel": 4,
     "enunciado": "Herrero es a yunque como escultor es a…",
     "opciones": [
-      "cincel",
       "estatua",
+      "cincel",
       "mármol",
       "museo"
     ],
-    "correcta": 0,
+    "correcta": 1,
     "explicacion": {
       "observe": "Busca primero qué une a «herrero» con «yunque».",
       "rule": "Relación del primer par: el artesano y una herramienta con la que trabaja.",
       "apply": "El escultor trabaja con el cincel. La respuesta es cincel.",
       "distractors": [
         {
-          "optionIndex": 1,
+          "optionIndex": 0,
           "error": "La estatua es lo que produce el escultor, no su herramienta."
         },
         {
@@ -1724,7 +1724,7 @@
           "error": "El museo es donde se expone la obra."
         }
       ],
-      "tip": "Di en una frase la relación del primer par («el pez se mueve nadando») y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
+      "tip": "Di en una frase la relación del primer par y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
     }
   },
   {
@@ -1732,23 +1732,23 @@
     "nivel": 5,
     "enunciado": "Pródigo es a derrochar como avaro es a…",
     "opciones": [
-      "acumular",
       "gastar",
       "prestar",
+      "acumular",
       "dinero"
     ],
-    "correcta": 0,
+    "correcta": 2,
     "explicacion": {
       "observe": "Busca primero qué une a «pródigo» con «derrochar».",
       "rule": "Relación del primer par: la persona y la acción que la caracteriza.",
       "apply": "Al avaro lo caracteriza acumular. La respuesta es acumular.",
       "distractors": [
         {
-          "optionIndex": 1,
+          "optionIndex": 0,
           "error": "Gastar es lo propio del pródigo, no del avaro."
         },
         {
-          "optionIndex": 2,
+          "optionIndex": 1,
           "error": "Prestar no es lo que define al avaro."
         },
         {
@@ -1756,7 +1756,7 @@
           "error": "El dinero es el objeto, no la acción que caracteriza al avaro."
         }
       ],
-      "tip": "Di en una frase la relación del primer par («el pez se mueve nadando») y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
+      "tip": "Di en una frase la relación del primer par y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
     }
   },
   {
@@ -1764,31 +1764,31 @@
     "nivel": 5,
     "enunciado": "Desierto es a árido como pantano es a…",
     "opciones": [
-      "cenagoso",
       "seco",
       "profundo",
-      "verde"
+      "verde",
+      "cenagoso"
     ],
-    "correcta": 0,
+    "correcta": 3,
     "explicacion": {
       "observe": "Busca primero qué une a «desierto» con «árido».",
       "rule": "Relación del primer par: el lugar y la cualidad de su terreno.",
       "apply": "El terreno del pantano es cenagoso, lleno de barro. La respuesta es cenagoso.",
       "distractors": [
         {
-          "optionIndex": 1,
+          "optionIndex": 0,
           "error": "Seco describe el desierto: es lo contrario de un pantano."
         },
         {
-          "optionIndex": 2,
+          "optionIndex": 1,
           "error": "Un pantano no se define por la profundidad."
         },
         {
-          "optionIndex": 3,
+          "optionIndex": 2,
           "error": "El color no es la cualidad que define el terreno del pantano."
         }
       ],
-      "tip": "Di en una frase la relación del primer par («el pez se mueve nadando») y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
+      "tip": "Di en una frase la relación del primer par y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
     }
   },
   {
@@ -1820,39 +1820,39 @@
           "error": "El abogado participa en el juicio, pero no es donde se comprueba la acusación."
         }
       ],
-      "tip": "Di en una frase la relación del primer par («el pez se mueve nadando») y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
+      "tip": "Di en una frase la relación del primer par y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
     }
   },
   {
     "tipo": "VER.ANALOG",
     "nivel": 5,
-    "enunciado": "Cobarde es a temerario como tacaño es a…",
+    "enunciado": "Cauce es a río como órbita es a…",
     "opciones": [
-      "derrochador",
-      "generoso",
-      "avaro",
-      "ahorrador"
+      "estrella",
+      "planeta",
+      "telescopio",
+      "espacio"
     ],
-    "correcta": 0,
+    "correcta": 1,
     "explicacion": {
-      "observe": "Busca primero qué une a «cobarde» con «temerario».",
-      "rule": "Relación del primer par: son los dos extremos opuestos de una virtud (por defecto y por exceso de valor).",
-      "apply": "Por defecto de generosidad se es tacaño; por exceso, derrochador. La respuesta es derrochador.",
+      "observe": "Busca primero qué une a «cauce» con «río».",
+      "rule": "Relación del primer par: el camino fijo y lo que lo recorre.",
+      "apply": "Una órbita es el camino que recorre un planeta, como el cauce es el que sigue el río. La respuesta es planeta.",
       "distractors": [
         {
-          "optionIndex": 1,
-          "error": "Generoso es el punto medio (la virtud), como el valiente; temerario es el exceso."
+          "optionIndex": 0,
+          "error": "La estrella es el centro alrededor del cual se gira, no lo que recorre la órbita."
         },
         {
           "optionIndex": 2,
-          "error": "Avaro es casi sinónimo de tacaño."
+          "error": "El telescopio sirve para observar la órbita, no la recorre."
         },
         {
           "optionIndex": 3,
-          "error": "Ahorrador está cerca de tacaño; no es el exceso contrario."
+          "error": "El espacio es donde está la órbita; el cauce no es lo que rodea al río."
         }
       ],
-      "tip": "Di en una frase la relación del primer par («el pez se mueve nadando») y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
+      "tip": "Di en una frase la relación del primer par y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
     }
   },
   {
@@ -1860,23 +1860,23 @@
     "nivel": 5,
     "enunciado": "Oasis es a desierto como isla es a…",
     "opciones": [
-      "mar",
       "arena",
       "playa",
+      "mar",
       "palmera"
     ],
-    "correcta": 0,
+    "correcta": 2,
     "explicacion": {
       "observe": "Busca primero qué une a «oasis» con «desierto».",
       "rule": "Relación del primer par: un lugar distinto y lo que lo rodea por completo.",
       "apply": "Una isla está rodeada por el mar. La respuesta es mar.",
       "distractors": [
         {
-          "optionIndex": 1,
+          "optionIndex": 0,
           "error": "La arena es parte de la isla o de la playa, no lo que la rodea."
         },
         {
-          "optionIndex": 2,
+          "optionIndex": 1,
           "error": "La playa es una parte de la isla."
         },
         {
@@ -1884,7 +1884,7 @@
           "error": "La palmera es lo que puede crecer en un oasis o en una isla."
         }
       ],
-      "tip": "Di en una frase la relación del primer par («el pez se mueve nadando») y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
+      "tip": "Di en una frase la relación del primer par y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
     }
   },
   {
@@ -1892,31 +1892,31 @@
     "nivel": 5,
     "enunciado": "Vacuna es a enfermedad como pararrayos es a…",
     "opciones": [
-      "rayo",
       "tormenta",
       "tejado",
-      "electricidad"
+      "electricidad",
+      "rayo"
     ],
-    "correcta": 0,
+    "correcta": 3,
     "explicacion": {
       "observe": "Busca primero qué une a «vacuna» con «enfermedad».",
       "rule": "Relación del primer par: lo que protege y el daño concreto del que protege.",
       "apply": "El pararrayos protege del rayo. La respuesta es rayo.",
       "distractors": [
         {
-          "optionIndex": 1,
+          "optionIndex": 0,
           "error": "La tormenta trae el rayo, pero el pararrayos protege del rayo, no de la tormenta."
         },
         {
-          "optionIndex": 2,
+          "optionIndex": 1,
           "error": "El tejado es donde se coloca el pararrayos."
         },
         {
-          "optionIndex": 3,
+          "optionIndex": 2,
           "error": "La electricidad es la naturaleza del rayo; el pararrayos no protege de la electricidad en general."
         }
       ],
-      "tip": "Di en una frase la relación del primer par («el pez se mueve nadando») y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
+      "tip": "Di en una frase la relación del primer par y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."
     }
   }
 ]

@@ -127,6 +127,9 @@ reset role;
 set local role authenticated;
 select set_config('request.jwt.claims',
   '{"sub":"00000000-0000-4000-8000-0000000000a1","role":"authenticated","app_metadata":{}}', true);
+-- Con cuenta también se reporta.
+insert into public.reporte (id, tipo, nivel, semilla, version, opciones, motivo)
+values ('00000000-0000-4000-8000-00000000c003', 'NUM.SERIE', 2, 'xyz', '3', 4, 'otro');
 do $$
 declare
   n integer;
@@ -163,6 +166,15 @@ select ('00000000-0000-4000-8000-0000000001' || lpad(k::text, 2, '0'))::uuid, 'm
      'correct', j <= (array[10, 7, 3, 0])[k], 'family', 'f', 'ms', 1000))
    from generate_series(1, 10) j)
 from generate_series(1, 4) k;
+-- Un dato mal formado de un cliente no rompe la función; y un tipo con solo 20 respuestas da «pocos datos».
+insert into public.sesion (user_id, id, creada, preguntas)
+values ('00000000-0000-4000-8000-000000000101', 'm-raro', now(),
+  '[{"type":"NUM.SERIE","level":"x","seed":"r","answer":0,"correct":"si","ms":"lento"}]');
+insert into public.sesion (user_id, id, creada, preguntas)
+select ('00000000-0000-4000-8000-0000000001' || lpad(k::text, 2, '0'))::uuid, 'c-' || k, now(),
+  (select jsonb_agg(jsonb_build_object('type', 'NUM.CALC', 'level', 1, 'seed', 'c' || j, 'answer', 0, 'marked', false,
+     'correct', j <= 5, 'family', 'g')) from generate_series(1, 10) j)
+from generate_series(1, 2) k;
 
 set local role authenticated;
 select set_config('request.jwt.claims',
@@ -176,7 +188,10 @@ begin
     raise exception 'Métricas mal calculadas: % % % %', m.respuestas, m.acierto, m.tiempo_medio_ms, m.discriminacion;
   end if;
   if (select respuestas from public.metricas() where tipo = 'NUM.SERIE' and nivel is null) <> 40 then
-    raise exception 'Falta el total por tipo';
+    raise exception 'Falta el total por tipo (o cuenta el dato mal formado)';
+  end if;
+  if (select discriminacion from public.metricas() where tipo = 'NUM.CALC' and nivel is null) is not null then
+    raise exception 'Con menos de 30 respuestas debería dar «pocos datos»';
   end if;
 end
 $$;
@@ -224,11 +239,13 @@ begin
   exception when check_violation then
     null;
   end;
-  update public.perfil_examen set datos = '{"id":"prueba-perfil","version":2,"x":1}' where id = 'prueba-perfil';
-  get diagnostics n = row_count;
-  if n <> 0 then raise exception 'Se edita una versión publicada'; end if;
-exception when insufficient_privilege then
-  null; -- esperado: nadie tiene permiso para editar versiones publicadas
+  begin
+    update public.perfil_examen set datos = '{"id":"prueba-perfil","version":2,"x":1}' where id = 'prueba-perfil';
+    get diagnostics n = row_count;
+    if n <> 0 then raise exception 'Se edita una versión publicada'; end if;
+  exception when insufficient_privilege then
+    null; -- esperado: nadie tiene permiso para editar versiones publicadas
+  end;
 end
 $$;
 
