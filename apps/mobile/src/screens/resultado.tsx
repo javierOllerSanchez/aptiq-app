@@ -7,7 +7,7 @@ import {
   taxonomy,
   type TypeCode,
 } from '@aptiq/engine';
-import { perfil } from '@/content/content';
+import { perfilDe } from '@/content/content';
 import { tokens } from '@aptiq/tokens';
 import { AptitudeBar, Button, GlassCard, Icon, PaperBackground, Stamp, Text } from '@aptiq/ui';
 import { router, useLocalSearchParams } from 'expo-router';
@@ -23,6 +23,7 @@ import { Loading } from '@/screens/loading';
 interface Resumen {
   nota: ScoreResult;
   desglose: Breakdown;
+  preguntas: number | null;
 }
 
 const pct = (t: Tally) => (t.total ? Math.round((t.correct / t.total) * 100) : 0);
@@ -42,11 +43,12 @@ export function Resultado() {
       // Con `correct` guardado no hace falta regenerar (y una verbal retirada no rompe el resultado).
       const results = attempt.questions.map((q) => ({ type: q.type, correct: isCorrect(q), blank: q.answer === null }));
       const desglose = breakdown(results);
-      const nota = score(perfil(), {
+      const usado = perfilDe(attempt);
+      const nota = score(usado, {
         aciertos: desglose.total.aciertos,
         fallos: desglose.total.fallos,
       });
-      setResumen({ nota, desglose });
+      setResumen({ nota, desglose, preguntas: usado.format.preguntas });
       // Muro de pago al terminar el primer simulacro, una sola vez y nunca en el primer arranque.
       store.getSetting(AJUSTE_MURO).then((visto) => {
         if (!debeAbrirMuro({ premium: plan.premium, visto: visto !== null, terminados: list.filter((a) => a.finishedAt !== null).length })) return;
@@ -59,7 +61,7 @@ export function Resultado() {
 
   if (resumen === null) return <Loading />;
   if (resumen === 'no-encontrado') return <Loading text="No se ha encontrado este simulacro." />;
-  const { nota, desglose } = resumen;
+  const { nota, desglose, preguntas } = resumen;
   const puntos = formatNota(nota.puntos);
   const tiposConPreguntas = (Object.entries(desglose.byType) as [TypeCode, Tally][]).filter(
     ([, t]) => t.total,
@@ -92,7 +94,7 @@ export function Resultado() {
         )}
       </View>
       <Text variant="formula" color="graphiteStrong">
-        ({nota.formula}) × {nota.maxima}/{perfil().format.preguntas} = {puntos}
+        ({nota.formula}) × {nota.maxima}/{preguntas} = {puntos}
       </Text>
       {nota.puntos < 0 && (
         <Text variant="caption" color="graphite">

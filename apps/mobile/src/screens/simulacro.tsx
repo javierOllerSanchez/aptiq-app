@@ -9,7 +9,7 @@ import {
   mark,
   taxonomy,
 } from '@aptiq/engine';
-import { perfil } from '@/content/content';
+import { instantanea, perfilDe, type PerfilUsado } from '@/content/content';
 import { tokens } from '@aptiq/tokens';
 import {
   Button,
@@ -48,6 +48,8 @@ interface Listo {
   id: string;
   items: Item[];
   exam: ExamState;
+  /** Perfil con que empezó: se guarda con el intento (ADM-03). */
+  usado: PerfilUsado;
 }
 
 /**
@@ -67,6 +69,7 @@ export function Simulacro() {
         const base = createExam(items.length, abierto.empezado, abierto.durationMs);
         setListo({
           id: abierto.id,
+          usado: perfilDe(abierto),
           items,
           exam: {
             ...base,
@@ -78,7 +81,8 @@ export function Simulacro() {
       }
       const premium = await api.plan().then((p) => p.premium, () => plan.premium);
       if (!permiso(await loadProgress(store), premium).simulacro) return router.replace('/muro-pago');
-      const { preguntas, minutos } = perfil().format;
+      const usado = instantanea();
+      const { preguntas, minutos } = usado.format;
       if (preguntas === null || minutos === null)
         throw new Error('El perfil no tiene el formato completo');
       const items = await startRun(store, {
@@ -91,6 +95,7 @@ export function Simulacro() {
       const empezado = Date.now();
       setListo({
         id: `i-${empezado}`,
+        usado,
         items,
         exam: createExam(items.length, empezado, minutos * 60_000),
       });
@@ -103,7 +108,7 @@ export function Simulacro() {
   return <SimulacroEnCurso store={store} {...listo} />;
 }
 
-function SimulacroEnCurso({ store, id, items, exam: initial }: Listo & { store: Store }) {
+function SimulacroEnCurso({ store, id, items, usado, exam: initial }: Listo & { store: Store }) {
   const [exam, setExam] = useState(initial);
   const remaining = useExamClock(exam);
   const item = items[exam.current];
@@ -158,11 +163,12 @@ function SimulacroEnCurso({ store, id, items, exam: initial }: Listo & { store: 
         durationMs: exam.durationMs,
         finishedAt: closedAt,
         questions: toSaved(items, exam.answers, exam.marked, tiempos.current),
+        perfil: usado,
       })
       .then(() => {
         if (closedAt !== null) router.replace({ pathname: '/resultado', params: { id } });
       });
-  }, [closedAt, exam, id, items, store]);
+  }, [closedAt, exam, id, items, store, usado]);
 
   if (!item) return null;
   const tipo = taxonomy[item.type];
@@ -212,9 +218,9 @@ function SimulacroEnCurso({ store, id, items, exam: initial }: Listo & { store: 
         <Text variant="label" color="graphite" style={styles.tipo}>
           {APTITUDE_LABELS[tipo.aptitud] ?? tipo.aptitud} · {tipo.nombre}
         </Text>
-        {perfil().format.opciones !== null && (
+        {usado.format.opciones !== null && (
           <Text variant="label" color="graphite">
-            {perfil().format.opciones! - 1} fallos restan 1 acierto
+            {usado.format.opciones - 1} fallos restan 1 acierto
           </Text>
         )}
       </View>

@@ -105,6 +105,7 @@ describe('servidor con Supabase', () => {
         duracion_ms: 60,
         fin: '1970-01-01T00:00:01.000Z',
         preguntas: [q],
+        perfil: null, // anterior a la fase 9 (ADM-03)
       },
     ]);
   });

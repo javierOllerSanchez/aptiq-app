@@ -1,8 +1,8 @@
-import { availableTypes, guardiaCivil2026, loadBank, type ExamProfile, type VerbalEntry } from '@aptiq/engine';
+import { availableTypes, guardiaCivil2026, loadBank, score, type ExamProfile, type VerbalEntry } from '@aptiq/engine';
 
 import { createMemoryStore } from '@/data/memory-store';
 
-import { actualizarContenido, cargarContenido, perfil, type ContentRemote } from './content';
+import { actualizarContenido, cargarContenido, instantanea, perfil, perfilDe, type ContentRemote } from './content';
 
 const verbal = (id: string): VerbalEntry => ({
   id,
@@ -80,4 +80,23 @@ test('sin red no rompe nada: sigue con lo que tenía', async () => {
     },
   });
   await expect(actualizarContenido(store, caida)).resolves.toBe(false);
+});
+
+test('un simulacro se puntúa con el perfil con que empezó, aunque se publique otro (ADM-03)', async () => {
+  const store = createMemoryStore();
+  const respuestas = { aciertos: 60, fallos: 12 };
+  const foto = instantanea();
+  const antes = score(perfilDe({ perfil: foto }), respuestas);
+
+  const otro: ExamProfile = {
+    ...guardiaCivil2026,
+    version: 9,
+    format: { ...guardiaCivil2026.format, puntuacion: { ...guardiaCivil2026.format.puntuacion, maxima: 40 } },
+  };
+  await actualizarContenido(store, remote({ ultimoPerfil: async () => otro }));
+  expect(perfil().format.puntuacion.maxima).toBe(40);
+
+  expect(score(perfilDe({ perfil: foto }), respuestas)).toEqual(antes);
+  // Los anteriores a la fase 9 no guardan perfil: se hicieron con el que trae la app.
+  expect(score(perfilDe({}), respuestas).maxima).toBe(guardiaCivil2026.format.puntuacion.maxima);
 });

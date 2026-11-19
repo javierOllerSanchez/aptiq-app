@@ -1,6 +1,6 @@
 import { score, taxonomy } from '@aptiq/engine';
 
-import { perfil } from '@/content/content';
+import { perfilDe } from '@/content/content';
 
 import type { SavedAttempt, SavedSession } from '@/data/store';
 import { APTITUDE_LABELS, formatNota, isCorrect } from '@/practice/run';
@@ -36,7 +36,7 @@ export function historyRows(sessions: SavedSession[], attempts: SavedAttempt[]) 
         if (isCorrect(q)) aciertos++;
         else fallos++;
       }
-      const nota = score(perfil(), { aciertos, fallos });
+      const nota = score(perfilDe(a), { aciertos, fallos });
       const puntos = formatNota(nota.puntos);
       const min = Math.round(Math.min(a.finishedAt - a.empezado, a.durationMs) / 60_000);
       return {

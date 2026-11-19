@@ -1,5 +1,7 @@
 import { integer, primaryKey, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 
+import type { PerfilUsado } from '@/content/content';
+
 import type { SavedQuestion, SyncEntity } from './store';
 
 export const ajustes = sqliteTable('ajustes', {
@@ -24,6 +26,7 @@ export const intentos = sqliteTable('intento_simulacro', {
   duracionMs: integer('duracion_ms').notNull(),
   fin: integer('fin'),
   preguntas: text('preguntas', { mode: 'json' }).$type<SavedQuestion[]>().notNull(),
+  perfil: text('perfil', { mode: 'json' }).$type<PerfilUsado>(),
 });
 
 /** Cola de sincronización (fase 5 · T3): una fila por dato pendiente de subir. */
@@ -55,4 +58,5 @@ export const createTablesSql = [
 /** Columnas añadidas después de la fase 4: se crean en bases ya existentes si faltan. */
 export const addedColumns = [
   { table: 'ajustes', column: 'actualizado', sql: 'ALTER TABLE ajustes ADD COLUMN actualizado INTEGER NOT NULL DEFAULT 0' },
+  { table: 'intento_simulacro', column: 'perfil', sql: 'ALTER TABLE intento_simulacro ADD COLUMN perfil TEXT' },
 ];
