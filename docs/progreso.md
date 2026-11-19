@@ -36,7 +36,8 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 - **Comprobaciones:** `pnpm -r typecheck`, `pnpm -r lint` y `pnpm -r test` en verde (motor 448, app 126, componentes 26, tokens 1) y `test:stress` en verde. `pnpm typecheck` con Turbo no arranca en este Windows: el sistema bloquea `turbo.exe` («Permission denied»), ya antes de esta fase. Capturas en `docs/capturas/fase-8-*.png`.
 - **Pendiente, sin bloquear el cierre:**
   - **ADM-03:** un simulacro no guarda la versión del perfil con la que empezó: si se publica un perfil con otra fórmula, se recalculan las notas guardadas. Hoy no hay ningún perfil publicado; hay que resolverlo antes de publicar el primero;
-  - borradores verbales (revisor-contenido, importantes): palabras repetidas entre preguntas, niveles algo desiguales (sobre todo en analogías), algunos distractores flojos y trucos iguales por tipo. Revísalo al aprobarlos en el panel;
+  - borradores verbales (revisor-contenido, segunda pasada sin bloqueantes): palabras repetidas entre preguntas, niveles algo desiguales (las analogías de N4 y N5 son más fáciles de lo que toca), algunos distractores flojos, trucos iguales por tipo y «dormido» (17) por confirmar en el DLE. Revísalo al aprobarlos en el panel;
+  - métricas: el acierto global como criterio de la discriminación se iguala con el nivel adaptativo; mejor usar el nivel estimado cuando haya datos de uso;
   - el nivel adaptativo de las verbales no avanza si faltan preguntas del nivel pedido (se elige el más cercano y esa respuesta no cuenta para subir o bajar);
   - el panel no tiene pruebas automáticas (`reproducir()` está probado a mano);
   - Maestro no está instalado en este Windows: `reportar.yaml` no se ha ejecutado (el mismo recorrido se hizo con adb);

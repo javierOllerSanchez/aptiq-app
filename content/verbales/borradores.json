@@ -356,7 +356,7 @@
     "nivel": 2,
     "enunciado": "¿Qué palabra significa lo contrario de «valiente»?",
     "opciones": [
-      "débil",
+      "torpe",
       "fuerte",
       "prudente",
       "cobarde"
@@ -369,7 +369,7 @@
       "distractors": [
         {
           "optionIndex": 0,
-          "error": "Débil habla de la fuerza física, no del valor ante el peligro."
+          "error": "Torpe habla de la habilidad, no del valor ante el peligro."
         },
         {
           "optionIndex": 1,
@@ -869,7 +869,7 @@
     "enunciado": "¿Qué palabra significa lo contrario de «inmarcesible»?",
     "opciones": [
       "inmaculado",
-      "invisible",
+      "antiguo",
       "inmenso",
       "perecedero"
     ],
@@ -885,7 +885,7 @@
         },
         {
           "optionIndex": 1,
-          "error": "Invisible es lo que no se ve; no tiene que ver con durar."
+          "error": "Antiguo habla de la edad: algo antiguo puede durar o acabarse."
         },
         {
           "optionIndex": 2,
@@ -1849,7 +1849,7 @@
         },
         {
           "optionIndex": 3,
-          "error": "El espacio es donde está la órbita; el cauce no es lo que rodea al río."
+          "error": "El espacio es donde está la órbita, no lo que la recorre."
         }
       ],
       "tip": "Di en una frase la relación del primer par y aplícala tal cual al segundo. Si encajan varias opciones, la frase es demasiado vaga: hazla más concreta."

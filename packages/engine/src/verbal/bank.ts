@@ -43,7 +43,9 @@ export const isBankType = (t: TypeCode) => 'banco' in taxonomy[t];
 /** Preguntas que se pueden proponer (aprobadas y no retiradas). */
 export const bankEntries = (t: TypeCode): VerbalEntry[] =>
   // Ordenadas por id: la misma semilla elige lo mismo llegue el banco en el orden que llegue (NFR-09).
-  [...(banks.get(t)?.values() ?? [])].filter((e) => !e.retirada).sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+  [...(banks.get(t)?.values() ?? [])]
+    .filter((e) => !e.retirada)
+    .sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
 
 /** Tipos que se pueden proponer ahora: los generados siempre; los del banco, con bastantes preguntas. */
 export const availableTypes = (): TypeCode[] =>
@@ -63,7 +65,10 @@ export function bankGenerator(type: VerbalType): Generator {
     families: { 1: ['banco'], 2: ['banco'], 3: ['banco'], 4: ['banco'], 5: ['banco'] },
     generate(seed, _level, optionCount) {
       const e = entryOf(type, seed);
-      const wrong = e.opciones.map((_, i) => i).filter((i) => i !== e.correcta).slice(0, optionCount - 1);
+      const wrong = e.opciones
+        .map((_, i) => i)
+        .filter((i) => i !== e.correcta)
+        .slice(0, optionCount - 1);
       const order = createRng(`${type}:${seed}:${optionCount}`).shuffle([e.correcta, ...wrong]);
       const stem: Stem = { text: e.enunciado };
       return {
@@ -105,19 +110,37 @@ export function validateVerbal(e: VerbalEntry): string[] {
   const out: string[] = [];
   const x = e.explicacion;
   if (!e.enunciado.trim()) out.push('Falta el enunciado.');
-  if (e.opciones.length !== 4 || e.opciones.some((o) => !o.trim())) out.push('Hacen falta cuatro opciones con texto.');
-  if (new Set(e.opciones.map((o) => o.trim().toLowerCase())).size !== e.opciones.length) out.push('Hay opciones repetidas.');
+  if (e.opciones.length !== 4 || e.opciones.some((o) => !o.trim()))
+    out.push('Hacen falta cuatro opciones con texto.');
+  if (new Set(e.opciones.map((o) => o.trim().toLowerCase())).size !== e.opciones.length)
+    out.push('Hay opciones repetidas.');
   if (!(Number.isInteger(e.correcta) && e.correcta >= 0 && e.correcta < e.opciones.length))
     out.push('La respuesta correcta no es ninguna de las opciones.');
-  if (x.distractors.some((d) => d.optionIndex === e.correcta || !(d.optionIndex >= 0 && d.optionIndex < e.opciones.length)))
+  if (
+    x.distractors.some(
+      (d) =>
+        d.optionIndex === e.correcta ||
+        !(
+          Number.isInteger(d.optionIndex) &&
+          d.optionIndex >= 0 &&
+          d.optionIndex < e.opciones.length
+        ),
+    )
+  )
     out.push('Hay un error explicado para la respuesta correcta o para una opción que no existe.');
   if (![1, 2, 3, 4, 5].includes(e.nivel)) out.push('El nivel debe ser de 1 a 5.');
-  for (const [k, name] of [['observe', 'Observa'], ['rule', 'Regla'], ['tip', 'Truco']] as const)
+  for (const [k, name] of [
+    ['observe', 'Observa'],
+    ['rule', 'Regla'],
+    ['tip', 'Truco'],
+  ] as const)
     if ((x[k] ?? '').trim().length < 10) out.push(`Falta el paso «${name}».`);
   if (!(x.apply ?? '').includes(e.opciones[e.correcta] ?? '\u0000'))
     out.push('El paso «Aplica» debe llegar a la respuesta correcta.');
   const wrong = e.opciones.map((_, i) => i).filter((i) => i !== e.correcta);
-  const explained = wrong.every((i) => x.distractors.some((d) => d.optionIndex === i && d.error.trim().length >= 10));
+  const explained = wrong.every((i) =>
+    x.distractors.some((d) => d.optionIndex === i && d.error.trim().length >= 10),
+  );
   if (!explained) out.push('Falta explicar por qué falla cada opción incorrecta.');
   return out;
 }
