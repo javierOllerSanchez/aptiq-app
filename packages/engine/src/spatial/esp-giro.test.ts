@@ -68,3 +68,20 @@ test('no se acierta buscando la figura distinta ni la pareja de figuras iguales'
     expect(pair / N, `pareja, ${oc} opciones`).toBeLessThanOrEqual(oc === 3 ? 0.5 : 1.5 / oc);
   }
 });
+
+test('semillas que agotaban los reintentos en el nivel 1 (revisor-contenido)', () => {
+  for (const seed of ['s5090', 'k2297', 's5842', 'k116', 'k2359', 'k6315', 'k9829'])
+    for (const oc of [3, 4] as const) expect(() => espGiro.generate(seed, 1, oc)).not.toThrow();
+});
+
+test('todas las figuras de una pregunta ocupan la misma caja (no se descarta por tamaño)', () => {
+  const box = (code: string) => {
+    const c = decodeCells(code);
+    return [Math.max(...c.map((x) => x[0])), Math.max(...c.map((x) => x[1]))].sort().join('x');
+  };
+  for (let i = 0; i < 300; i++) {
+    const item = espGiro.generate(`b${i}`, ((i % 5) + 1) as 1 | 2 | 3 | 4 | 5, 4);
+    const model = box(item.stem.model);
+    for (const o of item.options) expect(box(o), `semilla b${i}`).toBe(model);
+  }
+});

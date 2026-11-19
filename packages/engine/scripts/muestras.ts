@@ -37,8 +37,8 @@ const color = JSON.parse(readFileSync(new URL('../../../docs/tokens.json', impor
   string
 >;
 const paint = (p: string) => (p === 'none' ? 'none' : color[p]);
-const svg = (d: Drawing, label: string) =>
-  `<svg viewBox="0 0 ${d.size} ${d.size}" width="110" height="110" role="img" aria-label="${label}">` +
+const svg = (d: Drawing, label: string, px = 110) =>
+  `<svg viewBox="0 0 ${d.size} ${d.size}" width="${px}" height="${px}" role="img" aria-label="${label}">` +
   d.shapes.map((s) => `<path d="${s.d}" fill="${paint(s.fill)}" stroke="${paint(s.stroke)}" stroke-width="${s.width}"/>`).join('') +
   '</svg>';
 
@@ -48,7 +48,7 @@ function renderHtml(gen: Generator, item: Item, n: number) {
   const errors = new Map(e.distractors.map((d) => [d.optionIndex, d.error]));
   const { drawings, alt } = gen.draw!.stem(item.stem);
   return `<section><h3>${n}. Nivel ${item.level} · semilla <code>${item.seed}</code></h3>
-<p>${item.stem.text}</p><div class="fila">${drawings.map((d) => svg(d, alt)).join('')}</div>
+<p>${item.stem.text}</p><div class="fila">${drawings.map((d) => svg(d, alt, drawings.length === 1 ? 200 : 110)).join('')}</div>
 <ol type="A">${item.options
     .map(
       (o, i) =>

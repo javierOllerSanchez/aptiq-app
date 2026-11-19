@@ -15,6 +15,8 @@ import { numSerie } from './series/num-serie';
 import { numSerieSolver } from './series/num-serie.solver';
 import { absFiguras } from './spatial/abs-figuras';
 import { absFigurasSolver } from './spatial/abs-figuras.solver';
+import { espCubo } from './spatial/esp-cubo';
+import { espCuboSolver } from './spatial/esp-cubo.solver';
 import { espGiro } from './spatial/esp-giro';
 import { espGiroSolver } from './spatial/esp-giro.solver';
 import type { TypeCode } from './taxonomy';
@@ -67,4 +69,5 @@ export const registry: Record<TypeCode, { generator: Generator; solver: Solver }
   'DAT.COMPARA': { generator: datCompara, solver: datComparaSolver },
   'ESP.GIRO': { generator: espGiro, solver: espGiroSolver },
   'ABS.FIGURAS': { generator: absFiguras, solver: absFigurasSolver },
+  'ESP.CUBO': { generator: espCubo, solver: espCuboSolver },
 };

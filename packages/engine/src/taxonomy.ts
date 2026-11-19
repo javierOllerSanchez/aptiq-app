@@ -53,6 +53,12 @@ export const taxonomy = {
     descripcion: 'Elegir la figura que continúa una serie en la que una flecha gira o un punto avanza.',
     segundosEsperados: [20, 30, 40, 50, 60],
   },
+  'ESP.CUBO': {
+    nombre: 'Desarrollos de cubos',
+    aptitud: 'espacial',
+    descripcion: 'Elegir el cubo que se forma al plegar un desarrollo con dibujos en sus caras.',
+    segundosEsperados: [30, 40, 50, 60, 75],
+  },
 } as const;
 
 export type TypeCode = keyof typeof taxonomy;
