@@ -1,5 +1,7 @@
 // Motor de contenido de Aptiq: generadores deterministas con solucionador independiente.
+import auxiliar2025Json from '../profiles/auxiliar-administrativo-2025.json';
 import guardiaCivil2026Json from '../profiles/guardia-civil-2026.json';
+import policiaNacional2026Json from '../profiles/policia-nacional-2026.json';
 import type { ExamProfile } from './profile';
 import { datCompara } from './compare/dat-compara';
 import { datComparaSolver } from './compare/dat-compara.solver';
@@ -31,6 +33,12 @@ export { validateProfile, type ExamProfile } from './profile';
 
 /** Perfil oficial de la Guardia Civil (fase 3): datos con su fuente en el propio JSON. */
 export const guardiaCivil2026 = guardiaCivil2026Json as ExamProfile;
+/** Perfiles de la fase 8 (CON-04): preparados, aún no se muestran en la app (decisión del propietario). */
+export const profiles: Record<string, ExamProfile> = {
+  [guardiaCivil2026.id]: guardiaCivil2026,
+  'policia-nacional-2026': policiaNacional2026Json as ExamProfile,
+  'auxiliar-administrativo-2025': auxiliar2025Json as ExamProfile,
+};
 export { score, type ScoreResult } from './score';
 export {
   createExam,

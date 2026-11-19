@@ -1,0 +1,52 @@
+{
+  "id": "auxiliar-administrativo-2025",
+  "oposicion": "Cuerpo General Auxiliar de la Administración del Estado · ingreso libre",
+  "convocatoria": "2025",
+  "version": 1,
+  "sources": [
+    {
+      "organismo": "BOE",
+      "titulo": "Resolución de 18 de diciembre de 2025, de la Secretaría de Estado de Función Pública, por la que se convocan procesos selectivos para el ingreso y acceso en Cuerpos de la Administración General del Estado, y se encarga su realización a la Comisión Permanente de Selección (BOE n.º 306, de 22 de diciembre de 2025)",
+      "url": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2025-26262",
+      "tipo": "bases",
+      "fechaConsulta": "2026-11-19",
+      "apartado": "anexo I, Cuerpo General Auxiliar, puntos 2.1, 2.2 y 2.3"
+    },
+    {
+      "organismo": "INAP",
+      "titulo": "Cuestionario del ejercicio único, modelo A, Cuerpo General Auxiliar, ingreso libre, convocatoria 2025 (celebrado el 23 de mayo de 2026)",
+      "url": "https://sede.inap.gob.es/sites/sede/files/public/2026-05/Cuestionario%20AUX-L%20MODELO%20A.pdf",
+      "tipo": "cuestionario",
+      "fechaConsulta": "2026-11-19",
+      "apartado": "primera parte, preguntas 31 a 60"
+    },
+    {
+      "organismo": "INAP",
+      "titulo": "Plantilla definitiva de respuestas, modelo A, Cuerpo General Auxiliar, ingreso libre, convocatoria 2025",
+      "url": "https://sede.inap.gob.es/sites/sede/files/public/2026-10/PLANTILLA%20RESPUESTAS%20DEFINITIVA%20AUX-L-ModeloA.pdf",
+      "tipo": "plantilla",
+      "fechaConsulta": "2026-11-19"
+    }
+  ],
+  "format": {
+    "preguntas": 30,
+    "minutos": null,
+    "opciones": 4,
+    "puntuacion": { "maxima": null, "minima": null }
+  },
+  "mix": null,
+  "fieldSources": {
+    "format.preguntas": 0,
+    "format.opciones": 1
+  },
+  "pendiente": ["format.minutos", "format.puntuacion.maxima", "format.puntuacion.minima", "mix"],
+  "notas": {
+    "format.preguntas": "Anexo I, punto 2.1: la primera parte tiene un máximo de 60 preguntas, 30 del bloque I y 30 «de carácter psicotécnico» (aptitudes administrativas, numéricas o verbales). Puede haber preguntas de reserva. El cuestionario de 2026 tiene 30 psicotécnicas (preguntas 31 a 60).",
+    "format.minutos": "Pendiente: las bases dan 90 minutos para todo el ejercicio (las dos partes, hasta 110 preguntas), sin un tiempo propio para las psicotécnicas.",
+    "format.opciones": "El cuestionario oficial de 2026 tiene cuatro respuestas por pregunta (a, b, c y d). Las bases solo dicen «respuestas alternativas, de las cuales sólo una de ellas será correcta».",
+    "format.puntuacion.maxima": "Pendiente: las psicotécnicas no tienen nota propia. La primera parte (bloque I + psicotécnicas) se califica de 0 a 50 transformando la puntuación directa con baremos de la Comisión Permanente de Selección (punto 2.3).",
+    "format.puntuacion.minima": "Pendiente: el mínimo es de 25 puntos en cada parte (punto 2.3.1), no en las psicotécnicas por separado.",
+    "penalizacion": "Anexo I, punto 2.2: cada respuesta errónea descuenta un tercio del valor de una correcta; las respuestas en blanco no penalizan. Coincide con E/(N − 1) para 4 opciones.",
+    "mix": "Pendiente: hay un cuestionario oficial analizado (2026), pero el 60 % de sus psicotécnicas son de tipos que Aptiq aún no genera (tablas, ortografía y ecuaciones). Recuentos en profiles/analysis/auxiliar-administrativo-2025.md."
+  }
+}
