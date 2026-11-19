@@ -3,6 +3,8 @@
 import { type Level, loadBank, registry, validateVerbal, type VerbalEntry, type VerbalType } from '@aptiq/engine';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
+import borradores from '../../../../content/verbales/borradores.json';
+
 import { Pregunta } from '@/components/pregunta';
 import { cargarBanco, type Verbal } from '@/lib/banco';
 import { supabase } from '@/lib/supabase';
@@ -91,6 +93,17 @@ export default function Verbales() {
     });
 
   const lista = todas.filter((t) => t.estado === filtro);
+  // Borradores redactados en el repositorio que aún no están en la base de datos.
+  const nuevos = (borradores as Omit<VerbalEntry, 'id' | 'version'>[]).filter(
+    (b) => !todas.some((t) => t.enunciado === b.enunciado),
+  );
+  async function importar() {
+    const { error: e } = await supabase()
+      .from('pregunta_verbal')
+      .insert(nuevos.map((b) => ({ ...b, estado: 'borrador', autoria: 'ia' })));
+    if (e) return setError(e.message);
+    await cargar();
+  }
   const aprobadas = (t: VerbalType) => todas.filter((x) => x.tipo === t && x.estado === 'aprobada').length;
 
   return (
@@ -107,6 +120,9 @@ export default function Verbales() {
           </button>
         ))}
         <span style={{ flex: 1 }} />
+        {nuevos.length > 0 && (
+          <button onClick={() => void importar()}>Importar {nuevos.length} borradores del repositorio</button>
+        )}
         <button onClick={() => setEdit(vacia())}>Nueva pregunta</button>
       </div>
       {error && <p className="error">{error}</p>}
