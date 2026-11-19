@@ -13,6 +13,11 @@ export interface SavedQuestion {
    * calcular niveles y aciertos. Falta en datos antiguos: entonces se regenera la pregunta.
    */
   correct?: boolean;
+  /** Familia de reglas y versión del generador (fase 8): métricas por familia y reportes reproducibles. */
+  family?: string;
+  version?: string;
+  /** Milisegundos que tardó en responder (fase 8, métricas ADM-02). */
+  ms?: number;
 }
 
 export interface SavedSession {

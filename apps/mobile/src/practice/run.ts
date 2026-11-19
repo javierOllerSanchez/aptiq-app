@@ -99,6 +99,7 @@ export const toSaved = (
   items: readonly Item[],
   answers: readonly (number | null | undefined)[],
   marked: readonly boolean[] = [],
+  ms: readonly (number | undefined)[] = [],
 ): SavedQuestion[] =>
   items.map((it, i) => ({
     type: it.type,
@@ -107,6 +108,9 @@ export const toSaved = (
     answer: answers[i] ?? null,
     marked: marked[i] ?? false,
     correct: answers[i] != null && answers[i] === it.answerIndex,
+    family: it.meta.family,
+    version: it.meta.generatorVersion,
+    ...(ms[i] !== undefined ? { ms: Math.round(ms[i]!) } : {}),
   }));
 
 // Respuesta correcta de las preguntas antiguas sin `correct`: se regenera una sola vez por pregunta.

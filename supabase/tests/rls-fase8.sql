@@ -98,6 +98,115 @@ begin
 end
 $$;
 
+-- === Reportes: la app crea, solo el administrador lee y gestiona ===
+
+reset role;
+set local role anon;
+select set_config('request.jwt.claims', '{"role":"anon"}', true);
+insert into public.reporte (id, tipo, nivel, semilla, version, opciones, respuesta, motivo, comentario)
+values ('00000000-0000-4000-8000-00000000c001', 'ESP.GIRO', 3, 'abc', '1', 4, 2, 'dos_correctas', 'Prueba');
+do $$
+begin
+  begin
+    perform 1 from public.reporte;
+    raise exception 'anon lee reportes';
+  exception when insufficient_privilege then
+    null;
+  end;
+  begin
+    insert into public.reporte (id, tipo, nivel, semilla, version, opciones, motivo, estado)
+    values ('00000000-0000-4000-8000-00000000c002', 'ESP.GIRO', 3, 'abc', '1', 4, 'otro', 'resuelto');
+    raise exception 'anon crea un reporte ya resuelto';
+  exception when insufficient_privilege then
+    null;
+  end;
+end
+$$;
+
+reset role;
+set local role authenticated;
+select set_config('request.jwt.claims',
+  '{"sub":"00000000-0000-4000-8000-0000000000a1","role":"authenticated","app_metadata":{}}', true);
+do $$
+declare
+  n integer;
+begin
+  if exists (select 1 from public.reporte) then raise exception 'Un usuario normal lee reportes'; end if;
+  update public.reporte set estado = 'descartado';
+  get diagnostics n = row_count;
+  if n <> 0 then raise exception 'Un usuario normal cambia un reporte'; end if;
+end
+$$;
+
+select set_config('request.jwt.claims',
+  '{"sub":"00000000-0000-4000-8000-0000000000f1","role":"authenticated","app_metadata":{"rol":"admin"}}', true);
+update public.reporte set estado = 'resuelto', nota = 'Revisado' where id = '00000000-0000-4000-8000-00000000c001';
+do $$
+begin
+  if (select semilla from public.reporte where id = '00000000-0000-4000-8000-00000000c001') <> 'abc'
+    or (select estado from public.reporte where id = '00000000-0000-4000-8000-00000000c001') <> 'resuelto' then
+    raise exception 'El administrador no ve o no gestiona el reporte con su semilla';
+  end if;
+end
+$$;
+
+-- === Métricas: solo agregados y solo para el administrador ===
+-- 4 usuarios con 10 respuestas de NUM.SERIE nivel 2 (familia f, 1.000 ms): aciertan 10, 7, 3 y 0.
+-- A mano: acierto 20/40 = 0,5; tiempo 1.000; discriminación = 1,0 (mejor 27 %: 10/10) − 0,0 (peor 27 %: 0/10) = 1.
+reset role;
+insert into auth.users (id, aud, role, email)
+select ('00000000-0000-4000-8000-0000000001' || lpad(k::text, 2, '0'))::uuid, 'authenticated', 'authenticated', 'm' || k || '@aptiq.test'
+from generate_series(1, 4) k;
+insert into public.sesion (user_id, id, creada, preguntas)
+select ('00000000-0000-4000-8000-0000000001' || lpad(k::text, 2, '0'))::uuid, 'm-' || k, now(),
+  (select jsonb_agg(jsonb_build_object('type', 'NUM.SERIE', 'level', 2, 'seed', 's' || j, 'answer', 0, 'marked', false,
+     'correct', j <= (array[10, 7, 3, 0])[k], 'family', 'f', 'ms', 1000))
+   from generate_series(1, 10) j)
+from generate_series(1, 4) k;
+
+set local role authenticated;
+select set_config('request.jwt.claims',
+  '{"sub":"00000000-0000-4000-8000-0000000000f1","role":"authenticated","app_metadata":{"rol":"admin"}}', true);
+do $$
+declare
+  m record;
+begin
+  select * into m from public.metricas() where tipo = 'NUM.SERIE' and nivel = 2 and familia = 'f';
+  if m.respuestas <> 40 or m.acierto <> 0.5 or m.tiempo_medio_ms <> 1000 or m.discriminacion <> 1 then
+    raise exception 'Métricas mal calculadas: % % % %', m.respuestas, m.acierto, m.tiempo_medio_ms, m.discriminacion;
+  end if;
+  if (select respuestas from public.metricas() where tipo = 'NUM.SERIE' and nivel is null) <> 40 then
+    raise exception 'Falta el total por tipo';
+  end if;
+end
+$$;
+
+select set_config('request.jwt.claims',
+  '{"sub":"00000000-0000-4000-8000-0000000000a1","role":"authenticated","app_metadata":{}}', true);
+do $$
+begin
+  begin
+    perform * from public.metricas();
+    raise exception 'Un usuario normal ve las métricas';
+  exception when insufficient_privilege then
+    null;
+  end;
+end
+$$;
+
+reset role;
+set local role anon;
+do $$
+begin
+  begin
+    perform * from public.metricas();
+    raise exception 'anon ve las métricas';
+  exception when insufficient_privilege then
+    null;
+  end;
+end
+$$;
+
 reset role;
 select 'RLS de la fase 8: OK' as resultado;
 
