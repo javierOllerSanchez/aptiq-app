@@ -23,7 +23,8 @@ export function Metodo() {
   // «Juntar dos caras opuestas · confundir…»: sin punto final y en minúscula tras el primero.
   const errores = m.errores
     .map((e) => e.replace(/\.$/, ''))
-    .map((e, i) => (i === 0 ? e : e[0]!.toLowerCase() + e.slice(1)))
+    // Solo palabras normales: una sigla («BOE») se deja tal cual.
+    .map((e, i) => (i === 0 || !/^\p{Lu}\p{Ll}/u.test(e) ? e : e[0]!.toLowerCase() + e.slice(1)))
     .join(' · ');
   return (
     <PaperBackground scroll style={styles.content}>
@@ -71,7 +72,7 @@ export function Metodo() {
       <Button
         label="Practicar este tipo"
         variant="primary"
-        onPress={() => router.push({ pathname: '/practica', params: { tipo: code } })}
+        onPress={() => router.replace({ pathname: '/practica', params: { tipo: code } })}
       />
     </PaperBackground>
   );

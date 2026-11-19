@@ -52,8 +52,9 @@ export function Repasar() {
       {fallos.length === 0 && retiradas === 0 && <Text color="graphite">No hay fallos ni preguntas en blanco.</Text>}
       {retiradas > 0 && (
         <Text color="graphite">
-          {retiradas === 1 ? 'Una pregunta ya no está disponible' : `${retiradas} preguntas ya no están disponibles`}: se
-          retiraron del banco tras revisarlas.
+          {retiradas === 1
+            ? 'Una pregunta ya no está disponible: se retiró del banco tras revisarla.'
+            : `${retiradas} preguntas ya no están disponibles: se retiraron del banco tras revisarlas.`}
         </Text>
       )}
       {fallos.map(({ n, item, answer }) => (

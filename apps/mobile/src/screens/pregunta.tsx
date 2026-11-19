@@ -46,7 +46,7 @@ function Enunciado({ texto }: { texto: string }) {
       {partes.map((p, i) =>
         i % 2 === 1 ? (
           <Text key={i} variant="questionTitle" style={styles.clave}>
-            {` ${p} `}
+            {p}
           </Text>
         ) : (
           p
