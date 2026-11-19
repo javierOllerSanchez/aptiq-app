@@ -30,7 +30,11 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 - T8: 60 borradores verbales en `content/verbales/borradores.json`, validados por prueba; se suben con el botón del panel.
 - Propietario marcado como administrador (cuenta creada con su permiso desde el panel); prototipos aprobados.
 - T6, T9, T15: figuras en la app (cuadrícula 2 × 2), aptitud «Espacial», test de nivel de 18 preguntas, hoja «Reportar un error» con envío diferido, fichas de método de los 11 tipos y tiempo de cada respuesta. Flujo de Maestro `reportar.yaml`.
-- **Pendiente:** capturas en el emulador, revisores de cierre y T16.
+- Hallazgos de `revisor-interfaz` corregidos (figuras con el tamaño del prototipo y medidas sobre el hueco real, Repasar sin tarjeta doble, palabra clave subrayada, «Practicar este tipo», hoja de reporte que no espera a la red).
+- **Criterio de aceptación comprobado en el emulador Android (release):** reporte enviado desde la explicación de una pregunta → llega a `reporte` con tipo, nivel, semilla `m50vwl` y versión 3 → el motor la regenera idéntica (mismas opciones y correcta). Las verbales en borrador no las ve ni `anon` ni un usuario normal (`supabase/tests/rls-fase8.sql`).
+- Capturas: `docs/capturas/fase-8-{cubo,serie-figuras,giro,explicacion,ficha-metodo,reportar}.png`.
+- Pruebas: motor 446 en `test:stress`; app 125; componentes 26; tokens 1.
+- **Pendiente:** `/cerrar-fase 8` (verificador, revisor de contenido, Ponytail) y que el propietario revise y apruebe verbales y perfiles.
 
 **2026-11-15 · Fase 7 · Aprobación**
 
