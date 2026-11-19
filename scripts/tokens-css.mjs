@@ -16,6 +16,8 @@ const lines = [
   ]),
   `  --d-fast: ${t.motion.durationFast}ms;`,
   `  --d-base: ${t.motion.durationBase}ms;`,
+  `  --d-slow: ${t.motion.durationSlow}ms;`,
   `  --ease: cubic-bezier(${t.motion.easingCurve.join(', ')});`,
+  `  --rot-stamp: ${t.rotate.stamp}deg;`,
 ];
 writeFileSync('apps/web/tokens.css', `/* Generado por scripts/tokens-css.mjs desde docs/tokens.json. No editar a mano. */\n:root {\n${lines.join('\n')}\n}\n`);

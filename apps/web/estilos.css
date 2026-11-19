@@ -2,6 +2,7 @@
 @font-face { font-family: 'Instrument Sans'; src: url(fonts/InstrumentSans_400Regular.ttf) format('truetype'); font-weight: 400; font-display: swap; }
 @font-face { font-family: 'Instrument Sans'; src: url(fonts/InstrumentSans_600SemiBold.ttf) format('truetype'); font-weight: 600; font-display: swap; }
 @font-face { font-family: 'Instrument Sans'; src: url(fonts/InstrumentSans_700Bold.ttf) format('truetype'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'Bricolage Grotesque'; src: url(fonts/BricolageGrotesque_800ExtraBold.ttf) format('truetype'); font-weight: 800; font-display: swap; }
 @font-face { font-family: 'IBM Plex Mono'; src: url(fonts/IBMPlexMono_600SemiBold.ttf) format('truetype'); font-weight: 600; font-display: swap; }
 
 :root {
@@ -79,3 +80,61 @@ details p { margin: 0 0 var(--s-l); }
   .doc tr { border-bottom: var(--b-hairline) solid var(--rule); padding-block: var(--s-s); }
   .doc td:first-child { font-weight: 600; }
 }
+
+/* Portada (index.html): una idea por pantalla, la app real en cada una. */
+.screen { min-height: min(100svh, 960px); display: grid; align-items: center; padding-block: 64px; }
+.split { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(32px, 6vw, 96px); align-items: center; }
+.split.flip > :first-child { order: 2; }
+.hero h1 { font: 700 clamp(36px, 5.2vw, 64px)/1.04 var(--ui); letter-spacing: var(--t-scoreNumber-ls); margin: var(--s-l) 0; }
+.screen h2 { font: 700 clamp(30px, 3.6vw, 44px)/1.1 var(--ui); letter-spacing: var(--t-screenTitle-ls); margin: var(--s-m) 0 var(--s-l); }
+.lead { font-size: clamp(17px, 1.6vw, 20px); line-height: 1.5; color: var(--graphiteStrong); max-width: 34em; }
+.actions { display: flex; flex-wrap: wrap; gap: var(--s-m); margin-top: var(--s-xxl); }
+.source { display: flex; gap: var(--s-s); align-items: flex-start; margin-top: var(--s-xxl); font: var(--t-caption) var(--ui); color: var(--graphiteStrong); max-width: 40em; }
+.source svg { flex: none; margin-top: 1px; }
+.points { list-style: none; padding: 0; margin: var(--s-xxl) 0 0; display: grid; gap: var(--s-l); }
+.points li { display: grid; grid-template-columns: var(--z-bubble) 1fr; gap: var(--s-m); align-items: start; }
+.points .n { width: var(--z-bubble); height: var(--z-bubble); border-radius: var(--r-pill); border: var(--b-default) solid var(--ink); display: grid; place-items: center; font: var(--t-timer) var(--mono); }
+.points strong { display: block; font: var(--t-bodyStrong) var(--ui); margin-bottom: 2px; }
+.facts { display: grid; grid-template-columns: repeat(4, 1fr); border-top: var(--b-default) solid var(--ink); margin-top: var(--s-xxl); }
+.facts div { padding: var(--s-l) var(--s-m) 0 0; }
+.facts b { display: block; font: var(--t-bigNumber) var(--ui); letter-spacing: var(--t-bigNumber-ls); }
+.formula { font: var(--t-timer) var(--mono); margin-top: var(--s-xxl); padding: var(--s-m) var(--s-l); background: var(--paperCard); border: var(--b-hairline) solid var(--line); border-radius: var(--r-option); display: inline-block; }
+
+/* Móvil con la captura real de la app */
+.phone { justify-self: center; width: min(100%, 340px); aspect-ratio: 9 / 19.5; border: 10px solid var(--ink); border-radius: 44px; overflow: hidden; background: var(--paper); box-shadow: 0 12px 30px rgb(18 19 22 / 0.12); }
+.phone img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+
+.plans { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-l); margin-top: var(--s-xxl); }
+.plan { border: var(--b-default) solid var(--ink); border-radius: var(--r-card); padding: var(--s-xxl); background: var(--paperCard); }
+.plan h3 { font: var(--t-questionTitle) var(--ui); margin: var(--s-s) 0 var(--s-l); }
+.plan ul { margin: 0; padding-left: 1.1em; display: grid; gap: var(--s-s); }
+.plan.premium { background: var(--ink); color: var(--paper); }
+.plan.premium .label { color: var(--highlighter); }
+
+.close { text-align: center; justify-items: center; }
+.close h2 { font-size: clamp(44px, 8vw, 104px); margin-bottom: var(--s-xxl); }
+.close .actions { justify-content: center; }
+
+/* Entrada de la portada, una sola vez (guía §8: 150–250 ms, ease-out). */
+[data-enter] > * { animation: enter var(--d-slow) var(--ease) both; }
+[data-enter] > :nth-child(2) { animation-delay: 60ms; }
+@keyframes enter { from { opacity: 0; transform: translateY(8px); } }
+
+@media (max-width: 860px) {
+  .split, .plans { grid-template-columns: 1fr; }
+  .split.flip > :first-child { order: 0; }
+  .screen { min-height: 0; padding-block: 56px; }
+  .facts { grid-template-columns: 1fr 1fr; row-gap: var(--s-l); }
+  .phone { width: min(100%, 300px); }
+  .actions .btn { width: 100%; }
+}
+@media (max-width: 600px) { .top nav .wide { display: none; } }
+
+/* Tarjeta de resultado de ejemplo (sección Simulacro) */
+.score { justify-self: center; width: min(100%, 420px); padding: var(--s-xxl); border-radius: var(--r-cardLarge); background: var(--paperCard); border: var(--b-hairline) solid var(--line); box-shadow: 0 12px 30px rgb(18 19 22 / 0.08); }
+.score-n { font: var(--t-scoreNumber) var(--ui); letter-spacing: var(--t-scoreNumber-ls); margin: var(--s-l) 0 0; }
+.score-n span { font: var(--t-timer) var(--mono); color: var(--graphite); }
+.score .formula { display: block; margin-top: var(--s-xl); }
+.score-min { font: var(--t-caption) var(--ui); color: var(--graphiteStrong); margin: var(--s-m) 0 0; }
+.score-top { display: flex; justify-content: space-between; align-items: center; gap: var(--s-m); }
+.stamp { font: var(--t-seal) 'Bricolage Grotesque', var(--ui); letter-spacing: var(--t-seal-ls); text-transform: uppercase; color: var(--seal); border: var(--b-stampOuter) solid var(--seal); border-radius: var(--r-tile); padding: var(--s-xs) var(--s-m); transform: rotate(var(--rot-stamp)); }

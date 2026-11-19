@@ -86,5 +86,7 @@
   --t-seal-ls: 0.06em;
   --d-fast: 150ms;
   --d-base: 200ms;
+  --d-slow: 250ms;
   --ease: cubic-bezier(0.23, 1, 0.32, 1);
+  --rot-stamp: -6deg;
 }

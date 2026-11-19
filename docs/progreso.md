@@ -23,7 +23,9 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 - **T2 (prototipos):** `docs/prototipos/consentimiento.html`, `ayuda.html` y pie del muro con «Términos de uso · Privacidad». **Pendientes de tu aprobación** antes de T6 y T7.
 - **T5 (ADM-03):** hecho. Cada simulacro guarda el perfil con que empezó y se puntúa con él; prueba nueva en `content.test.ts`; columna `perfil` en SQLite y en Supabase (migración aplicada en el proyecto actual). App: 127 pruebas en verde.
 - **T3 (textos legales):** borrador en `apps/web/` (privacidad, aviso legal, términos, borrar cuenta, ayuda), con tus datos de titular, plazos y transferencias marcados como pendientes. Hallazgo: al borrar la cuenta no se borra el registro de compras en RevenueCat; queda anotado en la página y hay que resolverlo antes de la beta.
-- **T1 (icono) y T4 (web):** en curso.
+- **T1 (icono):** hecho. Icono y arranque de Aptiq comprobados en el emulador Android (release): `docs/capturas/fase-9-icono.png` y `fase-9-arranque.png`.
+- **T4 (web):** portada en `apps/web/index.html` con capturas reales de la app (simulacro, explicación e inicio) y una tarjeta de resultado marcada como ejemplo. Revisada a 1440 y 390 px, sin desbordes y con zonas táctiles de 44. Pendiente al publicar: enlace del App Store, correo de soporte, dominio y el texto de la licencia OFL de las fuentes. Vista previa: configuración `web` de `.claude/launch.json`.
+- **Visto de paso en el emulador** (para la revisión de interfaz): en el simulacro, los botones de abajo («Dejar en blanco», «Marcar para revisar», «Anterior», «Siguiente», «Siguiente marcada») quedan de anchos distintos y el último queda bajo la barra del sistema; en Inicio, «Simulacros ilimitados con Premium» parte en dos líneas alineadas a la izquierda; en las explicaciones, «+ 25» se corta entre líneas.
 
 **2026-11-19 · Fase 8 · Aprobación**
 
