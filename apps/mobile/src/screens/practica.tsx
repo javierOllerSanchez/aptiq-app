@@ -1,4 +1,4 @@
-import type { Item } from '@aptiq/engine';
+import { type Item, taxonomy, type TypeCode } from '@aptiq/engine';
 import { tokens } from '@aptiq/tokens';
 import {
   Button,
@@ -26,10 +26,13 @@ import { Pregunta } from '@/screens/pregunta';
 
 const SESSION_QUESTIONS = 10;
 
-/** Práctica: una aptitud concreta, o la sesión de hoy sin aptitud (ENT-01, ENT-02, EXP-01–03). */
+/** Práctica: una aptitud o un tipo concretos, o la sesión de hoy sin ninguno (ENT-01, ENT-02, EXP-01–03). */
 export function Practica() {
   const store = useStore();
-  const { aptitud } = useLocalSearchParams<{ aptitud?: string }>();
+  const params = useLocalSearchParams<{ aptitud?: string; tipo?: string }>();
+  // Un tipo concreto (desde su ficha de método) es la práctica de su aptitud limitada a ese tipo.
+  const tipo = params.tipo && params.tipo in taxonomy ? (params.tipo as TypeCode) : undefined;
+  const aptitud = tipo ? taxonomy[tipo].aptitud : params.aptitud;
   const { plan, api } = usePlan();
   const [items, setItems] = useState<Item[] | null>(null);
   const [index, setIndex] = useState(0);
@@ -51,7 +54,8 @@ export function Practica() {
       const premium = await api.plan().then((p) => p.premium, () => plan.premium);
       const a = permiso(progreso, premium);
       // Lo que no incluye el plan gratuito lleva al muro de pago (tabla «Monetización»).
-      if (aptitud ? tiposDe(aptitud, a.tipos).length === 0 : !a.sesionHoy) return router.replace('/muro-pago');
+      const permitidos = tipo ? a.tipos.filter((t) => t === tipo) : a.tipos;
+      if (aptitud ? tiposDe(aptitud, permitidos).length === 0 : !a.sesionHoy) return router.replace('/muro-pago');
       if (!aptitud) return setItems(await startToday(store, Date.now(), premium));
       const { levels } = progreso;
       setItems(
@@ -59,7 +63,7 @@ export function Practica() {
           count: SESSION_QUESTIONS,
           reparto: 'equitativo',
           aptitude: aptitud,
-          types: a.tipos,
+          types: permitidos,
           sessionSeed: `p-${Date.now()}`,
           levelFor: (t) => levels[t],
         }),
@@ -67,12 +71,12 @@ export function Practica() {
     })();
     // El plan se lee al empezar: comprar a mitad de sesión no la reinicia.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [store, aptitud]);
+  }, [store, aptitud, tipo]);
 
   if (!items) return <Loading text="Preparando la sesión…" />;
   const item = items[index];
   if (!item) return null;
-  const titulo = aptitud ? (APTITUDE_LABELS[aptitud] ?? aptitud) : 'Sesión de hoy';
+  const titulo = tipo ? taxonomy[tipo].nombre : aptitud ? (APTITUDE_LABELS[aptitud] ?? aptitud) : 'Sesión de hoy';
 
   function stateOf(i: number): OptionState {
     if (!revealed) return i === selected ? 'marked' : 'empty';
@@ -119,13 +123,6 @@ export function Practica() {
         answered={items.map((_, i) => i < answers.length)}
       />
       <Pregunta item={item} />
-      {!revealed && (
-        <Button
-          label="Cómo se resuelve"
-          variant="text"
-          onPress={() => router.push({ pathname: '/metodo', params: { tipo: item.type } })}
-        />
-      )}
       <Opciones item={item} stateOf={stateOf} {...(revealed ? {} : { onPress: (i: number) => setSelected(i) })} />
       {revealed && <Explicacion item={item} answer={selected} anunciar />}
       {revealed ? (

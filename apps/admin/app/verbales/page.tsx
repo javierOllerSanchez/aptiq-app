@@ -115,7 +115,7 @@ export default function Verbales() {
       </p>
       <div className="row" style={{ marginBottom: 16 }}>
         {(['borrador', 'aprobada', 'rechazada'] as const).map((f) => (
-          <button key={f} className={f === filtro ? 'main' : ''} onClick={() => setFiltro(f)}>
+          <button key={f} className="filtro" aria-pressed={f === filtro} onClick={() => setFiltro(f)}>
             {f === 'borrador' ? 'Borradores' : f === 'aprobada' ? 'Aprobadas' : 'Rechazadas'}
           </button>
         ))}

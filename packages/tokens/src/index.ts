@@ -72,6 +72,9 @@ export const tokens = {
     listRow: 52,
     bar: 8,
     chevron: 18,
+    // Figuras de las preguntas espaciales (prototipo pregunta-figuras, fase 8).
+    figureStem: 120,
+    figureOption: 88,
   },
   rotate: { stamp: -6 },
   glass: {

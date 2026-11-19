@@ -6,7 +6,11 @@ const paint = (p: string) => (p === 'none' ? 'none' : p === 'paper' ? 'var(--pap
 /** Dibujo del motor (los mismos trazos que pinta el móvil). */
 export function Figura({ d, label, big = false }: { d: Drawing; label: string; big?: boolean }) {
   return (
-    <svg className={big ? 'figure big' : 'figure'} viewBox={`0 0 ${d.size} ${d.size}`} role="img" aria-label={label}>
+    <svg
+      className={big ? 'figure big' : 'figure'}
+      viewBox={`0 0 ${d.size} ${d.size}`}
+      {...(label ? { role: 'img', 'aria-label': label } : { 'aria-hidden': true })}
+    >
       {d.shapes.map((s, i) => (
         <path key={i} d={s.d} fill={paint(s.fill)} stroke={paint(s.stroke)} strokeWidth={s.width} strokeLinejoin="round" />
       ))}
@@ -23,9 +27,10 @@ export function Pregunta({ item, respuesta }: { item: Item; respuesta?: number |
     <div className="stack">
       <div className="stem">{item.stem.text}</div>
       {stem && (
-        <div className="row">
+        // La descripción va una sola vez en el grupo; cada figura de la serie es decorativa.
+        <div className="row" role="img" aria-label={stem.alt}>
           {stem.drawings.map((d, i) => (
-            <Figura key={i} d={d} label={stem.alt} big={stem.drawings.length === 1} />
+            <Figura key={i} d={d} label="" big={stem.drawings.length === 1} />
           ))}
         </div>
       )}

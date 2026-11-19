@@ -1,6 +1,6 @@
 import { methods, taxonomy, type TypeCode } from '@aptiq/engine';
 import { tokens } from '@aptiq/tokens';
-import { Icon, PaperBackground, Text } from '@aptiq/ui';
+import { Button, Icon, PaperBackground, Text } from '@aptiq/ui';
 import { router, useLocalSearchParams } from 'expo-router';
 import { Pressable, StyleSheet, View } from 'react-native';
 
@@ -10,9 +10,21 @@ import { cardStyle } from '@/screens/pregunta';
 /** Ficha de método de un tipo (EXP-04, prototipo ficha-metodo aprobado). Abierta en el plan gratuito. */
 export function Metodo() {
   const { tipo } = useLocalSearchParams<{ tipo: string }>();
-  const code = (tipo && tipo in methods ? tipo : 'NUM.SERIE') as TypeCode;
+  if (!tipo || !(tipo in methods))
+    return (
+      <PaperBackground style={styles.content}>
+        <Text>No hay ficha para este tipo de ejercicio.</Text>
+        <Button label="Volver" variant="secondary" onPress={() => router.back()} />
+      </PaperBackground>
+    );
+  const code = tipo as TypeCode;
   const m = methods[code];
   const t = taxonomy[code];
+  // «Juntar dos caras opuestas · confundir…»: sin punto final y en minúscula tras el primero.
+  const errores = m.errores
+    .map((e) => e.replace(/\.$/, ''))
+    .map((e, i) => (i === 0 ? e : e[0]!.toLowerCase() + e.slice(1)))
+    .join(' · ');
   return (
     <PaperBackground scroll style={styles.content}>
       <Pressable
@@ -47,7 +59,7 @@ export function Metodo() {
         <Text variant="label" color="graphite">
           Errores típicos
         </Text>
-        <Text>{m.errores.join(' · ')}</Text>
+        <Text>{errores}.</Text>
       </View>
       <Text accessible>
         <Text variant="label" color="graphite">
@@ -55,6 +67,12 @@ export function Metodo() {
         </Text>
         {m.truco}
       </Text>
+      {/* Único amarillo de la pantalla. Lo que no incluye el plan gratuito lleva al muro (en Práctica). */}
+      <Button
+        label="Practicar este tipo"
+        variant="primary"
+        onPress={() => router.push({ pathname: '/practica', params: { tipo: code } })}
+      />
     </PaperBackground>
   );
 }

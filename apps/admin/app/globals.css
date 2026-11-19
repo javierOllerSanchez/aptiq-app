@@ -27,6 +27,9 @@ button, .button {
   font: inherit; font-weight: 700; cursor: pointer;
 }
 button.main { background: var(--highlighter); }
+/* Filtros: el activo en tinta (como la navegación), sin competir con el botón principal. */
+button.filtro[aria-pressed='true'] { background: var(--ink); color: var(--paperCard); }
+.notice.info { border-left-color: var(--ink); }
 button:disabled { opacity: var(--o-disabled); cursor: not-allowed; }
 input, select, textarea {
   font: inherit; color: var(--ink); background: var(--white); border: var(--b-hairline) solid var(--line);
@@ -54,4 +57,4 @@ tr.total td { font-weight: 700; }
 .stem { white-space: pre-wrap; font-weight: 700; font-size: var(--t-question); }
 .figure { width: 120px; height: 120px; }
 .figure.big { width: 220px; height: 220px; }
-.notice { border-left: 4px solid var(--seal); padding: var(--s-s) var(--s-m); background: var(--white); }
+.notice { border-left: calc(var(--b-default) * 2) solid var(--seal); padding: var(--s-s) var(--s-m); background: var(--white); }

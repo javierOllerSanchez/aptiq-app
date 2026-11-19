@@ -1,9 +1,14 @@
 import { type Item, registry } from '@aptiq/engine';
 import { tokens } from '@aptiq/tokens';
 import { Figure, OptionBubble, type OptionState } from '@aptiq/ui';
-import { StyleSheet, useWindowDimensions, View } from 'react-native';
+import { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 
 import { LETTERS, textoOpcion } from '@/practice/run';
+
+const gap = tokens.spacing.s;
+/** Relleno horizontal y borde de la casilla (OptionBubble): lo que la figura no puede ocupar. */
+const marco = 2 * (tokens.spacing.l + tokens.border.selected);
 
 /**
  * Opciones de una pregunta: en lista si son texto; en cuadrícula de 2 × 2 si son figuras
@@ -18,19 +23,28 @@ export function Opciones({
   stateOf: (i: number) => OptionState;
   onPress?: (i: number) => void;
 }) {
-  const { width } = useWindowDimensions();
+  const [ancho, setAncho] = useState(0);
   const draw = registry[item.type].generator.draw;
-  // Media pantalla menos márgenes, hueco entre casillas y relleno de la casilla.
-  const figura = Math.min(130, (width - 2 * tokens.spacing.screenX - tokens.spacing.s) / 2 - 2 * tokens.spacing.l - 8);
+  const casilla = (ancho - gap) / 2;
+  const figura = Math.min(tokens.size.figureOption, casilla - marco);
   return (
-    <View accessibilityRole="radiogroup" style={draw ? styles.grid : styles.list}>
+    <View
+      accessibilityRole="radiogroup"
+      style={draw ? styles.grid : styles.list}
+      onLayout={(e) => setAncho(e.nativeEvent.layout.width)}
+    >
       {item.options.map((value, i) => (
-        <View key={i} style={draw ? styles.cell : null}>
+        <View key={i} style={draw ? { width: Math.max(casilla, 0) } : null}>
           <OptionBubble
             letter={LETTERS[i] ?? ''}
             value={textoOpcion(item, i)}
             state={stateOf(i)}
-            {...(draw ? { figure: <Figure drawing={draw.option(value)} size={figura} /> } : {})}
+            {...(draw
+              ? {
+                  // Hasta medir el hueco, un espacio del mismo alto: la cuadrícula no salta.
+                  figure: ancho > 0 ? <Figure drawing={draw.option(value)} size={figura} /> : <View style={styles.hueco} />,
+                }
+              : {})}
             {...(onPress ? { onPress: () => onPress(i) } : {})}
           />
         </View>
@@ -40,7 +54,7 @@ export function Opciones({
 }
 
 const styles = StyleSheet.create({
-  list: { gap: tokens.spacing.s },
-  grid: { flexDirection: 'row', flexWrap: 'wrap', gap: tokens.spacing.s },
-  cell: { width: '48.5%' },
+  list: { gap },
+  grid: { flexDirection: 'row', flexWrap: 'wrap', gap },
+  hueco: { height: tokens.size.figureOption },
 });

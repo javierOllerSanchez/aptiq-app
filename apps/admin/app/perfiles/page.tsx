@@ -73,7 +73,7 @@ export default function Perfiles() {
         </label>
       </div>
       {id !== 'guardia-civil-2026' && (
-        <p className="notice">Este perfil aún no se muestra en la app (decisión del propietario): publicarlo no cambia nada para los usuarios.</p>
+        <p className="notice info">Este perfil aún no se muestra en la app (decisión del propietario): publicarlo no cambia nada para los usuarios.</p>
       )}
       <div className="grid">
         <section className="card stack">

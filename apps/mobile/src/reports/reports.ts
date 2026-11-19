@@ -51,10 +51,15 @@ export function nuevoReporte(datos: Omit<Reporte, 'id' | 'comentario'> & { comen
 export const yaReportada = async (store: Store, tipo: string, semilla: string) =>
   (await leer(store, K_HECHOS)).includes(clave(tipo, semilla));
 
-/** Guarda el reporte y lo intenta enviar; sin red queda pendiente (se reintenta al recuperarla). */
-export async function reportar(store: Store, remote: ReportRemote, r: Reporte) {
+/** Guarda el reporte en el móvil (pendiente de envío) y marca la pregunta como ya reportada. */
+export async function guardarReporte(store: Store, r: Reporte) {
   await store.setContent(K_PENDIENTES, JSON.stringify([...(await leer(store, K_PENDIENTES)), r]));
   await store.setContent(K_HECHOS, JSON.stringify([...(await leer(store, K_HECHOS)), clave(r.tipo, r.semilla)]));
+}
+
+/** Guarda el reporte y lo intenta enviar; sin red queda pendiente (se reintenta al recuperarla). */
+export async function reportar(store: Store, remote: ReportRemote, r: Reporte) {
+  await guardarReporte(store, r);
   await enviarPendientes(store, remote);
 }
 

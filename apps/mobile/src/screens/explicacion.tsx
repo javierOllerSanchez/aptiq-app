@@ -67,7 +67,7 @@ export function Explicacion({
           onPress={() => router.push({ pathname: '/metodo', params: { tipo: item.type } })}
         />
         {reportada ? (
-          <Text color="graphite" style={styles.gracias} accessibilityLiveRegion="polite">
+          <Text color="graphite" style={styles.gracias}>
             Error reportado. Gracias.
           </Text>
         ) : (

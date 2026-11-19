@@ -10,7 +10,7 @@ import { OPTION_COUNT } from '@/practice/run';
 import { Explicacion } from '@/screens/explicacion';
 import { Loading } from '@/screens/loading';
 import { Opciones } from '@/screens/opciones';
-import { cardStyle, Pregunta } from '@/screens/pregunta';
+import { Pregunta } from '@/screens/pregunta';
 
 interface Fallo {
   n: number;
@@ -62,5 +62,6 @@ export function Repasar() {
 
 const styles = StyleSheet.create({
   content: { gap: tokens.spacing.m },
-  card: { ...cardStyle, gap: tokens.spacing.s },
+  // La pregunta ya trae su tarjeta: sin otra alrededor (las figuras no caben en dos).
+  card: { gap: tokens.spacing.s },
 });

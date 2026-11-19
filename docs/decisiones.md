@@ -89,6 +89,7 @@
 | 2026-11-19 | Cada pregunta guardada lleva además familia, versión del generador y milisegundos de respuesta (si se miden) | Métricas por familia y tiempo (ADM-02) y reportes reproducibles |
 | 2026-11-19 | Panel `apps/admin` con Next.js 16.4.5 (la última con más de dos semanas publicada), `react-dom` 19.3.0 y `@types/react-dom`; solo en el navegador, con la clave publicable; arranca en `localhost:3000` (la URL por defecto del enlace mágico de Supabase). Lee la URL y la clave de `apps/mobile` (`.env` o `.env.example`) para no duplicarlas. Entrada con enlace mágico; si la cuenta no existe se crea, como en la app, pero sin la marca de administrador no ve nada | Plan de la fase 8 (decisiones 1 y 2). La instalación necesitó salir del entorno aislado: dentro, npm fallaba con «unable to verify the first certificate» |
 | 2026-11-19 | Prototipos de la fase 8 aprobados: pregunta con figuras (opciones en cuadrícula 2 × 2), pregunta verbal, filas «Cómo se resuelve este tipo» y «Reportar un error» al final de la explicación con su hoja, y ficha de método | Decisión del propietario («Aprobados, sigue») |
+| 2026-11-19 | Tokens nuevos `size.figureStem` 120 y `size.figureOption` 88: tamaño máximo de las figuras del enunciado y de las opciones | Medidas del prototipo pregunta-figuras aprobado; hallazgo de revisor-interfaz (figuras más grandes que el prototipo) |
 
 ## Pendientes (las decide el propietario)
 

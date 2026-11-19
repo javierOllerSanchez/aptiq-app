@@ -54,7 +54,7 @@ export default function Reportes() {
       <h1>Reportes</h1>
       <div className="row" style={{ marginBottom: 16 }}>
         {(['nuevo', 'resuelto', 'descartado'] as const).map((e) => (
-          <button key={e} className={e === estado ? 'main' : ''} onClick={() => setEstado(e)}>
+          <button key={e} className="filtro" aria-pressed={e === estado} onClick={() => setEstado(e)}>
             {e === 'nuevo' ? 'Nuevos' : e === 'resuelto' ? 'Resueltos' : 'Descartados'}
           </button>
         ))}
