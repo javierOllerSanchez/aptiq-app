@@ -57,25 +57,23 @@ export async function guardarReporte(store: Store, r: Reporte) {
   await store.setContent(K_HECHOS, JSON.stringify([...(await leer(store, K_HECHOS)), clave(r.tipo, r.semilla)]));
 }
 
-/** Guarda el reporte y lo intenta enviar; sin red queda pendiente (se reintenta al recuperarla). */
-export async function reportar(store: Store, remote: ReportRemote, r: Reporte) {
-  await guardarReporte(store, r);
-  await enviarPendientes(store, remote);
-}
-
 /** Envía los pendientes en orden; se para en el primero que falla y lo deja para la próxima vez. */
 export async function enviarPendientes(store: Store, remote: ReportRemote) {
   const pendientes = (await leer(store, K_PENDIENTES)) as Reporte[];
-  let enviados = 0;
+  const enviados = new Set<string>();
   for (const r of pendientes) {
     try {
       await remote.enviar(r);
-      enviados++;
+      enviados.add(r.id);
     } catch {
       break;
     }
   }
-  if (enviados) await store.setContent(K_PENDIENTES, JSON.stringify(pendientes.slice(enviados)));
+  // Se vuelve a leer: mientras se enviaba pudo guardarse otro reporte (no se pisa).
+  if (enviados.size) {
+    const ahora = (await leer(store, K_PENDIENTES)) as Reporte[];
+    await store.setContent(K_PENDIENTES, JSON.stringify(ahora.filter((r) => !enviados.has(r.id))));
+  }
 }
 
 /** Envío a Supabase. La app solo puede crear reportes (RLS); reenviar uno ya recibido no es un error. */

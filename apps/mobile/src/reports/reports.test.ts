@@ -1,6 +1,11 @@
 import { createMemoryStore } from '@/data/memory-store';
 
-import { enviarPendientes, nuevoReporte, reportar, yaReportada, type ReportRemote, type Reporte } from './reports';
+import { enviarPendientes, guardarReporte, nuevoReporte, yaReportada, type ReportRemote, type Reporte } from './reports';
+
+const reportar = async (store: Parameters<typeof guardarReporte>[0], remote: ReportRemote, r: Reporte) => {
+  await guardarReporte(store, r);
+  await enviarPendientes(store, remote);
+};
 
 const base = {
   tipo: 'ESP.CUBO',
@@ -46,4 +51,20 @@ test('el comentario se recorta a 500 caracteres y vacío no se envía', async ()
   expect(largo.comentario).toHaveLength(500);
   const vacio = nuevoReporte({ ...base, comentario: '   ' }, () => 'b');
   expect(vacio.comentario).toBeNull();
+});
+
+test('un reporte guardado mientras se envían otros no se pierde', async () => {
+  const store = createMemoryStore();
+  await guardarReporte(store, nuevoReporte(base, () => 'primero'));
+  const enviados: string[] = [];
+  const lento: ReportRemote = {
+    async enviar(r) {
+      // Mientras se envía el primero, la persona reporta otra pregunta.
+      if (r.id === 'primero') await guardarReporte(store, nuevoReporte({ ...base, semilla: 'otra' }, () => 'segundo'));
+      enviados.push(r.id);
+    },
+  };
+  await enviarPendientes(store, lento);
+  await enviarPendientes(store, lento);
+  expect(enviados).toEqual(['primero', 'segundo']);
 });

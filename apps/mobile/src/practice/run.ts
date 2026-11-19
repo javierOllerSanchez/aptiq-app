@@ -127,6 +127,18 @@ export const toSaved = (
     ...(ms[i] !== undefined ? { ms: Math.round(ms[i]!) } : {}),
   }));
 
+/**
+ * La pregunta guardada, regenerada con el motor; null si ya no se puede: una verbal retirada que
+ * este móvil nunca descargó (p. ej., historial llegado de otro dispositivo).
+ */
+export function regenerar(q: SavedQuestion): Item | null {
+  try {
+    return registry[q.type].generator.generate(q.seed, q.level, OPTION_COUNT);
+  } catch {
+    return null;
+  }
+}
+
 // Respuesta correcta de las preguntas antiguas sin `correct`: se regenera una sola vez por pregunta.
 const respuestaCorrecta = new Map<string, number>();
 

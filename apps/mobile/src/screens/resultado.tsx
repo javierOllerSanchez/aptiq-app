@@ -1,7 +1,6 @@
 import {
   type Breakdown,
   breakdown,
-  registry,
   score,
   type ScoreResult,
   type Tally,
@@ -18,7 +17,7 @@ import { Pressable, StyleSheet, View } from 'react-native';
 import { useStore } from '@/data/provider';
 import { AJUSTE_MURO, debeAbrirMuro } from '@/purchases/muro';
 import { usePlan } from '@/purchases/provider';
-import { APTITUDE_LABELS, avisoMezcla, formatNota, OPTION_COUNT } from '@/practice/run';
+import { APTITUDE_LABELS, avisoMezcla, formatNota, isCorrect } from '@/practice/run';
 import { Loading } from '@/screens/loading';
 
 interface Resumen {
@@ -40,10 +39,8 @@ export function Resultado() {
     store.attempts().then((list) => {
       const attempt = list.find((a) => a.id === id);
       if (!attempt) return setResumen('no-encontrado');
-      const results = attempt.questions.map((q) => {
-        const item = registry[q.type].generator.generate(q.seed, q.level, OPTION_COUNT);
-        return { type: q.type, correct: q.answer === item.answerIndex, blank: q.answer === null };
-      });
+      // Con `correct` guardado no hace falta regenerar (y una verbal retirada no rompe el resultado).
+      const results = attempt.questions.map((q) => ({ type: q.type, correct: isCorrect(q), blank: q.answer === null }));
       const desglose = breakdown(results);
       const nota = score(perfil(), {
         aciertos: desglose.total.aciertos,
