@@ -20,6 +20,10 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 **2026-11-19 · Fase 9 · Plan**
 
 - Plan en `docs/planes/fase-9.md`, confirmado por el propietario («Sí, tal cual») con las propuestas de las decisiones 1–9. Parte A (sin cuentas) en curso; la parte B espera a las cuentas, los datos del titular y los probadores.
+- **T2 (prototipos):** `docs/prototipos/consentimiento.html`, `ayuda.html` y pie del muro con «Términos de uso · Privacidad». **Pendientes de tu aprobación** antes de T6 y T7.
+- **T5 (ADM-03):** hecho. Cada simulacro guarda el perfil con que empezó y se puntúa con él; prueba nueva en `content.test.ts`; columna `perfil` en SQLite y en Supabase (migración aplicada en el proyecto actual). App: 127 pruebas en verde.
+- **T3 (textos legales):** borrador en `apps/web/` (privacidad, aviso legal, términos, borrar cuenta, ayuda), con tus datos de titular, plazos y transferencias marcados como pendientes. Hallazgo: al borrar la cuenta no se borra el registro de compras en RevenueCat; queda anotado en la página y hay que resolverlo antes de la beta.
+- **T1 (icono) y T4 (web):** en curso.
 
 **2026-11-19 · Fase 8 · Aprobación**
 
