@@ -4,7 +4,11 @@
     {
       "name": "admin",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["--filter", "admin", "dev"],
+      "runtimeArgs": [
+        "--filter",
+        "admin",
+        "dev"
+      ],
       "port": 3000
     }
   ]

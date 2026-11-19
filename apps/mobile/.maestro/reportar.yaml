@@ -1,0 +1,36 @@
+# SOP-01, EXP-04 (fase 8): desde la explicación de una pregunta, abrir la ficha de método y
+# reportar un error. Después, el reporte aparece en el panel (apps/admin, «Reportes») con su
+# semilla y la pregunta regenerada: criterio de aceptación de la fase 8.
+appId: com.javioller.aptiq
+---
+- runFlow: onboarding.yaml
+- launchApp
+- assertVisible: "Sesión de hoy"
+- scrollUntilVisible:
+    element: "Numérica, .*"
+- tapOn: "Numérica, .*"
+- scrollUntilVisible:
+    element: "Opción B, .*"
+    direction: UP
+- tapOn: "Opción B, .*"
+- scrollUntilVisible:
+    element: "Confirmar"
+- tapOn: "Confirmar"
+# Ficha de método del tipo de la pregunta.
+- scrollUntilVisible:
+    element: "Cómo se resuelve este tipo"
+- tapOn: "Cómo se resuelve este tipo"
+- assertVisible: "Cómo se resuelve · .*"
+- assertVisible: "Paso 1: .*"
+- tapOn: "Volver"
+# Reportar un error.
+- scrollUntilVisible:
+    element: "Reportar un error"
+- tapOn: "Reportar un error"
+- assertVisible: "Lo revisamos con los datos de esta pregunta.*"
+- tapOn: "La explicación tiene un error"
+- tapOn: "Comentario (opcional)"
+- inputText: "Prueba de Maestro"
+- tapOn: "Enviar"
+- assertVisible: "Error reportado. Gracias."
+- assertNotVisible: "Reportar un error"

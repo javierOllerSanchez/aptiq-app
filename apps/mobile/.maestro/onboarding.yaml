@@ -12,7 +12,7 @@ appId: com.javioller.aptiq
 - pressKey: Enter
 - tapOn: "Hacer el test de nivel"
 - repeat:
-    times: 12
+    times: 18
     commands:
       - scrollUntilVisible:
           element: "Opción A, .*"
