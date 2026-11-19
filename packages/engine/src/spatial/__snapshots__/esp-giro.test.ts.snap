@@ -2,20 +2,20 @@
 
 exports[`ESP.GIRO v1 > nivel 1: instantánea de una semilla fija (si cambia, subir version) 1`] = `
 {
-  "answerIndex": 2,
+  "answerIndex": 0,
   "explanation": {
-    "apply": "Gira el modelo 90° en sentido contrario a las agujas del reloj: queda fila 1: cuadros 1, 2, 3 y 4; fila 2: cuadro 3.",
+    "apply": "Gira el modelo 90° en el sentido de las agujas del reloj: queda fila 1: cuadros 1, 2, 3 y 4; fila 2: cuadro 2.",
     "distractors": [
       {
-        "error": "Es el modelo en espejo: para conseguirla habría que darle la vuelta al papel, no basta con girarlo.",
-        "optionIndex": 0,
-      },
-      {
-        "error": "Es el modelo en espejo: para conseguirla habría que darle la vuelta al papel, no basta con girarlo.",
+        "error": "Se parece, pero tiene un cuadro en otro sitio: compárala cuadro a cuadro con el modelo girado.",
         "optionIndex": 1,
       },
       {
         "error": "Es el modelo en espejo: para conseguirla habría que darle la vuelta al papel, no basta con girarlo.",
+        "optionIndex": 2,
+      },
+      {
+        "error": "Tiene un cuadro en otro sitio y, además, está en espejo: no es el modelo aunque la gires.",
         "optionIndex": 3,
       },
     ],
@@ -27,18 +27,18 @@ exports[`ESP.GIRO v1 > nivel 1: instantánea de una semilla fija (si cambia, sub
   "level": 1,
   "meta": {
     "expectedSeconds": 20,
-    "family": "espejo",
+    "family": "giro",
     "generatorVersion": "1",
   },
   "options": [
     "0.0,1.0,2.0,3.0,1.1",
-    "2.0,0.1,1.1,2.1,3.1",
-    "0.0,1.0,2.0,3.0,2.1",
-    "1.0,0.1,1.1,1.2,1.3",
+    "0.0,1.0,1.1,1.2,1.3",
+    "1.0,0.1,1.1,2.1,3.1",
+    "0.0,1.0,2.0,3.0,3.1",
   ],
   "seed": "muestra",
   "stem": {
-    "model": "1.0,1.1,0.2,1.2,1.3",
+    "model": "0.0,0.1,0.2,1.2,0.3",
     "text": "¿Qué figura es el modelo girado, sin darle la vuelta?",
   },
   "type": "ESP.GIRO",
@@ -47,21 +47,21 @@ exports[`ESP.GIRO v1 > nivel 1: instantánea de una semilla fija (si cambia, sub
 
 exports[`ESP.GIRO v1 > nivel 2: instantánea de una semilla fija (si cambia, subir version) 1`] = `
 {
-  "answerIndex": 0,
+  "answerIndex": 3,
   "explanation": {
     "apply": "Gira el modelo 90° en el sentido de las agujas del reloj: queda fila 1: cuadros 1 y 2; fila 2: cuadros 1, 2 y 3; fila 3: cuadro 1.",
     "distractors": [
       {
         "error": "Es el modelo en espejo: para conseguirla habría que darle la vuelta al papel, no basta con girarlo.",
+        "optionIndex": 0,
+      },
+      {
+        "error": "Tiene un cuadro en otro sitio y, además, está en espejo: no es el modelo aunque la gires.",
         "optionIndex": 1,
       },
       {
-        "error": "Es el modelo en espejo: para conseguirla habría que darle la vuelta al papel, no basta con girarlo.",
+        "error": "Se parece, pero tiene un cuadro en otro sitio: compárala cuadro a cuadro con el modelo girado.",
         "optionIndex": 2,
-      },
-      {
-        "error": "Es el modelo en espejo: para conseguirla habría que darle la vuelta al papel, no basta con girarlo.",
-        "optionIndex": 3,
       },
     ],
     "observe": "El modelo tiene 6 cuadros. Busca su detalle más reconocible (el saliente o la fila más larga) y fíjate en a qué lado queda.",
@@ -72,14 +72,14 @@ exports[`ESP.GIRO v1 > nivel 2: instantánea de una semilla fija (si cambia, sub
   "level": 2,
   "meta": {
     "expectedSeconds": 25,
-    "family": "espejo",
+    "family": "giro",
     "generatorVersion": "1",
   },
   "options": [
+    "0.0,1.0,2.0,0.1,1.1,1.2",
+    "0.0,0.1,0.2,1.2,2.2,0.3",
+    "0.0,0.1,1.1,2.1,0.2,0.3",
     "0.0,1.0,0.1,1.1,2.1,0.2",
-    "1.0,1.1,2.1,0.2,1.2,2.2",
-    "1.0,2.0,0.1,1.1,2.1,2.2",
-    "0.0,0.1,1.1,2.1,0.2,1.2",
   ],
   "seed": "muestra",
   "stem": {
@@ -94,18 +94,18 @@ exports[`ESP.GIRO v1 > nivel 3: instantánea de una semilla fija (si cambia, sub
 {
   "answerIndex": 0,
   "explanation": {
-    "apply": "Gira el modelo 90° en sentido contrario a las agujas del reloj: queda fila 1: cuadro 3; fila 2: cuadros 1, 2, 3 y 4; fila 3: cuadros 2 y 3.",
+    "apply": "Gira el modelo 180° (media vuelta): queda fila 1: cuadros 1, 2, 3 y 4; fila 2: cuadros 2 y 3; fila 3: cuadro 3.",
     "distractors": [
       {
-        "error": "Se parece, pero tiene un cuadro en otro sitio: compárala cuadro a cuadro con el modelo girado.",
+        "error": "Es el modelo en espejo: para conseguirla habría que darle la vuelta al papel, no basta con girarlo.",
         "optionIndex": 1,
       },
       {
-        "error": "Es el modelo en espejo: para conseguirla habría que darle la vuelta al papel, no basta con girarlo.",
+        "error": "Tiene un cuadro en otro sitio y, además, está en espejo: no es el modelo aunque la gires.",
         "optionIndex": 2,
       },
       {
-        "error": "Es el modelo en espejo: para conseguirla habría que darle la vuelta al papel, no basta con girarlo.",
+        "error": "Se parece, pero tiene un cuadro en otro sitio: compárala cuadro a cuadro con el modelo girado.",
         "optionIndex": 3,
       },
     ],
@@ -117,18 +117,18 @@ exports[`ESP.GIRO v1 > nivel 3: instantánea de una semilla fija (si cambia, sub
   "level": 3,
   "meta": {
     "expectedSeconds": 35,
-    "family": "cambio",
+    "family": "giro",
     "generatorVersion": "1",
   },
   "options": [
-    "2.0,0.1,1.1,2.1,3.1,1.2,2.2",
-    "0.0,1.0,2.0,0.1,1.1,2.1,1.2",
-    "1.0,0.1,1.1,2.1,0.2,1.2,1.3",
-    "1.0,0.1,1.1,2.1,3.1,1.2,2.2",
+    "0.0,1.0,2.0,3.0,1.1,2.1,2.2",
+    "0.0,0.1,1.1,0.2,1.2,2.2,0.3",
+    "1.0,0.1,1.1,1.2,2.2,3.2,1.3",
+    "2.0,2.1,3.1,0.2,1.2,2.2,2.3",
   ],
   "seed": "muestra",
   "stem": {
-    "model": "1.0,0.1,1.1,0.2,1.2,2.2,1.3",
+    "model": "1.0,1.1,2.1,0.2,1.2,2.2,3.2",
     "text": "¿Qué figura es el modelo girado, sin darle la vuelta?",
   },
   "type": "ESP.GIRO",
@@ -142,11 +142,11 @@ exports[`ESP.GIRO v1 > nivel 4: instantánea de una semilla fija (si cambia, sub
     "apply": "Gira el modelo 90° en el sentido de las agujas del reloj: queda fila 1: cuadros 2 y 3; fila 2: cuadros 1, 2 y 3; fila 3: cuadros 1 y 3; fila 4: cuadro 3.",
     "distractors": [
       {
-        "error": "Es el modelo en espejo: para conseguirla habría que darle la vuelta al papel, no basta con girarlo.",
+        "error": "Se parece, pero tiene un cuadro en otro sitio: compárala cuadro a cuadro con el modelo girado.",
         "optionIndex": 0,
       },
       {
-        "error": "Se parece, pero tiene un cuadro en otro sitio: compárala cuadro a cuadro con el modelo girado.",
+        "error": "Tiene un cuadro en otro sitio y, además, está en espejo: no es el modelo aunque la gires.",
         "optionIndex": 1,
       },
       {
@@ -162,13 +162,13 @@ exports[`ESP.GIRO v1 > nivel 4: instantánea de una semilla fija (si cambia, sub
   "level": 4,
   "meta": {
     "expectedSeconds": 45,
-    "family": "cambio",
+    "family": "giro",
     "generatorVersion": "1",
   },
   "options": [
-    "0.0,1.0,0.1,1.1,2.1,0.2,2.2,0.3",
     "1.0,2.0,3.0,0.1,1.1,2.1,2.2,3.2",
-    "0.0,1.0,2.0,3.0,2.1,3.1,1.2,2.2",
+    "1.0,0.1,1.1,0.2,1.2,2.2,0.3,2.3",
+    "0.0,1.0,0.1,1.1,2.1,0.2,2.2,0.3",
     "1.0,2.0,0.1,1.1,2.1,0.2,2.2,2.3",
   ],
   "seed": "muestra",
@@ -182,20 +182,20 @@ exports[`ESP.GIRO v1 > nivel 4: instantánea de una semilla fija (si cambia, sub
 
 exports[`ESP.GIRO v1 > nivel 5: instantánea de una semilla fija (si cambia, subir version) 1`] = `
 {
-  "answerIndex": 0,
+  "answerIndex": 1,
   "explanation": {
     "apply": "Gira el modelo 180° (media vuelta): queda fila 1: cuadros 3 y 4; fila 2: cuadros 1, 2, 3 y 4; fila 3: cuadros 1, 2 y 3.",
     "distractors": [
       {
-        "error": "Se parece, pero tiene un cuadro en otro sitio: compárala cuadro a cuadro con el modelo girado.",
-        "optionIndex": 1,
+        "error": "Tiene un cuadro en otro sitio y, además, está en espejo: no es el modelo aunque la gires.",
+        "optionIndex": 0,
       },
       {
         "error": "Es el modelo en espejo: para conseguirla habría que darle la vuelta al papel, no basta con girarlo.",
         "optionIndex": 2,
       },
       {
-        "error": "Es el modelo en espejo: para conseguirla habría que darle la vuelta al papel, no basta con girarlo.",
+        "error": "Se parece, pero tiene un cuadro en otro sitio: compárala cuadro a cuadro con el modelo girado.",
         "optionIndex": 3,
       },
     ],
@@ -207,14 +207,14 @@ exports[`ESP.GIRO v1 > nivel 5: instantánea de una semilla fija (si cambia, sub
   "level": 5,
   "meta": {
     "expectedSeconds": 55,
-    "family": "cambio",
+    "family": "giro",
     "generatorVersion": "1",
   },
   "options": [
+    "1.0,0.1,1.1,2.1,0.2,1.2,2.2,0.3,1.3",
     "2.0,3.0,0.1,1.1,2.1,3.1,0.2,1.2,2.2",
-    "1.0,2.0,0.1,1.1,2.1,3.1,0.2,1.2,2.2",
     "0.0,1.0,0.1,1.1,2.1,3.1,1.2,2.2,3.2",
-    "1.0,2.0,0.1,1.1,2.1,0.2,1.2,0.3,1.3",
+    "1.0,2.0,0.1,1.1,2.1,3.1,0.2,1.2,2.2",
   ],
   "seed": "muestra",
   "stem": {

@@ -45,3 +45,26 @@ test('cada opción se puede dibujar y describir', () => {
     expect(espGiro.describe!(o)).toMatch(/^fila 1: cuadros? /);
   }
 });
+
+test('no se acierta buscando la figura distinta ni la pareja de figuras iguales', () => {
+  const N = 600;
+  for (const oc of [3, 4] as const) {
+    let odd = 0; // la única figura que no coincide (girando) con ninguna otra opción
+    let pair = 0; // entre las que coinciden con otra si se permite el espejo
+    for (let i = 0; i < N; i++) {
+      const item = espGiro.generate(`o${i}`, ((i % 5) + 1) as 1 | 2 | 3 | 4 | 5, oc);
+      const shapes = item.options.map(decodeCells);
+      const guess = (match: (a: typeof shapes[0], b: typeof shapes[0]) => boolean, wantAlone: boolean) => {
+        const alone = shapes.map((s, j) => shapes.every((t, k) => k === j || !match(s, t)));
+        const picks = alone.flatMap((a, j) => (a === wantAlone ? [j] : []));
+        return picks.length === 0 ? 1 / oc : picks.includes(item.answerIndex) ? 1 / picks.length : 0;
+      };
+      odd += guess(sameShape, true);
+      pair += guess((a, b) => sameShape(a, b) || sameShape(a, mirror(b)), false);
+    }
+    // Con 3 opciones, la correcta y su espejo forman pareja: elegir entre las dos es justo la habilidad
+    // que se evalúa (girar o dar la vuelta), así que se admite hasta 1/2.
+    expect(odd / N, `figura distinta, ${oc} opciones`).toBeLessThanOrEqual(1.5 / oc);
+    expect(pair / N, `pareja, ${oc} opciones`).toBeLessThanOrEqual(oc === 3 ? 0.5 : 1.5 / oc);
+  }
+});

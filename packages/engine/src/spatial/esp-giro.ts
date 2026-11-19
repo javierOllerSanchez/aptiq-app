@@ -65,7 +65,7 @@ function moved(rng: Rng, cells: readonly Cell[], model: readonly Cell[]): Cell[]
   return null;
 }
 
-type Config = { cells: [number, number]; changedFirst: boolean };
+type Config = { cells: [number, number] };
 
 const giro = (cfg: Config) => (rng: Rng): Draft<EspGiroStem> | null => {
   const base = grow(rng, rng.int(...cfg.cells));
@@ -80,18 +80,23 @@ const giro = (cfg: Config) => (rng: Rng): Draft<EspGiroStem> | null => {
     'Es el modelo en espejo: para conseguirla habría que darle la vuelta al papel, no basta con girarlo.';
   const changedError =
     'Se parece, pero tiene un cuadro en otro sitio: compárala cuadro a cuadro con el modelo girado.';
-  const mirrors: Distractor[] = [0, 1, 2, 3].map((t) => ({
-    value: encodeCells(rotate(mirror(answer), t)),
-    error: mirrorError,
-  }));
-  const changed: Distractor[] = [0, 1].flatMap(() => {
-    const m = moved(rng, rotate(answer, rng.int(0, 3)), model);
-    return m ? [{ value: encodeCells(m), error: changedError }] : [];
-  });
+  // Opciones: correcta, su espejo, una figura con un cuadro cambiado y el espejo de esa. Así no se
+  // acierta buscando «la figura distinta» ni «la pareja de figuras iguales».
+  const changed = moved(rng, rotate(answer, rng.int(0, 3)), model);
+  if (!changed || sameShape(changed, mirror(changed))) return null;
+  const turn = () => rng.int(0, 3);
+  const distractors: Distractor[] = [
+    { value: encodeCells(rotate(mirror(answer), turn())), error: mirrorError },
+    { value: encodeCells(changed), error: changedError },
+    {
+      value: encodeCells(rotate(mirror(changed), turn())),
+      error: 'Tiene un cuadro en otro sitio y, además, está en espejo: no es el modelo aunque la gires.',
+    },
+  ];
   return {
     stem: { text: '¿Qué figura es el modelo girado, sin darle la vuelta?', model: encodeCells(model) },
     answer: encodeCells(answer),
-    distractors: cfg.changedFirst ? [changed[0]!, ...mirrors, ...changed.slice(1)].filter(Boolean) : [...mirrors, ...changed],
+    distractors,
     observe: `El modelo tiene ${model.length} cuadros. Busca su detalle más reconocible (el saliente o la fila más larga) y fíjate en a qué lado queda.`,
     rule: 'Girar una figura no cambia su forma; darle la vuelta (espejo) sí. Solo vale la que coincide con el modelo después de girarlo.',
     apply: `Gira el modelo ${TURNS[turns]}: queda ${describeCells(answer)}.`,
@@ -99,11 +104,11 @@ const giro = (cfg: Config) => (rng: Rng): Draft<EspGiroStem> | null => {
 };
 
 const families: Families<ReturnType<typeof giro>> = {
-  1: { espejo: giro({ cells: [4, 5], changedFirst: false }) },
-  2: { espejo: giro({ cells: [5, 6], changedFirst: false }) },
-  3: { espejo: giro({ cells: [6, 7], changedFirst: false }), cambio: giro({ cells: [6, 7], changedFirst: true }) },
-  4: { espejo: giro({ cells: [7, 8], changedFirst: false }), cambio: giro({ cells: [7, 8], changedFirst: true }) },
-  5: { cambio: giro({ cells: [8, 9], changedFirst: true }) },
+  1: { giro: giro({ cells: [4, 5] }) },
+  2: { giro: giro({ cells: [5, 6] }) },
+  3: { giro: giro({ cells: [6, 7] }) },
+  4: { giro: giro({ cells: [7, 8] }) },
+  5: { giro: giro({ cells: [8, 9] }) },
 };
 
 export const espGiro: Generator<EspGiroStem> = {
