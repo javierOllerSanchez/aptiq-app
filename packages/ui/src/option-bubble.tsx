@@ -1,6 +1,6 @@
 import { tokens } from '@aptiq/tokens';
 import * as Haptics from 'expo-haptics';
-import { useEffect } from 'react';
+import { type ReactNode, useEffect } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import Animated, {
   Easing,
@@ -32,17 +32,23 @@ const rowBorder: Record<OptionState, number> = {
   wrong: border.default,
 };
 
-/** Fila de respuesta con burbuja de hoja de examen (guía, sección 5). */
+/**
+ * Fila de respuesta con burbuja de hoja de examen (guía, sección 5).
+ * Con `figure` es una casilla de la cuadrícula de figuras (prototipo pregunta-figuras): la burbuja
+ * arriba y el dibujo debajo; `value` es entonces la descripción que oye el lector de pantalla.
+ */
 export function OptionBubble({
   letter,
   value,
   state = 'empty',
   onPress,
+  figure,
 }: {
   letter: string;
   value: string;
   state?: OptionState;
   onPress?: () => void;
+  figure?: ReactNode;
 }) {
   const filled = state !== 'empty';
   // Relleno de la burbuja: 150 ms con ease-out marcada. Solo opacidad, así que se mantiene también
@@ -76,6 +82,7 @@ export function OptionBubble({
       accessibilityLabel={`Opción ${letter}, ${value}${stateLabel[state]}`}
       style={({ pressed }) => [
         styles.row,
+        figure ? styles.tile : null,
         rowStyle[state],
         { borderWidth: rowBorder[state], paddingHorizontal },
         pressed && { opacity: opacity.pressed },
@@ -106,9 +113,13 @@ export function OptionBubble({
           )}
         </Animated.View>
       </View>
-      <Text variant="optionValue" weight={state === 'empty' ? 600 : 700} style={styles.value}>
-        {value}
-      </Text>
+      {figure ? (
+        <View style={styles.figure}>{figure}</View>
+      ) : (
+        <Text variant="optionValue" weight={state === 'empty' ? 600 : 700} style={styles.value}>
+          {value}
+        </Text>
+      )}
     </Pressable>
   );
 }
@@ -141,4 +152,11 @@ const styles = StyleSheet.create({
   center: { alignItems: 'center', justifyContent: 'center' },
   bubbleWrong: { borderColor: color.seal },
   value: { flex: 1 },
+  tile: {
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    paddingVertical: spacing.m,
+    gap: spacing.s,
+  },
+  figure: { alignItems: 'center' },
 });

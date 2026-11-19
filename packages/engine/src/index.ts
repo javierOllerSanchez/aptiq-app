@@ -61,6 +61,7 @@ export {
   type Result,
 } from './review/review';
 export { adaptLevels } from './level/adapt';
+export { type Method, methods } from './methods';
 export { estimateLevels, type LevelAnswer } from './level/estimate';
 export { type DatedAnswer, levelHistory, mondayOf, type WeekLevel } from './progress/history';
 export { daysToExam, streak } from './progress/streak';

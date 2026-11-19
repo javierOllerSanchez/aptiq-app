@@ -2,7 +2,6 @@ import type { Item } from '@aptiq/engine';
 import { tokens } from '@aptiq/tokens';
 import {
   Button,
-  OptionBubble,
   type OptionState,
   PaperBackground,
   ProgressTicks,
@@ -10,11 +9,11 @@ import {
 } from '@aptiq/ui';
 import * as Haptics from 'expo-haptics';
 import { router, useLocalSearchParams } from 'expo-router';
-import { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { useEffect, useRef, useState } from 'react';
+import { StyleSheet } from 'react-native';
 
 import { useStore } from '@/data/provider';
-import { APTITUDE_LABELS, LETTERS, startRun, toSaved } from '@/practice/run';
+import { APTITUDE_LABELS, startRun, toSaved } from '@/practice/run';
 import { expoReminderApi } from '@/notifications/expo-api';
 import { syncReminders } from '@/notifications/reminder';
 import { AJUSTE_HOY, diaLocal, loadProgress, permiso, startToday } from '@/progress/data';
@@ -22,6 +21,7 @@ import { usePlan } from '@/purchases/provider';
 import { tiposDe } from '@/purchases/muro';
 import { Explicacion } from '@/screens/explicacion';
 import { Loading } from '@/screens/loading';
+import { Opciones } from '@/screens/opciones';
 import { Pregunta } from '@/screens/pregunta';
 
 const SESSION_QUESTIONS = 10;
@@ -36,6 +36,12 @@ export function Practica() {
   const [answers, setAnswers] = useState<(number | null)[]>([]);
   const [selected, setSelected] = useState<number | null>(null);
   const [revealed, setRevealed] = useState(false);
+  // Tiempo de cada respuesta (métricas ADM-02): desde que se ve la pregunta hasta confirmar.
+  const [tiempos, setTiempos] = useState<number[]>([]);
+  const vistaDesde = useRef(0);
+  useEffect(() => {
+    vistaDesde.current = Date.now();
+  }, [index, items]);
 
   useEffect(() => {
     (async () => {
@@ -76,6 +82,7 @@ export function Practica() {
 
   function confirmar() {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
+    setTiempos((t) => [...t, Date.now() - vistaDesde.current]);
     setRevealed(true);
   }
 
@@ -92,7 +99,7 @@ export function Practica() {
     await store.saveSession({
       id: `p-${ahora}`,
       creada: ahora,
-      questions: toSaved(items!, nuevas),
+      questions: toSaved(items!, nuevas, [], tiempos),
     });
     if (!aptitud) {
       await store.setSetting(AJUSTE_HOY, diaLocal(ahora));
@@ -111,18 +118,15 @@ export function Practica() {
         current={index}
         answered={items.map((_, i) => i < answers.length)}
       />
-      <Pregunta texto={item.stem.text} />
-      <View accessibilityRole="radiogroup" style={styles.options}>
-        {item.options.map((value, i) => (
-          <OptionBubble
-            key={i}
-            letter={LETTERS[i] ?? ''}
-            value={value}
-            state={stateOf(i)}
-            {...(revealed ? {} : { onPress: () => setSelected(i) })}
-          />
-        ))}
-      </View>
+      <Pregunta item={item} />
+      {!revealed && (
+        <Button
+          label="Cómo se resuelve"
+          variant="text"
+          onPress={() => router.push({ pathname: '/metodo', params: { tipo: item.type } })}
+        />
+      )}
+      <Opciones item={item} stateOf={stateOf} {...(revealed ? {} : { onPress: (i: number) => setSelected(i) })} />
       {revealed && <Explicacion item={item} answer={selected} anunciar />}
       {revealed ? (
         // Tras corregir, el amarillo es la opción correcta: el botón pasa a secundario (un solo protagonista).
@@ -145,5 +149,4 @@ export function Practica() {
 
 const styles = StyleSheet.create({
   content: { gap: tokens.spacing.m },
-  options: { gap: tokens.spacing.s },
 });

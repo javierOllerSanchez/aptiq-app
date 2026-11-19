@@ -18,6 +18,15 @@ import type { SavedQuestion, Store } from '@/data/store';
 export const OPTION_COUNT = 4 as const;
 export const LETTERS = ['A', 'B', 'C', 'D'] as const;
 
+/** Una opción en palabras: el texto, o la descripción de la figura en los tipos espaciales. */
+export function textoOpcion(item: Item, i: number) {
+  const describe = registry[item.type].generator.describe;
+  return describe ? describe(item.options[i]!) : item.options[i]!;
+}
+/** «la B · 63», o solo «la B» si la opción es una figura (se ve encima). */
+export const nombreOpcion = (item: Item, i: number) =>
+  registry[item.type].generator.draw ? `${LETTERS[i]}` : `${LETTERS[i]} · ${item.options[i]}`;
+
 /** Cita de las bases que respaldan el formato (para `SourceNote`): solo lo que el perfil vigente acredita. */
 export function cita() {
   const bases = perfil().sources.find((s) => s.tipo === 'bases');
@@ -41,6 +50,7 @@ export const APTITUDE_LABELS: Record<string, string> = {
   verbal: 'Verbal',
   atencion: 'Atención y percepción',
   abstracta: 'Abstracta',
+  espacial: 'Espacial',
 };
 
 export interface StartOptions {

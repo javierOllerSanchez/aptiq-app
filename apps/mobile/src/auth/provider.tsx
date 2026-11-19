@@ -6,6 +6,7 @@ import { AppState } from 'react-native';
 import { actualizarContenido, cargarContenido } from '@/content/content';
 import { createSupabaseContent } from '@/content/supabase-content';
 import { useBaseStore } from '@/data/provider';
+import { createSupabaseReports, enviarPendientes, type ReportRemote } from '@/reports/reports';
 import { createRetrier } from '@/sync/backoff';
 
 import { createSupabaseClient, secureLink } from './client';
@@ -27,6 +28,8 @@ interface AuthState {
   status: SyncStatus;
   /** Sincroniza ya (al abrir la pantalla Cuenta, tras cerrar un simulacro…). */
   syncNow: () => void;
+  /** Envío de reportes de errores (SOP-01), con o sin cuenta; null sin Supabase configurado. */
+  reportes: ReportRemote | null;
 }
 
 const AuthContext = createContext<AuthState>({
@@ -34,6 +37,7 @@ const AuthContext = createContext<AuthState>({
   session: null,
   status: { lastSync: null, pending: 0 },
   syncNow: () => {},
+  reportes: null,
 });
 
 /**
@@ -46,7 +50,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const client = createSupabaseClient();
     if (!client) return null;
     const auth = createAuth({ client, store: base, remote: createSupabaseRemote(client), link: secureLink });
-    return { client, auth };
+    return { client, auth, reportes: createSupabaseReports(client) };
   });
   const auth = setup?.auth ?? null;
   const [session, setSession] = useState<Session | null>(null);
@@ -78,7 +82,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     void cargarContenido(base);
     if (!setup) return;
     const remote = createSupabaseContent(setup.client);
-    const refresh = () => void actualizarContenido(base, remote);
+    const reportes = setup.reportes;
+    const refresh = () => {
+      void actualizarContenido(base, remote);
+      void enviarPendientes(base, reportes);
+    };
     refresh();
     let wasOnline = true;
     const netSub = Network.addNetworkStateListener((s) => {
@@ -130,7 +138,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
   }, [auth, base, signedIn]);
 
-  return <AuthContext.Provider value={{ auth, session, status, syncNow }}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ auth, session, status, syncNow, reportes: setup?.reportes ?? null }}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth(): AuthState {

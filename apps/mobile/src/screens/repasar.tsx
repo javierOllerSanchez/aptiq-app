@@ -1,15 +1,16 @@
 import { type Item, registry, reviewOf } from '@aptiq/engine';
 import { tokens } from '@aptiq/tokens';
-import { Button, OptionBubble, PaperBackground, Text } from '@aptiq/ui';
+import { Button, PaperBackground, Text } from '@aptiq/ui';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { useStore } from '@/data/provider';
-import { LETTERS, OPTION_COUNT } from '@/practice/run';
+import { OPTION_COUNT } from '@/practice/run';
 import { Explicacion } from '@/screens/explicacion';
 import { Loading } from '@/screens/loading';
-import { cardStyle } from '@/screens/pregunta';
+import { Opciones } from '@/screens/opciones';
+import { cardStyle, Pregunta } from '@/screens/pregunta';
 
 interface Fallo {
   n: number;
@@ -49,15 +50,8 @@ export function Repasar() {
           <Text variant="label" color="graphite">
             Pregunta {n} · {answer === null ? 'en blanco' : 'fallo'}
           </Text>
-          <Text variant="questionTitle">{item.stem.text}</Text>
-          {item.options.map((value, i) => (
-            <OptionBubble
-              key={i}
-              letter={LETTERS[i] ?? ''}
-              value={value}
-              state={i === item.answerIndex ? 'correct' : i === answer ? 'wrong' : 'empty'}
-            />
-          ))}
+          <Pregunta item={item} />
+          <Opciones item={item} stateOf={(i) => (i === item.answerIndex ? 'correct' : i === answer ? 'wrong' : 'empty')} />
           <Explicacion item={item} answer={answer} />
         </View>
       ))}
