@@ -13,9 +13,13 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 | 6 · Progreso y adaptativo | Cerrada (comprobaciones en el móvil pendientes del propietario) | `fase-6-progreso` · PR #13 fusionado | 2026-11-15 | Sí, 2026-11-15 |
 | 7 · Pago | Cerrada con T7 pendiente (pruebas en tiendas: faltan las cuentas de Apple, Google y RevenueCat) | `fase-7-pago` · PR #15 fusionado | 2026-11-15 | Sí, 2026-11-15 |
 | 8 · Contenido ampliado y panel interno | Cerrada (pendiente que el propietario vea un reporte en el panel y apruebe verbales y perfiles) | `fase-8-contenido` · PR #17 | 2026-11-19 | Sí, 2026-11-19 |
-| 9 · Beta y lanzamiento | Pendiente | | | |
+| 9 · Beta y lanzamiento | En curso (parte A) | `fase-9-lanzamiento` | | |
 
 ## Registro
+
+**2026-11-19 · Fase 9 · Plan**
+
+- Plan en `docs/planes/fase-9.md`, confirmado por el propietario («Sí, tal cual») con las propuestas de las decisiones 1–9. Parte A (sin cuentas) en curso; la parte B espera a las cuentas, los datos del titular y los probadores.
 
 **2026-11-19 · Fase 8 · Aprobación**
 

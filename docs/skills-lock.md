@@ -12,3 +12,6 @@ Generado por `scripts/instalar-skills.sh`. Revisar el `SKILL.md` de cada una ant
 | impeccable | pbakaus/impeccable | b4bff1626c344067788c2679f048a20057c7cc5a | 2026-11-12 | Crítica, auditoría y pulido de pantallas (verificar comandos incluidos) |
 | design-taste-frontend | Leonxlnx/taste-skill | f6b76575f949707b4e3c37cd86cb44b0b98643e8 | 2026-11-12 | Solo web de lanzamiento (fase 9) |
 | supabase-postgres-best-practices | supabase/agent-skills | c9be0e931b7930f7d02126d04774d904c381e7d7 | 2026-11-12 | Esquema, índices y RLS en Supabase |
+| ponytail | DietrichGebert/ponytail | 96608e078b2d5ea607c5c3b8b5a54d1c1fba6846 | 2026-11-15 | Código mínimo (como skill de proyecto, sin los hooks del plugin) |
+| ponytail-review | DietrichGebert/ponytail | 96608e078b2d5ea607c5c3b8b5a54d1c1fba6846 | 2026-11-15 | Revisión de cada PR |
+| ponytail-audit | DietrichGebert/ponytail | 96608e078b2d5ea607c5c3b8b5a54d1c1fba6846 | 2026-11-15 | Auditoría al cerrar fase |

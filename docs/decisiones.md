@@ -91,6 +91,7 @@
 | 2026-11-19 | Prototipos de la fase 8 aprobados: pregunta con figuras (opciones en cuadrícula 2 × 2), pregunta verbal, filas «Cómo se resuelve este tipo» y «Reportar un error» al final de la explicación con su hoja, y ficha de método | Decisión del propietario («Aprobados, sigue») |
 | 2026-11-19 | Tokens nuevos `size.figureStem` 120 y `size.figureOption` 88: tamaño máximo de las figuras del enunciado y de las opciones | Medidas del prototipo pregunta-figuras aprobado; hallazgo de revisor-interfaz (figuras más grandes que el prototipo) |
 | 2026-11-19 | Cierre de la fase 8: `metricas()` v2 (grupos por percentil 27/73 con empates, mínimo de 5 respuestas por usuario y de 10 por grupo, datos mal formados ignorados); banco de verbales ordenado por id; borradores corregidos; Repasar omite (y avisa de) las verbales que ya no están en el banco | Hallazgos de revisor-contenido, verificador-fase y ponytail-review |
+| 2026-11-19 | Fase 9: beta de 15 a 20 opositores (al menos 12 con Android) durante 2–3 semanas con compras de prueba de las tiendas; analítica PostHog UE solo con permiso (pregunta al final del Onboarding, «Aceptar» y «No, gracias» al mismo nivel, cambiable en Cuenta); Sentry UE sin datos personales y sin pedir permiso (a confirmar con el abogado); web estática en `apps/web` alojada en Cloudflare Pages; Supabase de producción separado y SMTP de Arsys; publicar en tiendas lo hace el propietario | Plan de la fase 9 confirmado por el propietario |
 
 ## Pendientes (las decide el propietario)
 

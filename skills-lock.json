@@ -31,6 +31,24 @@
       "skillPath": ".agents/skills/impeccable/SKILL.md",
       "computedHash": "86e265bf3df79c65215f7244d71892ca278370d56dec47a8cc15e8373db3f714"
     },
+    "ponytail": {
+      "source": "DietrichGebert/ponytail",
+      "sourceType": "github",
+      "skillPath": "skills/ponytail/SKILL.md",
+      "computedHash": "56d72677aca02689ac89bd48734e8c19b40ab86716d1257eaf5f1238b43cda6b"
+    },
+    "ponytail-audit": {
+      "source": "DietrichGebert/ponytail",
+      "sourceType": "github",
+      "skillPath": "skills/ponytail-audit/SKILL.md",
+      "computedHash": "20dca08a5d047285c61702d496317eb84f501bbd573a45f3c8f93fdb3cecde4c"
+    },
+    "ponytail-review": {
+      "source": "DietrichGebert/ponytail",
+      "sourceType": "github",
+      "skillPath": "skills/ponytail-review/SKILL.md",
+      "computedHash": "fe7b781db99ce79d931cdc798b3fbccd84b82538de4a3fc5f6d9d466946d1458"
+    },
     "review-animations": {
       "source": "emilkowalski/skills",
       "sourceType": "github",
