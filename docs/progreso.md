@@ -26,8 +26,9 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
   - T9 (servidor), T14: tabla `reporte` y función `metricas()` (agregados, índice de discriminación), con prueba calculada a mano;
   - T12: perfiles de Policía Nacional 2026 y Auxiliar Administrativo 2025 solo con datos del BOE y del INAP (**pendientes de tu revisión**);
   - T13: perfiles y verbales se descargan, validan y guardan en el móvil sin publicar la app.
-- **Bloqueado:** T10–T11 (panel). `pnpm` no puede descargar Next.js: «unable to verify the first certificate» al conectar con registry.npmjs.org.
-- **Pendiente:** T6, T8 (pantallas y borradores), T9 (pantalla de reporte), T15 y T16.
+- T10–T11: panel `apps/admin` (Next.js 16.4.5) con reportes que regeneran la pregunta desde la semilla, verbales (editar, aprobar, rechazar, importar borradores), perfiles (publicar versión nueva validada) y métricas. Compila y arranca en `localhost:3000`; sin probar con sesión de administrador;
+- T8: 60 borradores verbales en `content/verbales/borradores.json`, validados por prueba; se suben con el botón del panel.
+- **Pendiente:** marcar al propietario como administrador; T6 y T15 (pantallas, tras aprobar los prototipos); pantalla de reporte de T9; T16.
 
 **2026-11-15 · Fase 7 · Aprobación**
 
