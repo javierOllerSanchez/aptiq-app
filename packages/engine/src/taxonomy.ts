@@ -47,6 +47,12 @@ export const taxonomy = {
     descripcion: 'Elegir la figura que es el modelo girado, sin confundirla con su imagen en espejo.',
     segundosEsperados: [20, 25, 35, 45, 55],
   },
+  'ABS.FIGURAS': {
+    nombre: 'Series de figuras',
+    aptitud: 'espacial',
+    descripcion: 'Elegir la figura que continúa una serie en la que una flecha gira o un punto avanza.',
+    segundosEsperados: [20, 30, 40, 50, 60],
+  },
 } as const;
 
 export type TypeCode = keyof typeof taxonomy;
