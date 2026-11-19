@@ -75,7 +75,8 @@ function Entrar() {
     setEstado('enviando');
     const { error } = await supabase().auth.signInWithOtp({
       email,
-      options: { emailRedirectTo: window.location.origin, shouldCreateUser: false },
+      // Crea la cuenta si no existe (como la app); sin la marca de administrador no ve nada.
+      options: { emailRedirectTo: window.location.origin },
     });
     setEstado(error ? `No se pudo enviar el enlace: ${error.message}` : 'enviado');
   }
