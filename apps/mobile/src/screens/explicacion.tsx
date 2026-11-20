@@ -10,6 +10,9 @@ import { nombreOpcion } from '@/practice/run';
 import { yaReportada } from '@/reports/reports';
 import { Reportar } from '@/screens/reportar';
 
+/** Une el operador con su número («+ 24») para que no se parta entre líneas. */
+export const pegar = (t: string) => t.replace(/([+\-−×÷=]) (?=\d)/g, '$1 ');
+
 /** Explicación paso a paso, error de cada opción incorrecta y truco (EXP-01, EXP-02, EXP-03). */
 export function Explicacion({
   item,
@@ -54,7 +57,7 @@ export function Explicacion({
           return (
             <Text key={d.optionIndex} color={tuya ? 'sealText' : 'ink'}>
               {tuya ? 'Tu respuesta, ' : ''}
-              {nombreOpcion(item, d.optionIndex)}: {d.error}
+              {nombreOpcion(item, d.optionIndex)}: {pegar(d.error)}
             </Text>
           );
         })}
@@ -95,7 +98,7 @@ function Paso({ titulo, texto }: { titulo: string; texto: string }) {
       <Text variant="label" color="graphite">
         {titulo}
       </Text>
-      <Text>{texto}</Text>
+      <Text>{pegar(texto)}</Text>
     </View>
   );
 }

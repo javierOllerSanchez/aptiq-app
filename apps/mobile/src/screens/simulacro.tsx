@@ -231,39 +231,49 @@ function SimulacroEnCurso({ store, id, items, usado, exam: initial }: Listo & { 
       <Pregunta item={item} />
       <Opciones item={item} stateOf={stateOf} onPress={(i) => setExam((e) => answer(e, e.current, i, Date.now()))} />
       <View style={styles.row}>
-        <Button
-          label="Dejar en blanco"
-          onPress={() => setExam((e) => clear(e, e.current, Date.now()))}
-          disabled={exam.answers[exam.current] === null}
-          variant="secondary"
-        />
-        <Button
-          label={exam.marked[exam.current] ? 'Quitar marca' : 'Marcar para revisar'}
-          onPress={() => setExam((e) => mark(e, e.current))}
-          variant="secondary"
-        />
+        <View style={styles.celda}>
+          <Button
+            label="Dejar en blanco"
+            onPress={() => setExam((e) => clear(e, e.current, Date.now()))}
+            disabled={exam.answers[exam.current] === null}
+            variant="secondary"
+          />
+        </View>
+        <View style={styles.celda}>
+          <Button
+            label={exam.marked[exam.current] ? 'Quitar marca' : 'Marcar para revisar'}
+            onPress={() => setExam((e) => mark(e, e.current))}
+            variant="secondary"
+          />
+        </View>
       </View>
       <View style={styles.row}>
-        <Button
-          label="Anterior"
-          onPress={() => setExam((e) => goTo(e, Math.max(0, e.current - 1)))}
-          disabled={exam.current === 0}
-          variant="secondary"
-        />
-        <Button
-          label="Siguiente"
-          onPress={() => setExam((e) => goTo(e, Math.min(e.total - 1, e.current + 1)))}
-          disabled={exam.current === exam.total - 1}
-          variant="secondary"
-        />
-        <Button
-          label="Siguiente marcada"
-          onPress={() =>
-            siguienteMarcada !== undefined && setExam((e) => goTo(e, siguienteMarcada))
-          }
-          disabled={siguienteMarcada === undefined}
-          variant="secondary"
-        />
+        <View style={styles.celda}>
+          <Button
+            label="Anterior"
+            onPress={() => setExam((e) => goTo(e, Math.max(0, e.current - 1)))}
+            disabled={exam.current === 0}
+            variant="secondary"
+          />
+        </View>
+        <View style={styles.celda}>
+          <Button
+            label="Siguiente"
+            onPress={() => setExam((e) => goTo(e, Math.min(e.total - 1, e.current + 1)))}
+            disabled={exam.current === exam.total - 1}
+            variant="secondary"
+          />
+        </View>
+        <View style={styles.celda}>
+          <Button
+            label="Siguiente marcada"
+            onPress={() =>
+              siguienteMarcada !== undefined && setExam((e) => goTo(e, siguienteMarcada))
+            }
+            disabled={siguienteMarcada === undefined}
+            variant="secondary"
+          />
+        </View>
       </View>
       <Button label="Entregar simulacro" onPress={entregar} variant="primary" />
       <Text variant="caption" color="graphite">
@@ -300,4 +310,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   row: { flexDirection: 'row', flexWrap: 'wrap', gap: tokens.spacing.s },
+  // Cada botón llena el hueco de su fila: sin anchos desiguales ni bordes dentados.
+  celda: { flexGrow: 1 },
 });

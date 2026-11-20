@@ -22,7 +22,7 @@ export function Button({
   accessibilityHint?: string;
 }) {
   const content = (
-    <Text variant="button" weight={variant === 'primary' ? 700 : 600}>
+    <Text variant="button" weight={variant === 'primary' ? 700 : 600} style={styles.label}>
       {label}
     </Text>
   );
@@ -69,4 +69,6 @@ const styles = StyleSheet.create({
   },
   bordered: { borderWidth: border.default, borderColor: color.ink },
   primary: { backgroundColor: color.highlighter },
+  // Con texto grande o una etiqueta larga, las dos líneas van centradas.
+  label: { textAlign: 'center' },
 });

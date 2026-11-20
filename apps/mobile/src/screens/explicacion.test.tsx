@@ -4,7 +4,7 @@ import { fireEvent, render, screen } from '@testing-library/react-native';
 import { createMemoryStore } from '@/data/memory-store';
 import type { Reporte } from '@/reports/reports';
 
-import { Explicacion } from './explicacion';
+import { Explicacion, pegar } from './explicacion';
 
 // Fase 8 · T9 y T15 (SOP-01, EXP-04).
 
@@ -54,4 +54,10 @@ test('reportar envía la semilla y la versión, y no deja reportar dos veces', a
     }),
   ]);
   expect(screen.queryByRole('button', { name: 'Reportar un error' })).toBeNull();
+});
+
+test('el operador no se separa de su número al partir la línea', () => {
+  expect(pegar('Calculas mal la diferencia: + 25 en lugar de + 24. 98 + 24 = 122; 7 − 3')).toBe(
+    'Calculas mal la diferencia: + 25 en lugar de + 24. 98 + 24 = 122; 7 − 3',
+  );
 });
