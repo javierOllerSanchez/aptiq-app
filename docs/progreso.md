@@ -13,9 +13,28 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 | 6 · Progreso y adaptativo | Cerrada (comprobaciones en el móvil pendientes del propietario) | `fase-6-progreso` · PR #13 fusionado | 2026-11-15 | Sí, 2026-11-15 |
 | 7 · Pago | Cerrada con T7 pendiente (pruebas en tiendas: faltan las cuentas de Apple, Google y RevenueCat) | `fase-7-pago` · PR #15 fusionado | 2026-11-15 | Sí, 2026-11-15 |
 | 8 · Contenido ampliado y panel interno | Cerrada (pendiente que el propietario vea un reporte en el panel y apruebe verbales y perfiles) | `fase-8-contenido` · PR #17 | 2026-11-19 | Sí, 2026-11-19 |
-| 9 · Beta y lanzamiento | En curso (parte A) | `fase-9-lanzamiento` | | |
+| 9 · Beta y lanzamiento | En curso (parte A hecha; parte B empezada) | `fase-9-lanzamiento` (sin subir) | | |
 
 ## Registro
+
+**2026-11-20 · Fase 9 · Dónde seguir (siguiente sesión)**
+
+- **Estado:** parte A terminada (T1–T8) y parte B empezada. Rama `fase-9-lanzamiento` con 16 commits, **sin subir a GitHub** y sin PR. Pruebas en verde (app 134, componentes 27), sin secretos.
+- **Cuentas:** el propietario tiene Expo, Google Play, PostHog, Sentry y RevenueCat; **falta Apple Developer** (la beta empieza solo en Android).
+- **EAS:** sesión abierta en este ordenador como `javioller` (inicio con código de dispositivo: `npx eas-cli@latest login --device --non-interactive`, el propietario aprueba en su Chrome). Proyecto `@javioller/aptiq` (`ba05ed2f-ae3d-46d5-a725-36db0b99a2b4`). Clave de firma de Android generada y guardada por Expo (decisión del propietario).
+- **Compilación de tienda en curso:** `versionCode` 4, https://expo.dev/accounts/javioller/projects/aptiq/builds/2fe246b8-d020-48d7-8474-fc979f78dd36. Las dos anteriores: una cancelada (subía la carpeta `android` de Windows; arreglado con `.easignore`) y otra fallida (subida de mapas de Sentry sin organización; desactivada con `SENTRY_DISABLE_AUTO_UPLOAD`). Ver su estado: `npx eas-cli@latest build:view 2fe246b8-d020-48d7-8474-fc979f78dd36`.
+- **Esta compilación no vale para la beta:** no lleva variables de entorno (sin Supabase no hay cuentas; sin RevenueCat no hay compras; sin PostHog ni Sentry no se envía nada; sin web no salen las filas legales). Sirve para crear la app en Google Play y probar la subida.
+
+**Siguientes pasos, en orden:**
+
+1. Si la compilación terminó bien: el propietario crea la app en Play Console (`com.javioller.aptiq`) y **sube a mano** el `.aab` la primera vez (Google no permite otra cosa), en «Prueba cerrada». Activar «Firma de apps de Google Play». Si falló: leer el registro (viene comprimido con Brotli) y corregir.
+2. Pedir al propietario las claves públicas: PostHog (`phc_…`, región UE), Sentry (DSN con `ingest.de.sentry.io`), RevenueCat Google (`goog_…`). Darlas de alta en EAS con `eas env:create` (entorno `production` y `preview`) junto con `EXPO_PUBLIC_SUPABASE_URL` y `EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (de producción, T10), `EXPO_PUBLIC_WEB_URL` y `EXPO_PUBLIC_SOPORTE_EMAIL`.
+3. Sentry: organización, proyecto y token (secreto de EAS) → quitar `SENTRY_DISABLE_AUTO_UPLOAD` de `eas.json`. En Sentry, activar «no guardar direcciones IP».
+4. T10: Supabase de producción (proyecto nuevo en la UE, mismas migraciones y función `borrar-cuenta`, pruebas `supabase/tests/rls-*.sql`) y SMTP de Arsys (la contraseña la escribe el propietario).
+5. Borrar el registro de RevenueCat al borrar la cuenta (función `borrar-cuenta`, clave secreta de RevenueCat como secreto de Supabase). Imprescindible antes de la beta.
+6. Web: dominio, alojamiento (Cloudflare Pages), correo de soporte, texto de la licencia OFL en `apps/web/fonts/` y datos del titular en los textos legales. Revisión del abogado.
+7. Compilación de beta con todas las variables → probar en el emulador y en un móvil → Play Console: probadores (también en «Pruebas de licencia»), guía `docs/beta/guia-probadores.md` con fechas y enlaces → empezar los 14 días.
+8. Pendiente sin bloquear: añadir a `apps/mobile/.env.example` las variables `EXPO_PUBLIC_WEB_URL`, `EXPO_PUBLIC_SOPORTE_EMAIL`, `EXPO_PUBLIC_POSTHOG_KEY` y `EXPO_PUBLIC_SENTRY_DSN` (el agente no tiene permiso para abrir ese archivo).
 
 **2026-11-19 · Fase 9 · Plan**
 
