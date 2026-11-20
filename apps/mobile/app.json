@@ -36,7 +36,8 @@
       "expo-sqlite",
       "./plugins/with-windows-cmake",
       "expo-secure-store",
-      "expo-notifications"
+      "expo-notifications",
+      "@sentry/react-native"
     ],
     "experiments": {
       "typedRoutes": true,
