@@ -42,6 +42,18 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "owner": "javioller",
+    "extra": {
+      "eas": {
+        "projectId": "ba05ed2f-ae3d-46d5-a725-36db0b99a2b4"
+      }
+    },
+    "updates": {
+      "url": "https://u.expo.dev/ba05ed2f-ae3d-46d5-a725-36db0b99a2b4"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
     }
   }
 }
