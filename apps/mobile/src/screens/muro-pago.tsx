@@ -4,6 +4,9 @@ import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { AccessibilityInfo, Platform, Pressable, StyleSheet, View } from 'react-native';
 
+import { track } from '@/analytics/analytics';
+import { useStore } from '@/data/provider';
+import { abrir, urlDe } from '@/legal';
 import type { Oferta, Periodo, Resultado } from '@/purchases/api';
 import { usePlan } from '@/purchases/provider';
 import { Loading } from '@/screens/loading';
@@ -26,13 +29,14 @@ const MENSAJES: Record<Exclude<Resultado, 'ok'>, string | null> = {
 
 const VENTAJAS = [
   'Sesión de hoy y simulacros oficiales ilimitados',
-  'Los 6 tipos de pregunta y todos los niveles',
+  'Todos los tipos de pregunta y todos los niveles',
   'Nivel por aptitud, historial completo y repaso espaciado',
 ];
 
 /** Muro de pago (PAY-01, PAY-02, PAY-03): se cierra siempre y no bloquea nada de lo ya hecho. */
 export function MuroPago() {
   const { api } = usePlan();
+  const store = useStore();
   const [ofertas, setOfertas] = useState<Oferta[] | null | 'error'>(null);
   const [elegida, setElegida] = useState<string | null>(null);
   const [ocupado, setOcupado] = useState(false);
@@ -44,6 +48,10 @@ export function MuroPago() {
     setAvisoState(texto ? { texto, error } : null);
     if (texto && Platform.OS === 'ios') AccessibilityInfo.announceForAccessibility(texto);
   };
+
+  useEffect(() => {
+    track(store, 'muro_visto');
+  }, [store]);
 
   useEffect(() => {
     api
@@ -67,7 +75,10 @@ export function MuroPago() {
     setAviso(null);
     try {
       const { resultado, plan } = await api.comprar(elegida);
-      if (resultado === 'ok' && plan.premium) return cerrar();
+      if (resultado === 'ok' && plan.premium) {
+        track(store, 'compra_hecha');
+        return cerrar();
+      }
       setAviso(resultado === 'ok' ? MENSAJES.error : MENSAJES[resultado], resultado !== 'pendiente');
     } catch {
       setAviso(MENSAJES['sin-red']);
@@ -192,11 +203,48 @@ export function MuroPago() {
         </Text>
       )}
       <Button label="Restaurar compras" variant="text" onPress={restaurar} disabled={ocupado} />
+      <EnlacesLegales />
     </PaperBackground>
   );
 }
 
+/** Términos y privacidad al pie (Apple, norma 3.1.2). Prototipo aprobado: docs/prototipos/muro-pago.html. */
+function EnlacesLegales() {
+  const enlaces = [
+    { label: 'Términos de uso', url: urlDe('terminos') },
+    { label: 'Privacidad', url: urlDe('privacidad') },
+  ].filter((e): e is { label: string; url: string } => e.url !== null);
+  if (enlaces.length === 0) return null;
+  return (
+    <View style={styles.legales}>
+      {enlaces.map((e, i) => (
+        <View key={e.label} style={styles.legal}>
+          {i > 0 && (
+            <Text variant="caption" color="graphite" importantForAccessibility="no" accessibilityElementsHidden>
+              ·
+            </Text>
+          )}
+          <Pressable
+            onPress={() => abrir(e.url)}
+            accessibilityRole="link"
+            style={({ pressed }) => [styles.enlace, pressed && styles.enlacePulsado]}
+          >
+            <Text variant="caption" weight={600} style={styles.subrayado}>
+              {e.label}
+            </Text>
+          </Pressable>
+        </View>
+      ))}
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
+  legales: { flexDirection: 'row', justifyContent: 'center', alignItems: 'center' },
+  legal: { flexDirection: 'row', alignItems: 'center' },
+  enlace: { minHeight: tokens.size.touchMin, justifyContent: 'center', paddingHorizontal: tokens.spacing.s },
+  enlacePulsado: { opacity: tokens.opacity.pressed },
+  subrayado: { textDecorationLine: 'underline' },
   content: { gap: tokens.spacing.l, paddingBottom: tokens.spacing.xxl },
   cabecera: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', minHeight: tokens.size.touchMin },
   cerrar: {

@@ -21,6 +21,7 @@ import { router } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
 
+import { permisoAnalitica } from '@/analytics/analytics';
 import { useStore } from '@/data/provider';
 import type { Store } from '@/data/store';
 import { useExamClock } from '@/hooks/use-exam-clock';
@@ -149,7 +150,8 @@ function TestDeNivel({ store, items, exam }: { store: Store; items: Item[]; exam
       questions: toSaved(items, finales),
     });
     await store.setSetting('niveles', JSON.stringify(estimateLevels(porTipo)));
-    router.replace('/inicio');
+    // Último paso: datos de uso (fase 9), solo si aún no ha contestado en este móvil.
+    router.replace((await permisoAnalitica(store)) === null ? '/datos-de-uso' : '/inicio');
   }
 
   // Al agotarse los 10 minutos, lo no contestado cuenta como en blanco.

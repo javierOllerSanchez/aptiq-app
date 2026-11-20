@@ -12,6 +12,7 @@ import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 import { StyleSheet } from 'react-native';
 
+import { track } from '@/analytics/analytics';
 import { useStore } from '@/data/provider';
 import { APTITUDE_LABELS, startRun, toSaved } from '@/practice/run';
 import { expoReminderApi } from '@/notifications/expo-api';
@@ -105,6 +106,7 @@ export function Practica() {
       creada: ahora,
       questions: toSaved(items!, nuevas, [], tiempos),
     });
+    void track(store, 'sesion_terminada');
     if (!aptitud) {
       await store.setSetting(AJUSTE_HOY, diaLocal(ahora));
       syncReminders(store, expoReminderApi).catch(() => {});

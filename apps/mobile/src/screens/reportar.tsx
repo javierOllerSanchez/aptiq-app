@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { track } from '@/analytics/analytics';
 import { useAuth } from '@/auth/provider';
 import { useStore } from '@/data/provider';
 import {
@@ -68,6 +69,7 @@ export function Reportar({
       // En cuanto queda guardado en el móvil se da por hecho; el envío sigue en segundo plano
       // (sin red, se reintenta al recuperarla). Sin Supabase configurado queda pendiente.
       await guardarReporte(store, r);
+      void track(store, 'error_reportado');
       onSent();
       if (reportes) void enviarPendientes(store, reportes);
     } finally {

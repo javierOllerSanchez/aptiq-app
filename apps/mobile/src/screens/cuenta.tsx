@@ -18,6 +18,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { AUTH_MESSAGES, estadoSync, haceCuanto } from '@/auth/messages';
 import { useAuth } from '@/auth/provider';
 import { useStore } from '@/data/provider';
+import { AyudaLegal } from '@/screens/ayuda-legal';
 import { Recordatorio } from '@/screens/recordatorio';
 import { TuPlan } from '@/screens/tu-plan';
 import { TabSpacer } from '@/screens/tab-spacer';
@@ -38,6 +39,7 @@ export function Cuenta() {
           <Recordatorio />
         </>
       )}
+      <AyudaLegal />
       <TabSpacer />
     </PaperBackground>
   );

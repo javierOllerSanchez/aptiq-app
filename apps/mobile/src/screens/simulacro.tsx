@@ -9,6 +9,7 @@ import {
   mark,
   taxonomy,
 } from '@aptiq/engine';
+import { track } from '@/analytics/analytics';
 import { instantanea, perfilDe, type PerfilUsado } from '@/content/content';
 import { tokens } from '@aptiq/tokens';
 import {
@@ -93,6 +94,7 @@ export function Simulacro() {
       });
       // El reloj empieza cuando las preguntas ya están listas: preparar no gasta tiempo del examen.
       const empezado = Date.now();
+      void track(store, 'simulacro_empezado');
       setListo({
         id: `i-${empezado}`,
         usado,
@@ -166,7 +168,9 @@ function SimulacroEnCurso({ store, id, items, usado, exam: initial }: Listo & { 
         perfil: usado,
       })
       .then(() => {
-        if (closedAt !== null) router.replace({ pathname: '/resultado', params: { id } });
+        if (closedAt === null) return;
+        void track(store, 'simulacro_entregado');
+        router.replace({ pathname: '/resultado', params: { id } });
       });
   }, [closedAt, exam, id, items, store, usado]);
 

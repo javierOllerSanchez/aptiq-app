@@ -1,6 +1,8 @@
 import { fireEvent, render, screen } from '@testing-library/react-native';
+import { Linking } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { createMemoryStore } from '@/data/memory-store';
 import type { PurchasesApi } from '@/purchases/api';
 import { createLocalPurchases } from '@/purchases/local';
 import { debeAbrirMuro, tiposDe } from '@/purchases/muro';
@@ -17,6 +19,8 @@ jest.mock('expo-router', () => ({
 }));
 let mockApi: PurchasesApi = createLocalPurchases();
 jest.mock('@/purchases/provider', () => ({ usePlan: () => ({ api: mockApi }) }));
+const mockStore = createMemoryStore();
+jest.mock('@/data/provider', () => ({ useStore: () => mockStore }));
 
 const metrics = { frame: { x: 0, y: 0, width: 390, height: 844 }, insets: { top: 59, left: 0, right: 0, bottom: 34 } };
 const pintar = () =>
@@ -74,4 +78,17 @@ test('tiposDe: abstracta no tiene tipos gratis; numérica solo series', () => {
   const gratis = ['NUM.SERIE', 'DAT.COMPARA', 'VER.ORDEN'] as const;
   expect(tiposDe('abstracta', gratis)).toEqual([]);
   expect(tiposDe('numerica', gratis)).toEqual(['NUM.SERIE']);
+});
+
+test('al pie enlaza Términos de uso y Privacidad de la web (Apple, norma 3.1.2)', async () => {
+  process.env.EXPO_PUBLIC_WEB_URL = 'https://web.prueba/';
+  const abrir = jest.spyOn(Linking, 'openURL').mockResolvedValue(undefined);
+  await pintar();
+  fireEvent.press(await screen.findByRole('link', { name: 'Términos de uso' }));
+  fireEvent.press(screen.getByRole('link', { name: 'Privacidad' }));
+  expect(abrir.mock.calls.map((c) => c[0])).toEqual([
+    'https://web.prueba/terminos.html',
+    'https://web.prueba/privacidad.html',
+  ]);
+  delete process.env.EXPO_PUBLIC_WEB_URL;
 });

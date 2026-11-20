@@ -20,6 +20,7 @@ export function ListRow({
   weakLabel = 'a reforzar',
   locked = false,
   lockedLabel = 'incluido en Premium',
+  external = false,
   onPress,
 }: {
   label: string;
@@ -35,6 +36,8 @@ export function ListRow({
   locked?: boolean;
   /** Qué lee el lector de pantalla en una fila bloqueada. */
   lockedLabel?: string;
+  /** Abre una página fuera de la app (fase 9): flecha hacia fuera en lugar del chevron. */
+  external?: boolean;
   onPress: () => void;
 }) {
   const a11y = locked
@@ -43,7 +46,7 @@ export function ListRow({
   return (
     <Pressable
       onPress={onPress}
-      accessibilityRole="button"
+      accessibilityRole={external ? 'link' : 'button'}
       accessibilityLabel={a11y}
       style={({ pressed }) => [styles.row, pressed && styles.pressed]}
     >
@@ -72,7 +75,7 @@ export function ListRow({
               {value}
             </Text>
           )}
-          <Icon name="chevron" size={size.chevron} />
+          <Icon name={external ? 'external' : 'chevron'} size={size.chevron} />
         </>
       )}
     </Pressable>

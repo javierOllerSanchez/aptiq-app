@@ -61,3 +61,10 @@ test('ListRow bloqueada muestra candado y «Premium» y lo anuncia (fase 7)', as
   expect(screen.getByText('Premium')).toBeTruthy();
   expect(screen.queryByText('40 %')).toBeNull();
 });
+
+test('ListRow externa se anuncia como enlace', async () => {
+  const onPress = jest.fn();
+  await render(<ListRow label="Política de privacidad" detail="Qué guardamos" external onPress={onPress} />);
+  fireEvent.press(screen.getByRole('link', { name: 'Política de privacidad, Qué guardamos' }));
+  expect(onPress).toHaveBeenCalledTimes(1);
+});
