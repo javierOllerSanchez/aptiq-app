@@ -1,0 +1,24 @@
+# Qué no se sube a EAS Build. Si existe este archivo, EAS no lee los .gitignore:
+# repite las reglas de .gitignore y apps/mobile/.gitignore, y quita lo que la compilación no usa.
+node_modules/
+.turbo/
+coverage/
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+.DS_Store
+dist-android/
+.next/
+next-env.d.ts
+
+# apps/mobile: generadas aquí (EAS genera las suyas con prebuild)
+apps/mobile/android/
+apps/mobile/ios/
+apps/mobile/.expo/
+apps/mobile/expo-env.d.ts
+
+# No hacen falta para compilar la app (docs/ sí: el logotipo se carga de docs/marca)
+.claude/
+apps/web/
+supabase/
