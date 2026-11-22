@@ -17,6 +17,15 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 
 ## Registro
 
+**2026-11-22 · Fase 9 · App creada en Google Play**
+
+- Compilación de tienda `versionCode` 4 terminada en EAS.
+- App «Aptiq: psicotécnicos oposición» creada en Play Console, en la cuenta de desarrollador **Inkfinity Software** (sesión dev@inkfinitysoft.com; cuenta personal: aplica la regla de 12 probadores durante 14 días). Paquete `com.javioller.aptiq`, español (España), app sin coste; declaraciones de políticas y exportación marcadas con el permiso del propietario. Firma de apps de Google Play activa.
+- Versión «1.0.0 (4) - primera subida» en **Prueba cerrada - Alpha**, guardada como **borrador** (no enviada a revisión ni a probadores). El `.aab` lo arrastró el propietario: la extensión de Chrome no sube archivos de más de 10 MB. Copia local en `dist-android/aptiq-4.aab` (ignorada por Git).
+- Play Console avisa: declarar el estado de operador antes de febrero de 2027 (consulta al abogado).
+- Hay dos Chrome: el del perfil personal y el de Inkfinity Software; Play Console se usa desde el segundo.
+- **Siguiente:** pasos 2 a 8 de abajo (claves públicas, Sentry, Supabase de producción, RevenueCat al borrar cuenta, web, compilación de beta). Con la versión subida ya se pueden crear en Play Console la suscripción y los pases para RevenueCat.
+
 **2026-11-20 · Fase 9 · Dónde seguir (siguiente sesión)**
 
 - **Estado:** parte A terminada (T1–T8) y parte B empezada. Rama `fase-9-lanzamiento` con 16 commits, **sin subir a GitHub** y sin PR. Pruebas en verde (app 134, componentes 27), sin secretos.
@@ -27,7 +36,7 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 
 **Siguientes pasos, en orden:**
 
-1. Si la compilación terminó bien: el propietario crea la app en Play Console (`com.javioller.aptiq`) y **sube a mano** el `.aab` la primera vez (Google no permite otra cosa), en «Prueba cerrada». Activar «Firma de apps de Google Play». Si falló: leer el registro (viene comprimido con Brotli) y corregir.
+1. ~~Crear la app en Play Console y subir el `.aab`~~ hecho el 2026-11-22 (arriba).
 2. Pedir al propietario las claves públicas: PostHog (`phc_…`, región UE), Sentry (DSN con `ingest.de.sentry.io`), RevenueCat Google (`goog_…`). Darlas de alta en EAS con `eas env:create` (entorno `production` y `preview`) junto con `EXPO_PUBLIC_SUPABASE_URL` y `EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (de producción, T10), `EXPO_PUBLIC_WEB_URL` y `EXPO_PUBLIC_SOPORTE_EMAIL`.
 3. Sentry: organización, proyecto y token (secreto de EAS) → quitar `SENTRY_DISABLE_AUTO_UPLOAD` de `eas.json`. En Sentry, activar «no guardar direcciones IP».
 4. T10: Supabase de producción (proyecto nuevo en la UE, mismas migraciones y función `borrar-cuenta`, pruebas `supabase/tests/rls-*.sql`) y SMTP de Arsys (la contraseña la escribe el propietario).
