@@ -17,6 +17,13 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 
 ## Registro
 
+**2026-11-22 · Fase 9 · Supabase de producción (T10, en parte)**
+
+- No se pudo crear un proyecto nuevo (límite de 2 proyectos gratuitos activos del propietario). Decisión: `aptiq` es producción (ver `docs/decisiones.md`).
+- Comprobado: las 8 migraciones del repositorio aplicadas, función `borrar-cuenta` activa (sin cambios desde el 2026-11-15), avisos de seguridad solo los ya conocidos (`metricas()` aceptado; contraseñas filtradas no aplica: se entra con código).
+- URL y clave publicable dadas de alta en EAS. Las 5 variables de la app ya están en EAS; faltan `EXPO_PUBLIC_WEB_URL` y `EXPO_PUBLIC_SOPORTE_EMAIL` (dominio pendiente).
+- **Falta de T10:** SMTP de Arsys (la contraseña la escribe el propietario en el panel de Supabase) y plantilla del correo con el código; borrar los 2 reportes de prueba antes de la beta (con confirmación). Las pruebas `supabase/tests/rls-*.sql` no se han vuelto a ejecutar porque el esquema no ha cambiado desde la fase 8, salvo la columna `perfil`, que hereda la RLS de su tabla.
+
 **2026-11-22 · Fase 9 · Claves de PostHog, Sentry y RevenueCat**
 
 - PostHog (UE), Sentry (`aptiq`, UE) y RevenueCat («Aptiq», app de Play Store) listos en las cuentas de Inkfinity Software; sus claves públicas, dadas de alta en EAS para `production` y `preview` (detalle en `docs/decisiones.md`).
