@@ -17,6 +17,12 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 
 ## Registro
 
+**2026-11-23 · Fase 9 · Compras de Google Play (en curso)**
+
+- Diseño confirmado por el propietario (ver `docs/decisiones.md`): suscripción `premium` con mensual, anual (7 días gratis) y pases de prepago de 3 y 6 meses.
+- **Bloqueo:** Play Console no deja crear suscripciones sin **cuenta de comercio de Google Payments** en Inkfinity Software. La crea el propietario (datos fiscales y bancarios). Afecta también a la declaración de «comerciante» (abogado).
+- Después: crear los productos en Play Console, la cuenta de servicio de Google Cloud con su clave JSON (la crea y sube a RevenueCat el propietario; el agente guía) y el permiso, productos y oferta en RevenueCat.
+
 **2026-11-22 · Fase 9 · Supabase de producción (T10, en parte)**
 
 - No se pudo crear un proyecto nuevo (límite de 2 proyectos gratuitos activos del propietario). Decisión: `aptiq` es producción (ver `docs/decisiones.md`).
