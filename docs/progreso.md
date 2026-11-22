@@ -17,6 +17,17 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 
 ## Registro
 
+**2026-11-22 · Fase 9 · Claves de PostHog, Sentry y RevenueCat**
+
+- PostHog (UE), Sentry (`aptiq`, UE) y RevenueCat («Aptiq», app de Play Store) listos en las cuentas de Inkfinity Software; sus claves públicas, dadas de alta en EAS para `production` y `preview` (detalle en `docs/decisiones.md`).
+- **Pendiente del propietario:** confirmar el correo de RevenueCat (aviso en su panel).
+- **Pendiente en RevenueCat y Google Play:**
+  1. Cuenta de servicio de Google Cloud con acceso a Play Console, y su JSON subido a RevenueCat (sin ella no valida compras).
+  2. En Play Console: suscripción (mensual y anual con 7 días de prueba) y pases de 3 y 6 meses.
+  3. En RevenueCat: permiso `premium`, productos y oferta por defecto.
+- **Pendiente en Sentry:** token de organización (secreto de EAS), `SENTRY_ORG=inkfinity-software`, `SENTRY_PROJECT=aptiq` y quitar `SENTRY_DISABLE_AUTO_UPLOAD`; activar «no guardar IP» (cambiar ajustes: pedir permiso).
+- Sigue faltando para la compilación de beta: Supabase de producción (T10), web con dominio (`EXPO_PUBLIC_WEB_URL`, correo de soporte).
+
 **2026-11-22 · Fase 9 · App creada en Google Play**
 
 - Compilación de tienda `versionCode` 4 terminada en EAS.
@@ -37,7 +48,7 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 **Siguientes pasos, en orden:**
 
 1. ~~Crear la app en Play Console y subir el `.aab`~~ hecho el 2026-11-22 (arriba).
-2. Pedir al propietario las claves públicas: PostHog (`phc_…`, región UE), Sentry (DSN con `ingest.de.sentry.io`), RevenueCat Google (`goog_…`). Darlas de alta en EAS con `eas env:create` (entorno `production` y `preview`) junto con `EXPO_PUBLIC_SUPABASE_URL` y `EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (de producción, T10), `EXPO_PUBLIC_WEB_URL` y `EXPO_PUBLIC_SOPORTE_EMAIL`.
+2. ~~Claves públicas en EAS~~ hecho el 2026-11-22 (PostHog, Sentry, RevenueCat). Faltan las de Supabase de producción, la web y el correo. Antes: PostHog (`phc_…`, región UE), Sentry (DSN con `ingest.de.sentry.io`), RevenueCat Google (`goog_…`). Darlas de alta en EAS con `eas env:create` (entorno `production` y `preview`) junto con `EXPO_PUBLIC_SUPABASE_URL` y `EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (de producción, T10), `EXPO_PUBLIC_WEB_URL` y `EXPO_PUBLIC_SOPORTE_EMAIL`.
 3. Sentry: organización, proyecto y token (secreto de EAS) → quitar `SENTRY_DISABLE_AUTO_UPLOAD` de `eas.json`. En Sentry, activar «no guardar direcciones IP».
 4. T10: Supabase de producción (proyecto nuevo en la UE, mismas migraciones y función `borrar-cuenta`, pruebas `supabase/tests/rls-*.sql`) y SMTP de Arsys (la contraseña la escribe el propietario).
 5. Borrar el registro de RevenueCat al borrar la cuenta (función `borrar-cuenta`, clave secreta de RevenueCat como secreto de Supabase). Imprescindible antes de la beta.
