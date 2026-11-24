@@ -17,6 +17,12 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 
 ## Registro
 
+**2026-11-24 · Fase 9 · Web (en curso)**
+
+- Decisiones del propietario: web en **`aptiq.inkfinitysoft.com`**; correo de soporte **`support@inkfinitysoft.com`** (comprobar que el buzón existe en Arsys); el propietario pidió que el agente redacte los datos del titular, pero el NIF y el domicilio no se pueden inventar: **pedírselos** (y confirmar si el titular es persona física o «Inkfinity Software»).
+- Hallazgo: el DNS de `inkfinitysoft.com` está en **Cloudflare** (la web actual se sirve por Cloudflare), así que el propietario ya tiene cuenta: publicar `apps/web` en Cloudflare Pages y añadir el subdominio es directo.
+- Siguiente: licencia OFL en `apps/web/fonts/` (los textos están en `node_modules/@expo-google-fonts/*/LICENSE_FONT`), completar textos legales y web con dominio y correo, publicar, y dar de alta `EXPO_PUBLIC_WEB_URL` y `EXPO_PUBLIC_SOPORTE_EMAIL` en EAS. Comprobar mañana la validación de RevenueCat («Check again»).
+
 **2026-11-23 · Fase 9 · Compras de Google Play (en curso)**
 
 - Diseño confirmado por el propietario (ver `docs/decisiones.md`): suscripción `premium` con mensual, anual (7 días gratis) y pases de prepago de 3 y 6 meses.
