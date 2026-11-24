@@ -21,6 +21,8 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 
 - Diseño confirmado por el propietario (ver `docs/decisiones.md`): suscripción `premium` con mensual, anual (7 días gratis) y pases de prepago de 3 y 6 meses.
 - **Bloqueo:** Play Console no deja crear suscripciones sin **cuenta de comercio de Google Payments** en Inkfinity Software. La crea el propietario (datos fiscales y bancarios). Afecta también a la declaración de «comerciante» (abogado).
+- **2026-11-24 · Hecho en Play Console:** el propietario creó el perfil de pagos. Suscripción `premium` («Aptiq Premium») con los planes `mensual` (7,99 €), `anual` (39,99 €, con la oferta `prueba-7-dias` solo para quien nunca la tuvo), `pase-3-meses` (19,99 €, prepago) y `pase-6-meses` (29,99 €, prepago), todos **activos**. Precios con IVA en España; Google exige precio en todos los países, así que se fijó el mismo precio base sin IVA y Google lo convierte (dónde se vende lo limita la disponibilidad de la app por países: **pendiente limitarla a España** en la prueba cerrada).
+- Avisos de Play Console para el propietario: apuntarse a la **comisión del 15 %** (grupo de cuentas y aceptar términos) y declarar el estado de operador antes del 1 de febrero de 2027.
 - Después: crear los productos en Play Console, la cuenta de servicio de Google Cloud con su clave JSON (la crea y sube a RevenueCat el propietario; el agente guía) y el permiso, productos y oferta en RevenueCat.
 
 **2026-11-22 · Fase 9 · Supabase de producción (T10, en parte)**
