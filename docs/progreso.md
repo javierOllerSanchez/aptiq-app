@@ -17,6 +17,14 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 
 ## Registro
 
+**2026-11-25 · Fase 9 · Parte C · Pulido de la experiencia (en curso)**
+
+- Plan `docs/planes/fase-9-experiencia.md` aprobado por el propietario con las cinco propuestas; rama `fase-9-experiencia` (sale de `fase-9-lanzamiento`).
+- Hecho (C1–C9): componentes nuevos (hoja inferior, escala al pulsar, esqueletos, botón de icono y hoja «i», cuadrícula de preguntas, selector de mes, cifra que cuenta), pestañas con pastilla deslizante y papel opaco debajo; Inicio según el prototipo; simulacro con cabecera fija (cronómetro siempre visible, SIM-02), bandera, cuadrícula, barra de 3 acciones, deslizar y series en casillas; resultado con nota que cuenta, sello animado, «a reforzar» solo con datos y Premium como tarjeta (sin muro automático); práctica con cerrar, vibración de acierto y fallo y explicación por capas; repaso de uno en uno; onboarding con bienvenida y mes del examen; Cuenta con el plan primero.
+- Comprobado: `pnpm typecheck`, `pnpm lint` y `pnpm test` en verde (motor, 32 de componentes y 137 de la app) y recorrido en el emulador Android (versión de desarrollo) con capturas.
+- Pendiente: revisión de `revisor-interfaz`, `review-animations` y accesibilidad con TalkBack; Maestro actualizado pero sin ejecutar (no está instalado); los textos de las pantallas secundarias (recordatorio, datos de uso) sin repasar a fondo (C10).
+- Para compilar en este ordenador hace falta `JAVA_HOME` con el JDK 17 que descargó Gradle (`%USERPROFILE%\.gradle\jdks\eclipse_adoptium-17-amd64-windows.2`) y `ANDROID_HOME`; el Java por defecto (27) es demasiado nuevo para Gradle.
+
 **2026-11-25 · Fase 9 · Series sin términos repetidos (EXP-01, NFR-07)**
 
 - `NUM.SERIE` v4 y `LET.SERIE` v5 descartan y reintentan toda serie con un término repetido seguido: «× 2 − 3» desde 3 daba «3, 3, 3, 3, 3» con un «Observa» falso, y en las intercaladas las subseries coincidían (en letras, ~30 % de los niveles 4 y 5). Pruebas con fast-check que fallaban antes; `pnpm test`, `test:stress` y `revisor-contenido` en verde (sin bloqueantes).
