@@ -11,9 +11,9 @@ import {
 } from '@aptiq/ui';
 import * as Haptics from 'expo-haptics';
 import { router, useLocalSearchParams } from 'expo-router';
-import { useEffect, useRef, useState } from 'react';
+import { type ComponentRef, useEffect, useRef, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import Animated, { FadeIn, useReducedMotion } from 'react-native-reanimated';
+import Animated, { FadeIn, FadeInRight, useReducedMotion } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { track } from '@/analytics/analytics';
@@ -47,7 +47,7 @@ export function Practica() {
   // Tiempo de cada respuesta (métricas ADM-02): desde que se ve la pregunta hasta confirmar.
   const [tiempos, setTiempos] = useState<number[]>([]);
   const vistaDesde = useRef(0);
-  const scroll = useRef<ScrollView>(null);
+  const scroll = useRef<ComponentRef<typeof ScrollView>>(null);
   const insets = useSafeAreaInsets();
   const reduce = useReducedMotion();
   useEffect(() => {
@@ -101,12 +101,10 @@ export function Practica() {
     return i === selected ? 'wrong' : 'empty';
   }
 
-  // Pregunta nueva: fundido y 24 px desde la derecha (con «reducir movimiento», solo fundido).
+  // Pregunta nueva: fundido y unos 24 px desde la derecha (con «reducir movimiento», solo fundido).
   const entra = reduce
     ? FadeIn.duration(tokens.motion.durationBase)
-    : FadeIn.duration(tokens.motion.durationBase)
-        .easing(easeOut)
-        .withInitialValues({ opacity: 0, transform: [{ translateX: tokens.spacing.xxl }] });
+    : FadeInRight.duration(tokens.motion.durationBase).easing(easeOut);
 
   function confirmar() {
     // Vibración distinta para acierto y fallo (guía §8); la fila ya se rellena o tiembla.

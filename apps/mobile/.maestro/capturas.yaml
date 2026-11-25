@@ -3,8 +3,11 @@ appId: com.javioller.aptiq
 ---
 - launchApp:
     clearState: true
+# Parte C de la fase 9: bienvenida antes de la oposición.
+- assertVisible: "Saca tu apto."
+- tapOn: "Empezar"
 - assertVisible: "¿Qué oposición preparas?"
-- takeScreenshot: capturas/fase-4-onboarding
+- takeScreenshot: capturas/fase-9-onboarding
 - tapOn: "Guardia Civil · Escala de Cabos y Guardias"
 - takeScreenshot: capturas/fase-4-fecha
 - tapOn: "Hacer el test de nivel"
@@ -34,14 +37,11 @@ appId: com.javioller.aptiq
 - tapOn: "(Empezar|Continuar) simulacro"
 - tapOn: "Opción B, .*"
 - takeScreenshot: capturas/fase-4-simulacro
-- scrollUntilVisible:
-    element: "Entregar simulacro"
+- tapOn: "Ver todas las preguntas"
+- takeScreenshot: capturas/fase-9-cuadricula
 - tapOn: "Entregar simulacro"
 - tapOn: "Entregar ahora"
-# Fase 7: al terminar el primer simulacro se abre el muro de pago; se cierra con la X.
-- assertVisible: "Entrena sin límites hasta el examen"
-- takeScreenshot: capturas/fase-7-muro-pago
-- tapOn: "Cerrar, seguir con el plan gratuito"
+# Parte C de la fase 9: el muro ya no tapa la nota; Premium es una tarjeta del resultado.
 - takeScreenshot: capturas/fase-4-resultado
 - scrollUntilVisible:
     element: "Ver explicaciones"

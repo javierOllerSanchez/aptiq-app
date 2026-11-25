@@ -2,7 +2,7 @@ import type { Item } from '@aptiq/engine';
 import { tokens } from '@aptiq/tokens';
 import { Button, IconButton, PaperBackground, Text } from '@aptiq/ui';
 import { router, useLocalSearchParams } from 'expo-router';
-import { useEffect, useRef, useState } from 'react';
+import { type ComponentRef, useEffect, useRef, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { FadeIn } from 'react-native-reanimated';
@@ -31,7 +31,7 @@ export function Repasar() {
   const [fallos, setFallos] = useState<Fallo[] | null>(null);
   const [retiradas, setRetiradas] = useState(0);
   const [i, setI] = useState(0);
-  const scroll = useRef<ScrollView>(null);
+  const scroll = useRef<ComponentRef<typeof ScrollView>>(null);
   const insets = useSafeAreaInsets();
   // Cada pregunta nueva empieza arriba.
   useEffect(() => {

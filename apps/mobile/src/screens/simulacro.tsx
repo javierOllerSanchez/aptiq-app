@@ -27,10 +27,15 @@ import {
 } from '@aptiq/ui';
 import * as Haptics from 'expo-haptics';
 import { router, Stack } from 'expo-router';
-import { useEffect, useRef, useState } from 'react';
+import { type ComponentRef, useEffect, useRef, useState } from 'react';
 import { BackHandler, ScrollView, StyleSheet, View } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
-import Animated, { FadeIn, useReducedMotion } from 'react-native-reanimated';
+import Animated, {
+  FadeIn,
+  FadeInLeft,
+  FadeInRight,
+  useReducedMotion,
+} from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { loadProgress, permiso } from '@/progress/data';
@@ -128,7 +133,7 @@ function SimulacroEnCurso({ store, id, items, usado, exam: initial }: Listo & { 
   const remaining = useExamClock(exam);
   const item = items[exam.current];
   const cerrado = useRef(false);
-  const scroll = useRef<ScrollView>(null);
+  const scroll = useRef<ComponentRef<typeof ScrollView>>(null);
   // Tiempo en cada pregunta (métricas ADM-02): se suma cada vez que se sale de ella.
   const tiempos = useRef<number[]>([]);
   const vista = useRef<{ i: number; desde: number } | null>(null);
@@ -211,15 +216,12 @@ function SimulacroEnCurso({ store, id, items, usado, exam: initial }: Listo & { 
   const stateOf = (i: number): OptionState =>
     exam.answers[exam.current] === i ? 'marked' : 'empty';
 
-  // Entrada de la pregunta nueva: fundido y 24 px desde el lado hacia el que se avanza.
+  // Entrada de la pregunta nueva: fundido y unos 24 px desde el lado hacia el que se avanza.
   const entra = reduce
     ? FadeIn.duration(tokens.motion.durationBase)
-    : FadeIn.duration(tokens.motion.durationBase)
-        .easing(easeOut)
-        .withInitialValues({
-          opacity: 0,
-          transform: [{ translateX: sentido * tokens.spacing.xxl }],
-        });
+    : (sentido === 1 ? FadeInRight : FadeInLeft)
+        .duration(tokens.motion.durationBase)
+        .easing(easeOut);
 
   return (
     <PaperBackground style={styles.pantalla}>

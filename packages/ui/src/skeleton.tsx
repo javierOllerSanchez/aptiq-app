@@ -23,7 +23,7 @@ export function Skeleton({
   width?: DimensionValue;
   r?: number;
 }) {
-  const o = useSharedValue(opacity.skeletonLow);
+  const o = useSharedValue<number>(opacity.skeletonLow);
   useEffect(() => {
     // Con «reducir movimiento», Reanimated deja el bloque quieto (ReduceMotion.System).
     o.set(withRepeat(withTiming(1, { duration: motion.pulse, easing: easeOut }), -1, true));

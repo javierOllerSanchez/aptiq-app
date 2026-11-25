@@ -53,14 +53,11 @@ appId: com.javioller.aptiq
 - scrollUntilVisible:
     element: "Pregunta 80 de 80"
     direction: UP
-- scrollUntilVisible:
-    element: "Entregar simulacro"
-- tapOn: "Entregar simulacro"
+# En la última pregunta, «Siguiente» pasa a «Entregar» y abre la hoja de confirmación.
+- tapOn: "Entregar"
 - tapOn: "Entregar ahora"
-# Fase 7: al terminar el primer simulacro se abre el muro de pago; se cierra con la X.
-- assertVisible: "Entrena sin límites hasta el examen"
-- tapOn: "Cerrar, seguir con el plan gratuito"
-- assertVisible: "Resultado · simulacro.*"
+# Parte C de la fase 9: el muro ya no tapa la nota; Premium es una tarjeta del resultado.
+- assertVisible: "(?i)simulacro.*guardia civil"
 - assertVisible: '\(.* aciertos? − .* fallos? ÷ 3\) × 30/80 = .*'
 - scrollUntilVisible:
     element: "Ver explicaciones"

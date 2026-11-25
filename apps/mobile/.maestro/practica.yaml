@@ -17,8 +17,10 @@ appId: com.javioller.aptiq
       - scrollUntilVisible:
           element: "Confirmar"
       - tapOn: "Confirmar"
+      # Parte C de la fase 9: el paso a paso empieza plegado.
+      - tapOn: "Paso a paso"
       - scrollUntilVisible:
-          element: "Truco"
+          element: "(?i)truco"
       - scrollUntilVisible:
           element: "(Siguiente|Terminar sesión)"
       - tapOn: "(Siguiente|Terminar sesión)"
