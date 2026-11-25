@@ -86,6 +86,13 @@ En React Native: `expo-blur` (`BlurView`, intensidad equivalente) + capa de colo
 | `ListRow` | Fila de 52 con separador al 14 %; nombre 17/600, valor en mono 15/600, chevron. Valor en `sealText` si es el punto débil. |
 | `PaperBackground` | Papel con cuadrícula. |
 | `Logo` | SVG oficial de `docs/marca/`. Nunca recrearlo con una fuente. |
+| `Sheet` | Hoja inferior propia sobre `paperCard`, radio 24 arriba, asa de 36 × 4 en `line`, fondo oscurecido `ink` al 32 %. Se cierra deslizando o tocando fuera. Sustituye a los diálogos nativos. |
+| `PressScale` | Envoltorio de todo lo pulsable: escala a 0,97 mientras se mantiene pulsado (150 ms). |
+| `Skeleton` | Bloques `ink` al 6 % con radio del elemento que sustituyen; laten de 6 % a 10 % (900 ms). Sustituye a «Cargando…». |
+| `InfoButton` | Icono «i» de 22 en círculo de 44 que abre una `Sheet` con la fuente, el método y el aviso de independencia. |
+| `QuestionGrid` | Cuadrícula del simulacro: casillas de 40 con el número en mono. Respondida `ink`, en blanco borde `ink`, marcada con bandera, actual `highlighter`. |
+| `MonthPicker` | Año en píldoras y 12 meses en cuadrícula de 3 columnas, con «Aún no lo sé». |
+| `CountUp` | Cifra que cuenta hasta su valor en 600 ms ease-out (sin animación con «reducir movimiento»). |
 
 ## 6. Pantallas de referencia
 
@@ -120,6 +127,13 @@ El canvas de diseño original está en [Aptiq — Identidad visual](https://clau
 - Icono de app: tres burbujas sobre `ink`, la central en `highlighter`. Variante: sobre `highlighter` con burbujas en `ink`.
 - Área de respeto: la altura de la x a cada lado. Tamaño mínimo del logotipo: 64 px de ancho.
 
+## 7 bis. Densidad y acciones (aprobado el 2026-11-25)
+
+- **Como mucho una línea de texto de apoyo por bloque.** El método, la fuente y la independencia van en la hoja de `InfoButton`. `SourceNote` sigue visible al empezar cada simulacro.
+- **Una acción principal y como mucho una secundaria a la vista.** El resto, en iconos con etiqueta de accesibilidad o en una `Sheet`.
+- Sin datos no se muestra «0 %»: se muestra «—» y «Sin empezar».
+- Cada pantalla de foco (simulacro, práctica, resultado, repaso) tiene un botón de cerrar arriba a la izquierda y no muestra la barra de pestañas.
+
 ## 8. Movimiento
 
 Criterio de las skills de Emil Kowalski (`emil-design-eng`, `animate-expo`) con estas reglas:
@@ -131,6 +145,16 @@ Criterio de las skills de Emil Kowalski (`emil-design-eng`, `animate-expo`) con 
   - avance de la casilla de progreso;
   - aparición del sello (escala de 1,15 a 1 con giro, 250 ms).
 - Vibración ligera al marcar y al confirmar.
+- Momentos añadidos el 2026-11-25:
+  - entrar en una pantalla: fundido y 8 px hacia arriba; tarjetas escalonadas 40 ms;
+  - pulsar: escala 0,97 (`PressScale`);
+  - confirmar en práctica: acierto con relleno de subrayador y vibración de éxito; fallo con un temblor horizontal de 4 px (una vez) y vibración de error;
+  - cambiar de pregunta: desplazamiento lateral de 24 px con fundido;
+  - resultado: `CountUp` de la nota, barras que crecen escalonadas y el sello al final;
+  - nivel: las burbujas se rellenan una tras otra;
+  - hojas: suben desde abajo (250 ms) con el fondo oscurecido;
+  - pestañas: la pastilla `ink` se desliza a la pestaña activa;
+  - cronómetro: en el último minuto el tiempo pasa a `sealText` (estado).
 - Respetar «reducir movimiento»: sin escalas ni desplazamientos, solo fundidos.
 
 ## 9. Tono de los textos
