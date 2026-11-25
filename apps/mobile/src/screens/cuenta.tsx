@@ -40,18 +40,17 @@ export function Cuenta() {
   const { auth, session } = useAuth();
   return (
     <PaperBackground scroll style={styles.content}>
-      {!auth ? (
-        <SinConfigurar />
-      ) : session ? (
+      {/* Con sesión, el plan y el recordatorio van dentro de ConSesion, antes de «Tus datos». */}
+      {auth && session ? (
         <ConSesion email={session.user.email ?? ''} />
       ) : (
-        <Invitacion />
-      )}
-      {/* Con sesión va dentro de ConSesion, antes de «Tus datos». El recordatorio no necesita cuenta. */}
-      {!(auth && session) && (
         <>
+          <Text variant="screenTitle" accessibilityRole="header">
+            Cuenta
+          </Text>
           <TuPlan />
           <Recordatorio />
+          {auth ? <Invitacion /> : <SinConfigurar />}
         </>
       )}
       <AyudaLegal />
@@ -62,14 +61,9 @@ export function Cuenta() {
 
 function SinConfigurar() {
   return (
-    <>
-      <Text variant="screenTitle" accessibilityRole="header">
-        Cuenta
-      </Text>
-      <Text color="graphite">
-        Las cuentas no están disponibles en esta versión. Tu progreso sigue guardado en el móvil.
-      </Text>
-    </>
+    <Text color="graphite">
+      Las cuentas no están disponibles en esta versión. Tu progreso sigue guardado en el móvil.
+    </Text>
   );
 }
 
@@ -112,14 +106,11 @@ function Invitacion() {
 
   return (
     <>
-      <Text variant="screenTitle" accessibilityRole="header">
-        Guarda tu progreso
-      </Text>
-      <Text color="graphite">
-        Con una cuenta, tus simulacros y tu nivel se conservan si cambias de móvil o lo pierdes. Es
-        opcional: puedes seguir sin ella.
-      </Text>
-      <GlassCard accessible={false}>
+      <GlassCard accessible={false} style={styles.seccion}>
+        <Text variant="questionTitle" accessibilityRole="header">
+          Guarda tu progreso
+        </Text>
+        <Text color="graphiteStrong">Opcional: conserva tu nivel si cambias de móvil.</Text>
         <View style={styles.campo}>
           <Text
             variant="label"
@@ -159,16 +150,12 @@ function Invitacion() {
           </Text>
         </View>
       </GlassCard>
-      <Text variant="label" color="graphite" accessibilityRole="header" style={styles.seccion}>
-        Al crear la cuenta
-      </Text>
-      <Text color="graphite">
+      <Text variant="caption" color="graphite">
         {guardado && guardado.simulacros + guardado.sesiones > 0
-          ? `Lo que ya tienes guardado en este móvil (${plural(guardado.simulacros, 'simulacro', 'simulacros')} y ${plural(guardado.sesiones, 'sesión', 'sesiones')}) se sube a tu cuenta.`
+          ? `Se suben ${plural(guardado.simulacros, 'simulacro', 'simulacros')} y ${plural(guardado.sesiones, 'sesión', 'sesiones')} de este móvil.`
           : 'Lo que hagas a partir de ahora se guarda también en tu cuenta.'}{' '}
-        Solo guardamos tus respuestas, fechas y ajustes; nunca el texto de las preguntas.
+        Solo respuestas, fechas y ajustes; nunca el texto de las preguntas.
       </Text>
-      <Button label="Ahora no" variant="text" onPress={() => router.navigate('/inicio')} />
     </>
   );
 }

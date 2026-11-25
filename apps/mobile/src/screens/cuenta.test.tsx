@@ -82,8 +82,6 @@ test('invitación: avisa de lo que se subirá, envía el código y pasa a la pan
       params: { email: 'ana@correo.es' },
     }),
   );
-  await fireEvent.press(screen.getByRole('button', { name: 'Ahora no' }));
-  expect(mockNavigate).toHaveBeenCalledWith('/inicio');
 });
 
 test('invitación: un error del servidor se explica con texto', async () => {

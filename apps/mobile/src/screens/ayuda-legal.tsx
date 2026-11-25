@@ -36,19 +36,24 @@ export function AyudaLegal() {
 
   return (
     <View style={styles.bloque}>
-      <Text variant="label" color="graphite" accessibilityRole="header" style={styles.seccion}>
-        Ayuda
-      </Text>
-      <View>
-        {pagina('ayuda', 'Preguntas frecuentes', 'Cuentas, pagos, sin conexión')}
-        {correo && (
-          <ListRow
-            label="Escribir a soporte"
-            detail={correo}
-            onPress={() => abrir(`mailto:${correo}?subject=${encodeURIComponent('Aptiq')}`)}
-          />
-        )}
-      </View>
+      {/* Sin web ni correo configurados no queda nada que enseñar: sin cabecera vacía. */}
+      {(urlDe('ayuda') || correo) && (
+        <>
+          <Text variant="label" color="graphite" accessibilityRole="header" style={styles.seccion}>
+            Ayuda
+          </Text>
+          <View>
+            {pagina('ayuda', 'Preguntas frecuentes', 'Cuentas, pagos, sin conexión')}
+            {correo && (
+              <ListRow
+                label="Escribir a soporte"
+                detail={correo}
+                onPress={() => abrir(`mailto:${correo}?subject=${encodeURIComponent('Aptiq')}`)}
+              />
+            )}
+          </View>
+        </>
+      )}
 
       <Text variant="label" color="graphite" accessibilityRole="header" style={styles.seccion}>
         Privacidad

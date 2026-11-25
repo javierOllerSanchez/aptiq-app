@@ -1,5 +1,5 @@
 import { tokens } from '@aptiq/tokens';
-import { Button, Icon, PaperBackground, Text, withAlpha } from '@aptiq/ui';
+import { Button, Icon, IconButton, PaperBackground, PressScale, Text, withAlpha } from '@aptiq/ui';
 import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { AccessibilityInfo, Platform, Pressable, StyleSheet, View } from 'react-native';
@@ -117,15 +117,12 @@ export function MuroPago() {
         <Text variant="label" color="graphite">
           Aptiq Premium
         </Text>
-        <Pressable
+        <IconButton
+          icon="cross"
+          label="Cerrar, seguir con el plan gratuito"
           onPress={cerrar}
-          accessibilityRole="button"
-          accessibilityLabel="Cerrar, seguir con el plan gratuito"
-          hitSlop={tokens.spacing.s}
-          style={styles.cerrar}
-        >
-          <Icon name="cross" />
-        </Pressable>
+          bordered={false}
+        />
       </View>
       <Text variant="screenTitle" accessibilityRole="header">
         Entrena sin límites hasta el examen
@@ -146,7 +143,7 @@ export function MuroPago() {
           </Text>
           <Button
             label="Reintentar"
-            variant="secondary"
+            variant="primary"
             onPress={() => {
               setOfertas(null);
               setIntento((n) => n + 1);
@@ -163,7 +160,7 @@ export function MuroPago() {
                 ? o.porMes && `${o.porMes} al mes`
                 : null;
             return (
-              <Pressable
+              <PressScale
                 key={o.id}
                 onPress={() => setElegida(o.id)}
                 accessibilityRole="radio"
@@ -197,7 +194,7 @@ export function MuroPago() {
                   ) : null}
                 </View>
                 <Text variant="timer">{o.precio}</Text>
-              </Pressable>
+              </PressScale>
             );
           })}
         </View>
@@ -212,11 +209,14 @@ export function MuroPago() {
           {aviso.texto}
         </Text>
       )}
-      <Button
-        label={actual?.prueba ? 'Probar 7 días gratis' : 'Continuar'}
-        onPress={comprar}
-        disabled={!actual || ocupado}
-      />
+      {/* Sin planes, el único protagonista es «Reintentar»: no se enseña un botón muerto. */}
+      {ofertas !== 'error' && ofertas.length > 0 && (
+        <Button
+          label={actual?.prueba ? 'Probar 7 días gratis' : 'Continuar'}
+          onPress={comprar}
+          disabled={!actual || ocupado}
+        />
+      )}
       {actual && (
         <Text variant="caption" color="graphite">
           {esPase(actual)
