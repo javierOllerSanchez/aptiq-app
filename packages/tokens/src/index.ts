@@ -86,6 +86,9 @@ export const tokens = {
     particle: 10,
     streakBubble: 18,
     tileMin: 112,
+    // Cuenta v2: icono de cada ajuste y avatar de la ficha.
+    settingsIcon: 36,
+    avatar: 64,
   },
   rotate: { stamp: -6 },
   glass: {

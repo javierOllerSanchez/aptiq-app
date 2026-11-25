@@ -34,6 +34,38 @@ const icons = {
   info: { paths: ['M12 11v5', 'M12 7.6v.01'], circles: [[12, 12, 9]] },
   flag: { paths: ['M6 21V4', 'M6 4h11l-2.5 4L17 12H6'] },
   grid: { paths: ['M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z'] },
+  // Cuenta v2 (prototipo cuenta-v2.html).
+  bell: { paths: ['M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z', 'M10 20a2 2 0 0 0 4 0'] },
+  sound: { paths: ['M4 10v4h4l5 4V6L8 10z', 'M16.5 9a4 4 0 0 1 0 6'] },
+  calendar: {
+    paths: [
+      'M6 5h12a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z',
+      'M4 10h16M9 3v4M15 3v4',
+    ],
+  },
+  cloud: { paths: ['M7 18a4 4 0 0 1-.5-8A6 6 0 0 1 18 9a4.5 4.5 0 0 1-.5 9z'] },
+  logout: { paths: ['M10 4H5v16h5', 'M14 8l4 4-4 4M18 12H9'] },
+  help: {
+    paths: ['M9.5 9.5a2.5 2.5 0 0 1 5 .5c0 1.5-2.5 2-2.5 3.5M12 17v.01'],
+    circles: [[12, 12, 9]],
+  },
+  mail: {
+    paths: [
+      'M5 5h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z',
+      'M3 7l9 6 9-6',
+    ],
+  },
+  eye: { paths: ['M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z'], circles: [[12, 12, 3]] },
+  star: { paths: ['M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z'] },
+  trash: { paths: ['M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13'] },
+  refresh: {
+    paths: [
+      'M20 11a8 8 0 0 0-14.5-4.5L4 8',
+      'M4 4v4h4',
+      'M4 13a8 8 0 0 0 14.5 4.5L20 16',
+      'M20 20v-4h-4',
+    ],
+  },
 } satisfies Record<string, { paths: string[]; circles?: number[][] }>;
 
 export type IconName = keyof typeof icons;

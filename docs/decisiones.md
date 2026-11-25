@@ -115,6 +115,7 @@
 | 2026-11-25 | Dependencia nueva `expo-audio` (~58.0.12, paquete oficial de Expo) y sonidos propios generados en el repositorio (sin licencias de terceros), con ajuste «Sonidos» en Cuenta | Recompensa sonora al cumplir objetivos, acertar y terminar un simulacro; respeta el modo silencio |
 | 2026-11-25 | Excepción de la guía: rebote suave (0,2) y burbujas tinta y amarillas que saltan, solo en momentos de recompensa y nunca durante el simulacro. Textos de recompensa sobrios, sin exclamaciones ni emojis | El propietario quiere una app más «jugosa» sin perder la seriedad que exige el opositor |
 | 2026-11-25 | Historial v2 (prototipo `historial-v2.html`, aprobado tal cual) con seis hitos para todos los planes, calculados con datos que ya se guardan; los ya conseguidos al actualizar se apuntan sin celebrar | Sentir progreso y volver; sin avalancha de avisos al llegar la versión nueva |
+| 2026-11-25 | Cuenta v2 (prototipo `cuenta-v2.html`, aprobado tal cual) y fecha del examen editable desde Preferencias | Ajustes ordenados y la fecha deja de ser un dato que solo se pedía una vez |
 
 ## Pendientes (las decide el propietario)
 

@@ -1,5 +1,5 @@
 import { tokens } from '@aptiq/tokens';
-import { Icon, ListRow, Text, withAlpha } from '@aptiq/ui';
+import { Icon, type IconName, IconTile, ListRow, Text, withAlpha } from '@aptiq/ui';
 import Constants from 'expo-constants';
 import { useFocusEffect } from 'expo-router';
 import { useCallback, useState } from 'react';
@@ -28,71 +28,64 @@ export function AyudaLegal() {
     await setPermisoAnalitica(store, si);
   };
 
-  const pagina = (p: Pagina, label: string, detail: string) => {
+  const pagina = (p: Pagina, label: string, detail: string, icon: IconName) => {
     const url = urlDe(p);
-    return url && <ListRow label={label} detail={detail} external onPress={() => abrir(url)} />;
+    return (
+      url && (
+        <ListRow icon={icon} label={label} detail={detail} external onPress={() => abrir(url)} />
+      )
+    );
   };
   const correo = correoSoporte();
 
+  // Filas para el grupo «Ayuda y privacidad» de Cuenta (la cabecera la pone Cuenta).
   return (
-    <View style={styles.bloque}>
-      {/* Sin web ni correo configurados no queda nada que enseñar: sin cabecera vacía. */}
-      {(urlDe('ayuda') || correo) && (
-        <>
-          <Text variant="label" color="graphite" accessibilityRole="header" style={styles.seccion}>
-            Ayuda
-          </Text>
-          <View>
-            {pagina('ayuda', 'Preguntas frecuentes', 'Cuentas, pagos, sin conexión')}
-            {correo && (
-              <ListRow
-                label="Escribir a soporte"
-                detail={correo}
-                onPress={() => abrir(`mailto:${correo}?subject=${encodeURIComponent('Aptiq')}`)}
-              />
-            )}
-          </View>
-        </>
+    <View>
+      {pagina('ayuda', 'Preguntas frecuentes', 'Cuentas, pagos, sin conexión', 'help')}
+      {correo && (
+        <ListRow
+          icon="mail"
+          label="Escribir a soporte"
+          detail={correo}
+          onPress={() => abrir(`mailto:${correo}?subject=${encodeURIComponent('Aptiq')}`)}
+        />
       )}
-
-      <Text variant="label" color="graphite" accessibilityRole="header" style={styles.seccion}>
-        Privacidad
-      </Text>
-      <View>
-        <View style={styles.fila}>
-          <View style={styles.flex}>
-            <Text variant="bodyStrong">Compartir datos de uso</Text>
-            <Text variant="caption" color="graphite">
-              Anónimos. Ayudan a mejorar la app
-            </Text>
-          </View>
-          <Switch
-            value={datos}
-            onValueChange={cambiar}
-            accessibilityLabel="Compartir datos de uso"
-            trackColor={{
-              false: withAlpha(tokens.color.ink, tokens.opacity.pendingTick),
-              true: tokens.color.ink,
-            }}
-            thumbColor={datos ? tokens.color.highlighter : tokens.color.paperCard}
-            ios_backgroundColor={withAlpha(tokens.color.ink, tokens.opacity.pendingTick)}
-          />
+      <View style={styles.fila}>
+        <IconTile name="eye" />
+        <View style={styles.flex}>
+          <Text variant="bodyStrong">Compartir datos de uso</Text>
+          <Text variant="caption" color="graphite">
+            Anónimos. Ayudan a mejorar la app
+          </Text>
         </View>
-        {pagina('privacidad', 'Política de privacidad', 'Qué guardamos, dónde y tus derechos')}
+        <Switch
+          value={datos}
+          onValueChange={cambiar}
+          accessibilityLabel="Compartir datos de uso"
+          trackColor={{
+            false: withAlpha(tokens.color.ink, tokens.opacity.pendingTick),
+            true: tokens.color.ink,
+          }}
+          thumbColor={datos ? tokens.color.highlighter : tokens.color.paperCard}
+          ios_backgroundColor={withAlpha(tokens.color.ink, tokens.opacity.pendingTick)}
+        />
       </View>
-
-      {urlDe('terminos') && (
-        <>
-          <Text variant="label" color="graphite" accessibilityRole="header" style={styles.seccion}>
-            Legal
-          </Text>
-          <View>
-            {pagina('terminos', 'Términos de uso', 'Suscripción, prueba y pases')}
-            {pagina('avisoLegal', 'Aviso legal', 'Titular y propiedad del contenido')}
-          </View>
-        </>
+      {pagina(
+        'privacidad',
+        'Política de privacidad',
+        'Qué guardamos, dónde y tus derechos',
+        'document',
       )}
+      {pagina('terminos', 'Términos de uso', 'Suscripción, prueba y pases', 'document')}
+      {pagina('avisoLegal', 'Aviso legal', 'Titular y propiedad del contenido', 'document')}
+    </View>
+  );
+}
 
+/** Pie de Cuenta: aviso de independencia (NFR-08) y versión. */
+export function PieLegal() {
+  return (
+    <View style={styles.pie}>
       <View style={styles.nota}>
         <Icon name="document" color="graphite" size={tokens.size.chevron} />
         <Text variant="caption" color="graphiteStrong" style={styles.flex}>
@@ -108,6 +101,7 @@ export function AyudaLegal() {
 }
 
 const styles = StyleSheet.create({
+  pie: { gap: tokens.spacing.s, marginTop: tokens.spacing.s },
   bloque: { gap: tokens.spacing.s, marginTop: tokens.spacing.m },
   seccion: { marginTop: tokens.spacing.l },
   fila: {

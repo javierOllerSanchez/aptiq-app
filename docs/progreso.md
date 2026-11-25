@@ -17,6 +17,13 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 
 ## Registro
 
+**2026-11-25 · Fase 9 · Parte C · Cuenta v2**
+
+- Prototipo `docs/prototipos/cuenta-v2.html` aprobado tal cual, con la fecha del examen editable.
+- Hecho: ficha del opositor (inicial, correo o «Aún sin cuenta», desde cuándo practica, oposición y plan); Premium como tarjeta de tinta (solo plan gratuito; «Probar 7 días gratis» solo si la tienda ofrece la prueba); «Guarda tu progreso» en una hoja que sube con el teclado; ajustes agrupados con iconos (Preferencias: recordatorio, sonidos y fecha del examen; Tu plan o Tu cuenta; Ayuda y privacidad); borrar cuenta en una hoja propia; pie con el aviso de independencia y la versión.
+- Corregido de paso: la hoja inferior leía el alto de pantalla dentro de una animación y rompía todas las animaciones.
+- Comprobado: tipos, ESLint y pruebas en verde (149 de la app) y en el emulador; capturas `docs/capturas/fase-9c-cuenta-v2*.png`. Maestro `cuenta-enviar.yaml` actualizado (sin ejecutar).
+
 **2026-11-25 · Fase 9 · Parte C · Historial v2**
 
 - Prototipo `docs/prototipos/historial-v2.html` aprobado tal cual; hitos para todos los planes.

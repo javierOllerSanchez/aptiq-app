@@ -1,5 +1,5 @@
 import { tokens } from '@aptiq/tokens';
-import { ListRow, Text, withAlpha } from '@aptiq/ui';
+import { IconTile, ListRow, Text, withAlpha } from '@aptiq/ui';
 import { router } from 'expo-router';
 import { useState } from 'react';
 import { AccessibilityInfo, Linking, Platform, StyleSheet, View } from 'react-native';
@@ -54,19 +54,20 @@ export function TuPlan() {
 
   return (
     <View>
-      <Text variant="label" color="graphite" accessibilityRole="header" style={styles.titulo}>
-        Tu plan
-      </Text>
       {plan.premium ? (
         <>
           <View style={styles.estado} accessible>
-            <Text variant="bodyStrong">Premium</Text>
-            <Text variant="caption" color="graphite">
-              {detallePlan(plan)}
-            </Text>
+            <IconTile name="star" />
+            <View>
+              <Text variant="bodyStrong">Premium</Text>
+              <Text variant="caption" color="graphite">
+                {detallePlan(plan)}
+              </Text>
+            </View>
           </View>
           {plan.renueva && (
             <ListRow
+              icon="external"
               label="Gestionar suscripción"
               detail="Cambiar o cancelar en la tienda"
               onPress={() =>
@@ -81,13 +82,14 @@ export function TuPlan() {
         </>
       ) : (
         <ListRow
+          icon="star"
           label="Plan gratuito"
           detail={detallePlan(plan)}
           value="Ver Premium"
           onPress={() => router.push('/muro-pago')}
         />
       )}
-      <ListRow label="Restaurar compras" onPress={restaurar} />
+      <ListRow icon="refresh" label="Restaurar compras" onPress={restaurar} />
       {aviso && (
         <Text
           color="graphiteStrong"
@@ -103,13 +105,14 @@ export function TuPlan() {
 }
 
 const styles = StyleSheet.create({
-  titulo: { marginTop: tokens.spacing.xxl, marginBottom: tokens.spacing.xs },
   estado: {
     minHeight: tokens.size.listRow,
-    justifyContent: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: tokens.spacing.m,
     paddingVertical: tokens.spacing.s,
     borderBottomWidth: tokens.border.hairline,
     borderBottomColor: withAlpha(tokens.color.ink, tokens.opacity.divider),
   },
-  aviso: { marginTop: tokens.spacing.s },
+  aviso: { paddingVertical: tokens.spacing.s },
 });

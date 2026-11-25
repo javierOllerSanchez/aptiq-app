@@ -1,5 +1,5 @@
 import { tokens } from '@aptiq/tokens';
-import { Text, withAlpha } from '@aptiq/ui';
+import { IconTile, Text, withAlpha } from '@aptiq/ui';
 import { useFocusEffect } from 'expo-router';
 import { useCallback, useState } from 'react';
 import { AccessibilityInfo, Platform, Pressable, StyleSheet, Switch, View } from 'react-native';
@@ -37,11 +37,9 @@ export function Recordatorio() {
   };
 
   return (
-    <View style={styles.bloque}>
-      <Text variant="label" color="graphite" accessibilityRole="header">
-        Recordatorio
-      </Text>
+    <View>
       <View style={styles.fila}>
+        <IconTile name="bell" />
         <View style={styles.flex}>
           <Text variant="bodyStrong">Recordatorio diario</Text>
           <Text variant="caption" color="graphite">
@@ -107,7 +105,6 @@ export function Recordatorio() {
 }
 
 const styles = StyleSheet.create({
-  bloque: { gap: tokens.spacing.s, marginTop: tokens.spacing.m },
   fila: {
     flexDirection: 'row',
     alignItems: 'center',

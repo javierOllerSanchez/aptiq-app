@@ -2,7 +2,7 @@ import { tokens } from '@aptiq/tokens';
 import { StyleSheet, View } from 'react-native';
 
 import { withAlpha } from './color';
-import { Icon } from './icon';
+import { Icon, type IconName } from './icon';
 import { PressScale } from './press-scale';
 import { Text } from './text';
 
@@ -22,6 +22,9 @@ export function ListRow({
   locked = false,
   lockedLabel = 'incluido en Premium',
   external = false,
+  icon,
+  danger = false,
+  plain = false,
   onPress,
 }: {
   label: string;
@@ -39,6 +42,12 @@ export function ListRow({
   lockedLabel?: string;
   /** Abre una página fuera de la app (fase 9): flecha hacia fuera en lugar del chevron. */
   external?: boolean;
+  /** Icono en su casilla a la izquierda (ajustes de Cuenta v2). */
+  icon?: IconName;
+  /** Acción que destruye datos (borrar cuenta): nombre en rojo. */
+  danger?: boolean;
+  /** Sin chevron: la fila informa o actúa sin abrir otra pantalla. */
+  plain?: boolean;
   onPress: () => void;
 }) {
   const a11y = locked
@@ -51,8 +60,9 @@ export function ListRow({
       accessibilityLabel={a11y}
       style={styles.row}
     >
+      {icon && <IconTile name={icon} danger={danger} />}
       <View style={styles.label}>
-        <Text variant="bodyStrong">
+        <Text variant="bodyStrong" color={danger ? 'sealText' : 'ink'}>
           {label}
           {weak && !locked ? ` · ${weakLabel}` : ''}
         </Text>
@@ -76,14 +86,50 @@ export function ListRow({
               {value}
             </Text>
           )}
-          <Icon name={external ? 'external' : 'chevron'} size={size.chevron} />
+          {!plain && <Icon name={external ? 'external' : 'chevron'} size={size.chevron} />}
         </>
       )}
     </PressScale>
   );
 }
 
+/** Casilla de icono de los ajustes (Cuenta v2): papel con el icono en tinta, o en rojo si destruye. */
+export function IconTile({ name, danger = false }: { name: IconName; danger?: boolean }) {
+  return (
+    <View style={styles.casilla}>
+      <Icon name={name} size={size.chevron + spacing.xs / 2} color={danger ? 'sealText' : 'ink'} />
+    </View>
+  );
+}
+
+/** Grupo de ajustes en una tarjeta (Cuenta v2). La última fila no lleva separador. */
+export function SettingsGroup({ children }: { children: React.ReactNode }) {
+  return (
+    <View style={styles.grupo}>
+      <View style={styles.grupoInterior}>{children}</View>
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
+  casilla: {
+    width: size.settingsIcon,
+    height: size.settingsIcon,
+    borderRadius: tokens.radius.tile,
+    backgroundColor: color.paper,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  grupo: {
+    backgroundColor: color.paperCard,
+    borderRadius: tokens.radius.card,
+    borderWidth: tokens.border.hairline,
+    borderColor: color.line,
+    paddingHorizontal: spacing.l,
+    overflow: 'hidden',
+  },
+  // El separador de la última fila queda fuera del recorte de la tarjeta.
+  grupoInterior: { marginBottom: -tokens.border.hairline },
   row: {
     flexDirection: 'row',
     alignItems: 'center',

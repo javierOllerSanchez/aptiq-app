@@ -73,6 +73,8 @@ test('invitación: avisa de lo que se subirá, envía el código y pasa a la pan
   };
   await wrap(<Cuenta />);
 
+  // Cuenta v2: el formulario está en una hoja que se abre desde la fila.
+  await fireEvent.press(await screen.findByRole('button', { name: /^Guarda tu progreso/ }));
   expect(await screen.findByText(/0 simulacros y 1 sesión/)).toBeOnTheScreen();
   await fireEvent.changeText(screen.getByLabelText('Correo electrónico'), ' Ana@Correo.es ');
   await fireEvent.press(screen.getByRole('button', { name: 'Enviar código' }));
@@ -93,6 +95,8 @@ test('invitación: un error del servidor se explica con texto', async () => {
     syncNow: () => {},
   };
   await wrap(<Cuenta />);
+  // Cuenta v2: el formulario está en una hoja que se abre desde la fila.
+  await fireEvent.press(await screen.findByRole('button', { name: /^Guarda tu progreso/ }));
   await fireEvent.changeText(screen.getByLabelText('Correo electrónico'), 'ana@correo.es');
   await fireEvent.press(screen.getByRole('button', { name: 'Enviar código' }));
   expect(await screen.findByText(/varios códigos seguidos/)).toBeOnTheScreen();

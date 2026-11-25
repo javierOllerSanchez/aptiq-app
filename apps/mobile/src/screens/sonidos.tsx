@@ -1,5 +1,5 @@
 import { tokens } from '@aptiq/tokens';
-import { Text, withAlpha } from '@aptiq/ui';
+import { IconTile, Text, withAlpha } from '@aptiq/ui';
 import { useFocusEffect } from 'expo-router';
 import { useCallback, useState } from 'react';
 import { StyleSheet, Switch, View } from 'react-native';
@@ -25,11 +25,9 @@ export function Sonidos() {
   };
 
   return (
-    <View style={styles.bloque}>
-      <Text variant="label" color="graphite" accessibilityRole="header">
-        Preferencias
-      </Text>
+    <View>
       <View style={styles.fila}>
+        <IconTile name="sound" />
         <View style={styles.flex}>
           <Text variant="bodyStrong">Sonidos</Text>
           <Text variant="caption" color="graphite">
@@ -53,12 +51,14 @@ export function Sonidos() {
 }
 
 const styles = StyleSheet.create({
-  bloque: { gap: tokens.spacing.xs, marginTop: tokens.spacing.m },
   fila: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: tokens.spacing.m,
     minHeight: tokens.size.listRow,
+    paddingVertical: tokens.spacing.s,
+    borderBottomWidth: tokens.border.hairline,
+    borderBottomColor: withAlpha(tokens.color.ink, tokens.opacity.divider),
   },
   flex: { flex: 1 },
 });
