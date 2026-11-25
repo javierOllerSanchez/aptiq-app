@@ -1,11 +1,20 @@
 import type { WeekLevel } from '@aptiq/engine';
 import { tokens } from '@aptiq/tokens';
 import { fontFamily, withAlpha } from '@aptiq/ui';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { View } from 'react-native';
+import Animated, {
+  Easing,
+  useAnimatedProps,
+  useReducedMotion,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated';
 import Svg, { Circle, Line, Polyline, Text as SvgText } from 'react-native-svg';
 
 import { fechaCorta } from '@/history/rows';
+
+const AnimatedPolyline = Animated.createAnimatedComponent(Polyline);
 
 const ALTO = 150;
 const IZQ = 26;
@@ -32,6 +41,24 @@ export function LevelChart({ semanas }: { semanas: readonly WeekLevel[] }) {
   const [ancho, setAncho] = useState(0);
   const x = (i: number) => IZQ + (i * (ancho - IZQ - DER)) / Math.max(semanas.length - 1, 1);
   const y = (v: number) => ARRIBA + ((5 - v) * (ALTO - ARRIBA - ABAJO)) / 4;
+  const reduce = useReducedMotion();
+  const puntos = semanas.map((s, i) => [x(i), y(s.global)] as const);
+  // Largo de la línea: para dibujarla de izquierda a derecha (Historial v2).
+  const largo = puntos.reduce(
+    (t, [px, py], i) => (i ? t + Math.hypot(px - puntos[i - 1]![0], py - puntos[i - 1]![1]) : 0),
+    0,
+  );
+  const dibujo = useSharedValue(0);
+  useEffect(() => {
+    if (ancho === 0) return;
+    dibujo.value = reduce
+      ? 1
+      : withTiming(1, {
+          duration: tokens.motion.countUp,
+          easing: Easing.bezier(...tokens.motion.easingCurve),
+        });
+  }, [ancho, reduce, dibujo]);
+  const linea = useAnimatedProps(() => ({ strokeDashoffset: largo * (1 - dibujo.value) }));
   const etiqueta = {
     fontFamily: fontFamily('mono', 600),
     fontSize: tokens.type.label.size,
@@ -64,22 +91,38 @@ export function LevelChart({ semanas }: { semanas: readonly WeekLevel[] }) {
               {v}
             </SvgText>
           ))}
-          <Polyline
-            points={semanas.map((s, i) => `${x(i)},${y(s.global)}`).join(' ')}
+          <AnimatedPolyline
+            points={puntos.map(([px, py]) => `${px},${py}`).join(' ')}
             fill="none"
             stroke={tokens.color.ink}
             strokeWidth={tokens.border.selected}
             strokeLinejoin="round"
+            strokeLinecap="round"
+            strokeDasharray={largo || 1}
+            animatedProps={linea}
           />
-          {semanas.map((s, i) => (
-            <Circle
-              key={s.semana}
-              cx={x(i)}
-              cy={y(s.global)}
-              r={tokens.radius.bar}
-              fill={tokens.color.ink}
-            />
-          ))}
+          {semanas.map((s, i) =>
+            i === semanas.length - 1 ? (
+              // La semana actual, en subrayador: es la que importa.
+              <Circle
+                key={s.semana}
+                cx={x(i)}
+                cy={y(s.global)}
+                r={tokens.radius.bar * 1.75}
+                fill={tokens.color.highlighter}
+                stroke={tokens.color.ink}
+                strokeWidth={tokens.border.selected}
+              />
+            ) : (
+              <Circle
+                key={s.semana}
+                cx={x(i)}
+                cy={y(s.global)}
+                r={tokens.radius.bar}
+                fill={tokens.color.ink}
+              />
+            ),
+          )}
           {semanas.map((s, i) => (
             <SvgText
               key={`d${s.semana}`}

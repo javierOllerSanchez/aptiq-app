@@ -17,6 +17,13 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 
 ## Registro
 
+**2026-11-25 · Fase 9 · Parte C · Historial v2**
+
+- Prototipo `docs/prototipos/historial-v2.html` aprobado tal cual; hitos para todos los planes.
+- Hecho: cifras (racha, días practicados, preguntas) que suben; nivel con la línea que se dibuja y la semana actual en amarillo, con el cambio desde la primera semana; constancia de 5 semanas en burbujas; seis hitos (primer simulacro, racha de 3 y de 7 días, 100 preguntas, nivel 3, nota mínima) con recompensa al conseguirlos; simulacros como fichas con la nota frente a la mínima y el sello APTO. La primera vez, los hitos ya conseguidos se apuntan sin aviso.
+- Comprobado: tipos, ESLint y pruebas en verde (148 de la app) y en el emulador; capturas `docs/capturas/fase-9c-historial-v2*.png`.
+- Siguiente: Cuenta.
+
 **2026-11-25 · Fase 9 · Parte C · Inicio v2**
 
 - Prototipo `docs/prototipos/inicio-v2.html` aprobado tal cual por el propietario, con sonidos (ajuste en Cuenta), rebote y burbujas solo en recompensas y tono sobrio.

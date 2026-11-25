@@ -25,3 +25,4 @@ export * from './question-grid';
 export * from './month-picker';
 export * from './reward';
 export * from './aptitude-tile';
+export * from './history';

@@ -46,6 +46,8 @@ export interface Progress {
   diasPractica: string[];
   /** Preguntas respondidas hoy en sesiones y simulacros terminados (objetivo diario). */
   hoyRespondidas: number;
+  /** Preguntas respondidas desde siempre (Historial e hitos). */
+  totalRespondidas: number;
 }
 
 /** Respuestas de sesiones y simulacros terminados, de la más antigua a la más reciente, con su día local. */
@@ -93,6 +95,7 @@ export async function loadProgress(store: Store, now: number = Date.now()): Prom
     diasSimulacro: (await store.attempts()).map((a) => diaLocal(a.empezado)),
     diasPractica: [...new Set(answers.map((a) => a.dia))],
     hoyRespondidas: answers.filter((a) => a.dia === hoy).length,
+    totalRespondidas: answers.length,
   };
 }
 
