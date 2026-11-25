@@ -19,7 +19,7 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 
 **2026-11-25 · Fase 9 · Web publicada**
 
-- Web en `https://aptiq.pages.dev` (comprobadas todas las páginas, fuentes, CSS e imágenes); dominio `aptiq.inkfinitysoft.com` dado de alta y **verificándose** (certificado HTTPS; comprobar que responde). Correo de soporte, proveedores (Arsys, Cloudflare) y licencias OFL añadidos.
+- Web en `https://aptiq.pages.dev` (comprobadas todas las páginas, fuentes, CSS e imágenes); dominio `https://aptiq.inkfinitysoft.com` activo (comprobado: portada, privacidad y borrar cuenta responden con HTTPS). Correo de soporte, proveedores (Arsys, Cloudflare) y licencias OFL añadidos.
 - Las **7 variables** de la app ya están en EAS (`production` y `preview`).
 - **Sigue pendiente en los textos legales:** titular (nombre o razón social, NIF, domicilio: el propietario debe darlos), plazos de conservación de PostHog, Sentry y RevenueCat, transferencias internacionales (RevenueCat, Cloudflare), juzgados y desistimiento (abogado). La web lo muestra como «Pendiente» con el aviso de borrador.
 - Validación de RevenueCat sin comprobar hoy (el Chrome conectado tenía otra cuenta de RevenueCat).
