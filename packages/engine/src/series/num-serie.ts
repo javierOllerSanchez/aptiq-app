@@ -279,7 +279,8 @@ const families: Families<Family> = {
 const drafts = finishFamilies(families, ({ terms, answer, distractors, ...rest }: Raw) => {
   if ([...terms, answer].some((v) => v < 0 || v > MAX)) return null;
   // Fuera las series con un término repetido seguido: «× 2 − 3» desde 3 (su punto fijo) da
-  // 3, 3, 3…, y en las intercaladas las dos subseries pueden coincidir en un valor.
+  // 3, 3, 3…; en las intercaladas las dos subseries pueden coincidir; y una Fibonacci puede
+  // empezar con dos iguales (5, 5, 10…), que se lee mal.
   if (diffs([...terms, answer]).includes(0)) return null;
   return {
     ...rest,

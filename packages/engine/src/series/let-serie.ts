@@ -5,7 +5,7 @@ import { levels, type Generator } from '../types';
 import { ALPHABET, letterAt, position } from './alphabet';
 import { letSerieSolver, type LetSerieStem } from './let-serie.solver';
 
-const VERSION = '4';
+const VERSION = '5';
 const TIP =
   'Escribe debajo de cada letra su posición en el alfabeto (A = 1… Z = 27) y trabaja con números. No olvides la Ñ, que va después de la N.';
 
@@ -189,6 +189,8 @@ const families: Families<Family> = {
 
 const drafts = finishFamilies(families, (raw: Raw) => {
   if ([...raw.positions, raw.answer].some((p) => p < 1 || p > L)) return null;
+  // Fuera las letras repetidas seguidas: en las intercaladas, las dos subseries pueden coincidir.
+  if ([...raw.positions, raw.answer].some((p, i, all) => i > 0 && p === all[i - 1])) return null;
   // Respuesta lejos de los extremos: si no, no habría errores posibles a uno de los lados y
   // la correcta se delataría por ser la primera o la última letra de las opciones.
   if (raw.answer < 1 + EDGE || raw.answer > L - EDGE) return null;

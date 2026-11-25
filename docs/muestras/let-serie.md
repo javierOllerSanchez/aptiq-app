@@ -1,4 +1,4 @@
-# Muestras · Series de letras (`LET.SERIE`, versión 4)
+# Muestras · Series de letras (`LET.SERIE`, versión 5)
 
 Encontrar la letra que continúa una serie según saltos en el alfabeto.
 
@@ -12,300 +12,300 @@ Generadas automáticamente para revisión humana. Para cada pregunta, comprueba:
 
 ### 1. Nivel 1 · semilla `muestra-1-1`
 
-> ¿Qué letra continúa la serie? Z, V, R, Ñ, K, ?
+> ¿Qué letra continúa la serie? T, Q, Ñ, L, ?
 
-- **A)** C — Aplicas el salto (− 4) dos veces.
-- **B)** G ✔ correcta
-- **C)** J — Cuentas mal el salto: − 1 en lugar de − 4.
-- **D)** F — Cuentas mal el salto: − 5 en lugar de − 4.
+- **A)** H — Cuentas mal el salto: − 4 en lugar de − 3.
+- **B)** I ✔ correcta
+- **C)** K — Cuentas mal el salto: − 1 en lugar de − 3.
+- **D)** F — Aplicas el salto (− 3) dos veces.
 
-1. **Observa:** Entre cada letra y la siguiente hay siempre el mismo salto: − 4 posiciones.
-2. **Regla:** Cada letra está 4 posiciones antes de la anterior.
-3. **Aplica:** K (11) − 4 = G (7) → G
+1. **Observa:** Entre cada letra y la siguiente hay siempre el mismo salto: − 3 posiciones.
+2. **Regla:** Cada letra está 3 posiciones antes de la anterior.
+3. **Aplica:** L (12) − 3 = I (9) → I
 
 - [ ] Revisada · Comentarios:
 
 ### 2. Nivel 1 · semilla `muestra-1-2`
 
-> ¿Qué letra continúa la serie? D, F, H, J, L, ?
+> ¿Qué letra continúa la serie? Q, O, N, L, ?
 
-- **A)** P — Cuentas tres letras de más.
-- **B)** N ✔ correcta
-- **C)** Ñ — Cuentas mal el salto: + 3 en lugar de + 2.
-- **D)** O — Aplicas el salto (+ 2) dos veces.
+- **A)** K — Cuentas mal el salto: − 1 en lugar de − 2.
+- **B)** J ✔ correcta
+- **C)** I — Cuentas mal el salto: − 3 en lugar de − 2.
+- **D)** H — Aplicas el salto (− 2) dos veces.
 
-1. **Observa:** Entre cada letra y la siguiente hay siempre el mismo salto: + 2 posiciones.
-2. **Regla:** Cada letra está 2 posiciones después de la anterior.
-3. **Aplica:** L (12) + 2 = N (14) → N
+1. **Observa:** Entre cada letra y la siguiente hay siempre el mismo salto: − 2 posiciones.
+2. **Regla:** Cada letra está 2 posiciones antes de la anterior.
+3. **Aplica:** L (12) − 2 = J (10) → J
 
 - [ ] Revisada · Comentarios:
 
 ### 3. Nivel 1 · semilla `muestra-1-3`
 
-> ¿Qué letra continúa la serie? D, H, L, O, S, ?
+> ¿Qué letra continúa la serie? W, T, Q, Ñ, L, ?
 
-- **A)** X — Cuentas mal el salto: + 5 en lugar de + 4.
-- **B)** W ✔ correcta
-- **C)** Y — Cuentas mal el salto: + 6 en lugar de + 4.
-- **D)** T — Cuentas mal el salto: + 1 en lugar de + 4.
+- **A)** H — Cuentas mal el salto: − 4 en lugar de − 3.
+- **B)** G — Cuentas mal el salto: − 5 en lugar de − 3.
+- **C)** I ✔ correcta
+- **D)** F — Aplicas el salto (− 3) dos veces.
 
-1. **Observa:** Entre cada letra y la siguiente hay siempre el mismo salto: + 4 posiciones.
-2. **Regla:** Cada letra está 4 posiciones después de la anterior.
-3. **Aplica:** S (20) + 4 = W (24) → W
+1. **Observa:** Entre cada letra y la siguiente hay siempre el mismo salto: − 3 posiciones.
+2. **Regla:** Cada letra está 3 posiciones antes de la anterior.
+3. **Aplica:** L (12) − 3 = I (9) → I
 
 - [ ] Revisada · Comentarios:
 
 ### 4. Nivel 1 · semilla `muestra-1-4`
 
-> ¿Qué letra continúa la serie? D, H, L, O, ?
+> ¿Qué letra continúa la serie? J, M, O, R, ?
 
-- **A)** U — Cuentas mal el salto: + 6 en lugar de + 4.
-- **B)** T — Cuentas mal el salto: + 5 en lugar de + 4.
-- **C)** W — Aplicas el salto (+ 4) dos veces.
-- **D)** S ✔ correcta
+- **A)** V — Cuentas mal el salto: + 4 en lugar de + 3.
+- **B)** W — Cuentas mal el salto: + 5 en lugar de + 3.
+- **C)** U ✔ correcta
+- **D)** X — Aplicas el salto (+ 3) dos veces.
 
-1. **Observa:** Entre cada letra y la siguiente hay siempre el mismo salto: + 4 posiciones.
-2. **Regla:** Cada letra está 4 posiciones después de la anterior.
-3. **Aplica:** O (16) + 4 = S (20) → S
+1. **Observa:** Entre cada letra y la siguiente hay siempre el mismo salto: + 3 posiciones.
+2. **Regla:** Cada letra está 3 posiciones después de la anterior.
+3. **Aplica:** R (19) + 3 = U (22) → U
 
 - [ ] Revisada · Comentarios:
 
 ### 5. Nivel 2 · semilla `muestra-2-1`
 
-> ¿Qué letra continúa la serie? C, G, K, Ñ, ?
+> ¿Qué letra continúa la serie? D, I, N, R, ?
 
-- **A)** P — Cuentas mal el salto: + 2 en lugar de + 4.
-- **B)** Q — Cuentas mal el salto: + 3 en lugar de + 4.
-- **C)** O — Cuentas mal el salto: + 1 en lugar de + 4.
-- **D)** R ✔ correcta
+- **A)** W ✔ correcta
+- **B)** T — Cuentas mal el salto: + 2 en lugar de + 5.
+- **C)** V — Cuentas mal el salto: + 4 en lugar de + 5.
+- **D)** U — Cuentas mal el salto: + 3 en lugar de + 5.
 
-1. **Observa:** Entre cada letra y la siguiente hay siempre el mismo salto: + 4 posiciones.
-2. **Regla:** Cada letra está 4 posiciones después de la anterior.
-3. **Aplica:** Ñ (15) + 4 = R (19) → R
+1. **Observa:** Entre cada letra y la siguiente hay siempre el mismo salto: + 5 posiciones.
+2. **Regla:** Cada letra está 5 posiciones después de la anterior.
+3. **Aplica:** R (19) + 5 = W (24) → W
 
 - [ ] Revisada · Comentarios:
 
 ### 6. Nivel 2 · semilla `muestra-2-2`
 
-> ¿Qué letra continúa la serie? G, I, L, N, P, R, ?
+> ¿Qué letra continúa la serie? G, J, M, O, R, ?
 
-- **A)** U ✔ correcta
-- **B)** W — Aplicas los dos saltos a la vez.
-- **C)** T — Repites el último salto (+ 2); no ves que se alternan.
-- **D)** S — Cuentas dos letras de menos.
+- **A)** V — Cuentas mal el salto: + 4 en lugar de + 3.
+- **B)** W — Cuentas mal el salto: + 5 en lugar de + 3.
+- **C)** X — Aplicas el salto (+ 3) dos veces.
+- **D)** U ✔ correcta
 
-1. **Observa:** Los saltos se alternan: + 2, + 3, + 2, + 3…
-2. **Regla:** Se alternan dos saltos: + 2 y + 3.
-3. **Aplica:** El último salto fue + 2, ahora toca + 3: R (19) + 3 = U (22) → U
+1. **Observa:** Entre cada letra y la siguiente hay siempre el mismo salto: + 3 posiciones.
+2. **Regla:** Cada letra está 3 posiciones después de la anterior.
+3. **Aplica:** R (19) + 3 = U (22) → U
 
 - [ ] Revisada · Comentarios:
 
 ### 7. Nivel 2 · semilla `muestra-2-3`
 
-> ¿Qué letra continúa la serie? Z, V, R, Ñ, ?
+> ¿Qué letra continúa la serie? A, D, H, K, Ñ, Q, ?
 
-- **A)** J — Cuentas mal el salto: − 5 en lugar de − 4.
-- **B)** K ✔ correcta
-- **C)** N — Cuentas mal el salto: − 1 en lugar de − 4.
-- **D)** G — Aplicas el salto (− 4) dos veces.
+- **A)** V — Cuentas una letra de más.
+- **B)** U ✔ correcta
+- **C)** W — Cuentas dos letras de más.
+- **D)** X — Aplicas los dos saltos a la vez.
 
-1. **Observa:** Entre cada letra y la siguiente hay siempre el mismo salto: − 4 posiciones.
-2. **Regla:** Cada letra está 4 posiciones antes de la anterior.
-3. **Aplica:** Ñ (15) − 4 = K (11) → K
+1. **Observa:** Los saltos se alternan: + 3, + 4, + 3, + 4…
+2. **Regla:** Se alternan dos saltos: + 3 y + 4.
+3. **Aplica:** El último salto fue + 3, ahora toca + 4: Q (18) + 4 = U (22) → U
 
 - [ ] Revisada · Comentarios:
 
 ### 8. Nivel 2 · semilla `muestra-2-4`
 
-> ¿Qué letra continúa la serie? F, H, L, N, Q, S, ?
+> ¿Qué letra continúa la serie? F, G, K, L, O, P, ?
 
-- **A)** W ✔ correcta
-- **B)** Z — Cuentas tres letras de más.
-- **C)** Y — Aplicas los dos saltos a la vez.
-- **D)** X — Cuentas una letra de más.
+- **A)** S — Cuentas una letra de menos.
+- **B)** Q — Repites el último salto (+ 1); no ves que se alternan.
+- **C)** T ✔ correcta
+- **D)** R — Cuentas dos letras de menos.
 
-1. **Observa:** Los saltos se alternan: + 2, + 4, + 2, + 4…
-2. **Regla:** Se alternan dos saltos: + 2 y + 4.
-3. **Aplica:** El último salto fue + 2, ahora toca + 4: S (20) + 4 = W (24) → W
+1. **Observa:** Los saltos se alternan: + 1, + 4, + 1, + 4…
+2. **Regla:** Se alternan dos saltos: + 1 y + 4.
+3. **Aplica:** El último salto fue + 1, ahora toca + 4: P (17) + 4 = T (21) → T
 
 - [ ] Revisada · Comentarios:
 
 ### 9. Nivel 3 · semilla `muestra-3-1`
 
-> ¿Qué letra continúa la serie? G, H, J, M, P, ?
+> ¿Qué letra continúa la serie? W, U, R, Ñ, J, ?
 
-- **A)** W — Cuentas dos letras de más.
-- **B)** V — Cambias el salto dos veces (+ 6).
-- **C)** X — Cuentas tres letras de más.
-- **D)** U ✔ correcta
+- **A)** E — Repites el último salto (− 5) sin cambiarlo.
+- **B)** D ✔ correcta
+- **C)** H — Vuelves a usar el primer salto (− 2).
+- **D)** F — Cuentas dos letras de menos.
 
-1. **Observa:** Los saltos entre letras son + 1, + 2, + 3, + 4: su tamaño crece de uno en uno.
-2. **Regla:** El tamaño del salto crece 1 en cada paso.
-3. **Aplica:** El siguiente salto es + 5: P (17) + 5 = U (22) → U
+1. **Observa:** Los saltos entre letras son − 2, − 3, − 4, − 5: su tamaño crece de uno en uno.
+2. **Regla:** El tamaño del salto crece 1 en cada paso, yendo hacia atrás en el alfabeto.
+3. **Aplica:** El siguiente salto es − 6: J (10) − 6 = D (4) → D
 
 - [ ] Revisada · Comentarios:
 
 ### 10. Nivel 3 · semilla `muestra-3-2`
 
-> ¿Qué letra continúa la serie? A, C, F, J, Ñ, ?
+> ¿Qué letra continúa la serie? Y, X, V, S, O, ?
 
-- **A)** U — Cambias el salto dos veces (+ 7).
-- **B)** T ✔ correcta
-- **C)** P — Vuelves a usar el primer salto (+ 2).
-- **D)** S — Repites el último salto (+ 5) sin cambiarlo.
+- **A)** J — Olvidas la Ñ al contar: el alfabeto español tiene 27 letras.
+- **B)** Ñ — Vuelves a usar el primer salto (− 1).
+- **C)** L — Repites el último salto (− 4) sin cambiarlo.
+- **D)** K ✔ correcta
 
-1. **Observa:** Los saltos entre letras son + 2, + 3, + 4, + 5: su tamaño crece de uno en uno.
-2. **Regla:** El tamaño del salto crece 1 en cada paso.
-3. **Aplica:** El siguiente salto es + 6: Ñ (15) + 6 = T (21) → T
+1. **Observa:** Los saltos entre letras son − 1, − 2, − 3, − 4: su tamaño crece de uno en uno.
+2. **Regla:** El tamaño del salto crece 1 en cada paso, yendo hacia atrás en el alfabeto.
+3. **Aplica:** El siguiente salto es − 5: O (16) − 5 = K (11) → K
 
 - [ ] Revisada · Comentarios:
 
 ### 11. Nivel 3 · semilla `muestra-3-3`
 
-> ¿Qué letra continúa la serie? X, R, N, J, G, ?
+> ¿Qué letra continúa la serie? W, V, T, Q, N, ?
 
-- **A)** E ✔ correcta
-- **B)** A — Vuelves a usar el primer salto (− 6).
-- **C)** F — Cambias el salto dos veces (− 1).
-- **D)** D — Repites el último salto (− 3) sin cambiarlo.
+- **A)** I ✔ correcta
+- **B)** G — Cuentas dos letras de más.
+- **C)** J — Repites el último salto (− 4) sin cambiarlo.
+- **D)** H — Cambias el salto dos veces (− 6).
 
-1. **Observa:** Los saltos entre letras son − 6, − 5, − 4, − 3: su tamaño decrece de uno en uno.
-2. **Regla:** El tamaño del salto decrece 1 en cada paso, yendo hacia atrás en el alfabeto.
-3. **Aplica:** El siguiente salto es − 2: G (7) − 2 = E (5) → E
+1. **Observa:** Los saltos entre letras son − 1, − 2, − 3, − 4: su tamaño crece de uno en uno.
+2. **Regla:** El tamaño del salto crece 1 en cada paso, yendo hacia atrás en el alfabeto.
+3. **Aplica:** El siguiente salto es − 5: N (14) − 5 = I (9) → I
 
 - [ ] Revisada · Comentarios:
 
 ### 12. Nivel 3 · semilla `muestra-3-4`
 
-> ¿Qué letra continúa la serie? E, F, H, K, Ñ, ?
+> ¿Qué letra continúa la serie? D, F, I, M, Q, ?
 
-- **A)** S ✔ correcta
-- **B)** O — Vuelves a usar el primer salto (+ 1).
-- **C)** Q — Cuentas dos letras de menos.
-- **D)** R — Repites el último salto (+ 4) sin cambiarlo.
+- **A)** W ✔ correcta
+- **B)** S — Vuelves a usar el primer salto (+ 2).
+- **C)** X — Cambias el salto dos veces (+ 7).
+- **D)** V — Repites el último salto (+ 5) sin cambiarlo.
 
-1. **Observa:** Los saltos entre letras son + 1, + 2, + 3, + 4: su tamaño crece de uno en uno.
+1. **Observa:** Los saltos entre letras son + 2, + 3, + 4, + 5: su tamaño crece de uno en uno.
 2. **Regla:** El tamaño del salto crece 1 en cada paso.
-3. **Aplica:** El siguiente salto es + 5: Ñ (15) + 5 = S (20) → S
+3. **Aplica:** El siguiente salto es + 6: Q (18) + 6 = W (24) → W
 
 - [ ] Revisada · Comentarios:
 
 ### 13. Nivel 4 · semilla `muestra-4-1`
 
-> ¿Qué letra continúa la serie? O, C, P, G, Q, K, R, ?
+> ¿Qué letra continúa la serie? E, L, H, O, K, S, N, ?
 
-- **A)** M — Cuentas dos letras de menos.
-- **B)** N — Cuentas una letra de menos.
-- **C)** Ñ ✔ correcta
-- **D)** L — Aplicas a la serie de las pares el salto de las impares (+ 1).
+- **A)** Z — Cuentas tres letras de más.
+- **B)** Y — Cuentas dos letras de más.
+- **C)** W ✔ correcta
+- **D)** X — Cuentas una letra de más.
 
-1. **Observa:** Las letras en posición impar (O, P, Q, R) y en posición par (C, G, K) forman dos series distintas.
-2. **Regla:** Hay dos series intercaladas: las impares van + 1 y las pares + 4.
-3. **Aplica:** Toca la serie de las posiciones pares: K (11) + 4 = Ñ (15) → Ñ
+1. **Observa:** Las letras en posición impar (E, H, K, N) y en posición par (L, O, S) forman dos series distintas.
+2. **Regla:** Hay dos series intercaladas: las impares van + 3 y las pares + 4.
+3. **Aplica:** Toca la serie de las posiciones pares: S (20) + 4 = W (24) → W
 
 - [ ] Revisada · Comentarios:
 
 ### 14. Nivel 4 · semilla `muestra-4-2`
 
-> ¿Qué letra continúa la serie? F, K, I, Ñ, L, R, Ñ, ?
+> ¿Qué letra continúa la serie? M, J, Ñ, N, P, Q, R, ?
 
-- **A)** U — Aplicas a la serie de las pares el salto de las impares (+ 3).
-- **B)** Q — Continúas la serie de las posiciones impares (Ñ + 3).
-- **C)** T — Cuentas dos letras de menos.
-- **D)** V ✔ correcta
+- **A)** U ✔ correcta
+- **B)** S — Aplicas a la serie de las pares el salto de las impares (+ 2).
+- **C)** Y — Aplicas el salto de las pares (+ 4) dos veces.
+- **D)** T — Continúas la serie de las posiciones impares (R + 2).
 
-1. **Observa:** Las letras en posición impar (F, I, L, Ñ) y en posición par (K, Ñ, R) forman dos series distintas.
-2. **Regla:** Hay dos series intercaladas: las impares van + 3 y las pares + 4.
-3. **Aplica:** Toca la serie de las posiciones pares: R (19) + 4 = V (23) → V
+1. **Observa:** Las letras en posición impar (M, Ñ, P, R) y en posición par (J, N, Q) forman dos series distintas.
+2. **Regla:** Hay dos series intercaladas: las impares van + 2 y las pares + 4.
+3. **Aplica:** Toca la serie de las posiciones pares: Q (18) + 4 = U (22) → U
 
 - [ ] Revisada · Comentarios:
 
 ### 15. Nivel 4 · semilla `muestra-4-3`
 
-> ¿Qué letra continúa la serie? J, F, K, H, L, J, M, ?
+> ¿Qué letra continúa la serie? P, T, Ñ, R, M, P, ?
 
-- **A)** J — Cuentas dos letras de menos.
-- **B)** I — Cuentas tres letras de menos.
-- **C)** L ✔ correcta
-- **D)** K — Aplicas a la serie de las pares el salto de las impares (+ 1).
+- **A)** I — Cuentas dos letras de más.
+- **B)** V — Aplicas − 6 en sentido contrario.
+- **C)** K ✔ correcta
+- **D)** J — Olvidas la Ñ al contar: el alfabeto español tiene 27 letras.
 
-1. **Observa:** Las letras en posición impar (J, K, L, M) y en posición par (F, H, J) forman dos series distintas.
-2. **Regla:** Hay dos series intercaladas: las impares van + 1 y las pares + 2.
-3. **Aplica:** Toca la serie de las posiciones pares: J (10) + 2 = L (12) → L
+1. **Observa:** Los saltos se alternan: + 4, − 6, + 4, − 6…
+2. **Regla:** Se alternan dos saltos: + 4 y − 6.
+3. **Aplica:** El último salto fue + 4, ahora toca − 6: P (17) − 6 = K (11) → K
 
 - [ ] Revisada · Comentarios:
 
 ### 16. Nivel 4 · semilla `muestra-4-4`
 
-> ¿Qué letra continúa la serie? Ñ, B, P, E, R, H, T, ?
+> ¿Qué letra continúa la serie? L, N, K, M, J, L, ?
 
-- **A)** V — Continúas la serie de las posiciones impares (T + 2).
-- **B)** N — Aplicas el salto de las pares (+ 3) dos veces.
-- **C)** L — Cuentas una letra de más.
-- **D)** K ✔ correcta
+- **A)** F — Cuentas tres letras de más.
+- **B)** I ✔ correcta
+- **C)** H — Cuentas una letra de más.
+- **D)** G — Cuentas dos letras de más.
 
-1. **Observa:** Las letras en posición impar (Ñ, P, R, T) y en posición par (B, E, H) forman dos series distintas.
-2. **Regla:** Hay dos series intercaladas: las impares van + 2 y las pares + 3.
-3. **Aplica:** Toca la serie de las posiciones pares: H (8) + 3 = K (11) → K
+1. **Observa:** Los saltos se alternan: + 2, − 3, + 2, − 3…
+2. **Regla:** Se alternan dos saltos: + 2 y − 3.
+3. **Aplica:** El último salto fue + 2, ahora toca − 3: L (12) − 3 = I (9) → I
 
 - [ ] Revisada · Comentarios:
 
 ### 17. Nivel 5 · semilla `muestra-5-1`
 
-> ¿Qué letra continúa la serie? D, V, E, R, F, Ñ, G, ?
+> ¿Qué letra continúa la serie? I, S, L, O, Ñ, L, Q, ?
 
-- **A)** H — Continúas la serie de las posiciones impares (G + 1).
-- **B)** O — Aplicas a la serie de las pares el salto de las impares (+ 1).
-- **C)** J — Cuentas una letra de más.
-- **D)** K ✔ correcta
+- **A)** H ✔ correcta
+- **B)** T — Continúas la serie de las posiciones impares (Q + 3).
+- **C)** D — Aplicas el salto de las pares (− 4) dos veces.
+- **D)** J — Cuentas dos letras de menos.
 
-1. **Observa:** Las letras en posición impar (D, E, F, G) y en posición par (V, R, Ñ) forman dos series distintas.
-2. **Regla:** Hay dos series intercaladas: las impares van + 1 y las pares − 4.
-3. **Aplica:** Toca la serie de las posiciones pares: Ñ (15) − 4 = K (11) → K
+1. **Observa:** Las letras en posición impar (I, L, Ñ, Q) y en posición par (S, O, L) forman dos series distintas.
+2. **Regla:** Hay dos series intercaladas: las impares van + 3 y las pares − 4.
+3. **Aplica:** Toca la serie de las posiciones pares: L (12) − 4 = H (8) → H
 
 - [ ] Revisada · Comentarios:
 
 ### 18. Nivel 5 · semilla `muestra-5-2`
 
-> ¿Qué letra continúa la serie? J, Q, L, O, N, N, O, ?
+> ¿Qué letra continúa la serie? F, T, I, P, L, M, Ñ, ?
 
-- **A)** M — Cuentas una letra de menos.
-- **B)** L ✔ correcta
-- **C)** N — Cuentas dos letras de menos.
-- **D)** Q — Continúas la serie de las posiciones impares (O + 2).
+- **A)** I ✔ correcta
+- **B)** H — Cuentas una letra de más.
+- **C)** G — Cuentas dos letras de más.
+- **D)** E — Aplicas el salto de las pares (− 4) dos veces.
 
-1. **Observa:** Las letras en posición impar (J, L, N, O) y en posición par (Q, O, N) forman dos series distintas.
-2. **Regla:** Hay dos series intercaladas: las impares van + 2 y las pares − 2.
-3. **Aplica:** Toca la serie de las posiciones pares: N (14) − 2 = L (12) → L
+1. **Observa:** Las letras en posición impar (F, I, L, Ñ) y en posición par (T, P, M) forman dos series distintas.
+2. **Regla:** Hay dos series intercaladas: las impares van + 3 y las pares − 4.
+3. **Aplica:** Toca la serie de las posiciones pares: M (13) − 4 = I (9) → I
 
 - [ ] Revisada · Comentarios:
 
 ### 19. Nivel 5 · semilla `muestra-5-3`
 
-> ¿Qué letra continúa la serie? A, N, D, L, G, J, J, ?
+> ¿Qué letra continúa la serie? O, U, Q, R, S, O, U, ?
 
-- **A)** M — Continúas la serie de las posiciones impares (J + 3).
-- **B)** K — Cuentas tres letras de menos.
-- **C)** I — Cuentas una letra de menos.
-- **D)** H ✔ correcta
+- **A)** M ✔ correcta
+- **B)** J — Aplicas el salto de las pares (− 3) dos veces.
+- **C)** W — Continúas la serie de las posiciones impares (U + 2).
+- **D)** L — Olvidas la Ñ al contar: el alfabeto español tiene 27 letras.
 
-1. **Observa:** Las letras en posición impar (A, D, G, J) y en posición par (N, L, J) forman dos series distintas.
-2. **Regla:** Hay dos series intercaladas: las impares van + 3 y las pares − 2.
-3. **Aplica:** Toca la serie de las posiciones pares: J (10) − 2 = H (8) → H
+1. **Observa:** Las letras en posición impar (O, Q, S, U) y en posición par (U, R, O) forman dos series distintas.
+2. **Regla:** Hay dos series intercaladas: las impares van + 2 y las pares − 3.
+3. **Aplica:** Toca la serie de las posiciones pares: O (16) − 3 = M (13) → M
 
 - [ ] Revisada · Comentarios:
 
 ### 20. Nivel 5 · semilla `muestra-5-4`
 
-> ¿Qué letra continúa la serie? H, N, K, K, N, H, P, ?
+> ¿Qué letra continúa la serie? M, T, N, R, Ñ, P, O, ?
 
-- **A)** F — Cuentas una letra de menos.
-- **B)** E ✔ correcta
-- **C)** S — Continúas la serie de las posiciones impares (P + 3).
-- **D)** G — Cuentas dos letras de menos.
+- **A)** M — Aplicas el salto de las pares (− 2) dos veces.
+- **B)** Ñ ✔ correcta
+- **C)** P — Continúas la serie de las posiciones impares (O + 1).
+- **D)** N — Olvidas la Ñ al contar: el alfabeto español tiene 27 letras.
 
-1. **Observa:** Las letras en posición impar (H, K, N, P) y en posición par (N, K, H) forman dos series distintas.
-2. **Regla:** Hay dos series intercaladas: las impares van + 3 y las pares − 3.
-3. **Aplica:** Toca la serie de las posiciones pares: H (8) − 3 = E (5) → E
+1. **Observa:** Las letras en posición impar (M, N, Ñ, O) y en posición par (T, R, P) forman dos series distintas.
+2. **Regla:** Hay dos series intercaladas: las impares van + 1 y las pares − 2.
+3. **Aplica:** Toca la serie de las posiciones pares: P (17) − 2 = Ñ (15) → Ñ
 
 - [ ] Revisada · Comentarios:
