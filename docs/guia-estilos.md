@@ -79,7 +79,7 @@ En React Native: `expo-blur` (`BlurView`, intensidad equivalente) + capa de colo
 | `ProgressTicks` | Una casilla por pregunta, 12 de alto, separación 3. Respondidas `ink`, actual `highlighter` con borde `ink` 1,5, pendientes `ink` al 12 %. |
 | `LevelBubbles` | 10 burbujas de 22: rellenas `ink`, vacías con borde `ink` al 25 %. |
 | `GlassCard` | Receta de cristal. Radio 24. Para resúmenes. |
-| `TabBar` | Cristal, radio 22, 3 pestañas (Inicio, Historial, Cuenta; fase 5). Activa: fondo `ink`, icono `highlighter`. |
+| `TabBar` | Barra flotante de 64 en blanco al 88 % (alternativa sin desenfoque del cristal), radio 22, 3 pestañas con icono y nombre en mono (Inicio, Historial, Cuenta). Sobre la activa, una muesca de 56 × 14 con una burbuja `highlighter` de borde `ink`; la muesca y la burbuja se deslizan a la pestaña nueva (muelle sin rebote), el icono sube 4 y pasa de `graphite` a `ink` con fundido, y vibra levemente. Con «reducir movimiento», sin desplazamientos. (2026-11-25, referencia del propietario; antes: pastilla `ink` con icono `highlighter`.) |
 | `Timer` | Píldora de cristal con icono de reloj y tiempo en mono 15. |
 | `Stamp` | «APTO» en Bricolage 800 color `seal`, doble borde, girado −6°. En Resultado (más pequeño que la nota) y, reducido, en las fichas de simulacro de Historial. |
 | `SourceNote` | Icono de documento + «Formato según la convocatoria oficial: …» con la cita del perfil (p. ej. «BOE-A-2026-9982, bases 6.1.2.a, 7.3 y 7.8»). No menciona exámenes publicados: la Guardia Civil no publica el cuestionario de aptitudes. Obligatorio en cada simulacro. |
@@ -178,7 +178,7 @@ Criterio de las skills de Emil Kowalski (`emil-design-eng`, `animate-expo`) con 
   - resultado: `CountUp` de la nota, barras que crecen escalonadas y el sello al final;
   - nivel: las burbujas se rellenan una tras otra;
   - hojas: suben desde abajo (250 ms) con el fondo oscurecido;
-  - pestañas: la pastilla `ink` se desliza a la pestaña activa;
+  - pestañas: la muesca con su burbuja se desliza a la pestaña activa;
   - cronómetro: en el último minuto el tiempo pasa a `sealText` (estado).
 
 ### Recompensas (aprobado el 2026-11-25)

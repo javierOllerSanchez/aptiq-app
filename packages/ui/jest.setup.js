@@ -10,9 +10,12 @@ jest.mock('react-native-reanimated', () => {
   return {
     __esModule: true,
     default: { View, Text, createAnimatedComponent: id },
+    Text,
     useSharedValue: (value) => ({ value, set(v) { this.value = v; } }),
     useAnimatedStyle: (fn) => fn(),
     useAnimatedProps: (fn) => fn(),
+    useDerivedValue: (fn) => ({ value: fn() }),
+    interpolateColor: (_, __, colores) => colores[colores.length - 1],
     withSpring: (v) => v,
     useReducedMotion: () => false,
     withTiming: id,

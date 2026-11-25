@@ -118,6 +118,7 @@
 | 2026-11-25 | Revisión de la ronda 2: los sonidos son solo de logro (objetivo, acierto, simulacro); el fallo solo vibra. En Android suenan con el volumen multimedia aunque el móvil esté en silencio (el sistema no deja saberlo); se apagan en Cuenta → Sonidos | Lo aprobado no incluía sonido de fallo; límite de Android documentado |
 | 2026-11-25 | Cuenta v2 (prototipo `cuenta-v2.html`, aprobado tal cual) y fecha del examen editable desde Preferencias | Ajustes ordenados y la fecha deja de ser un dato que solo se pedía una vez |
 | 2026-11-25 | Las casillas de aptitud de Inicio mantienen la barra de acierto (no estaba en el prototipo `inicio-v2.html`) | Decisión del propietario: con el plan gratuito, sin nivel por aptitud, la casilla quedaba vacía |
+| 2026-11-25 | Barra de pestañas con muesca y burbuja sobre la activa, nombres bajo los iconos y animación de deslizamiento (referencia en imagen aportada por el propietario, adaptada a la marca) | Navegación más clara y viva; los nombres ayudan a quien llega nuevo |
 
 ## Pendientes (las decide el propietario)
 

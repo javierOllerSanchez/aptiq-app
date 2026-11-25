@@ -38,7 +38,7 @@ export default function TabsLayout() {
         const bottom = Math.max(insets.bottom, tokens.spacing.xxl);
         // Papel opaco bajo toda la barra y un difuminado de 48 px por encima.
         const difuminado = tokens.spacing.xxl * 2;
-        const alto = bottom + tokens.size.navHeight + tokens.spacing.s * 2 + difuminado;
+        const alto = bottom + tokens.size.tabBar + difuminado;
         return (
           <>
             {/* El contenido se desvanece en el papel bajo la barra: no se lee a través del cristal. */}

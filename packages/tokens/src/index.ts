@@ -89,6 +89,11 @@ export const tokens = {
     // Cuenta v2: icono de cada ajuste y avatar de la ficha.
     settingsIcon: 36,
     avatar: 64,
+    // Barra de pestañas con muesca (2026-11-25): alto, ancho y fondo de la muesca y burbuja activa.
+    tabBar: 64,
+    tabNotch: 56,
+    tabNotchDepth: 14,
+    tabDot: 12,
   },
   rotate: { stamp: -6 },
   glass: {
