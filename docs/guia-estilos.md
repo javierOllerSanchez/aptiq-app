@@ -97,7 +97,15 @@ En React Native: `expo-blur` (`BlurView`, intensidad equivalente) + capa de colo
 
 ## 6. Pantallas de referencia
 
-### Inicio (`prototipos/inicio.html`)
+### Inicio (`prototipos/inicio-v2.html`, aprobado el 2026-11-25; sustituye a `inicio.html`)
+1. Cabecera: logotipo, racha (píldora con burbuja amarilla y número en mono) y botón «i».
+2. Oposición y mes del examen en mono.
+3. `GlassCard` «Objetivo de hoy»: anillo con las preguntas respondidas hoy (de 12), Sesión de hoy y botón principal; debajo, la semana (una burbuja por día, marcada si practicaste).
+4. Tarjeta de nivel: cifra grande y barra hacia el nivel siguiente.
+5. Tarjeta de simulacro (secundaria): formato en una línea y botón con borde.
+6. «Practica por aptitud»: casillas de dos columnas con acierto y nivel en burbujas; las de Premium con candado.
+
+### Inicio v1 (`prototipos/inicio.html`, histórico)
 1. Cabecera: logotipo a la izquierda (hace de título y se anuncia como «Inicio»), oposición (píldora con borde) y botón «i» a la derecha.
 2. Mes del examen en mono si se conoce («Examen en marzo de 2027»).
 3. `GlassCard` con nivel estimado (cifra grande), racha en mono, `LevelBubbles`, formato en una línea mono y botón principal «Empezar simulacro». La fuente (`SourceNote`) y los avisos van en la hoja «i» (§7 bis); `SourceNote` se ve al empezar el simulacro.
@@ -156,6 +164,16 @@ Criterio de las skills de Emil Kowalski (`emil-design-eng`, `animate-expo`) con 
   - hojas: suben desde abajo (250 ms) con el fondo oscurecido;
   - pestañas: la pastilla `ink` se desliza a la pestaña activa;
   - cronómetro: en el último minuto el tiempo pasa a `sealText` (estado).
+
+### Recompensas (aprobado el 2026-11-25)
+
+Solo en momentos de logro (objetivo de hoy cumplido, racha que sube, simulacro terminado), **nunca durante el simulacro**:
+
+- Rebote suave (muelle con rebote 0,2) en lo que celebra: el anillo que se rellena, el número de la racha, el día que se marca, el aviso que baja.
+- Burbujas tinta y amarillas (círculos de la hoja de respuestas) que saltan desde lo conseguido y se desvanecen en 700 ms. Nada de brillos, estrellas ni confeti de colores.
+- Vibración de éxito y un sonido corto propio (ajuste «Sonidos» en Cuenta; respeta el modo silencio).
+- Texto sobrio: «Objetivo de hoy cumplido · Racha de 7 días». Sin exclamaciones ni emojis.
+- Con «reducir movimiento»: sin rebote ni burbujas; solo fundidos, vibración y sonido.
 - Respetar «reducir movimiento»: sin escalas ni desplazamientos, solo fundidos.
 
 ## 9. Tono de los textos

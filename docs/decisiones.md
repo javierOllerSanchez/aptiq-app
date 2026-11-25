@@ -111,6 +111,9 @@
 | 2026-11-25 | Tras el primer simulacro se ve antes la nota; Premium se ofrece en una tarjeta del resultado, no en una pantalla que la tape | El resultado es el momento de más interés; taparlo con el muro frustra |
 | 2026-11-25 | El onboarding empieza con una pantalla de bienvenida (logotipo, claim y una frase); la fecha del examen se pide como mes y año, con «Aún no lo sé» | Primera impresión de marca; las convocatorias se anuncian por mes |
 | 2026-11-25 | Una aptitud se marca «a reforzar» solo con 3 preguntas o más y 10 puntos o más por debajo de la mejor (`aReforzar`, Inicio y Resultado) | Con todas al 0 % o una sola pregunta, el rojo señalaría un punto débil inventado |
+| 2026-11-25 | Inicio v2 (prototipo `docs/prototipos/inicio-v2.html`, aprobado tal cual): la Sesión de hoy con anillo de objetivo diario es la protagonista; tira de la semana, racha visible, nivel con barra al siguiente, simulacro como tarjeta secundaria y aptitudes en casillas | Que el opositor sienta progreso con cada acción, con Duolingo como referencia de mecánicas (no de estilo) |
+| 2026-11-25 | Dependencia nueva `expo-audio` (~58.0.12, paquete oficial de Expo) y sonidos propios generados en el repositorio (sin licencias de terceros), con ajuste «Sonidos» en Cuenta | Recompensa sonora al cumplir objetivos, acertar y terminar un simulacro; respeta el modo silencio |
+| 2026-11-25 | Excepción de la guía: rebote suave (0,2) y burbujas tinta y amarillas que saltan, solo en momentos de recompensa y nunca durante el simulacro. Textos de recompensa sobrios, sin exclamaciones ni emojis | El propietario quiere una app más «jugosa» sin perder la seriedad que exige el opositor |
 
 ## Pendientes (las decide el propietario)
 
