@@ -35,7 +35,7 @@ test('muestra racha, cuenta atrás y la Sesión de hoy', async () => {
     </SafeAreaProvider>,
   );
   expect(await screen.findByText('Racha · 2 días')).toBeOnTheScreen();
-  expect(screen.getByText('Faltan 10 días para el examen.')).toBeOnTheScreen();
+  expect(screen.getByText(/^Examen en [a-z]+ de \d{4}$/)).toBeOnTheScreen();
   expect(screen.getByRole('button', { name: /^Sesión de hoy, 12 preguntas/ })).toBeOnTheScreen();
 });
 
@@ -47,7 +47,7 @@ test('sin fecha de examen no hay cuenta atrás', async () => {
     </SafeAreaProvider>,
   );
   expect(await screen.findByRole('button', { name: /^Sesión de hoy/ })).toBeOnTheScreen();
-  expect(screen.queryByText(/para el examen/)).toBeNull();
+  expect(screen.queryByText(/^Examen en/)).toBeNull();
 });
 
 test('plan gratuito: candados, Sesión de hoy hecha y simulacro de la semana gastado llevan al muro (fase 7)', async () => {

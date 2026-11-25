@@ -57,6 +57,7 @@ export function Inicio() {
   const [historial, setHistorial] = useState<Breakdown | null>(null);
   const [progreso, setProgreso] = useState<Progress | null>(null);
   const [hayTest, setHayTest] = useState(false);
+  const [fecha, setFecha] = useState<string | null>(null);
   // Mismo nivel que «Tu nivel» en Historial (ENT-03, PRO-01): semana actual, solo tipos con test.
   const nivel = progreso?.semanas[progreso.semanas.length - 1] ?? null;
   const { plan } = usePlan();
@@ -67,9 +68,14 @@ export function Inicio() {
   // Al volver a Inicio se relee: el test o un simulacro pueden haber cambiado los datos.
   useFocusEffect(
     useCallback(() => {
-      Promise.all([store.getSetting('niveles'), loadProgress(store)]).then(([raw, p]) => {
+      Promise.all([
+        store.getSetting('niveles'),
+        loadProgress(store),
+        store.getSetting('fecha'),
+      ]).then(([raw, p, f]) => {
         setHayTest(raw !== null);
         setProgreso(p);
+        setFecha(f);
       });
       store.attempts().then((list) => setAbierto(list.some((a) => a.finishedAt === null)));
       historyBreakdown(store).then(setHistorial);
@@ -87,12 +93,11 @@ export function Inicio() {
           <InfoFormato />
         </View>
       </Animated.View>
-      {progreso?.diasExamen != null && (
+      {progreso?.diasExamen != null && fecha && (
+        // Solo mes y año: el onboarding pide el mes aproximado y no se inventa un día exacto.
         <Animated.View entering={entrada(1, reduce)}>
           <Text variant="label" color="graphite">
-            {progreso.diasExamen === 0
-              ? 'El examen es hoy.'
-              : `Faltan ${progreso.diasExamen} ${progreso.diasExamen === 1 ? 'día' : 'días'} para el examen.`}
+            Examen en {MESES[Number(fecha.slice(5, 7)) - 1]} de {fecha.slice(0, 4)}
           </Text>
         </Animated.View>
       )}
