@@ -20,7 +20,7 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 **2026-11-25 · Fase 9 · Parte C · Revisión de la ronda 2 (Inicio, Historial y Cuenta)**
 
 - `revisor-interfaz` pasado. Corregidos: el bloqueante de Inicio (dos amarillos y textos contradictorios con el objetivo cumplido; ahora el botón pasa a secundario y hay estado intermedio «Te quedan N preguntas»); hitos que ya no se pierden ni se vuelven a celebrar y «Nivel 3 en una aptitud» como en el prototipo; aviso de recompensa anunciado a VoiceOver y con fundido con «reducir movimiento»; ficha de simulacro con «Ver resultado ›»; sin sonido de fallo (no estaba aprobado); límite de Android con el modo silencio anotado; guía al día (componentes nuevos, Historial y Cuenta v2, cristal en la ficha, sello en Historial); usuarios nuevos celebran su primer hito.
-- Pendiente de decisión del propietario (menores del revisor): si las casillas de aptitud mantienen la barra de acierto (no estaba en el prototipo), botón de simulacro de Inicio más pequeño, y algunos tamaños calculados con tokens de otro uso.
+- Decidido por el propietario: las casillas de aptitud mantienen la barra de acierto. Quedan menores sin tocar: botón de simulacro de Inicio a tamaño completo (en el prototipo, más pequeño) y algunos tamaños calculados con tokens de otro uso.
 - Sin probar: VoiceOver y TalkBack reales, sonido en dispositivo, hoja con teclado en Android físico.
 
 **2026-11-25 · Fase 9 · Parte C · Cuenta v2**
