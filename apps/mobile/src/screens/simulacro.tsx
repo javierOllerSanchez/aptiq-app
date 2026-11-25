@@ -184,7 +184,7 @@ function SimulacroEnCurso({ store, id, items, usado, exam: initial }: Listo & { 
       .then(() => {
         if (closedAt === null) return;
         void track(store, 'simulacro_entregado');
-        router.replace({ pathname: '/resultado', params: { id } });
+        router.replace({ pathname: '/resultado', params: { id, nuevo: '1' } });
       });
   }, [closedAt, exam, id, items, store, usado]);
 

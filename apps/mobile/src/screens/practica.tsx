@@ -18,6 +18,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { track } from '@/analytics/analytics';
 import { useStore } from '@/data/provider';
+import { sonar } from '@/sound/sound';
 import { APTITUDE_LABELS, startRun, toSaved } from '@/practice/run';
 import { expoReminderApi } from '@/notifications/expo-api';
 import { syncReminders } from '@/notifications/reminder';
@@ -113,6 +114,7 @@ export function Practica() {
         ? Haptics.NotificationFeedbackType.Success
         : Haptics.NotificationFeedbackType.Error,
     ).catch(() => {});
+    void sonar(store, selected === item!.answerIndex ? 'acierto' : 'fallo');
     setTiempos((t) => [...t, Date.now() - vistaDesde.current]);
     setRevealed(true);
   }

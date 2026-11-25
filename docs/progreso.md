@@ -17,6 +17,13 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 
 ## Registro
 
+**2026-11-25 · Fase 9 · Parte C · Inicio v2**
+
+- Prototipo `docs/prototipos/inicio-v2.html` aprobado tal cual por el propietario, con sonidos (ajuste en Cuenta), rebote y burbujas solo en recompensas y tono sobrio.
+- Hecho: objetivo de hoy con anillo (preguntas respondidas hoy, de 12), semana en burbujas, racha visible, nivel con barra al siguiente, simulacro como tarjeta secundaria y aptitudes en casillas con barra de acierto. Al cumplir el objetivo, una vez al día: anillo amarillo, burbujas, sonido, vibración y aviso. Sonidos también al acertar o fallar en práctica y al entregar un simulacro. Dependencia nueva `expo-audio`; sonidos propios generados con `scripts/sonidos.py`.
+- Comprobado: tipos, ESLint y pruebas en verde (141 de la app, 32 de componentes) y en el emulador con capturas `docs/capturas/fase-9c-inicio-v2*.png`.
+- Siguiente: Historial y Cuenta con el mismo criterio (las otras dos ventanas principales).
+
 **2026-11-25 · Fase 9 · Parte C · Pulido de la experiencia (en curso)**
 
 - Plan `docs/planes/fase-9-experiencia.md` aprobado por el propietario con las cinco propuestas; rama `fase-9-experiencia` (sale de `fase-9-lanzamiento`).

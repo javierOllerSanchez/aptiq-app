@@ -30,6 +30,7 @@ import Animated, { useReducedMotion } from 'react-native-reanimated';
 
 import { useStore } from '@/data/provider';
 import { usePlan } from '@/purchases/provider';
+import { sonar } from '@/sound/sound';
 import { APTITUDE_LABELS, aReforzar, formatNota, isCorrect } from '@/practice/run';
 import { InfoFormato } from '@/screens/info-formato';
 import { Loading } from '@/screens/loading';
@@ -46,7 +47,8 @@ const pct = (t: Tally) => (t.total ? Math.round((t.correct / t.total) * 100) : 0
 /** Resultado del simulacro: nota neta con su fórmula, comparación con el mínimo y desglose (RES-01, RES-02, RES-04). */
 export function Resultado() {
   const store = useStore();
-  const { id } = useLocalSearchParams<{ id: string }>();
+  // `nuevo`: recién entregado (la recompensa suena solo entonces, no al reabrirlo desde el historial).
+  const { id, nuevo } = useLocalSearchParams<{ id: string; nuevo?: string }>();
   const [resumen, setResumen] = useState<Resumen | null | 'no-encontrado'>(null);
   const [verTipos, setVerTipos] = useState(false);
   const [sello, setSello] = useState(false);
@@ -80,6 +82,14 @@ export function Resultado() {
       });
     });
   }, [store, id]);
+
+  // Simulacro recién entregado: sonido de recompensa cuando la nota termina de contar.
+  const cargado = resumen !== null && resumen !== 'no-encontrado';
+  useEffect(() => {
+    if (!cargado || nuevo !== '1') return;
+    const t = setTimeout(() => void sonar(store, 'simulacro'), tokens.motion.countUp);
+    return () => clearTimeout(t);
+  }, [cargado, nuevo, store]);
 
   // El sello cae cuando la cifra termina de contar (guía §8), con vibración de éxito.
   const supera = resumen !== null && resumen !== 'no-encontrado' && resumen.nota.supera;

@@ -23,3 +23,5 @@ export * from './count-up';
 export * from './icon-button';
 export * from './question-grid';
 export * from './month-picker';
+export * from './reward';
+export * from './aptitude-tile';

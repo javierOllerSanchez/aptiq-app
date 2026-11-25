@@ -12,6 +12,8 @@ jest.mock('react-native-reanimated', () => {
     default: { View, Text, createAnimatedComponent: id },
     useSharedValue: (value) => ({ value, set(v) { this.value = v; } }),
     useAnimatedStyle: (fn) => fn(),
+    useAnimatedProps: (fn) => fn(),
+    withSpring: (v) => v,
     useReducedMotion: () => false,
     withTiming: id,
     withDelay: (_, v) => v,
@@ -33,3 +35,13 @@ jest.mock('react-native-gesture-handler', () => {
     GestureHandlerRootView: View,
   };
 });
+
+// Sonidos de recompensa (apps/mobile/src/sound): en Jest no suenan.
+jest.mock(
+  'expo-audio',
+  () => ({
+    createAudioPlayer: () => ({ seekTo: async () => {}, play: () => {} }),
+    setAudioModeAsync: async () => {},
+  }),
+  { virtual: true },
+);

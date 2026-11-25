@@ -28,6 +28,7 @@ import { AUTH_MESSAGES, estadoSync, haceCuanto } from '@/auth/messages';
 import { useAuth } from '@/auth/provider';
 import { useStore } from '@/data/provider';
 import { AyudaLegal } from '@/screens/ayuda-legal';
+import { Sonidos } from '@/screens/sonidos';
 import { Recordatorio } from '@/screens/recordatorio';
 import { TuPlan } from '@/screens/tu-plan';
 import { TabSpacer } from '@/screens/tab-spacer';
@@ -50,6 +51,7 @@ export function Cuenta() {
           </Text>
           <TuPlan />
           <Recordatorio />
+          <Sonidos />
           {auth ? <Invitacion /> : <SinConfigurar />}
         </>
       )}
@@ -242,6 +244,7 @@ function ConSesion({ email }: { email: string }) {
       </GlassCard>
       <TuPlan />
       <Recordatorio />
+      <Sonidos />
       <Text variant="label" color="graphite" accessibilityRole="header" style={styles.seccion}>
         Tus datos
       </Text>

@@ -5,7 +5,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { createMemoryStore } from '@/data/memory-store';
 import { diaLocal } from '@/progress/data';
 
-import { Inicio } from './inicio';
+import { AJUSTE_CELEBRADO, haciaSiguiente, Inicio, semanaDe } from './inicio';
 
 // Fase 6 · T7 (ENT-02, PRO-03): racha, cuenta atrás y Sesión de hoy en Inicio.
 
@@ -34,9 +34,10 @@ test('muestra racha, cuenta atrás y la Sesión de hoy', async () => {
       <Inicio />
     </SafeAreaProvider>,
   );
-  expect(await screen.findByText('Racha · 2 días')).toBeOnTheScreen();
-  expect(screen.getByText(/^Examen en [a-z]+ de \d{4}$/)).toBeOnTheScreen();
-  expect(screen.getByRole('button', { name: /^Sesión de hoy, 12 preguntas/ })).toBeOnTheScreen();
+  expect(await screen.findByLabelText('Racha de 2 días')).toBeOnTheScreen();
+  expect(screen.getByText(/· examen en [a-z]+ de \d{4}$/)).toBeOnTheScreen();
+  expect(screen.getByText(/^12 preguntas/)).toBeOnTheScreen();
+  expect(screen.getByRole('button', { name: 'Empezar sesión de hoy' })).toBeOnTheScreen();
 });
 
 test('sin fecha de examen no hay cuenta atrás', async () => {
@@ -46,8 +47,8 @@ test('sin fecha de examen no hay cuenta atrás', async () => {
       <Inicio />
     </SafeAreaProvider>,
   );
-  expect(await screen.findByRole('button', { name: /^Sesión de hoy/ })).toBeOnTheScreen();
-  expect(screen.queryByText(/^Examen en/)).toBeNull();
+  expect(await screen.findByRole('button', { name: 'Empezar sesión de hoy' })).toBeOnTheScreen();
+  expect(screen.queryByText(/examen en/)).toBeNull();
 });
 
 test('plan gratuito: candados, Sesión de hoy hecha y simulacro de la semana gastado llevan al muro (fase 7)', async () => {
@@ -65,16 +66,42 @@ test('plan gratuito: candados, Sesión de hoy hecha y simulacro de la semana gas
       <Inicio />
     </SafeAreaProvider>,
   );
-  expect(
-    await screen.findByText(/El próximo simulacro gratuito está disponible el lunes/),
-  ).toBeOnTheScreen();
-  expect(screen.queryByRole('button', { name: 'Empezar simulacro' })).toBeNull();
-  expect(
-    screen.getByRole('button', {
-      name: 'Sesión de hoy, Hecha · vuelve mañana, ilimitada con Premium',
-    }),
-  ).toBeOnTheScreen();
+  expect(await screen.findByText(/Próximo gratuito el lunes/)).toBeOnTheScreen();
+  expect(screen.queryByRole('button', { name: 'Empezar' })).toBeNull();
+  expect(screen.getByText('Hecha · vuelve mañana para seguir la racha')).toBeOnTheScreen();
+  expect(screen.getByRole('button', { name: 'Sesión ilimitada con Premium' })).toBeOnTheScreen();
   await fireEvent.press(screen.getByRole('button', { name: 'Abstracta, incluido en Premium' }));
   expect(router.push).toHaveBeenCalledWith('/muro-pago');
   expect(screen.getByRole('button', { name: /^Numérica, / })).toBeOnTheScreen();
+});
+
+// Inicio v2 (2026-11-25): semana, nivel siguiente y recompensa del objetivo de hoy.
+
+test('la semana va de lunes a domingo y marca los días practicados y hoy', () => {
+  const s = semanaDe('2026-11-25', ['2026-11-23', '2026-11-25', '2026-11-16']); // miércoles
+  expect(s.map((d) => d.letra).join('')).toBe('LMXJVSD');
+  expect(s.map((d) => d.hecho)).toEqual([true, false, true, false, false, false, false]);
+  expect(s.findIndex((d) => d.hoy)).toBe(2);
+});
+
+test('avance hacia el nivel siguiente, y nada en el máximo', () => {
+  expect(haciaSiguiente(2.8)).toEqual({
+    siguiente: 3,
+    falta: expect.closeTo(0.2),
+    fraccion: expect.closeTo(0.8),
+  });
+  expect(haciaSiguiente(5)).toBeNull();
+});
+
+test('con 12 preguntas respondidas hoy, la recompensa se apunta una sola vez al día', async () => {
+  mockStore = createMemoryStore();
+  const doce = Array.from({ length: 12 }, () => q);
+  await mockStore.saveSession({ id: 'hoy', creada: Date.now(), questions: doce });
+  await render(
+    <SafeAreaProvider initialMetrics={metrics}>
+      <Inicio />
+    </SafeAreaProvider>,
+  );
+  expect(await screen.findByText('Objetivo cumplido')).toBeOnTheScreen();
+  expect(await mockStore.getSetting(AJUSTE_CELEBRADO)).toBe(diaLocal(Date.now()));
 });

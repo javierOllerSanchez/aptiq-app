@@ -79,6 +79,13 @@ export const tokens = {
     // Parte C de la fase 9: asa de la hoja inferior y casilla de la cuadrícula del simulacro.
     sheetHandle: 36,
     questionCell: 44,
+    // Inicio v2 (2026-11-25): anillo del objetivo, semana, burbujas de recompensa, racha y casillas.
+    ring: 96,
+    ringStroke: 8,
+    weekBubble: 28,
+    particle: 10,
+    streakBubble: 18,
+    tileMin: 112,
   },
   rotate: { stamp: -6 },
   glass: {
@@ -107,6 +114,12 @@ export const tokens = {
     countUp: 600,
     pulse: 900,
     shake: 4,
+    // Recompensas (guía §8): muelle con rebote suave, burbujas y aviso. Nunca en el simulacro.
+    spring: 400,
+    springDamping: 0.6,
+    burst: 700,
+    burstDistance: 80,
+    toast: 2600,
   },
 } as const;
 
