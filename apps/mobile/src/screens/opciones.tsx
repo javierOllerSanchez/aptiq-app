@@ -42,7 +42,12 @@ export function Opciones({
             {...(draw
               ? {
                   // Hasta medir el hueco, un espacio del mismo alto: la cuadrícula no salta.
-                  figure: ancho > 0 ? <Figure drawing={draw.option(value)} size={figura} /> : <View style={styles.hueco} />,
+                  figure:
+                    ancho > 0 ? (
+                      <Figure drawing={draw.option(value)} size={figura} />
+                    ) : (
+                      <View style={styles.hueco} />
+                    ),
                 }
               : {})}
             {...(onPress ? { onPress: () => onPress(i) } : {})}

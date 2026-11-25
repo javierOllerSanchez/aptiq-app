@@ -22,7 +22,9 @@ const item = registry['ESP.CUBO'].generator.generate('muestra-4-2', 4, 4);
 
 test('las opciones con figura se nombran por su letra en la explicación', async () => {
   await render(<Explicacion item={item} answer={(item.answerIndex + 1) % 4} />);
-  expect(screen.getByText(`Incorrecta. La correcta es la ${'ABCD'[item.answerIndex]}.`)).toBeOnTheScreen();
+  expect(
+    screen.getByText(`Incorrecta. La correcta es la ${'ABCD'[item.answerIndex]}.`),
+  ).toBeOnTheScreen();
 });
 
 test('«Cómo se resuelve este tipo» abre la ficha de método del tipo', async () => {

@@ -12,7 +12,9 @@ test('el nivel se escribe con coma decimal', () => {
 });
 
 test('el resumen dice los valores y la tendencia', () => {
-  expect(resumenGrafico([s(2), s(2.3), s(2.5)])).toBe('Nivel global en las últimas 3 semanas: 2,0; 2,3 y 2,5 de 5. Sube.');
+  expect(resumenGrafico([s(2), s(2.3), s(2.5)])).toBe(
+    'Nivel global en las últimas 3 semanas: 2,0; 2,3 y 2,5 de 5. Sube.',
+  );
   expect(resumenGrafico([s(3), s(2)])).toMatch(/Baja\.$/);
   expect(resumenGrafico([s(3), s(3)])).toMatch(/Se mantiene\.$/);
   expect(resumenGrafico([])).toBe('Sin datos de nivel.');

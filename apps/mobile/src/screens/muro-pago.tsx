@@ -22,7 +22,8 @@ const esPase = (o: Oferta) => o.periodo === 'tres-meses' || o.periodo === 'seis-
 
 const MENSAJES: Record<Exclude<Resultado, 'ok'>, string | null> = {
   cancelada: null, // La persona lo ha decidido: no hay nada que explicar.
-  pendiente: 'El pago está pendiente de confirmar en la tienda. Premium se activará cuando se apruebe.',
+  pendiente:
+    'El pago está pendiente de confirmar en la tienda. Premium se activará cuando se apruebe.',
   'sin-red': 'No hay conexión. Comprueba tu red y vuelve a intentarlo.',
   error: 'No se ha podido completar la compra. No se te ha cobrado nada; vuelve a intentarlo.',
 };
@@ -57,13 +58,16 @@ export function MuroPago() {
     api
       .ofertas()
       .then((os) => {
-        const ordenadas = [...os].sort((a, b) => ORDEN.indexOf(a.periodo) - ORDEN.indexOf(b.periodo));
+        const ordenadas = [...os].sort(
+          (a, b) => ORDEN.indexOf(a.periodo) - ORDEN.indexOf(b.periodo),
+        );
         setOfertas(ordenadas);
         setElegida(ordenadas[0]?.id ?? null);
       })
       .catch(() => {
         setOfertas('error');
-        if (Platform.OS === 'ios') AccessibilityInfo.announceForAccessibility('No se pueden cargar los planes ahora mismo.');
+        if (Platform.OS === 'ios')
+          AccessibilityInfo.announceForAccessibility('No se pueden cargar los planes ahora mismo.');
       });
   }, [api, intento]);
 
@@ -79,7 +83,10 @@ export function MuroPago() {
         track(store, 'compra_hecha');
         return cerrar();
       }
-      setAviso(resultado === 'ok' ? MENSAJES.error : MENSAJES[resultado], resultado !== 'pendiente');
+      setAviso(
+        resultado === 'ok' ? MENSAJES.error : MENSAJES[resultado],
+        resultado !== 'pendiente',
+      );
     } catch {
       setAviso(MENSAJES['sin-red']);
     } finally {
@@ -150,14 +157,25 @@ export function MuroPago() {
         <View accessibilityRole="radiogroup" accessibilityLabel="Plan" style={styles.opciones}>
           {ofertas.map((o) => {
             const on = o.id === elegida;
-            const detalle = esPase(o) ? 'Pago único, no se renueva' : o.periodo === 'anual' ? o.porMes && `${o.porMes} al mes` : null;
+            const detalle = esPase(o)
+              ? 'Pago único, no se renueva'
+              : o.periodo === 'anual'
+                ? o.porMes && `${o.porMes} al mes`
+                : null;
             return (
               <Pressable
                 key={o.id}
                 onPress={() => setElegida(o.id)}
                 accessibilityRole="radio"
                 accessibilityState={{ checked: on }}
-                accessibilityLabel={[NOMBRES[o.periodo], o.prueba && '7 días gratis', detalle, o.precio].filter(Boolean).join(', ')}
+                accessibilityLabel={[
+                  NOMBRES[o.periodo],
+                  o.prueba && '7 días gratis',
+                  detalle,
+                  o.precio,
+                ]
+                  .filter(Boolean)
+                  .join(', ')}
                 style={[styles.opcion, on && styles.opcionOn]}
               >
                 <View style={[styles.radio, on && styles.radioOn]} />
@@ -186,7 +204,11 @@ export function MuroPago() {
       )}
 
       {aviso && (
-        <Text color={aviso.error ? 'sealText' : 'graphiteStrong'} accessibilityLiveRegion="polite" accessibilityRole="alert">
+        <Text
+          color={aviso.error ? 'sealText' : 'graphiteStrong'}
+          accessibilityLiveRegion="polite"
+          accessibilityRole="alert"
+        >
           {aviso.texto}
         </Text>
       )}
@@ -220,7 +242,12 @@ function EnlacesLegales() {
       {enlaces.map((e, i) => (
         <View key={e.label} style={styles.legal}>
           {i > 0 && (
-            <Text variant="caption" color="graphite" importantForAccessibility="no" accessibilityElementsHidden>
+            <Text
+              variant="caption"
+              color="graphite"
+              importantForAccessibility="no"
+              accessibilityElementsHidden
+            >
               ·
             </Text>
           )}
@@ -242,11 +269,20 @@ function EnlacesLegales() {
 const styles = StyleSheet.create({
   legales: { flexDirection: 'row', justifyContent: 'center', alignItems: 'center' },
   legal: { flexDirection: 'row', alignItems: 'center' },
-  enlace: { minHeight: tokens.size.touchMin, justifyContent: 'center', paddingHorizontal: tokens.spacing.s },
+  enlace: {
+    minHeight: tokens.size.touchMin,
+    justifyContent: 'center',
+    paddingHorizontal: tokens.spacing.s,
+  },
   enlacePulsado: { opacity: tokens.opacity.pressed },
   subrayado: { textDecorationLine: 'underline' },
   content: { gap: tokens.spacing.l, paddingBottom: tokens.spacing.xxl },
-  cabecera: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', minHeight: tokens.size.touchMin },
+  cabecera: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    minHeight: tokens.size.touchMin,
+  },
   cerrar: {
     width: tokens.size.touchMin,
     height: tokens.size.touchMin,
@@ -269,7 +305,11 @@ const styles = StyleSheet.create({
     borderWidth: tokens.border.default,
     borderColor: withAlpha(tokens.color.ink, tokens.opacity.emptyBubbleBorder),
   },
-  opcionOn: { borderWidth: tokens.border.selected, borderColor: tokens.color.ink, backgroundColor: tokens.color.white },
+  opcionOn: {
+    borderWidth: tokens.border.selected,
+    borderColor: tokens.color.ink,
+    backgroundColor: tokens.color.white,
+  },
   radio: {
     width: tokens.size.levelBubble,
     height: tokens.size.levelBubble,

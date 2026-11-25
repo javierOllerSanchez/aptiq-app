@@ -22,7 +22,8 @@ export function resumenGrafico(semanas: readonly WeekLevel[]): string {
   const primero = semanas[0]!.global;
   const ultimo = semanas[semanas.length - 1]!.global;
   const tendencia = ultimo > primero ? 'Sube.' : ultimo < primero ? 'Baja.' : 'Se mantiene.';
-  const lista = vals.length > 1 ? `${vals.slice(0, -1).join('; ')} y ${vals[vals.length - 1]}` : vals[0];
+  const lista =
+    vals.length > 1 ? `${vals.slice(0, -1).join('; ')} y ${vals[vals.length - 1]}` : vals[0];
   return `Nivel global en las últimas ${semanas.length} semanas: ${lista} de 5. ${tendencia}`;
 }
 
@@ -31,7 +32,11 @@ export function LevelChart({ semanas }: { semanas: readonly WeekLevel[] }) {
   const [ancho, setAncho] = useState(0);
   const x = (i: number) => IZQ + (i * (ancho - IZQ - DER)) / Math.max(semanas.length - 1, 1);
   const y = (v: number) => ARRIBA + ((5 - v) * (ALTO - ARRIBA - ABAJO)) / 4;
-  const etiqueta = { fontFamily: fontFamily('mono', 600), fontSize: tokens.type.label.size, fill: tokens.color.graphiteStrong };
+  const etiqueta = {
+    fontFamily: fontFamily('mono', 600),
+    fontSize: tokens.type.label.size,
+    fill: tokens.color.graphiteStrong,
+  };
 
   return (
     <View
@@ -67,10 +72,22 @@ export function LevelChart({ semanas }: { semanas: readonly WeekLevel[] }) {
             strokeLinejoin="round"
           />
           {semanas.map((s, i) => (
-            <Circle key={s.semana} cx={x(i)} cy={y(s.global)} r={tokens.radius.bar} fill={tokens.color.ink} />
+            <Circle
+              key={s.semana}
+              cx={x(i)}
+              cy={y(s.global)}
+              r={tokens.radius.bar}
+              fill={tokens.color.ink}
+            />
           ))}
           {semanas.map((s, i) => (
-            <SvgText key={`d${s.semana}`} x={x(i)} y={ALTO - 6} textAnchor={i === semanas.length - 1 ? 'end' : 'middle'} {...etiqueta}>
+            <SvgText
+              key={`d${s.semana}`}
+              x={x(i)}
+              y={ALTO - 6}
+              textAnchor={i === semanas.length - 1 ? 'end' : 'middle'}
+              {...etiqueta}
+            >
               {fechaCorta(new Date(`${s.semana}T12:00:00`).getTime())}
             </SvgText>
           ))}

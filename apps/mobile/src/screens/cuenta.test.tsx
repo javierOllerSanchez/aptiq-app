@@ -12,8 +12,13 @@ const mockPush = jest.fn();
 const mockNavigate = jest.fn();
 const mockReplace = jest.fn();
 jest.mock('expo-router', () => ({
-  router: { push: (...a: unknown[]) => mockPush(...a), navigate: (...a: unknown[]) => mockNavigate(...a), replace: (...a: unknown[]) => mockReplace(...a) },
-  useFocusEffect: (cb: () => void | (() => void)) => jest.requireActual('react').useEffect(cb, [cb]),
+  router: {
+    push: (...a: unknown[]) => mockPush(...a),
+    navigate: (...a: unknown[]) => mockNavigate(...a),
+    replace: (...a: unknown[]) => mockReplace(...a),
+  },
+  useFocusEffect: (cb: () => void | (() => void)) =>
+    jest.requireActual('react').useEffect(cb, [cb]),
 }));
 
 let mockAuth: Record<string, unknown> = {};
@@ -23,14 +28,18 @@ let mockStore = createMemoryStore();
 jest.mock('@/data/provider', () => ({ useStore: () => mockStore }));
 let mockPremium = true;
 jest.mock('@/purchases/provider', () => ({
-  usePlan: () => ({ plan: { premium: mockPremium }, api: jest.requireActual('@/purchases/local').createLocalPurchases() }),
+  usePlan: () => ({
+    plan: { premium: mockPremium },
+    api: jest.requireActual('@/purchases/local').createLocalPurchases(),
+  }),
 }));
 
 const metrics = {
   frame: { x: 0, y: 0, width: 390, height: 844 },
   insets: { top: 59, left: 0, right: 0, bottom: 34 },
 };
-const wrap = (ui: React.ReactElement) => render(<SafeAreaProvider initialMetrics={metrics}>{ui}</SafeAreaProvider>);
+const wrap = (ui: React.ReactElement) =>
+  render(<SafeAreaProvider initialMetrics={metrics}>{ui}</SafeAreaProvider>);
 
 const q = { type: 'NUM.SERIE' as const, level: 2 as const, seed: 'x', answer: 0, marked: false };
 
@@ -42,7 +51,12 @@ beforeEach(() => {
 });
 
 test('sin Supabase configurado lo dice y no ofrece crear cuenta', async () => {
-  mockAuth = { auth: null, session: null, status: { lastSync: null, pending: 0 }, syncNow: () => {} };
+  mockAuth = {
+    auth: null,
+    session: null,
+    status: { lastSync: null, pending: 0 },
+    syncNow: () => {},
+  };
   await wrap(<Cuenta />);
   expect(screen.getByText(/no están disponibles/)).toBeOnTheScreen();
   expect(screen.queryByRole('button', { name: 'Enviar código' })).toBeNull();
@@ -51,14 +65,22 @@ test('sin Supabase configurado lo dice y no ofrece crear cuenta', async () => {
 test('invitación: avisa de lo que se subirá, envía el código y pasa a la pantalla del código', async () => {
   await mockStore.saveSession({ id: 's1', creada: 1, questions: [q] });
   const sendCode = jest.fn(async () => ({ ok: true }));
-  mockAuth = { auth: { sendCode }, session: null, status: { lastSync: null, pending: 0 }, syncNow: () => {} };
+  mockAuth = {
+    auth: { sendCode },
+    session: null,
+    status: { lastSync: null, pending: 0 },
+    syncNow: () => {},
+  };
   await wrap(<Cuenta />);
 
   expect(await screen.findByText(/0 simulacros y 1 sesión/)).toBeOnTheScreen();
   await fireEvent.changeText(screen.getByLabelText('Correo electrónico'), ' Ana@Correo.es ');
   await fireEvent.press(screen.getByRole('button', { name: 'Enviar código' }));
   await waitFor(() =>
-    expect(mockPush).toHaveBeenCalledWith({ pathname: '/codigo', params: { email: 'ana@correo.es' } }),
+    expect(mockPush).toHaveBeenCalledWith({
+      pathname: '/codigo',
+      params: { email: 'ana@correo.es' },
+    }),
   );
   await fireEvent.press(screen.getByRole('button', { name: 'Ahora no' }));
   expect(mockNavigate).toHaveBeenCalledWith('/inicio');
@@ -66,7 +88,12 @@ test('invitación: avisa de lo que se subirá, envía el código y pasa a la pan
 
 test('invitación: un error del servidor se explica con texto', async () => {
   const sendCode = jest.fn(async () => ({ ok: false, error: 'demasiados_intentos' }));
-  mockAuth = { auth: { sendCode }, session: null, status: { lastSync: null, pending: 0 }, syncNow: () => {} };
+  mockAuth = {
+    auth: { sendCode },
+    session: null,
+    status: { lastSync: null, pending: 0 },
+    syncNow: () => {},
+  };
   await wrap(<Cuenta />);
   await fireEvent.changeText(screen.getByLabelText('Correo electrónico'), 'ana@correo.es');
   await fireEvent.press(screen.getByRole('button', { name: 'Enviar código' }));
@@ -128,7 +155,10 @@ test('sin test de nivel, Historial no inventa un nivel', async () => {
 });
 
 test('Historial abre con «Tu nivel»: nivel global, gráfico legible y nivel por aptitud', async () => {
-  await mockStore.setSetting('niveles', JSON.stringify({ 'NUM.CALC': 2, 'NUM.SERIE': 2, 'VER.ORDEN': 2 }));
+  await mockStore.setSetting(
+    'niveles',
+    JSON.stringify({ 'NUM.CALC': 2, 'NUM.SERIE': 2, 'VER.ORDEN': 2 }),
+  );
   await wrap(<Historial />);
   expect(await screen.findByLabelText('Nivel global 2,0 de 5')).toBeOnTheScreen();
   expect(screen.getByLabelText(/^Nivel global en las últimas 4 semanas/)).toBeOnTheScreen();
@@ -143,6 +173,10 @@ test('plan gratuito: Historial muestra el último simulacro, oculta el resto y e
   expect(await screen.findByLabelText('Nivel global 2,0 de 5')).toBeOnTheScreen();
   expect(screen.queryByRole('button', { name: /^Numérica, nivel/ })).toBeNull();
   expect(screen.queryByRole('button', { name: /Práctica · 1 pregunta/ })).toBeNull();
-  await fireEvent.press(screen.getByRole('button', { name: /^Historial completo, 1 entrada más.*incluido en Premium$/ }));
+  await fireEvent.press(
+    screen.getByRole('button', {
+      name: /^Historial completo, 1 entrada más.*incluido en Premium$/,
+    }),
+  );
   expect(mockPush).toHaveBeenCalledWith('/muro-pago');
 });

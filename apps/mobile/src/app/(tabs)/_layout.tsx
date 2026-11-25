@@ -36,20 +36,17 @@ export default function TabsLayout() {
         const current = state.routes[state.index]?.name ?? 'inicio';
         if (teclado && Platform.OS === 'android') return null;
         const bottom = Math.max(insets.bottom, tokens.spacing.xxl);
+        // Papel opaco bajo toda la barra y un difuminado de 48 px por encima.
+        const difuminado = tokens.spacing.xxl * 2;
+        const alto = bottom + tokens.size.navHeight + tokens.spacing.s * 2 + difuminado;
         return (
           <>
             {/* El contenido se desvanece en el papel bajo la barra: no se lee a través del cristal. */}
-            <Svg
-              pointerEvents="none"
-              style={[
-                styles.fade,
-                { height: bottom + tokens.size.navHeight + tokens.spacing.xxl * 2 },
-              ]}
-            >
+            <Svg pointerEvents="none" style={[styles.fade, { height: alto }]}>
               <Defs>
                 <LinearGradient id="papel" x1="0" y1="0" x2="0" y2="1">
                   <Stop offset="0" stopColor={tokens.color.paper} stopOpacity={0} />
-                  <Stop offset="0.55" stopColor={tokens.color.paper} stopOpacity={1} />
+                  <Stop offset={difuminado / alto} stopColor={tokens.color.paper} stopOpacity={1} />
                 </LinearGradient>
               </Defs>
               <Rect width="100%" height="100%" fill="url(#papel)" />

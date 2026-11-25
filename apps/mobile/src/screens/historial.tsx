@@ -26,7 +26,9 @@ export function Historial() {
   // Se relee al volver: puede haber llegado algo de otro dispositivo o un simulacro nuevo.
   useFocusEffect(
     useCallback(() => {
-      Promise.all([store.sessions(), store.attempts()]).then(([s, a]) => setRows(historyRows(s, a)));
+      Promise.all([store.sessions(), store.attempts()]).then(([s, a]) =>
+        setRows(historyRows(s, a)),
+      );
       loadProgress(store).then(setProgreso);
     }, [store]),
   );
@@ -43,12 +45,11 @@ export function Historial() {
       <Text variant="screenTitle" accessibilityRole="header">
         Historial
       </Text>
+      {/* Una línea de apoyo como mucho (guía §7 bis). */}
       <Text color="graphite">
         {vacio
-          ? 'Aquí aparecerán tus simulacros y sesiones de práctica cuando termines el primero.'
-          : plan.premium
-            ? 'Tu nivel por aptitud y todo lo que has practicado. Toca un simulacro o una sesión para repasar tus fallos.'
-            : 'Tu nivel global y tu último simulacro. Tócalo para repasar tus fallos.'}
+          ? 'Aquí aparecerán tus simulacros y sesiones cuando termines el primero.'
+          : 'Toca uno para repasar tus fallos.'}
       </Text>
       <TuNivel progreso={progreso} porAptitud={plan.premium} />
       {simulacros.length > 0 && (
@@ -92,7 +93,9 @@ function TuNivel({ progreso, porAptitud }: { progreso: Progress; porAptitud: boo
   const primera = semanas[0];
   if (!actual || !primera) return null;
   const delta = actual.global - primera.global;
-  const aptitudes = Object.entries(APTITUDE_LABELS).filter(([id]) => actual.porAptitud[id] !== undefined);
+  const aptitudes = Object.entries(APTITUDE_LABELS).filter(
+    ([id]) => actual.porAptitud[id] !== undefined,
+  );
   const flojo = aptitudFloja(actual.porAptitud);
   return (
     <Seccion titulo="Tu nivel" columna="De 5">
@@ -111,7 +114,8 @@ function TuNivel({ progreso, porAptitud }: { progreso: Progress; porAptitud: boo
           {delta !== 0 && (
             <Text variant="formula" color="graphiteStrong">
               {delta > 0 ? '+' : '−'}
-              {nivelTexto(Math.abs(delta))} desde el {fechaCorta(new Date(`${primera.semana}T12:00:00`).getTime())}
+              {nivelTexto(Math.abs(delta))} desde el{' '}
+              {fechaCorta(new Date(`${primera.semana}T12:00:00`).getTime())}
             </Text>
           )}
         </View>
@@ -119,22 +123,31 @@ function TuNivel({ progreso, porAptitud }: { progreso: Progress; porAptitud: boo
       </GlassCard>
       <View>
         {/* Nivel por aptitud: Premium. Gratis, solo el global (tabla «Monetización»). */}
-        {porAptitud && aptitudes.map(([id, label]) => (
-          <ListRow
-            key={id}
-            label={label}
-            value={nivelTexto(actual.porAptitud[id]!)}
-            valueLabel={`nivel ${nivelTexto(actual.porAptitud[id]!)} de 5`}
-            weak={id === flojo}
-            onPress={() => router.push({ pathname: '/practica', params: { aptitud: id } })}
-          />
-        ))}
+        {porAptitud &&
+          aptitudes.map(([id, label]) => (
+            <ListRow
+              key={id}
+              label={label}
+              value={nivelTexto(actual.porAptitud[id]!)}
+              valueLabel={`nivel ${nivelTexto(actual.porAptitud[id]!)} de 5`}
+              weak={id === flojo}
+              onPress={() => router.push({ pathname: '/practica', params: { aptitud: id } })}
+            />
+          ))}
       </View>
     </Seccion>
   );
 }
 
-function Seccion({ titulo, columna, children }: { titulo: string; columna: string; children: React.ReactNode }) {
+function Seccion({
+  titulo,
+  columna,
+  children,
+}: {
+  titulo: string;
+  columna: string;
+  children: React.ReactNode;
+}) {
   return (
     <View style={styles.seccion}>
       <View style={styles.cabecera}>

@@ -16,7 +16,10 @@ jest.mock('expo-router', () => ({
 let mockStore = createMemoryStore();
 jest.mock('@/data/provider', () => ({ useStore: () => mockStore }));
 
-const metrics = { frame: { x: 0, y: 0, width: 390, height: 844 }, insets: { top: 59, left: 0, right: 0, bottom: 34 } };
+const metrics = {
+  frame: { x: 0, y: 0, width: 390, height: 844 },
+  insets: { top: 59, left: 0, right: 0, bottom: 34 },
+};
 const q = { type: 'NUM.SERIE' as const, level: 2 as const, seed: 'x', answer: 0, marked: false };
 const dia = (n: number) => Date.now() - n * 86_400_000;
 
@@ -50,15 +53,27 @@ test('sin fecha de examen no hay cuenta atrás', async () => {
 test('plan gratuito: candados, Sesión de hoy hecha y simulacro de la semana gastado llevan al muro (fase 7)', async () => {
   mockStore = createMemoryStore();
   await mockStore.setSetting('sesion_hoy', diaLocal(Date.now()));
-  await mockStore.saveAttempt({ id: 'i1', empezado: Date.now(), durationMs: 1, finishedAt: Date.now(), questions: [q] });
+  await mockStore.saveAttempt({
+    id: 'i1',
+    empezado: Date.now(),
+    durationMs: 1,
+    finishedAt: Date.now(),
+    questions: [q],
+  });
   await render(
     <SafeAreaProvider initialMetrics={metrics}>
       <Inicio />
     </SafeAreaProvider>,
   );
-  expect(await screen.findByText(/El próximo simulacro gratuito está disponible el lunes/)).toBeOnTheScreen();
+  expect(
+    await screen.findByText(/El próximo simulacro gratuito está disponible el lunes/),
+  ).toBeOnTheScreen();
   expect(screen.queryByRole('button', { name: 'Empezar simulacro' })).toBeNull();
-  expect(screen.getByRole('button', { name: 'Sesión de hoy, Hecha · vuelve mañana, ilimitada con Premium' })).toBeOnTheScreen();
+  expect(
+    screen.getByRole('button', {
+      name: 'Sesión de hoy, Hecha · vuelve mañana, ilimitada con Premium',
+    }),
+  ).toBeOnTheScreen();
   await fireEvent.press(screen.getByRole('button', { name: 'Abstracta, incluido en Premium' }));
   expect(router.push).toHaveBeenCalledWith('/muro-pago');
   expect(screen.getByRole('button', { name: /^Numérica, / })).toBeOnTheScreen();

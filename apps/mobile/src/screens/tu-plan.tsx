@@ -19,7 +19,9 @@ const fecha = (ms: number) => `${fechaCorta(ms)} ${new Date(ms).getFullYear()}`;
 export function detallePlan(plan: Plan): string {
   if (!plan.premium) return '1 Sesión de hoy al día y 1 simulacro a la semana';
   if (plan.hasta === null) return 'Activo';
-  return plan.renueva ? `Se renueva el ${fecha(plan.hasta)}` : `Activo hasta el ${fecha(plan.hasta)}, no se renueva`;
+  return plan.renueva
+    ? `Se renueva el ${fecha(plan.hasta)}`
+    : `Activo hasta el ${fecha(plan.hasta)}, no se renueva`;
 }
 
 /** «Tu plan» en Cuenta (PAY-03): estado, gestionar la suscripción en la tienda y restaurar compras. */
@@ -38,7 +40,11 @@ export function TuPlan() {
     setAviso(null);
     try {
       const p = await api.restaurar();
-      setAviso(p.premium ? 'Compras restauradas: ya tienes Premium.' : 'No hay compras que restaurar con esta cuenta de la tienda.');
+      setAviso(
+        p.premium
+          ? 'Compras restauradas: ya tienes Premium.'
+          : 'No hay compras que restaurar con esta cuenta de la tienda.',
+      );
     } catch {
       setAviso('No hay conexión. Comprueba tu red y vuelve a intentarlo.');
     } finally {
@@ -63,7 +69,13 @@ export function TuPlan() {
             <ListRow
               label="Gestionar suscripción"
               detail="Cambiar o cancelar en la tienda"
-              onPress={() => Linking.openURL(plan.gestionUrl ?? GESTION).catch(() => setAviso('No se ha podido abrir la tienda. Inténtalo desde los ajustes de tu cuenta de la tienda.'))}
+              onPress={() =>
+                Linking.openURL(plan.gestionUrl ?? GESTION).catch(() =>
+                  setAviso(
+                    'No se ha podido abrir la tienda. Inténtalo desde los ajustes de tu cuenta de la tienda.',
+                  ),
+                )
+              }
             />
           )}
         </>
@@ -77,7 +89,12 @@ export function TuPlan() {
       )}
       <ListRow label="Restaurar compras" onPress={restaurar} />
       {aviso && (
-        <Text color="graphiteStrong" accessibilityLiveRegion="polite" accessibilityRole="alert" style={styles.aviso}>
+        <Text
+          color="graphiteStrong"
+          accessibilityLiveRegion="polite"
+          accessibilityRole="alert"
+          style={styles.aviso}
+        >
           {aviso}
         </Text>
       )}

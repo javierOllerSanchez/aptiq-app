@@ -187,7 +187,11 @@ function TestDeNivel({ store, items, exam }: { store: Store; items: Item[]; exam
         answered={items.map((_, i) => i < answers.length)}
       />
       <Pregunta item={item} />
-      <Opciones item={item} stateOf={(i) => (selected === i ? 'marked' : 'empty')} onPress={setSelected} />
+      <Opciones
+        item={item}
+        stateOf={(i) => (selected === i ? 'marked' : 'empty')}
+        onPress={setSelected}
+      />
       <Button
         label={ultima ? 'Ver mi nivel' : 'Siguiente'}
         onPress={() => siguiente(selected)}

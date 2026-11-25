@@ -23,7 +23,10 @@ export function Pregunta({ item }: { item: Item }) {
   const termino = Math.min(tokens.size.figureOption, (ancho - n * tokens.spacing.xs) / (n + 1));
   const serie = draw ? null : partirSerie(item.stem.text);
   return (
-    <View style={styles.card} onLayout={(e) => setAncho(e.nativeEvent.layout.width - 2 * tokens.spacing.xl)}>
+    <View
+      style={styles.card}
+      onLayout={(e) => setAncho(e.nativeEvent.layout.width - 2 * tokens.spacing.xl)}
+    >
       <Enunciado texto={serie ? serie.pregunta : item.stem.text} />
       {serie && (
         <View
@@ -47,7 +50,11 @@ export function Pregunta({ item }: { item: Item }) {
       )}
       {stem && ancho > 0 && n === 1 && (
         <View style={styles.center}>
-          <Figure drawing={stem.drawings[0]!} size={Math.min(ancho, tokens.size.figureStem)} label={stem.alt} />
+          <Figure
+            drawing={stem.drawings[0]!}
+            size={Math.min(ancho, tokens.size.figureStem)}
+            label={stem.alt}
+          />
         </View>
       )}
       {stem && ancho > 0 && n > 1 && (
@@ -99,12 +106,12 @@ const styles = StyleSheet.create({
   center: { alignItems: 'center' },
   row: { flexDirection: 'row', gap: tokens.spacing.xs },
   clave: { backgroundColor: tokens.color.highlighter },
-  casillas: { flexDirection: 'row', flexWrap: 'wrap', gap: tokens.spacing.s },
+  casillas: { flexDirection: 'row', flexWrap: 'wrap', gap: tokens.spacing.xs },
   // SeriesTile (guía §5): radio 12, borde tinta 1,5; la incógnita, discontinua.
   casilla: {
     minWidth: tokens.size.touchMin,
     minHeight: tokens.size.touchMin + tokens.spacing.s,
-    paddingHorizontal: tokens.spacing.m,
+    paddingHorizontal: tokens.spacing.s,
     borderRadius: tokens.radius.tile,
     borderWidth: tokens.border.default,
     borderColor: tokens.color.ink,

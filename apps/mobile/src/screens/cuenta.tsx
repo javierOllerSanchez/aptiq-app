@@ -1,5 +1,14 @@
 import { tokens } from '@aptiq/tokens';
-import { Button, GlassCard, Icon, ListRow, PaperBackground, Text, textStyle, withAlpha } from '@aptiq/ui';
+import {
+  Button,
+  GlassCard,
+  Icon,
+  ListRow,
+  PaperBackground,
+  Text,
+  textStyle,
+  withAlpha,
+} from '@aptiq/ui';
 import { router, useFocusEffect } from 'expo-router';
 import { useCallback, useState } from 'react';
 import {
@@ -31,7 +40,13 @@ export function Cuenta() {
   const { auth, session } = useAuth();
   return (
     <PaperBackground scroll style={styles.content}>
-      {!auth ? <SinConfigurar /> : session ? <ConSesion email={session.user.email ?? ''} /> : <Invitacion />}
+      {!auth ? (
+        <SinConfigurar />
+      ) : session ? (
+        <ConSesion email={session.user.email ?? ''} />
+      ) : (
+        <Invitacion />
+      )}
       {/* Con sesión va dentro de ConSesion, antes de «Tus datos». El recordatorio no necesita cuenta. */}
       {!(auth && session) && (
         <>
@@ -77,7 +92,10 @@ function Invitacion() {
   useFocusEffect(
     useCallback(() => {
       Promise.all([store.attempts(), store.sessions()]).then(([a, s]) =>
-        setGuardado({ simulacros: a.filter((x) => x.finishedAt !== null).length, sesiones: s.length }),
+        setGuardado({
+          simulacros: a.filter((x) => x.finishedAt !== null).length,
+          sesiones: s.length,
+        }),
       );
     }, [store]),
   );
@@ -103,7 +121,12 @@ function Invitacion() {
       </Text>
       <GlassCard accessible={false}>
         <View style={styles.campo}>
-          <Text variant="label" color="graphiteStrong" nativeID="etiqueta-correo" accessibilityElementsHidden>
+          <Text
+            variant="label"
+            color="graphiteStrong"
+            nativeID="etiqueta-correo"
+            accessibilityElementsHidden
+          >
             Correo electrónico
           </Text>
           <TextInput
@@ -225,8 +248,8 @@ function ConSesion({ email }: { email: string }) {
         <View style={styles.nota}>
           <Icon name="document" color="graphite" size={tokens.size.chevron} />
           <Text variant="caption" color="graphiteStrong" style={styles.flex}>
-            Datos en servidores de la Unión Europea. Se guardan respuestas, fechas y ajustes; nunca el
-            texto de las preguntas.
+            Datos en servidores de la Unión Europea. Se guardan respuestas, fechas y ajustes; nunca
+            el texto de las preguntas.
           </Text>
         </View>
       </GlassCard>
@@ -241,9 +264,21 @@ function ConSesion({ email }: { email: string }) {
         </Text>
       )}
       <View>
-        <ListRow label="Exportar mis datos" detail="Archivo JSON con todo lo guardado" onPress={exportar} />
-        <ListRow label="Cerrar sesión" detail="Lo pendiente se sube antes de salir" onPress={cerrar} />
-        <ListRow label="Borrar cuenta" detail="Elimina la cuenta y todos sus datos" onPress={() => setConfirmar(true)} />
+        <ListRow
+          label="Exportar mis datos"
+          detail="Archivo JSON con todo lo guardado"
+          onPress={exportar}
+        />
+        <ListRow
+          label="Cerrar sesión"
+          detail="Lo pendiente se sube antes de salir"
+          onPress={cerrar}
+        />
+        <ListRow
+          label="Borrar cuenta"
+          detail="Elimina la cuenta y todos sus datos"
+          onPress={() => setConfirmar(true)}
+        />
       </View>
       <Modal
         visible={confirmar}
@@ -252,11 +287,7 @@ function ConSesion({ email }: { email: string }) {
         statusBarTranslucent
         onRequestClose={cerrarHoja}
       >
-        <Pressable
-          style={styles.velo}
-          onPress={cerrarHoja}
-          accessible={false}
-        />
+        <Pressable style={styles.velo} onPress={cerrarHoja} accessible={false} />
         <ScrollView
           style={styles.hojaScroll}
           contentContainerStyle={[
@@ -270,8 +301,8 @@ function ConSesion({ email }: { email: string }) {
             ¿Borrar tu cuenta?
           </Text>
           <Text color="graphite">
-            Se eliminan de nuestros servidores tu cuenta, tus simulacros, tus sesiones y tus ajustes, y
-            también lo guardado en este móvil. No se puede deshacer.
+            Se eliminan de nuestros servidores tu cuenta, tus simulacros, tus sesiones y tus
+            ajustes, y también lo guardado en este móvil. No se puede deshacer.
           </Text>
           <Text color="graphite">Si quieres conservar una copia, exporta tus datos antes.</Text>
           <Button

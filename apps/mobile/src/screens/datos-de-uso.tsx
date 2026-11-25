@@ -34,13 +34,16 @@ export function DatosDeUso() {
         ¿Compartes datos de uso?
       </Text>
       <Text color="graphiteStrong">
-        Nos dicen qué partes de Aptiq usas y dónde se atasca la app, para mejorarla durante la preparación.
+        Nos dicen qué partes de Aptiq usas y dónde se atasca la app, para mejorarla durante la
+        preparación.
       </Text>
       <GlassCard>
         <Text variant="label" color="graphiteStrong">
           Qué se envía
         </Text>
-        <Text>Pasos como «simulacro entregado» o «test de nivel terminado», con la versión de la app.</Text>
+        <Text>
+          Pasos como «simulacro entregado» o «test de nivel terminado», con la versión de la app.
+        </Text>
         <Text variant="label" color="graphiteStrong">
           Qué no
         </Text>
@@ -56,8 +59,18 @@ export function DatosDeUso() {
         )}
       </GlassCard>
       <View style={styles.botones}>
-        <Button label="Aceptar" variant="secondary" onPress={() => contestar(true)} disabled={ocupado} />
-        <Button label="No, gracias" variant="secondary" onPress={() => contestar(false)} disabled={ocupado} />
+        <Button
+          label="Aceptar"
+          variant="secondary"
+          onPress={() => contestar(true)}
+          disabled={ocupado}
+        />
+        <Button
+          label="No, gracias"
+          variant="secondary"
+          onPress={() => contestar(false)}
+          disabled={ocupado}
+        />
       </View>
     </PaperBackground>
   );

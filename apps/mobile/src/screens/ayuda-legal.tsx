@@ -65,7 +65,10 @@ export function AyudaLegal() {
             value={datos}
             onValueChange={cambiar}
             accessibilityLabel="Compartir datos de uso"
-            trackColor={{ false: withAlpha(tokens.color.ink, tokens.opacity.pendingTick), true: tokens.color.ink }}
+            trackColor={{
+              false: withAlpha(tokens.color.ink, tokens.opacity.pendingTick),
+              true: tokens.color.ink,
+            }}
             thumbColor={datos ? tokens.color.highlighter : tokens.color.paperCard}
             ios_backgroundColor={withAlpha(tokens.color.ink, tokens.opacity.pendingTick)}
           />
@@ -88,7 +91,8 @@ export function AyudaLegal() {
       <View style={styles.nota}>
         <Icon name="document" color="graphite" size={tokens.size.chevron} />
         <Text variant="caption" color="graphiteStrong" style={styles.flex}>
-          Aptiq es independiente de la Administración y de la Guardia Civil. Las preguntas son originales.
+          Aptiq es independiente de la Administración y de la Guardia Civil. Las preguntas son
+          originales.
         </Text>
       </View>
       <Text variant="formula" color="graphiteStrong">
@@ -111,5 +115,10 @@ const styles = StyleSheet.create({
     paddingVertical: tokens.spacing.s,
   },
   flex: { flex: 1 },
-  nota: { flexDirection: 'row', gap: tokens.spacing.s, alignItems: 'flex-start', marginTop: tokens.spacing.l },
+  nota: {
+    flexDirection: 'row',
+    gap: tokens.spacing.s,
+    alignItems: 'flex-start',
+    marginTop: tokens.spacing.l,
+  },
 });

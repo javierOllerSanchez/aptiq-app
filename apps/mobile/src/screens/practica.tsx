@@ -2,6 +2,8 @@ import { type Item, taxonomy, type TypeCode } from '@aptiq/engine';
 import { tokens } from '@aptiq/tokens';
 import {
   Button,
+  easeOut,
+  IconButton,
   type OptionState,
   PaperBackground,
   ProgressTicks,
@@ -10,7 +12,9 @@ import {
 import * as Haptics from 'expo-haptics';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import Animated, { FadeIn, useReducedMotion } from 'react-native-reanimated';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { track } from '@/analytics/analytics';
 import { useStore } from '@/data/provider';
@@ -43,8 +47,12 @@ export function Practica() {
   // Tiempo de cada respuesta (métricas ADM-02): desde que se ve la pregunta hasta confirmar.
   const [tiempos, setTiempos] = useState<number[]>([]);
   const vistaDesde = useRef(0);
+  const scroll = useRef<ScrollView>(null);
+  const insets = useSafeAreaInsets();
+  const reduce = useReducedMotion();
   useEffect(() => {
     vistaDesde.current = Date.now();
+    scroll.current?.scrollTo({ y: 0, animated: false });
   }, [index, items]);
 
   useEffect(() => {
@@ -52,11 +60,15 @@ export function Practica() {
       // Sin aptitud: la Sesión de hoy (ENT-02). Con aptitud: práctica de esa aptitud al nivel adaptativo (ENT-03).
       const progreso = await loadProgress(store);
       // Se pregunta ahora: el plan del contexto puede no haber llegado aún al abrir la app.
-      const premium = await api.plan().then((p) => p.premium, () => plan.premium);
+      const premium = await api.plan().then(
+        (p) => p.premium,
+        () => plan.premium,
+      );
       const a = permiso(progreso, premium);
       // Lo que no incluye el plan gratuito lleva al muro de pago (tabla «Monetización»).
       const permitidos = tipo ? a.tipos.filter((t) => t === tipo) : a.tipos;
-      if (aptitud ? tiposDe(aptitud, permitidos).length === 0 : !a.sesionHoy) return router.replace('/muro-pago');
+      if (aptitud ? tiposDe(aptitud, permitidos).length === 0 : !a.sesionHoy)
+        return router.replace('/muro-pago');
       if (!aptitud) return setItems(await startToday(store, Date.now(), premium));
       const { levels } = progreso;
       setItems(
@@ -74,10 +86,14 @@ export function Practica() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [store, aptitud, tipo]);
 
-  if (!items) return <Loading text="Preparando la sesión…" />;
+  if (!items) return <Loading text="Preparando la sesión" />;
   const item = items[index];
   if (!item) return null;
-  const titulo = tipo ? taxonomy[tipo].nombre : aptitud ? (APTITUDE_LABELS[aptitud] ?? aptitud) : 'Sesión de hoy';
+  const titulo = tipo
+    ? taxonomy[tipo].nombre
+    : aptitud
+      ? (APTITUDE_LABELS[aptitud] ?? aptitud)
+      : 'Sesión de hoy';
 
   function stateOf(i: number): OptionState {
     if (!revealed) return i === selected ? 'marked' : 'empty';
@@ -85,8 +101,20 @@ export function Practica() {
     return i === selected ? 'wrong' : 'empty';
   }
 
+  // Pregunta nueva: fundido y 24 px desde la derecha (con «reducir movimiento», solo fundido).
+  const entra = reduce
+    ? FadeIn.duration(tokens.motion.durationBase)
+    : FadeIn.duration(tokens.motion.durationBase)
+        .easing(easeOut)
+        .withInitialValues({ opacity: 0, transform: [{ translateX: tokens.spacing.xxl }] });
+
   function confirmar() {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
+    // Vibración distinta para acierto y fallo (guía §8); la fila ya se rellena o tiembla.
+    Haptics.notificationAsync(
+      selected === item!.answerIndex
+        ? Haptics.NotificationFeedbackType.Success
+        : Haptics.NotificationFeedbackType.Error,
+    ).catch(() => {});
     setTiempos((t) => [...t, Date.now() - vistaDesde.current]);
     setRevealed(true);
   }
@@ -115,37 +143,71 @@ export function Practica() {
   }
 
   return (
-    <PaperBackground scroll style={styles.content}>
-      <Text variant="label" color="graphite">
-        {titulo} · pregunta {index + 1} de {items.length}
-      </Text>
+    <PaperBackground style={styles.pantalla}>
+      <View style={styles.cabecera}>
+        <IconButton icon="cross" label="Cerrar práctica" onPress={() => router.back()} />
+        <Text
+          variant="label"
+          color="graphite"
+          style={styles.titulo}
+          accessibilityLabel={`${titulo}, pregunta ${index + 1} de ${items.length}`}
+        >
+          {titulo} · {index + 1} / {items.length}
+        </Text>
+      </View>
       <ProgressTicks
         total={items.length}
         current={index}
         answered={items.map((_, i) => i < answers.length)}
       />
-      <Pregunta item={item} />
-      <Opciones item={item} stateOf={stateOf} {...(revealed ? {} : { onPress: (i: number) => setSelected(i) })} />
-      {revealed && <Explicacion item={item} answer={selected} anunciar />}
-      {revealed ? (
-        // Tras corregir, el amarillo es la opción correcta: el botón pasa a secundario (un solo protagonista).
-        <Button
-          label={index + 1 < items.length ? 'Siguiente' : 'Terminar sesión'}
-          onPress={siguiente}
-          variant="secondary"
-        />
-      ) : (
-        <Button
-          label="Confirmar"
-          onPress={confirmar}
-          disabled={selected === null}
-          variant="primary"
-        />
-      )}
+      <ScrollView
+        ref={scroll}
+        style={styles.scroll}
+        contentContainerStyle={styles.contenido}
+        showsVerticalScrollIndicator={false}
+      >
+        <Animated.View key={index} entering={entra} style={styles.pregunta}>
+          <Pregunta item={item} />
+          <Opciones
+            item={item}
+            stateOf={stateOf}
+            {...(revealed ? {} : { onPress: (i: number) => setSelected(i) })}
+          />
+          {revealed && <Explicacion item={item} answer={selected} anunciar />}
+        </Animated.View>
+      </ScrollView>
+      <View style={[styles.barra, { paddingBottom: Math.max(insets.bottom, tokens.spacing.l) }]}>
+        {revealed ? (
+          // Tras corregir, el amarillo es la opción correcta: el botón pasa a secundario (un solo protagonista).
+          <Button
+            label={index + 1 < items.length ? 'Siguiente' : 'Terminar sesión'}
+            onPress={siguiente}
+            variant="secondary"
+          />
+        ) : (
+          <Button
+            label="Confirmar"
+            onPress={confirmar}
+            disabled={selected === null}
+            variant="primary"
+          />
+        )}
+      </View>
     </PaperBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  content: { gap: tokens.spacing.m },
+  // Sin margen inferior propio: la barra de acciones ya suma el área segura.
+  pantalla: { gap: tokens.spacing.m, paddingBottom: 0 },
+  cabecera: { flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.s },
+  titulo: { flex: 1 },
+  scroll: { flex: 1, marginHorizontal: -tokens.spacing.screenX },
+  contenido: {
+    paddingHorizontal: tokens.spacing.screenX,
+    paddingBottom: tokens.spacing.xxl,
+    gap: tokens.spacing.m,
+  },
+  pregunta: { gap: tokens.spacing.m },
+  barra: { paddingTop: tokens.spacing.s },
 });

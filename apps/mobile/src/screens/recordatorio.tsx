@@ -52,7 +52,10 @@ export function Recordatorio() {
           value={activo}
           onValueChange={(v) => cambiar(v ? HORA_INICIAL : null)}
           accessibilityLabel="Recordatorio diario"
-          trackColor={{ false: withAlpha(tokens.color.ink, tokens.opacity.pendingTick), true: tokens.color.ink }}
+          trackColor={{
+            false: withAlpha(tokens.color.ink, tokens.opacity.pendingTick),
+            true: tokens.color.ink,
+          }}
           thumbColor={activo ? tokens.color.highlighter : tokens.color.paperCard}
           ios_backgroundColor={withAlpha(tokens.color.ink, tokens.opacity.pendingTick)}
         />
@@ -67,7 +70,11 @@ export function Recordatorio() {
           <Text variant="label" color="graphite">
             Hora
           </Text>
-          <View accessibilityRole="radiogroup" accessibilityLabel="Hora del recordatorio" style={styles.pildoras}>
+          <View
+            accessibilityRole="radiogroup"
+            accessibilityLabel="Hora del recordatorio"
+            style={styles.pildoras}
+          >
             {HORAS.map((h) => {
               const on = h === hora;
               return (
@@ -77,7 +84,11 @@ export function Recordatorio() {
                   accessibilityRole="radio"
                   accessibilityState={{ checked: on }}
                   accessibilityLabel={`A las ${h}`}
-                  style={({ pressed }) => [styles.pildora, on && styles.pildoraOn, pressed && styles.pulsada]}
+                  style={({ pressed }) => [
+                    styles.pildora,
+                    on && styles.pildoraOn,
+                    pressed && styles.pulsada,
+                  ]}
                 >
                   <Text variant="timer" color={on ? 'paperCard' : 'ink'}>
                     {h}

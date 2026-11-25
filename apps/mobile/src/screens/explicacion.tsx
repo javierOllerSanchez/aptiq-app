@@ -1,9 +1,10 @@
 import { type Item, reviewOf } from '@aptiq/engine';
 import { tokens } from '@aptiq/tokens';
-import { ListRow, Text } from '@aptiq/ui';
+import { Icon, ListRow, PressScale, Text } from '@aptiq/ui';
 import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { AccessibilityInfo, StyleSheet, View } from 'react-native';
+import Animated, { FadeIn } from 'react-native-reanimated';
 
 import { useStore } from '@/data/provider';
 import { nombreOpcion } from '@/practice/run';
@@ -18,12 +19,16 @@ export function Explicacion({
   item,
   answer,
   anunciar = false,
+  abierta = false,
 }: {
   item: Item;
   answer: number | null;
   /** En Práctica, el veredicto se anuncia al lector de pantalla al confirmar. */
   anunciar?: boolean;
+  /** Paso a paso desplegado de entrada (repaso); en Práctica empieza plegado (guía §7 bis). */
+  abierta?: boolean;
 }) {
+  const [paso, setPaso] = useState(abierta);
   const r = reviewOf(item, answer);
   const correcta = nombreOpcion(item, item.answerIndex);
   const store = useStore();
@@ -45,24 +50,41 @@ export function Explicacion({
   return (
     <View style={styles.box}>
       <Text variant="bodyStrong">{veredicto}</Text>
-      <Paso titulo="Observa" texto={item.explanation.observe} />
       <Paso titulo="Regla" texto={item.explanation.rule} />
-      <Paso titulo="Aplica" texto={item.explanation.apply} />
-      <View style={styles.paso}>
-        <Text variant="label" color="graphite">
-          Por qué fallan las demás
-        </Text>
-        {item.explanation.distractors.map((d) => {
-          const tuya = d.optionIndex === answer;
-          return (
-            <Text key={d.optionIndex} color={tuya ? 'sealText' : 'ink'}>
-              {tuya ? 'Tu respuesta, ' : ''}
-              {nombreOpcion(item, d.optionIndex)}: {pegar(d.error)}
+      <PressScale
+        onPress={() => setPaso((v) => !v)}
+        accessibilityRole="button"
+        accessibilityLabel="Paso a paso"
+        accessibilityState={{ expanded: paso }}
+        style={styles.plegable}
+      >
+        <Text variant="label">{paso ? 'Ocultar paso a paso' : 'Ver paso a paso'}</Text>
+        <View style={paso && styles.girado}>
+          <Icon name="chevron" size={tokens.size.chevron} />
+        </View>
+      </PressScale>
+      {paso && (
+        // Solo fundido: también con «reducir movimiento».
+        <Animated.View entering={FadeIn.duration(tokens.motion.durationBase)} style={styles.box}>
+          <Paso titulo="Observa" texto={item.explanation.observe} />
+          <Paso titulo="Aplica" texto={item.explanation.apply} />
+          <View style={styles.paso}>
+            <Text variant="label" color="graphite">
+              Por qué fallan las demás
             </Text>
-          );
-        })}
-      </View>
-      <Paso titulo="Truco" texto={r.tip} />
+            {item.explanation.distractors.map((d) => {
+              const tuya = d.optionIndex === answer;
+              return (
+                <Text key={d.optionIndex} color={tuya ? 'sealText' : 'ink'}>
+                  {tuya ? 'Tu respuesta, ' : ''}
+                  {nombreOpcion(item, d.optionIndex)}: {pegar(d.error)}
+                </Text>
+              );
+            })}
+          </View>
+          <Paso titulo="Truco" texto={r.tip} />
+        </Animated.View>
+      )}
       {/* Prototipo reportar (aprobado): ficha de método y reporte al final de la explicación. */}
       <View>
         <ListRow
@@ -106,5 +128,17 @@ function Paso({ titulo, texto }: { titulo: string; texto: string }) {
 const styles = StyleSheet.create({
   box: { gap: tokens.spacing.m },
   paso: { gap: tokens.spacing.xs },
-  gracias: { minHeight: tokens.size.listRow, textAlignVertical: 'center', paddingVertical: tokens.spacing.m },
+  plegable: {
+    minHeight: tokens.size.touchMin,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: tokens.spacing.s,
+    alignSelf: 'flex-start',
+  },
+  girado: { transform: [{ rotate: '90deg' }] },
+  gracias: {
+    minHeight: tokens.size.listRow,
+    textAlignVertical: 'center',
+    paddingVertical: tokens.spacing.m,
+  },
 });

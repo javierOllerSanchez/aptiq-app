@@ -22,7 +22,10 @@ jest.mock('@/purchases/provider', () => ({ usePlan: () => ({ api: mockApi }) }))
 const mockStore = createMemoryStore();
 jest.mock('@/data/provider', () => ({ useStore: () => mockStore }));
 
-const metrics = { frame: { x: 0, y: 0, width: 390, height: 844 }, insets: { top: 59, left: 0, right: 0, bottom: 34 } };
+const metrics = {
+  frame: { x: 0, y: 0, width: 390, height: 844 },
+  insets: { top: 59, left: 0, right: 0, bottom: 34 },
+};
 const pintar = () =>
   render(
     <SafeAreaProvider initialMetrics={metrics}>
@@ -37,10 +40,17 @@ beforeEach(() => {
 
 test('muestra los cuatro planes con el anual elegido y su prueba gratuita', async () => {
   await pintar();
-  expect(await screen.findByRole('radio', { name: 'Anual, 7 días gratis, 3,33 € al mes, 39,99 €', checked: true })).toBeOnTheScreen();
+  expect(
+    await screen.findByRole('radio', {
+      name: 'Anual, 7 días gratis, 3,33 € al mes, 39,99 €',
+      checked: true,
+    }),
+  ).toBeOnTheScreen();
   expect(screen.getAllByRole('radio')).toHaveLength(4);
   expect(screen.getByRole('button', { name: 'Probar 7 días gratis' })).toBeOnTheScreen();
-  expect(screen.getByText(/Si no cancelas antes de que acaben los 7 días, se cobran 39,99 € al año/)).toBeOnTheScreen();
+  expect(
+    screen.getByText(/Si no cancelas antes de que acaben los 7 días, se cobran 39,99 € al año/),
+  ).toBeOnTheScreen();
 });
 
 test('al elegir un pase el texto dice que no se renueva, y al comprarlo se cierra', async () => {
@@ -52,7 +62,13 @@ test('al elegir un pase el texto dice que no se renueva, y al comprarlo se cierr
 });
 
 test('sin red explica qué pasa y no cierra', async () => {
-  mockApi = { ...createLocalPurchases(), comprar: async () => ({ resultado: 'sin-red', plan: { premium: false, hasta: null, renueva: false, gestionUrl: null } }) };
+  mockApi = {
+    ...createLocalPurchases(),
+    comprar: async () => ({
+      resultado: 'sin-red',
+      plan: { premium: false, hasta: null, renueva: false, gestionUrl: null },
+    }),
+  };
   await pintar();
   await fireEvent.press(await screen.findByRole('button', { name: 'Probar 7 días gratis' }));
   expect(await screen.findByText(/No hay conexión/)).toBeOnTheScreen();
@@ -63,7 +79,9 @@ test('restaurar sin compras lo dice; la X cierra sin comprar', async () => {
   await pintar();
   await fireEvent.press(await screen.findByRole('button', { name: 'Restaurar compras' }));
   expect(await screen.findByText(/No hay compras que restaurar/)).toBeOnTheScreen();
-  await fireEvent.press(screen.getByRole('button', { name: 'Cerrar, seguir con el plan gratuito' }));
+  await fireEvent.press(
+    screen.getByRole('button', { name: 'Cerrar, seguir con el plan gratuito' }),
+  );
   expect(mockRouter.back).toHaveBeenCalled();
 });
 
