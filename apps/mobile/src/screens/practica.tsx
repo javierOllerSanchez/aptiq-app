@@ -114,7 +114,8 @@ export function Practica() {
         ? Haptics.NotificationFeedbackType.Success
         : Haptics.NotificationFeedbackType.Error,
     ).catch(() => {});
-    void sonar(store, selected === item!.answerIndex ? 'acierto' : 'fallo');
+    // Solo el acierto suena (aprobado: objetivo, acierto y simulacro); el fallo, solo vibra.
+    if (selected === item!.answerIndex) void sonar(store, 'acierto');
     setTiempos((t) => [...t, Date.now() - vistaDesde.current]);
     setRevealed(true);
   }

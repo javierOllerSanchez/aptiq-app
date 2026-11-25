@@ -167,9 +167,13 @@ export function Inicio() {
       ? plan.premium
         ? 'Hecha · puedes repetirla'
         : 'Hecha · vuelve mañana para seguir la racha'
-      : plan.premium && progreso.due.length
-        ? `${HOY_PREGUNTAS} preguntas · ${progreso.due.length} ${progreso.due.length === 1 ? 'tipo' : 'tipos'} de repaso`
-        : `${HOY_PREGUNTAS} preguntas · empieza por lo más flojo`;
+      : cumplido
+        ? 'Vuelve mañana para seguir la racha'
+        : hechas > 0
+          ? `Te quedan ${HOY_PREGUNTAS - hechas} ${HOY_PREGUNTAS - hechas === 1 ? 'pregunta' : 'preguntas'} para el objetivo`
+          : plan.premium && progreso.due.length
+            ? `${HOY_PREGUNTAS} preguntas · ${progreso.due.length} ${progreso.due.length === 1 ? 'tipo' : 'tipos'} de repaso`
+            : `${HOY_PREGUNTAS} preguntas · empieza por lo más flojo`;
   const sesionBloqueada = a !== null && !a.sesionHoy;
   const ocultarAviso = useCallback(() => setAviso(false), []);
 
@@ -235,9 +239,10 @@ export function Inicio() {
               <Button label="Sesión ilimitada con Premium" onPress={alMuro} variant="secondary" />
             ) : (
               <Button
-                label={progreso?.hoyHecha ? 'Otra sesión' : 'Empezar sesión de hoy'}
+                label={progreso.hoyHecha ? 'Otra sesión' : 'Empezar sesión de hoy'}
                 onPress={() => router.push('/practica')}
-                variant={progreso?.hoyHecha ? 'secondary' : 'primary'}
+                // Con el objetivo cumplido, el amarillo es el anillo: el botón pasa a secundario.
+                variant={cumplido || progreso.hoyHecha ? 'secondary' : 'primary'}
               />
             )}
             {semana && <WeekStrip dias={semana} marcar={celebra ? hoyIdx : null} />}

@@ -32,6 +32,7 @@ import type { Store } from '@/data/store';
 import { useExamClock } from '@/hooks/use-exam-clock';
 import { cita, startRun, toSaved } from '@/practice/run';
 import { diaLocal } from '@/progress/data';
+import { AJUSTE_HITOS } from '@/progress/hitos';
 import { Opciones } from '@/screens/opciones';
 import { Pregunta } from '@/screens/pregunta';
 
@@ -221,6 +222,8 @@ function TestDeNivel({ store, items, exam }: { store: Store; items: Item[]; exam
       questions: toSaved(items, finales),
     });
     await store.setSetting('niveles', JSON.stringify(estimateLevels(porTipo)));
+    // Usuario nuevo: sus hitos se celebran desde el primero (los que actualizan, sin avalancha).
+    if ((await store.getSetting(AJUSTE_HITOS)) === null) await store.setSetting(AJUSTE_HITOS, '[]');
     // Último paso: datos de uso (fase 9), solo si aún no ha contestado en este móvil.
     router.replace((await permisoAnalitica(store)) === null ? '/datos-de-uso' : '/inicio');
   }

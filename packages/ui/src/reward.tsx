@@ -1,7 +1,8 @@
 import { tokens } from '@aptiq/tokens';
 import { type ReactNode, useEffect, useRef, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { AccessibilityInfo, Platform, StyleSheet, View } from 'react-native';
 import Animated, {
+  ReduceMotion,
   useAnimatedProps,
   useAnimatedStyle,
   useReducedMotion,
@@ -62,6 +63,7 @@ export function ProgressRing({
       accessible
       accessibilityRole="progressbar"
       accessibilityLabel={label}
+      accessibilityValue={{ min: 0, max: 100, now: Math.round(v * 100) }}
     >
       <Animated.View style={[styles.fondo, fondo]} />
       <Svg width={size.ring} height={size.ring} style={styles.girado}>
@@ -113,11 +115,17 @@ export function WeekStrip({
   );
 }
 
-const resumenSemana = (dias: { nombre: string; hecho: boolean }[]) => {
+const resumenSemana = (dias: { nombre: string; hecho: boolean; hoy: boolean }[]) => {
   const hechos = dias.filter((d) => d.hecho).map((d) => d.nombre);
-  return hechos.length
-    ? `Esta semana has practicado: ${hechos.join(', ')}`
-    : 'Esta semana aún no has practicado';
+  const hoy = dias.find((d) => d.hoy)?.nombre;
+  return [
+    hechos.length
+      ? `Esta semana has practicado: ${hechos.join(', ')}`
+      : 'Esta semana aún no has practicado',
+    hoy ? `Hoy es ${hoy}` : null,
+  ]
+    .filter(Boolean)
+    .join('. ');
 };
 
 function DiaBurbuja({ hecho, hoy, rebota }: { hecho: boolean; hoy: boolean; rebota: boolean }) {
@@ -246,9 +254,15 @@ export function RewardToast({
   const p = useSharedValue(0);
   useEffect(() => {
     if (!visible) return;
-    p.value = reduce ? withTiming(1, { duration: motion.durationBase }) : withSpring(1, muelle);
+    // Con «reducir movimiento», fundido (ReduceMotion.Never: si no, aparecería de golpe).
+    const fundido = { duration: motion.durationBase, reduceMotion: ReduceMotion.Never };
+    p.value = reduce ? withTiming(1, fundido) : withSpring(1, muelle);
+    // VoiceOver no lee las regiones vivas: en iOS se anuncia a mano.
+    if (Platform.OS === 'ios') {
+      AccessibilityInfo.announceForAccessibility([titulo, detalle].filter(Boolean).join('. '));
+    }
     const sale = setTimeout(() => {
-      p.value = withTiming(0, { duration: motion.durationBase, easing: easeOut });
+      p.value = withTiming(0, { ...fundido, easing: easeOut });
     }, motion.toast);
     const fin = setTimeout(() => {
       setMontado(false);
@@ -258,6 +272,8 @@ export function RewardToast({
       clearTimeout(sale);
       clearTimeout(fin);
     };
+    // El aviso se anuncia al abrirse; los textos no cambian mientras se ve.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible, reduce, p, onHide]);
   const anim = useAnimatedStyle(() =>
     reduce

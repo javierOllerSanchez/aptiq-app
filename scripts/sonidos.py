@@ -37,14 +37,12 @@ def escribe(nombre, notas, total):
         w.writeframes(b''.join(struct.pack('<h', int(x * k * 32767)) for x in muestras))
 
 
-C5, E5, G5, A5, C6, G4, A3, F3 = 523.25, 659.25, 783.99, 880.0, 1046.5, 392.0, 220.0, 174.61
+C5, E5, G5, A5, C6, G4 = 523.25, 659.25, 783.99, 880.0, 1046.5, 392.0
 OUT.mkdir(parents=True, exist_ok=True)
 # Objetivo de hoy cumplido: arpegio do-mi-sol.
 escribe('objetivo', [(C5, 0, .45, 1), (E5, .09, .45, 1), (G5, .18, .6, 1)], .8)
 # Acierto en práctica: dos notas que suben.
 escribe('acierto', [(E5, 0, .2, 1), (A5, .07, .3, 1)], .4)
-# Fallo en práctica: una nota grave y breve, sin dramatismo.
-escribe('fallo', [(A3, 0, .18, 1), (F3, .06, .22, .8)], .32)
 # Simulacro terminado: arpegio de cuatro notas.
 escribe('simulacro', [(G4, 0, .4, 1), (C5, .1, .4, 1), (E5, .2, .4, 1), (C6, .3, .7, 1)], 1.0)
 print('Sonidos en', OUT)

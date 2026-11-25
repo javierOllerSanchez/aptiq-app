@@ -9,7 +9,6 @@ export const AJUSTE_SONIDOS = 'sonidos';
 const FUENTES = {
   objetivo: require('../../assets/sonidos/objetivo.wav'),
   acierto: require('../../assets/sonidos/acierto.wav'),
-  fallo: require('../../assets/sonidos/fallo.wav'),
   simulacro: require('../../assets/sonidos/simulacro.wav'),
 } as const;
 
@@ -23,7 +22,8 @@ export async function sonidosActivos(store: Store) {
 }
 
 /**
- * Suena una recompensa si el ajuste lo permite. Respeta el modo silencio (iOS) y se mezcla con la
+ * Suena una recompensa si el ajuste lo permite. Respeta el modo silencio en iOS; en Android suena
+ * con el volumen multimedia (el sistema no deja saber si está en silencio). Se mezcla con la
  * música del móvil en vez de cortarla. Un fallo de audio nunca rompe la pantalla.
  */
 export async function sonar(store: Store, sonido: Sonido) {

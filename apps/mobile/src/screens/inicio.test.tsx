@@ -36,7 +36,8 @@ test('muestra racha, cuenta atrás y la Sesión de hoy', async () => {
   );
   expect(await screen.findByLabelText('Racha de 2 días')).toBeOnTheScreen();
   expect(screen.getByText(/· examen en [a-z]+ de \d{4}$/)).toBeOnTheScreen();
-  expect(screen.getByText(/^12 preguntas/)).toBeOnTheScreen();
+  // Una pregunta hoy: estado intermedio del objetivo (revisión de la ronda 2).
+  expect(screen.getByText('Te quedan 11 preguntas para el objetivo')).toBeOnTheScreen();
   expect(screen.getByRole('button', { name: 'Empezar sesión de hoy' })).toBeOnTheScreen();
 });
 

@@ -49,7 +49,7 @@ export function FechaExamen() {
       <ListRow
         icon="calendar"
         label="Fecha del examen"
-        detail="Para la cuenta atrás de Inicio"
+        detail="Se muestra en Inicio"
         value={mesCorto(fecha) ?? 'Sin fecha'}
         onPress={abrir}
       />

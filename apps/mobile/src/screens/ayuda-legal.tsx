@@ -102,8 +102,6 @@ export function PieLegal() {
 
 const styles = StyleSheet.create({
   pie: { gap: tokens.spacing.s, marginTop: tokens.spacing.s },
-  bloque: { gap: tokens.spacing.s, marginTop: tokens.spacing.m },
-  seccion: { marginTop: tokens.spacing.l },
   fila: {
     flexDirection: 'row',
     alignItems: 'center',

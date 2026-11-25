@@ -22,8 +22,10 @@ export interface DatosHitos {
   notaMinima: number | null;
   diasPractica: readonly string[];
   totalRespondidas: number;
-  /** Mejor nivel global de las semanas que se ven. */
+  /** Mejor nivel en una aptitud en las semanas que se ven. */
   mejorNivel: number;
+  /** Hitos ya conseguidos y celebrados: no se pierden aunque el dato salga de la ventana. */
+  vistos?: readonly string[];
 }
 
 /** Racha más larga de días seguidos en una lista de días «AAAA-MM-DD». */
@@ -59,7 +61,12 @@ export function hitos(d: DatosHitos): Hito[] {
       progreso: parte(d.totalRespondidas, 100),
     },
     { id: 'racha-7', marca: '7', titulo: 'Racha de 7 días', progreso: parte(racha, 7) },
-    { id: 'nivel-3', marca: 'N3', titulo: 'Nivel 3', progreso: parte(d.mejorNivel, 3) },
+    {
+      id: 'nivel-3',
+      marca: 'N3',
+      titulo: 'Nivel 3 en una aptitud',
+      progreso: parte(d.mejorNivel, 3),
+    },
     {
       id: 'nota-minima',
       marca: d.notaMinima !== null ? String(d.notaMinima) : '—',
@@ -71,7 +78,11 @@ export function hitos(d: DatosHitos): Hito[] {
           : 0,
     },
   ];
-  return lista.map((h) => ({ ...h, conseguido: h.progreso >= 1 }));
+  const vistos = d.vistos ?? [];
+  return lista.map((h) => {
+    const conseguido = h.progreso >= 1 || vistos.includes(h.id);
+    return { ...h, conseguido, progreso: conseguido ? 1 : h.progreso };
+  });
 }
 
 /** Hitos conseguidos que aún no se han celebrado. */

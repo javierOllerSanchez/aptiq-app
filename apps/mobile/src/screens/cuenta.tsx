@@ -129,7 +129,11 @@ function Perfil({ email, premium }: { email: string | null; premium: boolean }) 
       : 'Cuenta creada';
   return (
     <GlassCard style={styles.perfil}>
-      <View style={styles.avatar} accessibilityElementsHidden importantForAccessibility="no">
+      <View
+        style={styles.avatar}
+        accessibilityElementsHidden
+        importantForAccessibility="no-hide-descendants"
+      >
         <Text variant="questionTitle" color="highlighter" maxFontSizeMultiplier={1}>
           {inicial}
         </Text>

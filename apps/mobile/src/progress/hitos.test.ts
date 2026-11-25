@@ -39,6 +39,11 @@ test('cada hito se consigue con su dato y lleva su progreso', () => {
   expect(por['nota-minima']!.conseguido).toBe(false);
 });
 
+test('un hito conseguido no se pierde aunque su dato salga de la ventana', () => {
+  const h = hitos({ ...base, mejorNivel: 2, vistos: ['nivel-3'] });
+  expect(h.find((x) => x.id === 'nivel-3')!.conseguido).toBe(true);
+});
+
 test('solo son nuevos los conseguidos que no se han celebrado', () => {
   const h = hitos({ ...base, simulacros: 1, minimoAlcanzado: true });
   expect(hitosNuevos(h, ['primer-simulacro']).map((x) => x.id)).toEqual(['nota-minima']);

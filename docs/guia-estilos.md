@@ -64,7 +64,7 @@ Respetar el texto dinámico del sistema. Ningún texto de lectura por debajo de 
 
 ## 4. Cristal (plantilla de corrección)
 
-**Solo en:** barra de navegación inferior, cronómetro, tarjetas de resumen (nivel estimado, aciertos/fallos/en blanco). Excepción aprobada (2026-11-15): el formulario de correo de Cuenta; una tarjeta de cristal con controles dentro no agrupa su contenido para el lector de pantalla (`accessible={false}`).
+**Solo en:** barra de navegación inferior, cronómetro, tarjetas de resumen (nivel estimado, objetivo de hoy, cifras de Historial, aciertos/fallos/en blanco) y la ficha de perfil de Cuenta (2026-11-25). Excepción aprobada (2026-11-15): el formulario de correo de Cuenta; una tarjeta de cristal con controles dentro no agrupa su contenido para el lector de pantalla (`accessible={false}`).
 **Nunca en:** la tarjeta de la pregunta ni en las opciones (deben leerse perfectamente).
 
 Receta: relleno blanco del 82 % (arriba izquierda) al 55 % (abajo derecha), desenfoque 14–16, saturación 140–150 %, borde 1 px blanco al 95 %, reflejo interior superior blanco de 1 px, sombra `ink` al 12 % con desplazamiento vertical 12 y difuminado 30.
@@ -81,7 +81,7 @@ En React Native: `expo-blur` (`BlurView`, intensidad equivalente) + capa de colo
 | `GlassCard` | Receta de cristal. Radio 24. Para resúmenes. |
 | `TabBar` | Cristal, radio 22, 3 pestañas (Inicio, Historial, Cuenta; fase 5). Activa: fondo `ink`, icono `highlighter`. |
 | `Timer` | Píldora de cristal con icono de reloj y tiempo en mono 15. |
-| `Stamp` | «APTO» en Bricolage 800 color `seal`, doble borde, girado −6°. Solo en Resultado, más pequeño que la nota. |
+| `Stamp` | «APTO» en Bricolage 800 color `seal`, doble borde, girado −6°. En Resultado (más pequeño que la nota) y, reducido, en las fichas de simulacro de Historial. |
 | `SourceNote` | Icono de documento + «Formato según la convocatoria oficial: …» con la cita del perfil (p. ej. «BOE-A-2026-9982, bases 6.1.2.a, 7.3 y 7.8»). No menciona exámenes publicados: la Guardia Civil no publica el cuestionario de aptitudes. Obligatorio en cada simulacro. |
 | `SeriesTile` | Casilla de serie: radio 12, borde `ink` 1,5, número 21/700 (como el enunciado, para que quepan seis en una fila). La incógnita con borde discontinuo y «?» en `graphite`. |
 | `ListRow` | Fila de 52 con separador al 14 %; nombre 17/600, valor en mono 15/600, chevron. Valor en `sealText` si es el punto débil. |
@@ -94,6 +94,15 @@ En React Native: `expo-blur` (`BlurView`, intensidad equivalente) + capa de colo
 | `QuestionGrid` | Cuadrícula del simulacro: casillas de 44 (`questionCell`) con el número en mono. Respondida `ink`, en blanco con borde `ink` al 25 %, marcada con bandera, actual `highlighter`. |
 | `MonthPicker` | Año en píldoras y 12 meses en cuadrícula de 3 columnas, con «Aún no lo sé». |
 | `CountUp` | Cifra que cuenta hasta su valor en 600 ms ease-out (sin animación con «reducir movimiento»). |
+| `ProgressRing` | Anillo del objetivo de hoy (96, trazo 8): se rellena en 600 ms y, completo, el centro se pinta de `highlighter` con rebote. |
+| `WeekStrip` | Semana de lunes a domingo en burbujas de 28: `ink` con check `highlighter` si practicaste; hoy con borde `ink`. |
+| `StreakChip` | Racha: píldora con burbuja `highlighter` y número en mono que sube con rebote al crecer. |
+| `Burst` | Burbujas `ink` y `highlighter` que saltan desde lo conseguido (solo recompensas). |
+| `RewardToast` | Aviso de logro en `ink` que baja desde arriba y se va solo a los 2,6 s; en iOS se anuncia a VoiceOver. |
+| `AptitudeTile` | Casilla de aptitud (Inicio): nombre, acierto en mono, barra de acierto y, con Premium, nivel en burbujas; candado si es de Premium. |
+| `ConsistencyCalendar` | Constancia de 5 semanas en burbujas (Historial). |
+| `MilestoneGrid` | Hitos como sellos `highlighter` (conseguidos) o discontinuos con barra (pendientes). |
+| `SettingsGroup` / `IconTile` | Ajustes agrupados en tarjeta `paperCard`; cada fila con su icono en una casilla de papel de 36 (Cuenta). |
 
 ## 6. Pantallas de referencia
 
@@ -104,6 +113,12 @@ En React Native: `expo-blur` (`BlurView`, intensidad equivalente) + capa de colo
 4. Tarjeta de nivel: cifra grande y barra hacia el nivel siguiente.
 5. Tarjeta de simulacro (secundaria): formato en una línea y botón con borde.
 6. «Practica por aptitud»: casillas de dos columnas con acierto y nivel en burbujas; las de Premium con candado.
+
+### Historial (`prototipos/historial-v2.html`, aprobado el 2026-11-25)
+Título, cifras en cristal (racha, días practicados, preguntas), nivel con la línea que se dibuja y la semana actual en `highlighter`, constancia de 5 semanas, hitos y simulacros como fichas con la nota frente a la mínima.
+
+### Cuenta (`prototipos/cuenta-v2.html`, aprobado el 2026-11-25)
+Ficha de perfil en cristal, Premium como tarjeta `ink` (solo plan gratuito), «Guarda tu progreso» en una hoja y ajustes agrupados: Preferencias, Tu plan o Tu cuenta, Ayuda y privacidad; pie con la independencia y la versión.
 
 ### Inicio v1 (`prototipos/inicio.html`, histórico)
 1. Cabecera: logotipo a la izquierda (hace de título y se anuncia como «Inicio»), oposición (píldora con borde) y botón «i» a la derecha.
@@ -154,6 +169,7 @@ Criterio de las skills de Emil Kowalski (`emil-design-eng`, `animate-expo`) con 
   - avance de la casilla de progreso;
   - aparición del sello (escala de 1,15 a 1 con giro, 250 ms).
 - Vibración ligera al marcar y al confirmar.
+- Respetar «reducir movimiento»: sin escalas ni desplazamientos, solo fundidos.
 - Momentos añadidos el 2026-11-25:
   - entrar en una pantalla: fundido y 8 px hacia arriba; tarjetas escalonadas 40 ms;
   - pulsar: escala 0,97 (`PressScale`);
@@ -169,12 +185,11 @@ Criterio de las skills de Emil Kowalski (`emil-design-eng`, `animate-expo`) con 
 
 Solo en momentos de logro (objetivo de hoy cumplido, racha que sube, simulacro terminado), **nunca durante el simulacro**:
 
-- Rebote suave (muelle con rebote 0,2) en lo que celebra: el anillo que se rellena, el número de la racha, el día que se marca, el aviso que baja.
+- Rebote suave (muelle `motion.spring` 400 ms con amortiguación 0,6, como el prototipo aprobado) en lo que celebra: el anillo que se rellena, el número de la racha, el día que se marca, el aviso que baja.
 - Burbujas tinta y amarillas (círculos de la hoja de respuestas) que saltan desde lo conseguido y se desvanecen en 700 ms. Nada de brillos, estrellas ni confeti de colores.
 - Vibración de éxito y un sonido corto propio (ajuste «Sonidos» en Cuenta; respeta el modo silencio).
 - Texto sobrio: «Objetivo de hoy cumplido · Racha de 7 días». Sin exclamaciones ni emojis.
 - Con «reducir movimiento»: sin rebote ni burbujas; solo fundidos, vibración y sonido.
-- Respetar «reducir movimiento»: sin escalas ni desplazamientos, solo fundidos.
 
 ## 9. Tono de los textos
 

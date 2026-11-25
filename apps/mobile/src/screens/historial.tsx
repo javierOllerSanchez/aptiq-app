@@ -63,6 +63,7 @@ export function Historial() {
   const [progreso, setProgreso] = useState<Progress | null>(null);
   const [nuevos, setNuevos] = useState<Hito[]>([]);
   const [aviso, setAviso] = useState(false);
+  const [vistos, setVistos] = useState<string[]>([]);
   const { plan } = usePlan();
   const reduce = useReducedMotion();
 
@@ -78,13 +79,18 @@ export function Historial() {
         const r = historyRows(s, a);
         setRows(r);
         setProgreso(p);
-        const lista = hitosDe(r, p);
-        const conseguidos = lista.filter((h) => h.conseguido).map((h) => h.id);
+        const antes = vistosRaw === null ? [] : (JSON.parse(vistosRaw) as string[]);
+        const lista = hitosDe(r, p, antes);
+        // Unión: un hito celebrado sigue conseguido y no se vuelve a celebrar.
+        const todos = [
+          ...new Set([...antes, ...lista.filter((h) => h.conseguido).map((h) => h.id)]),
+        ];
+        setVistos(todos);
         // Primera vez con hitos: se apuntan los que ya había sin celebrar (no una avalancha).
-        if (vistosRaw === null) return store.setSetting(AJUSTE_HITOS, JSON.stringify(conseguidos));
-        const frescos = hitosNuevos(lista, JSON.parse(vistosRaw) as string[]);
+        if (vistosRaw === null) return store.setSetting(AJUSTE_HITOS, JSON.stringify(todos));
+        const frescos = hitosNuevos(lista, antes);
         if (!frescos.length) return;
-        await store.setSetting(AJUSTE_HITOS, JSON.stringify(conseguidos));
+        await store.setSetting(AJUSTE_HITOS, JSON.stringify(todos));
         setNuevos(frescos);
       });
     }, [store]),
@@ -111,7 +117,7 @@ export function Historial() {
   const simulacros = plan.premium ? rows.simulacros : rows.simulacros.slice(0, 1);
   const practica = plan.premium ? rows.practica : [];
   const oculto = rows.simulacros.length - simulacros.length + rows.practica.length;
-  const lista = hitosDe(rows, progreso);
+  const lista = hitosDe(rows, progreso, vistos);
   const hechos = lista.filter((h) => h.conseguido).length;
   const dias = progreso.diasPractica.length;
   const cal = calendario(progreso.hoy, progreso.diasPractica);
@@ -226,7 +232,7 @@ export function Historial() {
   );
 }
 
-function hitosDe(r: ReturnType<typeof historyRows>, p: Progress) {
+function hitosDe(r: ReturnType<typeof historyRows>, p: Progress, vistos: readonly string[]) {
   const notas = r.simulacros.flatMap((s) => (s.nota ? [s.nota] : []));
   return calcularHitos({
     simulacros: r.simulacros.length,
@@ -235,7 +241,8 @@ function hitosDe(r: ReturnType<typeof historyRows>, p: Progress) {
     notaMinima: notas[0]?.minima ?? null,
     diasPractica: p.diasPractica,
     totalRespondidas: p.totalRespondidas,
-    mejorNivel: Math.max(0, ...p.semanas.map((s) => s.global)),
+    mejorNivel: Math.max(0, ...p.semanas.flatMap((s) => Object.values(s.porAptitud))),
+    vistos,
   });
 }
 
@@ -342,7 +349,7 @@ function FichaSimulacro({
     <PressScale
       onPress={onPress}
       accessibilityRole="button"
-      accessibilityLabel={`Simulacro del ${row.detail}, ${row.valueLabel}, ${n.supera ? 'apto' : 'no llega al mínimo'}. Repasar fallos`}
+      accessibilityLabel={`Simulacro del ${row.detail}, ${row.valueLabel}, ${n.supera ? 'apto' : 'no llega al mínimo'}. Ver resultado`}
       style={[styles.carta, styles.ficha]}
     >
       <View style={[styles.cabecera, styles.centrado]}>
@@ -370,7 +377,10 @@ function FichaSimulacro({
         <Text variant="caption" color="graphiteStrong">
           {row.detail} · mín. {n.minima}
         </Text>
-        <Text variant="label">Repasar fallos</Text>
+        <View style={styles.verResultado}>
+          <Text variant="label">Ver resultado</Text>
+          <Icon name="chevron" size={tokens.size.chevron} />
+        </View>
       </View>
     </PressScale>
   );
@@ -398,6 +408,7 @@ const styles = StyleSheet.create({
     columnGap: tokens.spacing.m,
   },
   centrado: { alignItems: 'center' },
+  verResultado: { flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.xs },
   delta: {
     paddingHorizontal: tokens.spacing.m,
     paddingVertical: tokens.spacing.xs,
