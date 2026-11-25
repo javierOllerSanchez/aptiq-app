@@ -17,6 +17,10 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 
 ## Registro
 
+**2026-11-25 · Fase 9 · Series sin términos repetidos (EXP-01, NFR-07)**
+
+- `NUM.SERIE` v4 y `LET.SERIE` v5 descartan y reintentan toda serie con un término repetido seguido: «× 2 − 3» desde 3 daba «3, 3, 3, 3, 3» con un «Observa» falso, y en las intercaladas las subseries coincidían (en letras, ~30 % de los niveles 4 y 5). Pruebas con fast-check que fallaban antes; `pnpm test`, `test:stress` y `revisor-contenido` en verde (sin bloqueantes).
+
 **2026-11-19 · Fase 8 · Aprobación**
 
 - El propietario aprueba la fase 8 («Aprobada»). Siguen pendientes ver el reporte de prueba en el panel, aprobar verbales y revisar los perfiles de Policía Nacional y Auxiliar, y resolver la versión del perfil en los simulacros antes de publicar el primero (ADM-03).
