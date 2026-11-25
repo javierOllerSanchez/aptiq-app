@@ -3,7 +3,7 @@
 Gracias por probar Aptiq antes del lanzamiento. Es una app para entrenar los psicotécnicos de la Guardia Civil: simulacros con el formato de las bases y explicación de cada pregunta.
 
 **Duración:** del **Pendiente: fecha** al **Pendiente: fecha** (mínimo 14 días seguidos).
-**Contacto:** **Pendiente: correo de soporte**.
+**Contacto:** support@inkfinitysoft.com.
 
 ## 1. Instalarla (Android)
 
@@ -45,7 +45,7 @@ Si **no** ves el aviso de compra de prueba, **no compres** y escríbenos.
 
 ## 5. Otros fallos y opiniones
 
-Escríbenos a **Pendiente: correo de soporte** con:
+Escríbenos a support@inkfinitysoft.com con:
 
 - qué hacías y qué esperabas que pasara;
 - una captura de pantalla, si puedes;
@@ -55,6 +55,6 @@ Al terminar te enviaremos una encuesta corta.
 
 ## Tus datos
 
-Puedes usar la app sin cuenta. Si aceptas compartir datos de uso, solo se envían pasos anónimos como «simulacro entregado». Detalles en la política de privacidad: **Pendiente: enlace**. Puedes borrar tu cuenta y tus datos en Cuenta → Borrar cuenta.
+Puedes usar la app sin cuenta. Si aceptas compartir datos de uso, solo se envían pasos anónimos como «simulacro entregado». Detalles en la política de privacidad: https://aptiq.inkfinitysoft.com/privacidad.html. Puedes borrar tu cuenta y tus datos en Cuenta → Borrar cuenta.
 
 Aptiq es independiente de la Administración y de la Guardia Civil.

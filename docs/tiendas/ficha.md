@@ -2,7 +2,7 @@
 
 Fase 9 · T11 (NFR-08). Tono de la guía: preciso, tuteo, sin exclamaciones ni promesas de aprobar. Las longitudes se comprueban con `node scripts/ficha-longitudes.mjs`.
 
-**Pendiente antes de pegar:** dominio de la web (privacidad, ayuda, borrar cuenta), correo de soporte y revisión del abogado. Lo marcado **Pendiente** no se inventa.
+**Pendiente antes de pegar:** revisión del abogado y datos del titular en los textos legales. Lo marcado **Pendiente** no se inventa.
 
 ## Comunes
 
@@ -13,10 +13,10 @@ Fase 9 · T11 (NFR-08). Tono de la guía: preciso, tuteo, sin exclamaciones ni p
 | Público | Mayores de 18 (la oposición pide 18 años; así no aplica la política de familias de Google) |
 | Contiene anuncios | No |
 | Compras dentro de la app | Sí: suscripción mensual y anual, pases de 3 y 6 meses |
-| Política de privacidad | **Pendiente:** `https://<dominio>/privacidad.html` |
-| Borrar la cuenta (Google) | **Pendiente:** `https://<dominio>/borrar-cuenta.html` |
-| Correo de contacto | **Pendiente:** correo de soporte del dominio |
-| Web | **Pendiente:** `https://<dominio>/` |
+| Política de privacidad | `https://aptiq.inkfinitysoft.com/privacidad.html` |
+| Borrar la cuenta (Google) | `https://aptiq.inkfinitysoft.com/borrar-cuenta.html` |
+| Correo de contacto | `support@inkfinitysoft.com` |
+| Web | `https://aptiq.inkfinitysoft.com/` |
 
 ## Google Play
 
