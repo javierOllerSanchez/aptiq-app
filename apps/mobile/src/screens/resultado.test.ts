@@ -33,3 +33,9 @@ test('con datos y 10 puntos o más por debajo de la mejor, sí', () => {
 test('si la diferencia es pequeña, no', () => {
   expect(aReforzar(d({ numerica: t(8, 10), verbal: t(75, 100) }, 'verbal'))).toBeNull();
 });
+
+test('si empata en el peor porcentaje con otra aptitud, no se señala', () => {
+  expect(
+    aReforzar(d({ numerica: t(0, 16), verbal: t(0, 16), abstracta: t(2, 16) }, 'numerica')),
+  ).toBeNull();
+});
