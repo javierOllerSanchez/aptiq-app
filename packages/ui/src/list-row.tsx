@@ -1,8 +1,9 @@
 import { tokens } from '@aptiq/tokens';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { withAlpha } from './color';
 import { Icon } from './icon';
+import { PressScale } from './press-scale';
 import { Text } from './text';
 
 const { color, opacity, size, spacing } = tokens;
@@ -44,11 +45,11 @@ export function ListRow({
     ? [label, detail, lockedLabel].filter(Boolean).join(', ')
     : [label, detail, valueLabel ?? value, weak ? weakLabel : null].filter(Boolean).join(', ');
   return (
-    <Pressable
+    <PressScale
       onPress={onPress}
       accessibilityRole={external ? 'link' : 'button'}
       accessibilityLabel={a11y}
-      style={({ pressed }) => [styles.row, pressed && styles.pressed]}
+      style={styles.row}
     >
       <View style={styles.label}>
         <Text variant="bodyStrong">
@@ -78,7 +79,7 @@ export function ListRow({
           <Icon name={external ? 'external' : 'chevron'} size={size.chevron} />
         </>
       )}
-    </Pressable>
+    </PressScale>
   );
 }
 
@@ -92,7 +93,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: tokens.border.hairline,
     borderBottomColor: withAlpha(color.ink, opacity.divider),
   },
-  pressed: { opacity: opacity.pressed },
   label: { flex: 1 },
   lock: { flexDirection: 'row', alignItems: 'center', gap: spacing.xs },
 });

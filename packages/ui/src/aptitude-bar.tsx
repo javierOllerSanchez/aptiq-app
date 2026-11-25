@@ -1,23 +1,43 @@
 import { tokens } from '@aptiq/tokens';
+import { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withDelay,
+  withTiming,
+} from 'react-native-reanimated';
 
 import { withAlpha } from './color';
+import { easeOut } from './motion';
 import { Text } from './text';
 
-const { color, opacity, radius, size, spacing } = tokens;
+const { color, motion, opacity, radius, size, spacing } = tokens;
 
 /** Barra de porcentaje por aptitud (Resultado, guía §6): `ink`, o `seal` en la aptitud a reforzar. */
 export function AptitudeBar({
   label,
   percent,
   weak = false,
+  orden = 0,
 }: {
   label: string;
   /** 0–100. */
   percent: number;
   weak?: boolean;
+  /** Posición en la lista: las barras crecen escalonadas (guía §8). */
+  orden?: number;
 }) {
   const p = Math.max(0, Math.min(100, Math.round(percent)));
+  // Crece desde 0 al aparecer; con «reducir movimiento», Reanimated la pone ya en su valor.
+  const w = useSharedValue(0);
+  useEffect(() => {
+    w.value = withDelay(
+      orden * motion.stagger * 2,
+      withTiming(p, { duration: motion.countUp, easing: easeOut }),
+    );
+  }, [p, orden, w]);
+  const grow = useAnimatedStyle(() => ({ width: `${w.value}%` }));
   return (
     <View
       style={styles.wrap}
@@ -34,8 +54,8 @@ export function AptitudeBar({
         </Text>
       </View>
       <View style={styles.track}>
-        <View
-          style={[styles.fill, { width: `${p}%`, backgroundColor: weak ? color.seal : color.ink }]}
+        <Animated.View
+          style={[styles.fill, { backgroundColor: weak ? color.seal : color.ink }, grow]}
         />
       </View>
     </View>

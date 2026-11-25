@@ -33,7 +33,9 @@ test('ListRow con detalle y aviso propio los lee en orden', async () => {
     />,
   );
   expect(
-    screen.getByRole('button', { name: 'Simulacro, 14 nov · 55 min, 12,50 sobre 30, no llega al mínimo' }),
+    screen.getByRole('button', {
+      name: 'Simulacro, 14 nov · 55 min, 12,50 sobre 30, no llega al mínimo',
+    }),
   ).toBeTruthy();
   expect(screen.getByText('14 nov · 55 min')).toBeTruthy();
   expect(screen.getByText('Simulacro · no llega al mínimo')).toBeTruthy();
@@ -64,7 +66,9 @@ test('ListRow bloqueada muestra candado y «Premium» y lo anuncia (fase 7)', as
 
 test('ListRow externa se anuncia como enlace', async () => {
   const onPress = jest.fn();
-  await render(<ListRow label="Política de privacidad" detail="Qué guardamos" external onPress={onPress} />);
+  await render(
+    <ListRow label="Política de privacidad" detail="Qué guardamos" external onPress={onPress} />,
+  );
   fireEvent.press(screen.getByRole('link', { name: 'Política de privacidad, Qué guardamos' }));
   expect(onPress).toHaveBeenCalledTimes(1);
 });

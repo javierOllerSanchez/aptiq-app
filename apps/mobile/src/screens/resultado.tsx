@@ -60,7 +60,7 @@ export function Resultado() {
   }, [store, id]);
 
   if (resumen === null) return <Loading />;
-  if (resumen === 'no-encontrado') return <Loading text="No se ha encontrado este simulacro." />;
+  if (resumen === 'no-encontrado') return <Loading text="No se ha encontrado este simulacro." error />;
   const { nota, desglose, preguntas } = resumen;
   const puntos = formatNota(nota.puntos);
   const tiposConPreguntas = (Object.entries(desglose.byType) as [TypeCode, Tally][]).filter(

@@ -16,6 +16,8 @@ export function Timer({ remainingMs }: { remainingMs: number }) {
   const mm = String(Math.floor(seconds / 60)).padStart(2, '0');
   const ss = String(seconds % 60).padStart(2, '0');
   const minutes = Math.ceil(seconds / 60);
+  // Último minuto: el tiempo pasa a rojo (estado, guía §8).
+  const ultimo = seconds <= 60;
   const label =
     minutes === 0
       ? 'Tiempo agotado'
@@ -30,8 +32,12 @@ export function Timer({ remainingMs }: { remainingMs: number }) {
       accessibilityLabel={label}
       accessibilityLiveRegion="polite"
     >
-      <Icon name="clock" size={tokens.type.timer.size + spacing.xs} />
-      <Text variant="timer">
+      <Icon
+        name="clock"
+        size={tokens.type.timer.size + spacing.xs}
+        color={ultimo ? 'sealText' : 'ink'}
+      />
+      <Text variant="timer" color={ultimo ? 'sealText' : 'ink'}>
         {mm}:{ss}
       </Text>
     </Glass>

@@ -19,11 +19,21 @@ const icons = {
   profile: { paths: ['M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6'], circles: [[12, 8, 4]] },
   document: { paths: ['M7 3h7l5 5v13H7z', 'M14 3v5h5M10 13h6M10 17h6'] },
   chevron: { paths: ['M9 6l6 6-6 6'] },
-  external: { paths: ['M14 4h6v6M20 4l-9 9', 'M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5'] },
+  external: {
+    paths: ['M14 4h6v6M20 4l-9 9', 'M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5'],
+  },
   history: { paths: ['M12 7.5V12l3 2'], circles: [[12, 12, 8.5]] },
   back: { paths: ['M15 6l-6 6 6 6'] },
-  lock: { paths: ['M7 11h10a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-6a2 2 0 0 1 2-2z', 'M8 11V8a4 4 0 0 1 8 0v3'] },
+  lock: {
+    paths: [
+      'M7 11h10a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-6a2 2 0 0 1 2-2z',
+      'M8 11V8a4 4 0 0 1 8 0v3',
+    ],
+  },
   clock: { paths: ['M12 9v4l2.5 2M9.5 3h5'], circles: [[12, 13, 8]] },
+  info: { paths: ['M12 11v5', 'M12 7.6v.01'], circles: [[12, 12, 9]] },
+  flag: { paths: ['M6 21V4', 'M6 4h11l-2.5 4L17 12H6'] },
+  grid: { paths: ['M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z'] },
 } satisfies Record<string, { paths: string[]; circles?: number[][] }>;
 
 export type IconName = keyof typeof icons;

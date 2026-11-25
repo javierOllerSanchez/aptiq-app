@@ -1,7 +1,8 @@
 import { tokens } from '@aptiq/tokens';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { Glass } from './glass';
+import { PressScale } from './press-scale';
 import { Text } from './text';
 
 const { color, radius, border, size, spacing, opacity } = tokens;
@@ -27,16 +28,13 @@ export function Button({
     </Text>
   );
   return (
-    <Pressable
+    <PressScale
       onPress={onPress}
       disabled={disabled}
       accessibilityRole="button"
       accessibilityState={{ disabled }}
       {...(accessibilityHint !== undefined && { accessibilityHint })}
-      style={({ pressed }) => [
-        styles.base,
-        (pressed || disabled) && { opacity: disabled ? opacity.disabled : opacity.pressed },
-      ]}
+      style={[styles.base, disabled && { opacity: opacity.disabled }]}
     >
       {variant === 'glass' ? (
         <Glass radius={radius.button} style={styles.inner}>
@@ -53,7 +51,7 @@ export function Button({
           {content}
         </View>
       )}
-    </Pressable>
+    </PressScale>
   );
 }
 

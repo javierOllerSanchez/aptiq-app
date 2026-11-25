@@ -21,6 +21,7 @@ export const tokens = {
     emptyBubbleBorder: 0.25,
     barTrack: 0.1,
     scrim: 0.32,
+    skeletonLow: 0.6,
   },
   font: {
     ui: 'InstrumentSans',
@@ -75,6 +76,9 @@ export const tokens = {
     // Figuras de las preguntas espaciales (prototipo pregunta-figuras, fase 8).
     figureStem: 120,
     figureOption: 88,
+    // Parte C de la fase 9: asa de la hoja inferior y casilla de la cuadrícula del simulacro.
+    sheetHandle: 36,
+    questionCell: 44,
   },
   rotate: { stamp: -6 },
   glass: {
@@ -96,6 +100,13 @@ export const tokens = {
     easingCurve: [0.23, 1, 0.32, 1],
     noBounceDuringExam: true,
     respectReduceMotion: true,
+    // Parte C de la fase 9 (guía §8): escalonado, entrada, pulsación, cifras, esqueletos y temblor de fallo.
+    stagger: 40,
+    enterOffset: 8,
+    pressScale: 0.97,
+    countUp: 600,
+    pulse: 900,
+    shake: 4,
   },
 } as const;
 

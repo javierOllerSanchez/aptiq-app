@@ -4,8 +4,13 @@ import { router, Tabs } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Keyboard, Platform, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Svg, { Defs, LinearGradient, Rect, Stop } from 'react-native-svg';
 
-const ROUTES = { home: '/inicio', history: '/historial', account: '/cuenta' } as const satisfies Record<Tab, string>;
+const ROUTES = {
+  home: '/inicio',
+  history: '/historial',
+  account: '/cuenta',
+} as const satisfies Record<Tab, string>;
 const TAB_OF: Record<string, Tab> = { inicio: 'home', historial: 'history', cuenta: 'account' };
 
 /** Inicio, Historial y Cuenta con la barra flotante en cristal (fase 5, prototipo aprobado). */
@@ -30,16 +35,32 @@ export default function TabsLayout() {
       tabBar={({ state }) => {
         const current = state.routes[state.index]?.name ?? 'inicio';
         if (teclado && Platform.OS === 'android') return null;
+        const bottom = Math.max(insets.bottom, tokens.spacing.xxl);
         return (
-          <View
-            pointerEvents="box-none"
-            style={[styles.wrap, { bottom: Math.max(insets.bottom, tokens.spacing.xxl) }]}
-          >
-            <TabBar
-              active={TAB_OF[current] ?? 'home'}
-              onSelect={(tab) => router.navigate(ROUTES[tab])}
-            />
-          </View>
+          <>
+            {/* El contenido se desvanece en el papel bajo la barra: no se lee a través del cristal. */}
+            <Svg
+              pointerEvents="none"
+              style={[
+                styles.fade,
+                { height: bottom + tokens.size.navHeight + tokens.spacing.xxl * 2 },
+              ]}
+            >
+              <Defs>
+                <LinearGradient id="papel" x1="0" y1="0" x2="0" y2="1">
+                  <Stop offset="0" stopColor={tokens.color.paper} stopOpacity={0} />
+                  <Stop offset="0.55" stopColor={tokens.color.paper} stopOpacity={1} />
+                </LinearGradient>
+              </Defs>
+              <Rect width="100%" height="100%" fill="url(#papel)" />
+            </Svg>
+            <View pointerEvents="box-none" style={[styles.wrap, { bottom }]}>
+              <TabBar
+                active={TAB_OF[current] ?? 'home'}
+                onSelect={(tab) => router.navigate(ROUTES[tab])}
+              />
+            </View>
+          </>
         );
       }}
     >
@@ -51,5 +72,6 @@ export default function TabsLayout() {
 }
 
 const styles = StyleSheet.create({
+  fade: { position: 'absolute', left: 0, right: 0, bottom: 0 },
   wrap: { position: 'absolute', left: tokens.spacing.screenX, right: tokens.spacing.screenX },
 });

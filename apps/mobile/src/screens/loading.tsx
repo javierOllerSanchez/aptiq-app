@@ -1,12 +1,19 @@
-import { PaperBackground, Text } from '@aptiq/ui';
+import { PaperBackground, SkeletonScreen, Text } from '@aptiq/ui';
 
-/** Estado de espera o de error mientras una pantalla lee la base local. */
-export function Loading({ text = 'Cargando…' }: { text?: string }) {
+/**
+ * Espera mientras una pantalla lee la base local: esqueletos de papel (guía §5).
+ * Con `error`, el texto del problema en lugar de los esqueletos.
+ */
+export function Loading({ text = 'Cargando', error = false }: { text?: string; error?: boolean }) {
   return (
     <PaperBackground>
-      <Text color="graphite" accessibilityLiveRegion="polite">
-        {text}
-      </Text>
+      {error ? (
+        <Text color="graphite" accessibilityLiveRegion="polite">
+          {text}
+        </Text>
+      ) : (
+        <SkeletonScreen label={text} />
+      )}
     </PaperBackground>
   );
 }
