@@ -1,3 +1,4 @@
+import fc from 'fast-check';
 import { expect, test } from 'vitest';
 
 import { generatorSuite } from '../../test/suite';
@@ -5,6 +6,7 @@ import { generatorSuite } from '../../test/suite';
 import { ALPHABET, position } from './alphabet';
 import { letSerie } from './let-serie';
 import { letSerieSolver, predictNextLetter } from './let-serie.solver';
+import { levels, type Level, type OptionCount } from '../types';
 
 // Con 27 letras hay pocas series posibles en los niveles bajos (medido en la versión 2: 126, 161
 // y 52 distintas en 1.000 semillas). Un opositor que practique mucho este tipo verá repeticiones.
@@ -63,4 +65,16 @@ test('ninguna opción repite la última letra de la serie', () => {
         expect(item.options[d.optionIndex], `semilla u${i}, nivel ${level}`).not.toBe(last),
       );
     }
+});
+
+// Revisor de contenido (v4, s53, nivel 4): «H, K, K, M, N, Ñ, P, ?» — las subseries intercaladas coincidían.
+test('ninguna serie repite una letra seguida (tampoco la respuesta tras la última)', () => {
+  fc.assert(
+    fc.property(fc.string(), fc.constantFrom(...levels), fc.constantFrom(3, 4), (seed, level, oc) => {
+      const item = letSerie.generate(seed, level as Level, oc as OptionCount);
+      const all = [...item.stem.letters, item.options[item.answerIndex]!];
+      all.slice(1).forEach((x, j) => expect(x, `${seed}, nivel ${level}: ${all.join(', ')}`).not.toBe(all[j]));
+    }),
+    { numRuns: 5_000 },
+  );
 });

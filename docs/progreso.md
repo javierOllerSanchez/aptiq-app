@@ -17,6 +17,10 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 
 ## Registro
 
+**2026-11-25 · Fase 9 · Series sin términos repetidos (EXP-01, NFR-07)**
+
+- `NUM.SERIE` v4 y `LET.SERIE` v5 descartan y reintentan toda serie con un término repetido seguido: «× 2 − 3» desde 3 daba «3, 3, 3, 3, 3» con un «Observa» falso, y en las intercaladas las subseries coincidían (en letras, ~30 % de los niveles 4 y 5). Pruebas con fast-check que fallaban antes; `pnpm test`, `test:stress` y `revisor-contenido` en verde (sin bloqueantes).
+
 **2026-11-25 · Fase 9 · Qué falta para terminar**
 
 1. **RevenueCat:** «Check again» de la cuenta de servicio y, al validar, «Google developer notifications».
