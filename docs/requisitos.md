@@ -120,7 +120,7 @@ Prioridad: **Imprescindible** (MVP), **Importante** (justo después del lanzamie
 | Desglose y repaso de fallos | Del último simulacro | Historial completo y repetición espaciada |
 | Nivel estimado | Global | Por aptitud y tipo |
 
-Precios orientativos (a validar): mensual 7,99 €, pase 3 meses 19,99 €, pase 6 meses 29,99 €, anual 39,99 € (destacado, 7 días de prueba). El muro de pago aparece al terminar el primer simulacro, nunca en el primer arranque. Los precios se configuran en RevenueCat, no en el código.
+Precios orientativos (a validar): mensual 7,99 €, pase 3 meses 19,99 €, pase 6 meses 29,99 €, anual 39,99 € (destacado, 7 días de prueba). El muro de pago se ofrece al terminar un simulacro, en una tarjeta del resultado debajo de la nota (decisión del 2026-11-25), nunca en el primer arranque. Los precios se configuran en RevenueCat, no en el código.
 
 ## Riesgos principales
 

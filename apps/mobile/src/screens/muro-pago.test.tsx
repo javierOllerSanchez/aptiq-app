@@ -5,7 +5,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { createMemoryStore } from '@/data/memory-store';
 import type { PurchasesApi } from '@/purchases/api';
 import { createLocalPurchases } from '@/purchases/local';
-import { debeAbrirMuro, tiposDe } from '@/purchases/muro';
+import { tiposDe } from '@/purchases/muro';
 
 import { MuroPago } from './muro-pago';
 
@@ -33,13 +33,6 @@ const pintar = () =>
 beforeEach(() => {
   mockRouter.back.mockClear();
   mockApi = createLocalPurchases();
-});
-
-test('el muro solo se abre tras el primer simulacro, una vez y sin Premium', () => {
-  expect(debeAbrirMuro({ premium: false, visto: false, terminados: 1 })).toBe(true);
-  expect(debeAbrirMuro({ premium: false, visto: false, terminados: 0 })).toBe(false);
-  expect(debeAbrirMuro({ premium: false, visto: true, terminados: 1 })).toBe(false);
-  expect(debeAbrirMuro({ premium: true, visto: false, terminados: 1 })).toBe(false);
 });
 
 test('muestra los cuatro planes con el anual elegido y su prueba gratuita', async () => {

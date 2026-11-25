@@ -4,6 +4,7 @@ import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { AuthProvider } from '@/auth/provider';
 import { StoreProvider } from '@/data/provider';
@@ -34,17 +35,20 @@ function RootLayout() {
 
   if (!loaded && !error) return null;
   return (
-    <StoreProvider>
-      <AuthProvider>
-        <PurchasesProvider>
-          <Stack
-            screenOptions={{
-              headerShown: false,
-              contentStyle: { backgroundColor: tokens.color.paper },
-            }}
-          />
-        </PurchasesProvider>
-      </AuthProvider>
-    </StoreProvider>
+    // Raíz de gestos: deslizar entre preguntas y cerrar hojas (Gesture Handler).
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <StoreProvider>
+        <AuthProvider>
+          <PurchasesProvider>
+            <Stack
+              screenOptions={{
+                headerShown: false,
+                contentStyle: { backgroundColor: tokens.color.paper },
+              }}
+            />
+          </PurchasesProvider>
+        </AuthProvider>
+      </StoreProvider>
+    </GestureHandlerRootView>
   );
 }

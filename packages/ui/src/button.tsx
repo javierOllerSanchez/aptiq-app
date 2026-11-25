@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     minHeight: size.buttonHeight,
     borderRadius: radius.button,
-    paddingHorizontal: spacing.xxl,
+    paddingHorizontal: spacing.l,
     alignItems: 'center',
     justifyContent: 'center',
   },
