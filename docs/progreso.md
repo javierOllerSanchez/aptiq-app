@@ -17,11 +17,22 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 
 ## Registro
 
+**2026-11-25 · Fase 9 · Qué falta para terminar**
+
+1. **RevenueCat:** «Check again» de la cuenta de servicio y, al validar, «Google developer notifications».
+2. **Play Console, ficha y requisitos:** países (solo España), ficha (`docs/tiendas/ficha.md`), capturas, gráfico 1024 × 500, icono 512, privacidad y borrar cuenta (`https://aptiq.inkfinitysoft.com/privacidad` y `/borrar-cuenta`), seguridad de los datos (`docs/tiendas/privacidad.md`), clasificación de contenido, público objetivo (18+), anuncios (no), acceso a la app, pruebas de licencia y lista de probadores.
+3. **Compilación de la beta** con las 7 variables (versión 5), prueba en el emulador y en un móvil, y subida a la prueba cerrada.
+4. **Antes de abrir la beta:** borrar los datos de prueba de Supabase (con confirmación), fechas y enlace en `docs/beta/guia-probadores.md`.
+5. **Beta:** 12+ probadores durante 14 días; errores graves (T13) y primera calibración (T14).
+6. **Legal:** revisión del abogado (criterio de aceptación), estado de operador en Play Console, comisión del 15 %.
+7. **Cierre de la fase:** accesibilidad, revisor-interfaz, revisor-contenido, verificador-fase, `/cerrar-fase 9` y PR.
+8. **Opcional o después:** token de Sentry para mapas de código; iPhone (falta Apple Developer); pendientes de la fase 8 (aprobar verbales y ver el reporte en el panel).
+
 **2026-11-25 · Fase 9 · Web publicada**
 
 - Web en `https://aptiq.pages.dev` (comprobadas todas las páginas, fuentes, CSS e imágenes); dominio `https://aptiq.inkfinitysoft.com` activo (comprobado: portada, privacidad y borrar cuenta responden con HTTPS). Correo de soporte, proveedores (Arsys, Cloudflare) y licencias OFL añadidos.
 - Las **7 variables** de la app ya están en EAS (`production` y `preview`).
-- **Sigue pendiente en los textos legales:** titular (nombre o razón social, NIF, domicilio: el propietario debe darlos), plazos de conservación de PostHog, Sentry y RevenueCat, transferencias internacionales (RevenueCat, Cloudflare), juzgados y desistimiento (abogado). La web lo muestra como «Pendiente» con el aviso de borrador.
+- **Titular publicado** (Javier Oller Sánchez, NIF y domicilio en Albox). **Sigue pendiente en los textos legales:** plazos de conservación de PostHog, Sentry y RevenueCat, transferencias internacionales (RevenueCat, Cloudflare), juzgados y desistimiento (abogado). La web lo muestra como «Pendiente» con el aviso de borrador.
 - Validación de RevenueCat sin comprobar hoy (el Chrome conectado tenía otra cuenta de RevenueCat).
 
 **2026-11-24 · Fase 9 · Web (en curso)**
