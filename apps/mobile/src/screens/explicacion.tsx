@@ -4,7 +4,7 @@ import { Icon, ListRow, PressScale, Text } from '@aptiq/ui';
 import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { AccessibilityInfo, StyleSheet, View } from 'react-native';
-import Animated, { FadeIn } from 'react-native-reanimated';
+import Animated, { FadeIn, ReduceMotion } from 'react-native-reanimated';
 
 import { useStore } from '@/data/provider';
 import { nombreOpcion } from '@/practice/run';
@@ -65,7 +65,10 @@ export function Explicacion({
       </PressScale>
       {paso && (
         // Solo fundido: también con «reducir movimiento».
-        <Animated.View entering={FadeIn.duration(tokens.motion.durationBase)} style={styles.box}>
+        <Animated.View
+          entering={FadeIn.duration(tokens.motion.durationBase).reduceMotion(ReduceMotion.Never)}
+          style={styles.box}
+        >
           <Paso titulo="Observa" texto={item.explanation.observe} />
           <Paso titulo="Aplica" texto={item.explanation.apply} />
           <View style={styles.paso}>

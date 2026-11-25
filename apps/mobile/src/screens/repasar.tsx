@@ -82,7 +82,11 @@ export function Repasar() {
           color="graphite"
           style={styles.titulo}
           accessibilityRole="header"
-          accessibilityLabel={`Fallos y en blanco: ${fallos.length}`}
+          accessibilityLabel={
+            fallos.length
+              ? `Fallos y en blanco, ${i + 1} de ${fallos.length}`
+              : 'Fallos y en blanco: ninguno'
+          }
         >
           Fallos y en blanco{fallos.length ? ` · ${i + 1} / ${fallos.length}` : ''}
         </Text>
@@ -126,7 +130,9 @@ export function Repasar() {
         )}
       </ScrollView>
       <View style={[styles.barra, { paddingBottom: Math.max(insets.bottom, tokens.spacing.l) }]}>
-        {fallos.length > 1 && <IconButton icon="back" label="Anterior" onPress={() => ir(i - 1)} />}
+        {fallos.length > 1 && (
+          <IconButton icon="back" label="Anterior" onPress={() => ir(i - 1)} disabled={i === 0} />
+        )}
         <View style={styles.celda}>
           {i + 1 < fallos.length ? (
             <Button label="Siguiente" onPress={() => ir(i + 1)} variant="secondary" />

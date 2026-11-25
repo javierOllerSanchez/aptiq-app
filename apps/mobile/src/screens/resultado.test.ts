@@ -1,6 +1,6 @@
 import type { Breakdown, Tally } from '@aptiq/engine';
 
-import { aReforzar } from './resultado';
+import { aReforzar } from '@/practice/run';
 
 // Parte C de la fase 9: la aptitud a reforzar solo se marca con datos y una diferencia real (RES-02).
 

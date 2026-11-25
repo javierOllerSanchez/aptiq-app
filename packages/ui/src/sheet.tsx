@@ -12,6 +12,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { withAlpha } from './color';
 import { easeOut } from './motion';
+import { Icon } from './icon';
+import { PressScale } from './press-scale';
 import { Text } from './text';
 
 const { color, motion, opacity, radius, spacing } = tokens;
@@ -39,7 +41,8 @@ export function Sheet({
   // Montada mientras se ve o mientras sale: el Modal se quita al terminar la animación de salida.
   const [montada, setMontada] = useState(visible);
   if (visible && !montada) setMontada(true);
-  const [alto, setAlto] = useState(400);
+  // Alto real del panel; hasta medirlo, el panel no se ve (no asoma un fotograma fuera de sitio).
+  const [alto, setAlto] = useState<number | null>(null);
   const p = useSharedValue(0);
   const drag = useSharedValue(0);
 
@@ -57,9 +60,11 @@ export function Sheet({
 
   const scrim = useAnimatedStyle(() => ({ opacity: p.value }));
   const panel = useAnimatedStyle(() =>
-    reduce
-      ? { opacity: p.value, transform: [{ translateY: drag.value }] }
-      : { transform: [{ translateY: (1 - p.value) * alto + drag.value }] },
+    alto === null
+      ? { opacity: 0 }
+      : reduce
+        ? { opacity: p.value, transform: [{ translateY: drag.value }] }
+        : { opacity: 1, transform: [{ translateY: (1 - p.value) * alto + drag.value }] },
   );
 
   const pan = Gesture.Pan()
@@ -93,17 +98,31 @@ export function Sheet({
           style={[styles.panel, { paddingBottom: insets.bottom + spacing.xxl }, panel]}
           onLayout={(e) => setAlto(e.nativeEvent.layout.height)}
           accessibilityViewIsModal
+          // VoiceOver ignora el fondo con accessibilityViewIsModal: el gesto de escape y la X cierran.
+          onAccessibilityEscape={onClose}
         >
           <GestureDetector gesture={pan}>
             <View style={styles.asa} accessible={false}>
               <View style={styles.asaBarra} />
             </View>
           </GestureDetector>
-          {title !== undefined && (
-            <Text variant="questionTitle" accessibilityRole="header">
-              {title}
-            </Text>
-          )}
+          <View style={styles.cabecera}>
+            <View style={styles.fill}>
+              {title !== undefined && (
+                <Text variant="questionTitle" accessibilityRole="header">
+                  {title}
+                </Text>
+              )}
+            </View>
+            <PressScale
+              onPress={onClose}
+              accessibilityRole="button"
+              accessibilityLabel="Cerrar"
+              style={styles.cerrar}
+            >
+              <Icon name="cross" />
+            </PressScale>
+          </View>
           {children}
         </Animated.View>
       </GestureHandlerRootView>
@@ -126,7 +145,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.screenX,
     gap: spacing.l,
   },
-  asa: { alignItems: 'center', paddingTop: spacing.m, paddingBottom: spacing.xs },
+  // Zona de arrastre de 44 de alto aunque el asa visible sea fina.
+  asa: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: tokens.size.touchMin,
+    marginBottom: -spacing.l,
+  },
+  cabecera: { flexDirection: 'row', alignItems: 'center', gap: spacing.s },
+  cerrar: {
+    width: tokens.size.touchMin,
+    height: tokens.size.touchMin,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: -spacing.m,
+  },
   asaBarra: {
     width: tokens.size.sheetHandle,
     height: spacing.xs,

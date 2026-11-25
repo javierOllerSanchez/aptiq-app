@@ -110,6 +110,7 @@
 | 2026-11-25 | Guía: densidad (una línea de apoyo por bloque), una acción principal y una secundaria a la vista, siete componentes nuevos y más momentos de movimiento | Aprobado por el propietario con el plan de la parte C |
 | 2026-11-25 | Tras el primer simulacro se ve antes la nota; Premium se ofrece en una tarjeta del resultado, no en una pantalla que la tape | El resultado es el momento de más interés; taparlo con el muro frustra |
 | 2026-11-25 | El onboarding empieza con una pantalla de bienvenida (logotipo, claim y una frase); la fecha del examen se pide como mes y año, con «Aún no lo sé» | Primera impresión de marca; las convocatorias se anuncian por mes |
+| 2026-11-25 | Una aptitud se marca «a reforzar» solo con 3 preguntas o más y 10 puntos o más por debajo de la mejor (`aReforzar`, Inicio y Resultado) | Con todas al 0 % o una sola pregunta, el rojo señalaría un punto débil inventado |
 
 ## Pendientes (las decide el propietario)
 

@@ -30,6 +30,7 @@ Reglas:
 - **El amarillo nunca es color de texto** sobre papel. Siempre como fondo con texto `ink`, o como icono sobre `ink`.
 - **El rojo solo comunica estado**, nunca decora.
 - Prohibido: degradados de color, brillos o neón, manchas de luz de fondo, texto con degradado, modo oscuro por defecto, emojis.
+- Excepción (2026-11-25): el fundido de `paper` transparente a `paper` opaco bajo la barra de pestañas. No es un degradado de color: hace que el contenido se desvanezca en el papel.
 
 ## 2. Tipografía
 
@@ -82,7 +83,7 @@ En React Native: `expo-blur` (`BlurView`, intensidad equivalente) + capa de colo
 | `Timer` | Píldora de cristal con icono de reloj y tiempo en mono 15. |
 | `Stamp` | «APTO» en Bricolage 800 color `seal`, doble borde, girado −6°. Solo en Resultado, más pequeño que la nota. |
 | `SourceNote` | Icono de documento + «Formato según la convocatoria oficial: …» con la cita del perfil (p. ej. «BOE-A-2026-9982, bases 6.1.2.a, 7.3 y 7.8»). No menciona exámenes publicados: la Guardia Civil no publica el cuestionario de aptitudes. Obligatorio en cada simulacro. |
-| `SeriesTile` | Casilla de serie: radio 12, borde `ink` 1,5, número 24/700. La incógnita con borde discontinuo y «?» en `graphite`. |
+| `SeriesTile` | Casilla de serie: radio 12, borde `ink` 1,5, número 21/700 (como el enunciado, para que quepan seis en una fila). La incógnita con borde discontinuo y «?» en `graphite`. |
 | `ListRow` | Fila de 52 con separador al 14 %; nombre 17/600, valor en mono 15/600, chevron. Valor en `sealText` si es el punto débil. |
 | `PaperBackground` | Papel con cuadrícula. |
 | `Logo` | SVG oficial de `docs/marca/`. Nunca recrearlo con una fuente. |
@@ -90,16 +91,16 @@ En React Native: `expo-blur` (`BlurView`, intensidad equivalente) + capa de colo
 | `PressScale` | Envoltorio de todo lo pulsable: escala a 0,97 mientras se mantiene pulsado (150 ms). |
 | `Skeleton` | Bloques `ink` al 6 % con radio del elemento que sustituyen; laten de 6 % a 10 % (900 ms). Sustituye a «Cargando…». |
 | `InfoButton` | Icono «i» de 22 en círculo de 44 que abre una `Sheet` con la fuente, el método y el aviso de independencia. |
-| `QuestionGrid` | Cuadrícula del simulacro: casillas de 40 con el número en mono. Respondida `ink`, en blanco borde `ink`, marcada con bandera, actual `highlighter`. |
+| `QuestionGrid` | Cuadrícula del simulacro: casillas de 44 (`questionCell`) con el número en mono. Respondida `ink`, en blanco con borde `ink` al 25 %, marcada con bandera, actual `highlighter`. |
 | `MonthPicker` | Año en píldoras y 12 meses en cuadrícula de 3 columnas, con «Aún no lo sé». |
 | `CountUp` | Cifra que cuenta hasta su valor en 600 ms ease-out (sin animación con «reducir movimiento»). |
 
 ## 6. Pantallas de referencia
 
 ### Inicio (`prototipos/inicio.html`)
-1. Cabecera: logotipo a la izquierda, selector de oposición (píldora con borde) a la derecha.
-2. Título «Sesión de hoy» y una línea con el formato oficial de la oposición.
-3. `GlassCard` con nivel estimado (cifra grande), racha en mono, `LevelBubbles`, botón principal «Empezar simulacro» y `SourceNote`.
+1. Cabecera: logotipo a la izquierda (hace de título y se anuncia como «Inicio»), oposición (píldora con borde) y botón «i» a la derecha.
+2. Mes del examen en mono si se conoce («Examen en marzo de 2027»).
+3. `GlassCard` con nivel estimado (cifra grande), racha en mono, `LevelBubbles`, formato en una línea mono y botón principal «Empezar simulacro». La fuente (`SourceNote`) y los avisos van en la hoja «i» (§7 bis); `SourceNote` se ve al empezar el simulacro.
 4. «PRÁCTICA POR APTITUD»: lista de aptitudes con su porcentaje de acierto; la más floja en rojo.
 5. `TabBar` flotante.
 
@@ -138,7 +139,7 @@ El canvas de diseño original está en [Aptiq — Identidad visual](https://clau
 
 Criterio de las skills de Emil Kowalski (`emil-design-eng`, `animate-expo`) con estas reglas:
 
-- 150–250 ms, ease-out. Sin rebotes durante un simulacro.
+- 150–250 ms, ease-out. Sin rebotes durante un simulacro. Excepciones aprobadas: `CountUp` (600 ms) y el latido de `Skeleton` (900 ms).
 - Se anima solo lo que informa:
   - marcar una burbuja (relleno de 150 ms);
   - confirmar una respuesta;

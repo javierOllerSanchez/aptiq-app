@@ -110,8 +110,9 @@ export function Onboarding() {
         accion={<Button label="Continuar" onPress={() => setStep('fecha')} variant="primary" />}
       >
         <Animated.View entering={entrada(1, reduce)} style={styles.bloque}>
+          {/* Única oposición, ya elegida: tocarla no avanza; avanza «Continuar». */}
           <PressScale
-            onPress={() => setStep('fecha')}
+            onPress={() => {}}
             accessibilityRole="radio"
             accessibilityLabel="Guardia Civil · Escala de Cabos y Guardias"
             accessibilityState={{ checked: true }}

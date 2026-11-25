@@ -122,12 +122,20 @@ export function Simulacro() {
 }
 
 type Hoja = null | 'salir' | 'entregar' | 'preguntas';
+const TITULOS = {
+  preguntas: 'Preguntas',
+  entregar: '¿Entregar el simulacro?',
+  salir: '¿Salir del simulacro?',
+} as const;
 
 function SimulacroEnCurso({ store, id, items, usado, exam: initial }: Listo & { store: Store }) {
   const insets = useSafeAreaInsets();
   const reduce = useReducedMotion();
   const [exam, setExam] = useState(initial);
   const [hoja, setHoja] = useState<Hoja>(null);
+  // Último contenido abierto: se sigue viendo mientras la hoja baja al cerrarse.
+  const [abierta, setAbierta] = useState<Exclude<Hoja, null>>('preguntas');
+  if (hoja && hoja !== abierta) setAbierta(hoja);
   // Sentido del último cambio de pregunta: la tarjeta entra desde ese lado.
   const [sentido, setSentido] = useState<1 | -1>(1);
   const remaining = useExamClock(exam);
@@ -283,7 +291,12 @@ function SimulacroEnCurso({ store, id, items, usado, exam: initial }: Listo & { 
         )}
       </ScrollView>
       <View style={[styles.barra, { paddingBottom: Math.max(insets.bottom, tokens.spacing.l) }]}>
-        <IconButton icon="back" label="Anterior" onPress={() => ir(exam.current - 1)} />
+        <IconButton
+          icon="back"
+          label="Anterior"
+          onPress={() => ir(exam.current - 1)}
+          disabled={exam.current === 0}
+        />
         <View style={styles.celdaAncha}>
           <Button
             label="Dejar en blanco"
@@ -301,47 +314,58 @@ function SimulacroEnCurso({ store, id, items, usado, exam: initial }: Listo & { 
         </View>
       </View>
 
-      <Sheet visible={hoja === 'preguntas'} onClose={() => setHoja(null)} title="Preguntas">
-        <Text variant="formula" color="graphiteStrong">
-          {plural(exam.total - enBlanco, 'respondida', 'respondidas')} · {enBlanco} en blanco ·{' '}
-          {plural(marcadas, 'marcada', 'marcadas')}
-        </Text>
-        <ScrollView style={styles.cuadricula}>
-          <QuestionGrid
-            answered={exam.answers.map((a) => a !== null)}
-            marked={exam.marked}
-            current={exam.current}
-            onSelect={(i) => {
-              setHoja(null);
-              ir(i);
-            }}
-          />
-        </ScrollView>
-        <Button label="Entregar simulacro" onPress={() => setHoja('entregar')} variant="primary" />
-      </Sheet>
-
-      <Sheet
-        visible={hoja === 'entregar'}
-        onClose={() => setHoja(null)}
-        title="¿Entregar el simulacro?"
-      >
-        <Text color="graphiteStrong">
-          Te quedan {plural(enBlanco, 'pregunta en blanco', 'preguntas en blanco')} y{' '}
-          {plural(marcadas, 'marcada', 'marcadas')} para revisar. Después no podrás cambiar
-          respuestas.
-        </Text>
-        <View style={styles.acciones}>
-          <Button label="Entregar ahora" onPress={entregar} variant="primary" />
-          <Button label="Seguir" onPress={() => setHoja(null)} variant="secondary" />
-        </View>
-      </Sheet>
-
-      <Sheet visible={hoja === 'salir'} onClose={() => setHoja(null)} title="¿Salir del simulacro?">
-        <Text color="graphiteStrong">El intento se descarta y no cuenta en tu historial.</Text>
-        <View style={styles.acciones}>
-          <Button label="Seguir con el simulacro" onPress={() => setHoja(null)} variant="primary" />
-          <Button label="Salir y descartar" onPress={salir} variant="secondary" />
-        </View>
+      {/* Una sola hoja que cambia de contenido: en iOS dos Modal seguidos pueden no presentarse. */}
+      <Sheet visible={hoja !== null} onClose={() => setHoja(null)} title={TITULOS[abierta]}>
+        {abierta === 'preguntas' && (
+          <>
+            <Text variant="formula" color="graphiteStrong">
+              {plural(exam.total - enBlanco, 'respondida', 'respondidas')} · {enBlanco} en blanco ·{' '}
+              {plural(marcadas, 'marcada', 'marcadas')}
+            </Text>
+            <ScrollView style={styles.cuadricula}>
+              <QuestionGrid
+                answered={exam.answers.map((a) => a !== null)}
+                marked={exam.marked}
+                current={exam.current}
+                onSelect={(i) => {
+                  setHoja(null);
+                  ir(i);
+                }}
+              />
+            </ScrollView>
+            <Button
+              label="Entregar simulacro"
+              onPress={() => setHoja('entregar')}
+              variant="primary"
+            />
+          </>
+        )}
+        {abierta === 'entregar' && (
+          <>
+            <Text color="graphiteStrong">
+              Te quedan {plural(enBlanco, 'pregunta en blanco', 'preguntas en blanco')} y{' '}
+              {plural(marcadas, 'marcada', 'marcadas')} para revisar. Después no podrás cambiar
+              respuestas.
+            </Text>
+            <View style={styles.acciones}>
+              <Button label="Entregar ahora" onPress={entregar} variant="primary" />
+              <Button label="Seguir" onPress={() => setHoja(null)} variant="secondary" />
+            </View>
+          </>
+        )}
+        {abierta === 'salir' && (
+          <>
+            <Text color="graphiteStrong">El intento se descarta y no cuenta en tu historial.</Text>
+            <View style={styles.acciones}>
+              <Button
+                label="Seguir con el simulacro"
+                onPress={() => setHoja(null)}
+                variant="primary"
+              />
+              <Button label="Salir y descartar" onPress={salir} variant="secondary" />
+            </View>
+          </>
+        )}
       </Sheet>
     </PaperBackground>
   );

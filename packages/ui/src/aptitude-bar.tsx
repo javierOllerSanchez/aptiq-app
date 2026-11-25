@@ -34,7 +34,7 @@ export function AptitudeBar({
   useEffect(() => {
     w.value = withDelay(
       orden * motion.stagger * 2,
-      withTiming(p, { duration: motion.countUp, easing: easeOut }),
+      withTiming(p, { duration: motion.durationSlow, easing: easeOut }),
     );
   }, [p, orden, w]);
   const grow = useAnimatedStyle(() => ({ width: `${w.value}%` }));

@@ -17,7 +17,7 @@ import { StyleSheet, View } from 'react-native';
 import Animated, { useReducedMotion } from 'react-native-reanimated';
 
 import { useStore } from '@/data/provider';
-import { APTITUDE_LABELS, historyBreakdown } from '@/practice/run';
+import { APTITUDE_LABELS, aReforzar, historyBreakdown } from '@/practice/run';
 import { loadProgress, permiso, type Progress } from '@/progress/data';
 import { tiposDe } from '@/purchases/muro';
 import { usePlan } from '@/purchases/provider';
@@ -84,7 +84,13 @@ export function Inicio() {
 
   return (
     <PaperBackground scroll style={styles.content}>
-      <Animated.View entering={entrada(0, reduce)} style={styles.cabecera}>
+      {/* Encabezado de la pantalla para el lector: el logotipo hace de título visual (prototipo). */}
+      <Animated.View
+        entering={entrada(0, reduce)}
+        style={styles.cabecera}
+        accessibilityRole="header"
+        accessibilityLabel="Inicio"
+      >
         <Logo />
         <View style={styles.cabeceraDerecha}>
           <View style={styles.oposicion} accessible accessibilityLabel="Oposición: Guardia Civil">
@@ -202,7 +208,7 @@ export function Inicio() {
               detail={historial && !t?.total && !bloqueada ? 'Sin empezar' : undefined}
               value={historial ? acierto(t) : undefined}
               valueLabel={historial ? lectura(t) : undefined}
-              weak={historial?.weakest === id}
+              weak={historial !== null && aReforzar(historial) === id}
               locked={bloqueada}
               onPress={() =>
                 bloqueada

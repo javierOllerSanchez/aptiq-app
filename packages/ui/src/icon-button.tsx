@@ -13,24 +13,32 @@ export function IconButton({
   icon,
   label,
   onPress,
-  active = false,
+  active,
   bordered = true,
+  disabled = false,
 }: {
   icon: IconName;
   /** Lo que dice el lector de pantalla (obligatorio: guía §10). */
   label: string;
   onPress: () => void;
-  /** Estado conmutado (p. ej. pregunta marcada para revisar). */
+  /** Solo en botones que se activan y desactivan (p. ej. marcar para revisar). */
   active?: boolean;
   bordered?: boolean;
+  disabled?: boolean;
 }) {
   return (
     <PressScale
       onPress={onPress}
       accessibilityRole="button"
       accessibilityLabel={label}
-      accessibilityState={{ selected: active }}
-      style={[styles.circle, bordered && styles.bordered, active && styles.active]}
+      disabled={disabled}
+      accessibilityState={{ disabled, ...(active !== undefined && { selected: active }) }}
+      style={[
+        styles.circle,
+        bordered && styles.bordered,
+        active && styles.active,
+        disabled && { opacity: tokens.opacity.disabled },
+      ]}
     >
       <Icon name={icon} color={active ? 'highlighter' : 'ink'} />
     </PressScale>

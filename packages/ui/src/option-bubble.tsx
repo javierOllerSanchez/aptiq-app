@@ -1,6 +1,6 @@
 import { tokens } from '@aptiq/tokens';
 import * as Haptics from 'expo-haptics';
-import { type ReactNode, useEffect } from 'react';
+import { type ReactNode, useEffect, useRef } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Animated, {
   Easing,
@@ -69,15 +69,19 @@ export function OptionBubble({
   // movimiento», Reanimated lo salta (ReduceMotion.System).
   const shake = useSharedValue(0);
   const wrongNow = state === 'wrong';
+  // Solo al pasar a fallo (al confirmar), no al pintarse ya fallada en el repaso: ahí no informa.
+  const antes = useRef(state);
   useEffect(() => {
-    if (!wrongNow) return;
+    const venia = antes.current;
+    antes.current = state;
+    if (!wrongNow || venia === 'wrong') return;
     const t = { duration: motion.durationFast / 3, easing: Easing.linear };
     shake.value = withSequence(
       withTiming(motion.shake, t),
       withTiming(-motion.shake, t),
       withTiming(0, t),
     );
-  }, [wrongNow, shake]);
+  }, [wrongNow, shake, state]);
   const shakeStyle = useAnimatedStyle(() => ({ transform: [{ translateX: shake.value }] }));
 
   const press = onPress

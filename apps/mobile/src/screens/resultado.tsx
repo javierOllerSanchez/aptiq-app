@@ -30,7 +30,7 @@ import Animated, { useReducedMotion } from 'react-native-reanimated';
 
 import { useStore } from '@/data/provider';
 import { usePlan } from '@/purchases/provider';
-import { APTITUDE_LABELS, formatNota, isCorrect } from '@/practice/run';
+import { APTITUDE_LABELS, aReforzar, formatNota, isCorrect } from '@/practice/run';
 import { InfoFormato } from '@/screens/info-formato';
 import { Loading } from '@/screens/loading';
 
@@ -43,20 +43,6 @@ interface Resumen {
 }
 
 const pct = (t: Tally) => (t.total ? Math.round((t.correct / t.total) * 100) : 0);
-/** Mínimo de preguntas y de diferencia con la mejor aptitud para señalar una «a reforzar». */
-const REFORZAR = { preguntas: 3, puntos: 10 };
-
-/**
- * La aptitud a reforzar solo se señala si hay datos y una diferencia real: con todas al 0 % o con
- * una sola pregunta, marcar una en rojo sería inventar un punto débil.
- */
-export function aReforzar(d: Breakdown): string | null {
-  const w = d.weakest ? d.byAptitude[d.weakest] : undefined;
-  if (!d.weakest || !w || w.total < REFORZAR.preguntas) return null;
-  const mejor = Math.max(...Object.values(d.byAptitude).map((t) => (t.total ? pct(t) : 0)));
-  return mejor - pct(w) >= REFORZAR.puntos ? d.weakest : null;
-}
-
 /** Resultado del simulacro: nota neta con su fórmula, comparación con el mínimo y desglose (RES-01, RES-02, RES-04). */
 export function Resultado() {
   const store = useStore();

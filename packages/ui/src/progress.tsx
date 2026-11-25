@@ -1,6 +1,6 @@
 import { tokens } from '@aptiq/tokens';
 import { StyleSheet, View } from 'react-native';
-import Animated, { FadeIn } from 'react-native-reanimated';
+import Animated, { FadeIn, ReduceMotion } from 'react-native-reanimated';
 
 import { withAlpha } from './color';
 
@@ -53,7 +53,9 @@ export function LevelBubbles({ level, max = 10 }: { level: number; max?: number 
           {i < level && (
             // Solo fundido: se mantiene también con «reducir movimiento».
             <Animated.View
-              entering={FadeIn.duration(motion.durationBase).delay(i * motion.stagger * 2)}
+              entering={FadeIn.duration(motion.durationBase)
+                .delay(i * motion.stagger * 2)
+                .reduceMotion(ReduceMotion.Never)}
               style={[StyleSheet.absoluteFill, styles.level, styles.levelFilled]}
             />
           )}

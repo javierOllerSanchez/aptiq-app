@@ -26,8 +26,11 @@ test('Sheet solo se pinta abierta y se cierra tocando fuera', async () => {
   );
   expect(screen.getByRole('header', { name: '¿Entregar el simulacro?' })).toBeTruthy();
   // En Jest el fondo se queda en su valor inicial (opacidad 0) porque la animación no corre.
-  fireEvent.press(screen.getByRole('button', { name: 'Cerrar', includeHiddenElements: true }));
-  expect(onClose).toHaveBeenCalledTimes(1);
+  // Se cierra tocando el fondo y con la X de la cabecera (la que alcanza VoiceOver).
+  const cerrar = screen.getAllByRole('button', { name: 'Cerrar', includeHiddenElements: true });
+  expect(cerrar).toHaveLength(2);
+  for (const b of cerrar) await fireEvent.press(b);
+  expect(onClose).toHaveBeenCalledTimes(2);
 });
 
 test('QuestionGrid anuncia el estado de cada pregunta y salta a la elegida', async () => {
@@ -41,7 +44,7 @@ test('QuestionGrid anuncia el estado de cada pregunta y salta a la elegida', asy
     />,
   );
   expect(screen.getByRole('button', { name: 'Pregunta 1, respondida' })).toBeTruthy();
-  fireEvent.press(
+  await fireEvent.press(
     screen.getByRole('button', { name: 'Pregunta 2, en blanco, marcada para revisar' }),
   );
   expect(onSelect).toHaveBeenCalledWith(1);

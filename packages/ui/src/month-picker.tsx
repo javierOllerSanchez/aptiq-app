@@ -1,4 +1,5 @@
 import { tokens } from '@aptiq/tokens';
+import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { PressScale } from './press-scale';
@@ -51,23 +52,16 @@ export function MonthPicker({
 }) {
   const anioHoy = Number(hoy.slice(0, 4));
   const mesHoy = Number(hoy.slice(5, 7));
-  const anio = value ? Number(value.slice(0, 4)) : anioHoy;
-  const mes = value ? Number(value.slice(5, 7)) : null;
+  // El año solo cambia lo que se ve: el valor cambia únicamente al tocar un mes.
+  const [anio, setAnio] = useState(value ? Number(value.slice(0, 4)) : anioHoy);
+  const elegido = value ? { a: Number(value.slice(0, 4)), m: Number(value.slice(5, 7)) } : null;
   const pon = (a: number, m: number) => onChange(`${a}-${String(m).padStart(2, '0')}`);
 
   return (
     <View style={styles.wrap}>
       <View style={styles.row} accessibilityRole="radiogroup" accessibilityLabel="Año">
         {[anioHoy, anioHoy + 1].map((a) => (
-          <Chip
-            key={a}
-            label={String(a)}
-            selected={value !== null && a === anio}
-            // Al cambiar de año se conserva el mes si sigue siendo futuro.
-            onPress={() =>
-              pon(a, mes && (a > anioHoy || mes >= mesHoy) ? mes : a === anioHoy ? mesHoy : 1)
-            }
-          />
+          <Chip key={a} label={String(a)} selected={a === anio} onPress={() => setAnio(a)} />
         ))}
       </View>
       <View style={styles.grid} accessibilityRole="radiogroup" accessibilityLabel="Mes">
@@ -78,7 +72,7 @@ export function MonthPicker({
               <Chip
                 label={m}
                 a11y={`${MESES[i]} de ${anio}`}
-                selected={value !== null && mes === i + 1}
+                selected={elegido?.a === anio && elegido.m === i + 1}
                 disabled={pasado}
                 onPress={() => pon(anio, i + 1)}
               />
