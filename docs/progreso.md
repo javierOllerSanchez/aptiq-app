@@ -13,9 +13,14 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 | 6 · Progreso y adaptativo | Cerrada (comprobaciones en el móvil pendientes del propietario) | `fase-6-progreso` · PR #13 fusionado | 2026-11-15 | Sí, 2026-11-15 |
 | 7 · Pago | Cerrada con T7 pendiente (pruebas en tiendas: faltan las cuentas de Apple, Google y RevenueCat) | `fase-7-pago` · PR #15 fusionado | 2026-11-15 | Sí, 2026-11-15 |
 | 8 · Contenido ampliado y panel interno | Cerrada (pendiente que el propietario vea un reporte en el panel y apruebe verbales y perfiles) | `fase-8-contenido` · PR #17 | 2026-11-19 | Sí, 2026-11-19 |
-| 9 · Beta y lanzamiento | En curso (parte A hecha; parte B empezada) | `fase-9-lanzamiento` (sin subir) | | |
+| 9 · Beta y lanzamiento | En curso (parte A hecha; parte B empezada; parte C de experiencia hecha) | `fase-9-lanzamiento` y `fase-9-experiencia` (subida) | | |
 
 ## Registro
+
+**2026-11-26 · Fase 9 · Parte C · Barra de pestañas**
+
+- Barra con muesca y burbuja de subrayador sobre la pestaña activa, nombres en mono bajo los iconos y deslizamiento con muelle sin rebote (referencia del propietario). Tipos, ESLint y pruebas en verde; comprobada en el emulador (`docs/capturas/fase-9c-barra-pestanas.png`).
+- Rama `fase-9-experiencia` subida a GitHub (incluye la parte A y B de `fase-9-lanzamiento`, que no estaba subida). Pendiente: PR, TalkBack/VoiceOver reales y sonido en un móvil.
 
 **2026-11-25 · Fase 9 · Parte C · Revisión de la ronda 2 (Inicio, Historial y Cuenta)**
 
