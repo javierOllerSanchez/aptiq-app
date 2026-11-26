@@ -13,8 +13,11 @@ const IGNORAR = [/^\.claude\/skills\//, /^pnpm-lock\.yaml$/];
 /** Devuelve los motivos por los que `texto` contiene un secreto (vacío si no hay ninguno). */
 export function secretosEn(texto) {
   const hallazgos = [];
-  // Clave secreta moderna. supabase-js contiene el prefijo suelto «sb_secret_» para detectarlas: no cuenta.
-  if (/sb_secret_[A-Za-z0-9-][A-Za-z0-9_-]{15,}/.test(texto)) hallazgos.push('clave sb_secret_');
+  // Clave secreta moderna. supabase-js contiene el prefijo suelto «sb_secret_» para detectarlas: no cuenta,
+  // y en el paquete de Hermes va pegado a otros textos («sb_secret_addResourceSpans…»). Una clave real es
+  // aleatoria y lleva cifras; un nombre pegado, no.
+  const claves = texto.match(/sb_secret_[A-Za-z0-9-][A-Za-z0-9_-]{15,}/g) ?? [];
+  if (claves.some((k) => /\d/.test(k.slice('sb_secret_'.length)))) hallazgos.push('clave sb_secret_');
   // Variable de la clave de servicio con un valor asignado (no solo el nombre).
   if (/SUPABASE_SERVICE_ROLE_KEY\s*[=:]\s*['"]?[A-Za-z0-9._-]{20,}/.test(texto)) {
     hallazgos.push('SUPABASE_SERVICE_ROLE_KEY con valor');
