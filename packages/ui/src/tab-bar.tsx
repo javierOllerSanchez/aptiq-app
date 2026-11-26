@@ -3,7 +3,6 @@ import * as Haptics from 'expo-haptics';
 import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Animated, {
-  interpolateColor,
   useAnimatedProps,
   useAnimatedStyle,
   useDerivedValue,
@@ -66,7 +65,8 @@ function forma(w: number, cx: number) {
 /**
  * Barra de navegación flotante (2026-11-25, referencia aportada por el propietario): papel blanco
  * con una muesca sobre la pestaña activa y una burbuja de la hoja de respuestas dentro. La muesca y
- * la burbuja se deslizan a la pestaña nueva; el icono sube un poco y el nombre pasa a tinta. Con
+ * la burbuja se deslizan a la pestaña nueva; el icono sube y su nombre aparece debajo (solo el de la
+ * pestaña activa). Con
  * «reducir movimiento», todo cambia sin desplazarse.
  */
 export function TabBar({ active, onSelect }: { active: Tab; onSelect: (tab: Tab) => void }) {
@@ -146,12 +146,14 @@ function Pestana({
     on.value = withTiming(selected ? 1 : 0, { duration: motion.durationSlow, easing: easeOut });
   }, [selected, on]);
   const k = useDerivedValue(() => on.value);
+  // Sin nombre, el icono baja al centro; al activarse sube y el nombre aparece debajo.
   const sube = useAnimatedStyle(() => ({
-    transform: [{ translateY: reduce ? 0 : -spacing.xs * k.value }],
+    transform: [{ translateY: reduce ? 0 : spacing.s * (1 - k.value) }],
   }));
   const tinta = useAnimatedStyle(() => ({ opacity: k.value }));
   const nombre = useAnimatedStyle(() => ({
-    color: interpolateColor(k.value, [0, 1], [color.graphite, color.ink]),
+    opacity: k.value,
+    transform: [{ translateY: reduce ? 0 : spacing.xs * (1 - k.value) }],
   }));
   return (
     <PressScale
@@ -170,7 +172,9 @@ function Pestana({
         </Animated.View>
       </Animated.View>
       <AnimatedText
-        style={[textStyle('label'), nombre]}
+        // Solo se ve el de la pestaña activa; el lector de pantalla oye todos por su etiqueta.
+        style={[textStyle('label'), { color: color.ink }, nombre]}
+        importantForAccessibility="no"
         maxFontSizeMultiplier={1.2}
         numberOfLines={1}
       >
