@@ -4,7 +4,7 @@ import { fireEvent, render, screen } from '@testing-library/react-native';
 import { createMemoryStore } from '@/data/memory-store';
 import type { Reporte } from '@/reports/reports';
 
-import { Explicacion } from './explicacion';
+import { Explicacion, pegar } from './explicacion';
 
 // Fase 8 · T9 y T15 (SOP-01, EXP-04).
 
@@ -22,7 +22,9 @@ const item = registry['ESP.CUBO'].generator.generate('muestra-4-2', 4, 4);
 
 test('las opciones con figura se nombran por su letra en la explicación', async () => {
   await render(<Explicacion item={item} answer={(item.answerIndex + 1) % 4} />);
-  expect(screen.getByText(`Incorrecta. La correcta es la ${'ABCD'[item.answerIndex]}.`)).toBeOnTheScreen();
+  expect(
+    screen.getByText(`Incorrecta. La correcta es la ${'ABCD'[item.answerIndex]}.`),
+  ).toBeOnTheScreen();
 });
 
 test('«Cómo se resuelve este tipo» abre la ficha de método del tipo', async () => {
@@ -54,4 +56,10 @@ test('reportar envía la semilla y la versión, y no deja reportar dos veces', a
     }),
   ]);
   expect(screen.queryByRole('button', { name: 'Reportar un error' })).toBeNull();
+});
+
+test('el operador no se separa de su número al partir la línea', () => {
+  expect(pegar('Calculas mal la diferencia: + 25 en lugar de + 24. 98 + 24 = 122; 7 − 3')).toBe(
+    'Calculas mal la diferencia: + 25 en lugar de + 24. 98 + 24 = 122; 7 − 3',
+  );
 });

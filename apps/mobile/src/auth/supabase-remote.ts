@@ -1,5 +1,6 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 
+import type { PerfilUsado } from '@/content/content';
 import type { SavedQuestion } from '@/data/store';
 import type { Remote } from '@/sync/remote';
 
@@ -62,6 +63,7 @@ export function createSupabaseRemote(client: SupabaseClient): Remote {
             duracion_ms: a.durationMs,
             fin: iso(a.finishedAt ?? a.empezado),
             preguntas: a.questions,
+            perfil: a.perfil ?? null,
           })),
         'user_id,id',
       ),
@@ -71,9 +73,9 @@ export function createSupabaseRemote(client: SupabaseClient): Remote {
         all<{ clave: string; valor: string; actualizado: string }>('ajuste', 'clave, valor, actualizado', 'clave'),
         all<{ semilla: string }>('semilla_usada', 'semilla', 'semilla'),
         all<{ id: string; creada: string; preguntas: SavedQuestion[] }>('sesion', 'id, creada, preguntas', 'id'),
-        all<{ id: string; empezado: string; duracion_ms: number; fin: string; preguntas: SavedQuestion[] }>(
+        all<{ id: string; empezado: string; duracion_ms: number; fin: string; preguntas: SavedQuestion[]; perfil: PerfilUsado | null }>(
           'intento_simulacro',
-          'id, empezado, duracion_ms, fin, preguntas',
+          'id, empezado, duracion_ms, fin, preguntas, perfil',
           'id',
         ),
       ]);
@@ -87,6 +89,7 @@ export function createSupabaseRemote(client: SupabaseClient): Remote {
           durationMs: r.duracion_ms,
           finishedAt: ms(r.fin),
           questions: r.preguntas,
+          ...(r.perfil && { perfil: r.perfil }),
         })),
       };
     },

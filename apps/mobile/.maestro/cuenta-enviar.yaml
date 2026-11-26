@@ -6,6 +6,8 @@ appId: com.javioller.aptiq
 - launchApp
 - tapOn: "Cuenta"
 - assertVisible: "Guarda tu progreso"
+# Cuenta v2: el correo se pide en una hoja que abre la fila.
+- tapOn: "Guarda tu progreso.*"
 - tapOn: "Correo electrónico"
 - inputText: ${CORREO}
 - tapOn: "Enviar código"

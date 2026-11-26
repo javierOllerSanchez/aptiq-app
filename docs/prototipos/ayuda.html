@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aptiq · Ayuda y legal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Fase 5 · T5 · Estilos comunes de los prototipos de Cuenta e Historial.
+   Valores de docs/tokens.json; mismas recetas que inicio.html. */
+body{margin:0;background:#EFEEE9}
+.screen{position:relative;width:390px;height:844px;overflow:hidden;box-sizing:border-box;padding:56px 20px 0;display:flex;flex-direction:column;
+  font-family:'Instrument Sans',system-ui,sans-serif;color:#121316;background-color:#EFEEE9;
+  background-image:linear-gradient(rgba(18,19,22,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(18,19,22,.045) 1px,transparent 1px);background-size:24px 24px}
+.top{display:flex;align-items:center;justify-content:space-between;min-height:44px}
+.back{display:flex;align-items:center;justify-content:center;width:44px;height:44px;margin-left:-10px;border:0;background:transparent;cursor:pointer}
+h1{margin:26px 0 0;font-weight:700;font-size:30px;line-height:1.15;letter-spacing:-.02em}
+.lead{margin:6px 0 0;font-size:16px;line-height:1.45;color:#4A4C52}
+.label{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.1em;color:#5E6066}
+.mono{font-family:'IBM Plex Mono',monospace}
+.glass{display:flex;flex-direction:column;gap:16px;padding:20px;border-radius:24px;
+  background:linear-gradient(160deg,rgba(255,255,255,.8),rgba(255,255,255,.5));border:1px solid rgba(255,255,255,.95);
+  box-shadow:inset 0 1px 0 #FFFFFF,0 1px 2px rgba(18,19,22,.06),0 12px 30px rgba(18,19,22,.08);
+  backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%)}
+.btn{width:100%;min-height:54px;border-radius:14px;border:1.5px solid #121316;cursor:pointer;font-family:'Instrument Sans',sans-serif;font-size:17px;font-weight:700;color:#121316;background:transparent}
+.btn.primary{background:#DBFF3E}
+.btn.text{border-color:transparent;font-weight:600}
+.field{display:flex;flex-direction:column;gap:8px}
+.input{box-sizing:border-box;width:100%;min-height:54px;padding:0 16px;border-radius:14px;border:1.5px solid #121316;background:transparent;
+  font-family:'Instrument Sans',sans-serif;font-size:16px;color:#121316}
+.note{display:flex;align-items:flex-start;gap:8px;font-size:13px;line-height:1.4;color:#4A4C52}
+.note svg{flex:none;margin-top:1px}
+.rows{display:flex;flex-direction:column}
+.row{display:flex;align-items:center;gap:14px;min-height:52px;padding:0;border:0;border-bottom:1px solid rgba(18,19,22,.14);background:transparent;
+  cursor:pointer;text-align:left;font-family:'Instrument Sans',sans-serif;color:#121316;width:100%}
+.row .name{flex:1;font-size:17px;font-weight:600}
+.row .sub{display:block;font-size:13px;font-weight:400;color:#4A4C52;margin-top:2px}
+.row .value{font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:600}
+.section{margin-top:24px;display:flex;align-items:baseline;justify-content:space-between}
+.code{display:flex;gap:8px}
+.code span{flex:1;height:60px;border-radius:14px;border:1.5px solid #121316;display:flex;align-items:center;justify-content:center;
+  font-family:'IBM Plex Mono',monospace;font-size:26px;font-weight:600}
+.code span.empty{border-color:rgba(18,19,22,.3)}
+.code span.caret{box-shadow:inset 0 -3px 0 #121316}
+.dot{width:8px;height:8px;border-radius:50%;background:#121316;flex:none}
+.scrim{position:absolute;inset:0;background:rgba(18,19,22,.32)}
+.sheet{position:absolute;left:0;right:0;bottom:0;padding:24px 20px 34px;border-radius:24px 24px 0 0;background:#FBFAF6;display:flex;flex-direction:column;gap:14px}
+.sheet h2{margin:0;font-size:22px;line-height:1.2;letter-spacing:-.01em}
+.sheet p{margin:0;font-size:16px;line-height:1.45;color:#4A4C52}
+.tabbar{position:absolute;left:20px;right:20px;bottom:24px;display:flex;align-items:center;justify-content:space-around;padding:8px 10px;border-radius:22px;
+  background:linear-gradient(160deg,rgba(255,255,255,.82),rgba(255,255,255,.55));border:1px solid rgba(255,255,255,.95);
+  box-shadow:inset 0 1px 0 #FFFFFF,0 1px 2px rgba(18,19,22,.06),0 12px 30px rgba(18,19,22,.12);
+  backdrop-filter:blur(16px) saturate(150%);-webkit-backdrop-filter:blur(16px) saturate(150%)}
+.tab{width:88px;height:48px;border-radius:14px;border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;background:transparent}
+.tab.on{background:#121316}
+.toggle{width:52px;height:32px;border-radius:999px;background:#121316;position:relative;flex:none}
+.toggle::after{content:'';position:absolute;top:4px;right:4px;width:24px;height:24px;border-radius:50%;background:#DBFF3E}
+.toggle.off{background:rgba(18,19,22,.18)}
+.toggle.off::after{right:auto;left:4px;background:#FBFAF6}
+.link{color:#121316;font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.ext{flex:none}
+.pair{display:flex;flex-direction:column;gap:10px;margin-top:auto;padding-bottom:34px}
+.wrap{display:flex;gap:40px;flex-wrap:wrap;justify-content:center;padding:24px}
+.cap{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.1em;color:#5E6066;margin:0 0 8px}
+</style>
+</head>
+<body>
+<!-- Fase 9 · T2 · SOP-03, NFR-05, NFR-08. Sección nueva al final de Cuenta, con y sin sesión. Las filas con flecha hacia fuera abren la web; «Escribir a soporte» abre el correo. -->
+<div class="wrap">
+<div>
+<p class="cap">CUENTA · AYUDA Y LEGAL (AL FINAL)</p>
+<div class="screen">
+<div class="section" style="margin-top:8px"><span class="label">AYUDA</span></div>
+<div class="rows" style="margin-top:4px">
+<button class="row"><span class="name">Preguntas frecuentes<span class="sub">Cuentas, pagos, sin conexión</span></span><svg class="ext" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#121316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></button>
+<button class="row"><span class="name">Escribir a soporte<span class="sub">Abre tu correo (dirección pendiente del dominio)</span></span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#121316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+</div>
+<div class="section"><span class="label">PRIVACIDAD</span></div>
+<div class="rows" style="margin-top:4px">
+<div class="row" style="cursor:default"><span class="name">Compartir datos de uso<span class="sub">Anónimos. Ayudan a mejorar la app</span></span><span class="toggle off" role="switch" aria-checked="false" aria-label="Compartir datos de uso"></span></div>
+<button class="row"><span class="name">Política de privacidad<span class="sub">Qué guardamos, dónde y tus derechos</span></span><svg class="ext" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#121316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></button>
+</div>
+<div class="section"><span class="label">LEGAL</span></div>
+<div class="rows" style="margin-top:4px">
+<button class="row"><span class="name">Términos de uso<span class="sub">Suscripción, prueba y pases</span></span><svg class="ext" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#121316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></button>
+<button class="row"><span class="name">Aviso legal<span class="sub">Titular y propiedad del contenido</span></span><svg class="ext" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#121316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></button>
+</div>
+<div class="note" style="margin-top:16px"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#4A4C52" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/></svg><span>Aptiq es independiente de la Administración y de la Guardia Civil. Las preguntas son originales.</span></div>
+<p class="mono" style="font-size:12px;color:#4A4C52;margin:12px 0 0">VERSIÓN 1.0.0 (12)</p>
+</div>
+</div>
+</div>
+</body>
+</html>

@@ -84,11 +84,17 @@ export function Codigo() {
         {Array.from({ length: CIFRAS }, (_, i) => (
           <View
             key={i}
-            style={[styles.caja, i >= codigo.length && styles.vacia, i === codigo.length && styles.actual]}
+            style={[
+              styles.caja,
+              i >= codigo.length && styles.vacia,
+              i === codigo.length && styles.actual,
+            ]}
             importantForAccessibility="no-hide-descendants"
             accessibilityElementsHidden
           >
-            <Text variant="questionTitle" maxFontSizeMultiplier={1.4}>{codigo[i] ?? ''}</Text>
+            <Text variant="questionTitle" maxFontSizeMultiplier={1.4}>
+              {codigo[i] ?? ''}
+            </Text>
           </View>
         ))}
         {/* Un solo campo invisible encima: teclado numérico y autocompletado del código del sistema. */}

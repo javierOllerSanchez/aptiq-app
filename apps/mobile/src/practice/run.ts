@@ -7,6 +7,7 @@ import {
   type Level,
   registry,
   type Result,
+  type Tally,
   type TypeCode,
   typeCodes,
 } from '@aptiq/engine';
@@ -177,4 +178,22 @@ export async function failuresByType(store: Store): Promise<Record<TypeCode, num
 /** Acierto acumulado por aptitud y tipo para Inicio (mismo cálculo que Resultado). */
 export async function historyBreakdown(store: Store): Promise<Breakdown> {
   return breakdown(await historyResults(store));
+}
+
+/** Mínimo de preguntas y de diferencia con la mejor aptitud para señalar una «a reforzar». */
+const REFORZAR = { preguntas: 3, puntos: 10 };
+
+/**
+ * La aptitud a reforzar solo se señala si hay datos, no empata con otra y la diferencia es real: con todas al 0 % o con
+ * una sola pregunta, marcar una en rojo sería inventar un punto débil.
+ */
+export function aReforzar(d: Breakdown): string | null {
+  const pct = (t: Tally) => (t.total ? Math.round((t.correct / t.total) * 100) : 0);
+  const w = d.weakest ? d.byAptitude[d.weakest] : undefined;
+  if (!d.weakest || !w || w.total < REFORZAR.preguntas) return null;
+  const conDatos = Object.values(d.byAptitude).filter((t) => t.total);
+  const mejor = Math.max(...conDatos.map(pct));
+  // Empate en el peor porcentaje: ninguna destaca como punto débil.
+  const empatadas = conDatos.filter((t) => pct(t) === pct(w)).length;
+  return empatadas === 1 && mejor - pct(w) >= REFORZAR.puntos ? d.weakest : null;
 }

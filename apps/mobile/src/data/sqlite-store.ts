@@ -60,6 +60,7 @@ export function createSqliteStore(name = 'aptiq.db', now: () => number = Date.no
         duracionMs: a.durationMs,
         fin: a.finishedAt,
         preguntas: a.questions,
+        perfil: a.perfil ?? null,
       };
       await db.insert(intentos).values(row).onConflictDoUpdate({ target: intentos.id, set: row });
     },
@@ -74,6 +75,7 @@ export function createSqliteStore(name = 'aptiq.db', now: () => number = Date.no
         durationMs: r.duracionMs,
         finishedAt: r.fin,
         questions: r.preguntas,
+        ...(r.perfil && { perfil: r.perfil }),
       }));
     },
     async enqueue(entidad, id, creada) {

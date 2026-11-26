@@ -1,9 +1,8 @@
-import { fechaReal } from './onboarding';
+import { finDeMes } from './onboarding';
 
-test('la fecha del examen tiene que existir', () => {
-  expect(fechaReal('2027-06-15')).toBe(true);
-  expect(fechaReal('2028-02-29')).toBe(true);
-  expect(fechaReal('2027-02-31')).toBe(false);
-  expect(fechaReal('2027-13-01')).toBe(false);
-  expect(fechaReal('15/06/2027')).toBe(false);
+test('el mes del examen se guarda como su último día', () => {
+  expect(finDeMes('2027-06')).toBe('2027-06-30');
+  expect(finDeMes('2028-02')).toBe('2028-02-29');
+  expect(finDeMes('2027-02')).toBe('2027-02-28');
+  expect(finDeMes('2026-12')).toBe('2026-12-31');
 });

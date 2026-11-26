@@ -26,6 +26,12 @@ let actual: ExamProfile = guardiaCivil2026;
 /** Perfil vigente: el último válido del servidor o, si no hay, el que trae la app. */
 export const perfil = () => actual;
 
+/** Lo que un simulacro guarda del perfil con que empezó (ADM-03): con eso se puntúa siempre. */
+export type PerfilUsado = Pick<ExamProfile, 'id' | 'version' | 'format'>;
+export const instantanea = (): PerfilUsado => ({ id: actual.id, version: actual.version, format: actual.format });
+/** Perfil de un simulacro. Sin instantánea (anteriores a la fase 9), el que trae la app: no se había publicado otro. */
+export const perfilDe = (a: { perfil?: PerfilUsado }): ExamProfile => ({ ...guardiaCivil2026, ...a.perfil });
+
 /** Solo un perfil del mismo examen, válido y no más antiguo que el de la app. */
 const aceptable = (p: ExamProfile) =>
   p.id === guardiaCivil2026.id && p.version >= guardiaCivil2026.version && validateProfile(p).length === 0;

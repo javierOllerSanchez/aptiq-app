@@ -21,6 +21,7 @@ export const tokens = {
     emptyBubbleBorder: 0.25,
     barTrack: 0.1,
     scrim: 0.32,
+    skeletonLow: 0.6,
   },
   font: {
     ui: 'InstrumentSans',
@@ -75,6 +76,24 @@ export const tokens = {
     // Figuras de las preguntas espaciales (prototipo pregunta-figuras, fase 8).
     figureStem: 120,
     figureOption: 88,
+    // Parte C de la fase 9: asa de la hoja inferior y casilla de la cuadrícula del simulacro.
+    sheetHandle: 36,
+    questionCell: 44,
+    // Inicio v2 (2026-11-25): anillo del objetivo, semana, burbujas de recompensa, racha y casillas.
+    ring: 96,
+    ringStroke: 8,
+    weekBubble: 28,
+    particle: 10,
+    streakBubble: 18,
+    tileMin: 112,
+    // Cuenta v2: icono de cada ajuste y avatar de la ficha.
+    settingsIcon: 36,
+    avatar: 64,
+    // Barra de pestañas con muesca (2026-11-25): alto, ancho y fondo de la muesca y burbuja activa.
+    tabBar: 64,
+    tabNotch: 56,
+    tabNotchDepth: 14,
+    tabDot: 12,
   },
   rotate: { stamp: -6 },
   glass: {
@@ -96,6 +115,19 @@ export const tokens = {
     easingCurve: [0.23, 1, 0.32, 1],
     noBounceDuringExam: true,
     respectReduceMotion: true,
+    // Parte C de la fase 9 (guía §8): escalonado, entrada, pulsación, cifras, esqueletos y temblor de fallo.
+    stagger: 40,
+    enterOffset: 8,
+    pressScale: 0.97,
+    countUp: 600,
+    pulse: 900,
+    shake: 4,
+    // Recompensas (guía §8): muelle con rebote suave, burbujas y aviso. Nunca en el simulacro.
+    spring: 400,
+    springDamping: 0.6,
+    burst: 700,
+    burstDistance: 80,
+    toast: 2600,
   },
 } as const;
 

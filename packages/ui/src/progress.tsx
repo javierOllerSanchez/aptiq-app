@@ -1,9 +1,10 @@
 import { tokens } from '@aptiq/tokens';
 import { StyleSheet, View } from 'react-native';
+import Animated, { FadeIn, ReduceMotion } from 'react-native-reanimated';
 
 import { withAlpha } from './color';
 
-const { color, size, radius, border, opacity } = tokens;
+const { color, size, radius, border, opacity, motion } = tokens;
 
 /** Una casilla por pregunta: respondida, actual o pendiente (guía, sección 5). */
 export function ProgressTicks({
@@ -37,7 +38,7 @@ export function ProgressTicks({
   );
 }
 
-/** Diez burbujas de nivel: rellenas hasta el nivel actual. */
+/** Diez burbujas de nivel: rellenas hasta el nivel actual, una tras otra al aparecer (guía §8). */
 export function LevelBubbles({ level, max = 10 }: { level: number; max?: number }) {
   return (
     <View
@@ -48,7 +49,17 @@ export function LevelBubbles({ level, max = 10 }: { level: number; max?: number 
       accessibilityValue={{ min: 0, max, now: level }}
     >
       {Array.from({ length: max }, (_, i) => (
-        <View key={i} style={[styles.level, i < level ? styles.levelFilled : styles.levelEmpty]} />
+        <View key={i} style={[styles.level, styles.levelEmpty]}>
+          {i < level && (
+            // Solo fundido: se mantiene también con «reducir movimiento».
+            <Animated.View
+              entering={FadeIn.duration(motion.durationBase)
+                .delay(i * motion.stagger * 2)
+                .reduceMotion(ReduceMotion.Never)}
+              style={[StyleSheet.absoluteFill, styles.level, styles.levelFilled]}
+            />
+          )}
+        </View>
       ))}
     </View>
   );
@@ -66,7 +77,7 @@ const styles = StyleSheet.create({
   pending: { backgroundColor: withAlpha(color.ink, opacity.pendingTick) },
   levels: { flexDirection: 'row', gap: size.levelGap },
   level: { width: size.levelBubble, height: size.levelBubble, borderRadius: size.levelBubble / 2 },
-  levelFilled: { backgroundColor: color.ink },
+  levelFilled: { backgroundColor: color.ink, margin: -border.selected },
   levelEmpty: {
     borderWidth: border.selected,
     borderColor: withAlpha(color.ink, opacity.emptyBubbleBorder),

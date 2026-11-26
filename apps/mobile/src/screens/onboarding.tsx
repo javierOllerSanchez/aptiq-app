@@ -10,21 +10,29 @@ import {
 import { tokens } from '@aptiq/tokens';
 import {
   Button,
+  entrada,
+  Logo,
+  MonthPicker,
   PaperBackground,
+  PressScale,
   ProgressTicks,
   SourceNote,
   Text,
-  textStyle,
   Timer,
 } from '@aptiq/ui';
 import { router } from 'expo-router';
-import { useEffect, useRef, useState } from 'react';
-import { StyleSheet, TextInput, View } from 'react-native';
+import { type ReactNode, useEffect, useRef, useState } from 'react';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import Animated, { useReducedMotion } from 'react-native-reanimated';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { permisoAnalitica } from '@/analytics/analytics';
 import { useStore } from '@/data/provider';
 import type { Store } from '@/data/store';
 import { useExamClock } from '@/hooks/use-exam-clock';
 import { cita, startRun, toSaved } from '@/practice/run';
+import { diaLocal } from '@/progress/data';
+import { AJUSTE_HITOS } from '@/progress/hitos';
 import { Opciones } from '@/screens/opciones';
 import { Pregunta } from '@/screens/pregunta';
 
@@ -32,28 +40,32 @@ import { Pregunta } from '@/screens/pregunta';
 const TIPOS_TEST = typeCodes.filter((t) => !isBankType(t));
 const TEST_QUESTIONS = 2 * TIPOS_TEST.length; // 2 por tipo (ONB-02; 18 desde la fase 8)
 const TEST_MINUTES = 10;
-/** AAAA-MM-DD y que la fecha exista (rechaza 2027-02-31). */
-export function fechaReal(texto: string): boolean {
-  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(texto);
-  if (!m) return false;
-  const [y, mo, d] = [Number(m[1]), Number(m[2]), Number(m[3])];
-  const f = new Date(Date.UTC(y, mo - 1, d));
-  return f.getUTCFullYear() === y && f.getUTCMonth() === mo - 1 && f.getUTCDate() === d;
+
+/**
+ * «AAAA-MM» → último día de ese mes («2027-02» → «2027-02-28»). Las convocatorias se anuncian por
+ * mes: así la cuenta atrás no desaparece hasta que termina el mes del examen.
+ */
+export function finDeMes(mes: string): string {
+  const [y, m] = [Number(mes.slice(0, 4)), Number(mes.slice(5, 7))];
+  const ultimo = new Date(Date.UTC(y, m, 0)).getUTCDate();
+  return `${mes}-${String(ultimo).padStart(2, '0')}`;
 }
 
-type Step = 'oposicion' | 'fecha' | 'test';
+type Step = 'bienvenida' | 'oposicion' | 'fecha' | 'test';
 
-/** Elegir oposición y fecha, y hacer el test de nivel de 10 minutos (ONB-01, ONB-02). */
+/** Bienvenida, oposición, mes del examen y test de nivel de 10 minutos (ONB-01, ONB-02). */
 export function Onboarding() {
   const store = useStore();
-  const [step, setStep] = useState<Step>('oposicion');
-  const [fecha, setFecha] = useState('');
+  const reduce = useReducedMotion();
+  const [step, setStep] = useState<Step>('bienvenida');
+  const [mes, setMes] = useState<string | null>(null);
+  // Mes en curso al abrir: los meses anteriores no se pueden elegir.
+  const [hoy] = useState(() => diaLocal(Date.now()).slice(0, 7));
   const [test, setTest] = useState<{ items: Item[]; exam: ExamState } | null>(null);
-  const fechaValida = fecha.trim() === '' || fechaReal(fecha.trim());
 
   async function empezarTest() {
     await store.setSetting('oposicion', 'guardia-civil-2026');
-    if (fecha.trim()) await store.setSetting('fecha', fecha.trim());
+    if (mes) await store.setSetting('fecha', finDeMes(mes));
     const now = Date.now();
     const items = await startRun(store, {
       count: TEST_QUESTIONS,
@@ -66,68 +78,129 @@ export function Onboarding() {
     setStep('test');
   }
 
+  if (step === 'bienvenida') {
+    return (
+      <Paso
+        key={step}
+        accion={<Button label="Empezar" onPress={() => setStep('oposicion')} variant="primary" />}
+        pie="Aptiq es independiente de la Administración."
+      >
+        <View style={styles.bienvenida}>
+          <Animated.View entering={entrada(0, reduce)}>
+            <Logo width={tokens.size.logo * 2} />
+          </Animated.View>
+          <Animated.View entering={entrada(2, reduce)} style={styles.bloque}>
+            <Text variant="screenTitle" accessibilityRole="header">
+              Saca tu apto.
+            </Text>
+            <Text color="graphiteStrong">
+              Simulacros con el formato oficial y la explicación de cada pregunta.
+            </Text>
+          </Animated.View>
+        </View>
+      </Paso>
+    );
+  }
+
   if (step === 'oposicion') {
     return (
-      <PaperBackground scroll style={styles.content}>
-        <Text variant="label" color="graphite">
-          Paso 1 de 3
-        </Text>
-        <Text variant="screenTitle" accessibilityRole="header">
-          ¿Qué oposición preparas?
-        </Text>
-        <Button
-          label="Guardia Civil · Escala de Cabos y Guardias"
-          onPress={() => setStep('fecha')}
-          variant="primary"
-        />
-        <SourceNote cita={cita()} />
-        <Text variant="caption" color="graphite">
-          Aptiq es independiente de la Administración.
-        </Text>
-      </PaperBackground>
+      <Paso
+        key={step}
+        paso="Paso 1 de 3"
+        titulo="¿Qué oposición preparas?"
+        accion={<Button label="Continuar" onPress={() => setStep('fecha')} variant="primary" />}
+      >
+        <Animated.View entering={entrada(1, reduce)} style={styles.bloque}>
+          {/* Única oposición, ya elegida: tocarla no avanza; avanza «Continuar». */}
+          <PressScale
+            onPress={() => {}}
+            accessibilityRole="radio"
+            accessibilityLabel="Guardia Civil · Escala de Cabos y Guardias"
+            accessibilityState={{ checked: true }}
+            style={styles.opcion}
+          >
+            <View style={styles.burbuja}>
+              <View style={styles.burbujaLlena} />
+            </View>
+            <View style={styles.flex}>
+              <Text variant="bodyStrong">Guardia Civil</Text>
+              <Text variant="caption" color="graphite">
+                Escala de Cabos y Guardias
+              </Text>
+            </View>
+          </PressScale>
+          <SourceNote cita={cita()} />
+        </Animated.View>
+      </Paso>
     );
   }
 
   if (step === 'fecha' || !test) {
     return (
-      <PaperBackground scroll style={styles.content}>
-        <Text variant="label" color="graphite">
-          Paso 2 de 3
-        </Text>
-        <Text variant="screenTitle" accessibilityRole="header">
-          ¿Cuándo es tu examen?
-        </Text>
-        <Text color="graphite">Opcional. Sirve para calcular cuánto te queda.</Text>
-        <TextInput
-          value={fecha}
-          onChangeText={setFecha}
-          placeholder="AAAA-MM-DD"
-          placeholderTextColor={tokens.color.graphite}
-          accessibilityLabel="Fecha prevista del examen, formato año, mes y día"
-          style={[textStyle('body'), styles.input]}
-        />
-        {!fechaValida && (
-          <Text color="sealText" accessibilityLiveRegion="polite">
-            Escribe la fecha como 2027-06-15, o déjala vacía.
-          </Text>
-        )}
-        <Button
-          label="Hacer el test de nivel"
-          onPress={empezarTest}
-          disabled={!fechaValida}
-          variant="primary"
-        />
-        <Text variant="caption" color="graphite">
-          {TEST_QUESTIONS} preguntas en {TEST_MINUTES} minutos.
-        </Text>
-      </PaperBackground>
+      <Paso
+        key="fecha"
+        paso="Paso 2 de 3"
+        titulo="¿Cuándo es tu examen?"
+        accion={<Button label="Hacer el test de nivel" onPress={empezarTest} variant="primary" />}
+        pie={`${TEST_QUESTIONS} preguntas en ${TEST_MINUTES} minutos.`}
+      >
+        <Animated.View entering={entrada(1, reduce)} style={styles.bloque}>
+          <Text color="graphite">Opcional. Basta con el mes aproximado.</Text>
+          <MonthPicker value={mes} onChange={setMes} hoy={hoy} />
+        </Animated.View>
+      </Paso>
     );
   }
 
   return <TestDeNivel store={store} items={test.items} exam={test.exam} />;
 }
 
+/** Paso del onboarding: contenido arriba y la acción fija abajo (guía §7 bis). */
+function Paso({
+  paso,
+  titulo,
+  children,
+  accion,
+  pie,
+}: {
+  paso?: string;
+  titulo?: string;
+  children: ReactNode;
+  accion: ReactNode;
+  pie?: string;
+}) {
+  const insets = useSafeAreaInsets();
+  const reduce = useReducedMotion();
+  return (
+    <PaperBackground style={styles.pantalla}>
+      <ScrollView style={styles.flex} contentContainerStyle={styles.contenido}>
+        {paso !== undefined && (
+          <Animated.View entering={entrada(0, reduce)} style={styles.bloque}>
+            <Text variant="label" color="graphite">
+              {paso}
+            </Text>
+            <Text variant="screenTitle" accessibilityRole="header">
+              {titulo}
+            </Text>
+          </Animated.View>
+        )}
+        {children}
+      </ScrollView>
+      <View style={[styles.barra, { paddingBottom: Math.max(insets.bottom, tokens.spacing.l) }]}>
+        {accion}
+        {pie !== undefined && (
+          <Text variant="caption" color="graphite" style={styles.centro}>
+            {pie}
+          </Text>
+        )}
+      </View>
+    </PaperBackground>
+  );
+}
+
 function TestDeNivel({ store, items, exam }: { store: Store; items: Item[]; exam: ExamState }) {
+  const insets = useSafeAreaInsets();
+  const reduce = useReducedMotion();
   const remaining = useExamClock(exam);
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<(number | null)[]>([]);
@@ -149,7 +222,10 @@ function TestDeNivel({ store, items, exam }: { store: Store; items: Item[]; exam
       questions: toSaved(items, finales),
     });
     await store.setSetting('niveles', JSON.stringify(estimateLevels(porTipo)));
-    router.replace('/inicio');
+    // Usuario nuevo: sus hitos se celebran desde el primero (los que actualizan, sin avalancha).
+    if ((await store.getSetting(AJUSTE_HITOS)) === null) await store.setSetting(AJUSTE_HITOS, '[]');
+    // Último paso: datos de uso (fase 9), solo si aún no ha contestado en este móvil.
+    router.replace((await permisoAnalitica(store)) === null ? '/datos-de-uso' : '/inicio');
   }
 
   // Al agotarse los 10 minutos, lo no contestado cuenta como en blanco.
@@ -172,10 +248,15 @@ function TestDeNivel({ store, items, exam }: { store: Store; items: Item[]; exam
   if (!item) return null;
   const ultima = index + 1 === items.length;
   return (
-    <PaperBackground scroll style={styles.content}>
+    <PaperBackground style={styles.pantalla}>
       <View style={styles.header}>
-        <Text variant="label" color="graphite" style={styles.shrink}>
-          Test de nivel · {index + 1} de {items.length}
+        <Text
+          variant="label"
+          color="graphite"
+          style={styles.flex}
+          accessibilityLabel={`Test de nivel, pregunta ${index + 1} de ${items.length}`}
+        >
+          Test de nivel · {index + 1} / {items.length}
         </Text>
         <Timer remainingMs={remaining} />
       </View>
@@ -184,32 +265,79 @@ function TestDeNivel({ store, items, exam }: { store: Store; items: Item[]; exam
         current={index}
         answered={items.map((_, i) => i < answers.length)}
       />
-      <Pregunta item={item} />
-      <Opciones item={item} stateOf={(i) => (selected === i ? 'marked' : 'empty')} onPress={setSelected} />
-      <Button
-        label={ultima ? 'Ver mi nivel' : 'Siguiente'}
-        onPress={() => siguiente(selected)}
-        disabled={selected === null}
-        variant="primary"
-      />
-      <Button label="No lo sé" onPress={() => siguiente(null)} variant="secondary" />
-      <Text variant="caption" color="graphite">
-        Estimación orientativa: con {items.length} preguntas el nivel es aproximado.
-      </Text>
+      <ScrollView style={styles.flex} contentContainerStyle={styles.contenido}>
+        <Animated.View key={index} entering={entrada(0, reduce)} style={styles.bloque}>
+          <Pregunta item={item} />
+          <Opciones
+            item={item}
+            stateOf={(i) => (selected === i ? 'marked' : 'empty')}
+            onPress={setSelected}
+          />
+          {index === 0 && (
+            <Text variant="caption" color="graphite">
+              Estimación orientativa: con {items.length} preguntas el nivel es aproximado.
+            </Text>
+          )}
+        </Animated.View>
+      </ScrollView>
+      <View
+        style={[
+          styles.barra,
+          styles.fila,
+          { paddingBottom: Math.max(insets.bottom, tokens.spacing.l) },
+        ]}
+      >
+        <View style={styles.flex}>
+          <Button label="No lo sé" onPress={() => siguiente(null)} variant="secondary" />
+        </View>
+        <View style={styles.flex}>
+          <Button
+            label={ultima ? 'Ver mi nivel' : 'Siguiente'}
+            onPress={() => siguiente(selected)}
+            disabled={selected === null}
+            variant="primary"
+          />
+        </View>
+      </View>
     </PaperBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  content: { gap: tokens.spacing.m },
-  header: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', gap: tokens.spacing.s },
-  shrink: { flexShrink: 1, flexGrow: 1 },
-  input: {
-    minHeight: tokens.size.buttonHeight,
-    borderWidth: tokens.border.default,
+  // Sin margen inferior propio: la barra de acciones ya suma el área segura.
+  pantalla: { gap: tokens.spacing.m, paddingBottom: 0 },
+  flex: { flex: 1 },
+  contenido: { gap: tokens.spacing.xl, paddingBottom: tokens.spacing.xxl, flexGrow: 1 },
+  bloque: { gap: tokens.spacing.m },
+  bienvenida: { flex: 1, justifyContent: 'center', gap: tokens.spacing.xxl },
+  header: { flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.s },
+  barra: { gap: tokens.spacing.s, paddingTop: tokens.spacing.s },
+  fila: { flexDirection: 'row' },
+  centro: { textAlign: 'center' },
+  opcion: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: tokens.spacing.m,
+    minHeight: tokens.size.optionHeight,
+    padding: tokens.spacing.l,
+    borderRadius: tokens.radius.option,
+    borderWidth: tokens.border.selected,
     borderColor: tokens.color.ink,
-    borderRadius: tokens.radius.button,
-    paddingHorizontal: tokens.spacing.l,
-    color: tokens.color.ink,
+    backgroundColor: tokens.color.white,
+  },
+  burbuja: {
+    width: tokens.size.bubble,
+    height: tokens.size.bubble,
+    borderRadius: tokens.radius.pill,
+    borderWidth: tokens.border.selected,
+    borderColor: tokens.color.ink,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  burbujaLlena: {
+    width: tokens.size.bubble / 2,
+    height: tokens.size.bubble / 2,
+    borderRadius: tokens.radius.pill,
+    backgroundColor: tokens.color.ink,
   },
 });

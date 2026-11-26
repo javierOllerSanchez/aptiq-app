@@ -42,6 +42,12 @@ export interface Progress {
   hoyHecha: boolean;
   /** Días en que se empezó un simulacro que se ha guardado (terminado o abierto). */
   diasSimulacro: string[];
+  /** Días con alguna respuesta guardada (tira de la semana de Inicio). */
+  diasPractica: string[];
+  /** Preguntas respondidas hoy en sesiones y simulacros terminados (objetivo diario). */
+  hoyRespondidas: number;
+  /** Preguntas respondidas desde siempre (Historial e hitos). */
+  totalRespondidas: number;
 }
 
 /** Respuestas de sesiones y simulacros terminados, de la más antigua a la más reciente, con su día local. */
@@ -53,7 +59,13 @@ async function datedAnswers(store: Store): Promise<DatedAnswer[]> {
       .map((a) => ({ t: a.empezado, qs: a.questions })),
   ].sort((a, b) => a.t - b.t);
   return bloques.flatMap(({ t, qs }) =>
-    qs.map((q) => ({ dia: diaLocal(t), type: q.type, level: q.level, correct: isCorrect(q), blank: q.answer === null })),
+    qs.map((q) => ({
+      dia: diaLocal(t),
+      type: q.type,
+      level: q.level,
+      correct: isCorrect(q),
+      blank: q.answer === null,
+    })),
   );
 }
 
@@ -61,10 +73,10 @@ async function datedAnswers(store: Store): Promise<DatedAnswer[]> {
 export async function loadProgress(store: Store, now: number = Date.now()): Promise<Progress> {
   const hoy = diaLocal(now);
   const raw = await store.getSetting('niveles');
-  const start = { ...Object.fromEntries(typeCodes.map((c) => [c, null])), ...(raw ? JSON.parse(raw) : {}) } as Record<
-    TypeCode,
-    Level | null
-  >;
+  const start = {
+    ...Object.fromEntries(typeCodes.map((c) => [c, null])),
+    ...(raw ? JSON.parse(raw) : {}),
+  } as Record<TypeCode, Level | null>;
   const answers = await datedAnswers(store);
   const fallos = Object.fromEntries(typeCodes.map((c) => [c, 0])) as Record<TypeCode, number>;
   for (const a of answers) if (!a.correct && !a.blank) fallos[a.type]++;
@@ -81,12 +93,20 @@ export async function loadProgress(store: Store, now: number = Date.now()): Prom
     diasExamen: daysToExam(hoy, await store.getSetting('fecha')),
     hoyHecha: (await store.getSetting(AJUSTE_HOY)) === hoy,
     diasSimulacro: (await store.attempts()).map((a) => diaLocal(a.empezado)),
+    diasPractica: [...new Set(answers.map((a) => a.dia))],
+    hoyRespondidas: answers.filter((a) => a.dia === hoy).length,
+    totalRespondidas: answers.length,
   };
 }
 
 /** Qué permite el plan hoy (tabla «Monetización»). */
 export function permiso(p: Progress, premium: boolean): Allowance {
-  return allowance({ premium, hoy: p.hoy, sesionHoyHecha: p.hoyHecha, diasSimulacro: p.diasSimulacro });
+  return allowance({
+    premium,
+    hoy: p.hoy,
+    sesionHoyHecha: p.hoyHecha,
+    diasSimulacro: p.diasSimulacro,
+  });
 }
 
 /** Aptitud claramente más floja: la única con el nivel más bajo. Con empate en el mínimo, ninguna. */
@@ -105,6 +125,12 @@ export function aptitudFloja(porAptitud: Record<string, number>): string | null 
 export async function startToday(store: Store, now: number, premium: boolean): Promise<Item[]> {
   const p = await loadProgress(store, now);
   const due = premium ? p.due : [];
-  const specs = buildToday({ dia: p.hoy, due, fallos: p.fallos, levels: p.levels, usedSeeds: await store.usedSeeds() });
+  const specs = buildToday({
+    dia: p.hoy,
+    due,
+    fallos: p.fallos,
+    levels: p.levels,
+    usedSeeds: await store.usedSeeds(),
+  });
   return generarSinRepetir(store, specs);
 }

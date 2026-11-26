@@ -1,7 +1,8 @@
 import { tokens } from '@aptiq/tokens';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { Glass } from './glass';
+import { PressScale } from './press-scale';
 import { Text } from './text';
 
 const { color, radius, border, size, spacing, opacity } = tokens;
@@ -22,21 +23,18 @@ export function Button({
   accessibilityHint?: string;
 }) {
   const content = (
-    <Text variant="button" weight={variant === 'primary' ? 700 : 600}>
+    <Text variant="button" weight={variant === 'primary' ? 700 : 600} style={styles.label}>
       {label}
     </Text>
   );
   return (
-    <Pressable
+    <PressScale
       onPress={onPress}
       disabled={disabled}
       accessibilityRole="button"
       accessibilityState={{ disabled }}
       {...(accessibilityHint !== undefined && { accessibilityHint })}
-      style={({ pressed }) => [
-        styles.base,
-        (pressed || disabled) && { opacity: disabled ? opacity.disabled : opacity.pressed },
-      ]}
+      style={[styles.base, disabled && { opacity: opacity.disabled }]}
     >
       {variant === 'glass' ? (
         <Glass radius={radius.button} style={styles.inner}>
@@ -53,7 +51,7 @@ export function Button({
           {content}
         </View>
       )}
-    </Pressable>
+    </PressScale>
   );
 }
 
@@ -63,10 +61,12 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     minHeight: size.buttonHeight,
     borderRadius: radius.button,
-    paddingHorizontal: spacing.xxl,
+    paddingHorizontal: spacing.l,
     alignItems: 'center',
     justifyContent: 'center',
   },
   bordered: { borderWidth: border.default, borderColor: color.ink },
   primary: { backgroundColor: color.highlighter },
+  // Con texto grande o una etiqueta larga, las dos líneas van centradas.
+  label: { textAlign: 'center' },
 });

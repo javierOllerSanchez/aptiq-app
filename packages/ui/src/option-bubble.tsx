@@ -1,19 +1,21 @@
 import { tokens } from '@aptiq/tokens';
 import * as Haptics from 'expo-haptics';
-import { type ReactNode, useEffect } from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { type ReactNode, useEffect, useRef } from 'react';
+import { StyleSheet, View } from 'react-native';
 import Animated, {
   Easing,
   ReduceMotion,
   useAnimatedStyle,
   useSharedValue,
+  withSequence,
   withTiming,
 } from 'react-native-reanimated';
 
 import { Icon } from './icon';
+import { PressScale } from './press-scale';
 import { Text } from './text';
 
-const { color, radius, border, size, spacing, motion, opacity } = tokens;
+const { color, radius, border, size, spacing, motion } = tokens;
 
 export type OptionState = 'empty' | 'marked' | 'correct' | 'wrong';
 
@@ -63,6 +65,25 @@ export function OptionBubble({
   }, [filled, fill]);
   const fillStyle = useAnimatedStyle(() => ({ opacity: fill.value }));
 
+  // Fallo (solo en práctica y repaso): un temblor horizontal corto, sin rebote. Con «reducir
+  // movimiento», Reanimated lo salta (ReduceMotion.System).
+  const shake = useSharedValue(0);
+  const wrongNow = state === 'wrong';
+  // Solo al pasar a fallo (al confirmar), no al pintarse ya fallada en el repaso: ahí no informa.
+  const antes = useRef(state);
+  useEffect(() => {
+    const venia = antes.current;
+    antes.current = state;
+    if (!wrongNow || venia === 'wrong') return;
+    const t = { duration: motion.durationFast / 3, easing: Easing.linear };
+    shake.value = withSequence(
+      withTiming(motion.shake, t),
+      withTiming(-motion.shake, t),
+      withTiming(0, t),
+    );
+  }, [wrongNow, shake, state]);
+  const shakeStyle = useAnimatedStyle(() => ({ transform: [{ translateX: shake.value }] }));
+
   const press = onPress
     ? () => {
         if (state !== 'marked') Haptics.selectionAsync().catch(() => {});
@@ -75,52 +96,54 @@ export function OptionBubble({
   const paddingHorizontal = spacing.l + border.selected - rowBorder[state];
 
   return (
-    <Pressable
-      onPress={press}
-      accessibilityRole="radio"
-      accessibilityState={{ checked: state === 'marked' }}
-      accessibilityLabel={`Opción ${letter}, ${value}${stateLabel[state]}`}
-      style={({ pressed }) => [
-        styles.row,
-        figure ? styles.tile : null,
-        rowStyle[state],
-        { borderWidth: rowBorder[state], paddingHorizontal },
-        pressed && { opacity: opacity.pressed },
-      ]}
-    >
-      <View style={[styles.bubble, wrong && styles.bubbleWrong]}>
-        {/* Letra en tinta debajo; encima, el relleno con la letra en subrayador (fundido cruzado). */}
-        {/* La letra es un gráfico de tamaño fijo, como un icono: la etiqueta accesible ya la incluye. */}
-        <Text variant="timer" maxFontSizeMultiplier={1}>
-          {letter}
-        </Text>
-        <Animated.View
-          style={[
-            StyleSheet.absoluteFill,
-            styles.center,
-            { backgroundColor: wrong ? color.seal : color.ink },
-            fillStyle,
-          ]}
-        >
-          {state === 'correct' ? (
-            <Icon name="check" color="highlighter" strokeWidth={border.selected * 1.5} />
-          ) : wrong ? (
-            <Icon name="cross" color="white" strokeWidth={border.selected * 1.5} />
-          ) : (
-            <Text variant="timer" color="highlighter" maxFontSizeMultiplier={1}>
-              {letter}
-            </Text>
-          )}
-        </Animated.View>
-      </View>
-      {figure ? (
-        <View style={styles.figure}>{figure}</View>
-      ) : (
-        <Text variant="optionValue" weight={state === 'empty' ? 600 : 700} style={styles.value}>
-          {value}
-        </Text>
-      )}
-    </Pressable>
+    <Animated.View style={shakeStyle}>
+      <PressScale
+        onPress={press}
+        disabled={!press}
+        accessibilityRole="radio"
+        accessibilityState={{ checked: state === 'marked' }}
+        accessibilityLabel={`Opción ${letter}, ${value}${stateLabel[state]}`}
+        style={[
+          styles.row,
+          figure ? styles.tile : null,
+          rowStyle[state],
+          { borderWidth: rowBorder[state], paddingHorizontal },
+        ]}
+      >
+        <View style={[styles.bubble, wrong && styles.bubbleWrong]}>
+          {/* Letra en tinta debajo; encima, el relleno con la letra en subrayador (fundido cruzado). */}
+          {/* La letra es un gráfico de tamaño fijo, como un icono: la etiqueta accesible ya la incluye. */}
+          <Text variant="timer" maxFontSizeMultiplier={1}>
+            {letter}
+          </Text>
+          <Animated.View
+            style={[
+              StyleSheet.absoluteFill,
+              styles.center,
+              { backgroundColor: wrong ? color.seal : color.ink },
+              fillStyle,
+            ]}
+          >
+            {state === 'correct' ? (
+              <Icon name="check" color="highlighter" strokeWidth={border.selected * 1.5} />
+            ) : wrong ? (
+              <Icon name="cross" color="white" strokeWidth={border.selected * 1.5} />
+            ) : (
+              <Text variant="timer" color="highlighter" maxFontSizeMultiplier={1}>
+                {letter}
+              </Text>
+            )}
+          </Animated.View>
+        </View>
+        {figure ? (
+          <View style={styles.figure}>{figure}</View>
+        ) : (
+          <Text variant="optionValue" weight={state === 'empty' ? 600 : 700} style={styles.value}>
+            {value}
+          </Text>
+        )}
+      </PressScale>
+    </Animated.View>
   );
 }
 

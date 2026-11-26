@@ -8,15 +8,13 @@
     "scheme": "aptiq",
     "userInterfaceStyle": "light",
     "ios": {
-      "bundleIdentifier": "com.javioller.aptiq",
-      "icon": "./assets/expo.icon"
+      "bundleIdentifier": "com.javioller.aptiq"
     },
     "android": {
       "package": "com.javioller.aptiq",
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
+        "backgroundColor": "#121316",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
-        "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false
@@ -32,17 +30,30 @@
         {
           "backgroundColor": "#EFEEE9",
           "image": "./assets/images/splash-icon.png",
-          "imageWidth": 76
+          "imageWidth": 160
         }
       ],
       "expo-sqlite",
       "./plugins/with-windows-cmake",
       "expo-secure-store",
-      "expo-notifications"
+      "expo-notifications",
+      "@sentry/react-native"
     ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "owner": "javioller",
+    "extra": {
+      "eas": {
+        "projectId": "ba05ed2f-ae3d-46d5-a725-36db0b99a2b4"
+      }
+    },
+    "updates": {
+      "url": "https://u.expo.dev/ba05ed2f-ae3d-46d5-a725-36db0b99a2b4"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
     }
   }
 }

@@ -1,6 +1,6 @@
 import { score, taxonomy } from '@aptiq/engine';
 
-import { perfil } from '@/content/content';
+import { perfilDe } from '@/content/content';
 
 import type { SavedAttempt, SavedSession } from '@/data/store';
 import { APTITUDE_LABELS, formatNota, isCorrect } from '@/practice/run';
@@ -13,6 +13,8 @@ export interface HistoryRow {
   valueLabel: string;
   /** Simulacro que no llega a la nota mínima (se pinta en rojo y se dice con texto). */
   weak: boolean;
+  /** Solo simulacros: la nota para la ficha frente a la mínima (Historial v2). */
+  nota?: { puntos: number; maxima: number; minima: number; supera: boolean };
 }
 
 const MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
@@ -36,7 +38,7 @@ export function historyRows(sessions: SavedSession[], attempts: SavedAttempt[]) 
         if (isCorrect(q)) aciertos++;
         else fallos++;
       }
-      const nota = score(perfil(), { aciertos, fallos });
+      const nota = score(perfilDe(a), { aciertos, fallos });
       const puntos = formatNota(nota.puntos);
       const min = Math.round(Math.min(a.finishedAt - a.empezado, a.durationMs) / 60_000);
       return {
@@ -46,6 +48,12 @@ export function historyRows(sessions: SavedSession[], attempts: SavedAttempt[]) 
         value: `${puntos} / ${nota.maxima}`,
         valueLabel: `${puntos} sobre ${nota.maxima}`,
         weak: nota.supera === false,
+        nota: {
+          puntos: nota.puntos,
+          maxima: nota.maxima,
+          minima: nota.minima,
+          supera: nota.supera,
+        },
       };
     });
 

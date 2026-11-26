@@ -13,9 +13,157 @@ Lo actualiza Claude Code al terminar cada tarea y en `/cerrar-fase`. El propieta
 | 6 · Progreso y adaptativo | Cerrada (comprobaciones en el móvil pendientes del propietario) | `fase-6-progreso` · PR #13 fusionado | 2026-11-15 | Sí, 2026-11-15 |
 | 7 · Pago | Cerrada con T7 pendiente (pruebas en tiendas: faltan las cuentas de Apple, Google y RevenueCat) | `fase-7-pago` · PR #15 fusionado | 2026-11-15 | Sí, 2026-11-15 |
 | 8 · Contenido ampliado y panel interno | Cerrada (pendiente que el propietario vea un reporte en el panel y apruebe verbales y perfiles) | `fase-8-contenido` · PR #17 | 2026-11-19 | Sí, 2026-11-19 |
-| 9 · Beta y lanzamiento | Pendiente | | | |
+| 9 · Beta y lanzamiento | En curso (parte A hecha; parte B empezada; parte C de experiencia hecha) | `fase-9-lanzamiento` y `fase-9-experiencia` (subida) | | |
 
 ## Registro
+
+**2026-11-26 · Fase 9 · Parte C · Barra de pestañas**
+
+- Barra con muesca y burbuja de subrayador sobre la pestaña activa, nombres en mono bajo los iconos y deslizamiento con muelle sin rebote (referencia del propietario). Tipos, ESLint y pruebas en verde; comprobada en el emulador (`docs/capturas/fase-9c-barra-pestanas.png`).
+- Rama `fase-9-experiencia` subida a GitHub (incluye la parte A y B de `fase-9-lanzamiento`, que no estaba subida). Pendiente: PR, TalkBack/VoiceOver reales y sonido en un móvil.
+
+**2026-11-25 · Fase 9 · Parte C · Revisión de la ronda 2 (Inicio, Historial y Cuenta)**
+
+- `revisor-interfaz` pasado. Corregidos: el bloqueante de Inicio (dos amarillos y textos contradictorios con el objetivo cumplido; ahora el botón pasa a secundario y hay estado intermedio «Te quedan N preguntas»); hitos que ya no se pierden ni se vuelven a celebrar y «Nivel 3 en una aptitud» como en el prototipo; aviso de recompensa anunciado a VoiceOver y con fundido con «reducir movimiento»; ficha de simulacro con «Ver resultado ›»; sin sonido de fallo (no estaba aprobado); límite de Android con el modo silencio anotado; guía al día (componentes nuevos, Historial y Cuenta v2, cristal en la ficha, sello en Historial); usuarios nuevos celebran su primer hito.
+- Decidido por el propietario: las casillas de aptitud mantienen la barra de acierto. Quedan menores sin tocar: botón de simulacro de Inicio a tamaño completo (en el prototipo, más pequeño) y algunos tamaños calculados con tokens de otro uso.
+- Sin probar: VoiceOver y TalkBack reales, sonido en dispositivo, hoja con teclado en Android físico.
+
+**2026-11-25 · Fase 9 · Parte C · Cuenta v2**
+
+- Prototipo `docs/prototipos/cuenta-v2.html` aprobado tal cual, con la fecha del examen editable.
+- Hecho: ficha del opositor (inicial, correo o «Aún sin cuenta», desde cuándo practica, oposición y plan); Premium como tarjeta de tinta (solo plan gratuito; «Probar 7 días gratis» solo si la tienda ofrece la prueba); «Guarda tu progreso» en una hoja que sube con el teclado; ajustes agrupados con iconos (Preferencias: recordatorio, sonidos y fecha del examen; Tu plan o Tu cuenta; Ayuda y privacidad); borrar cuenta en una hoja propia; pie con el aviso de independencia y la versión.
+- Corregido de paso: la hoja inferior leía el alto de pantalla dentro de una animación y rompía todas las animaciones.
+- Comprobado: tipos, ESLint y pruebas en verde (149 de la app) y en el emulador; capturas `docs/capturas/fase-9c-cuenta-v2*.png`. Maestro `cuenta-enviar.yaml` actualizado (sin ejecutar).
+
+**2026-11-25 · Fase 9 · Parte C · Historial v2**
+
+- Prototipo `docs/prototipos/historial-v2.html` aprobado tal cual; hitos para todos los planes.
+- Hecho: cifras (racha, días practicados, preguntas) que suben; nivel con la línea que se dibuja y la semana actual en amarillo, con el cambio desde la primera semana; constancia de 5 semanas en burbujas; seis hitos (primer simulacro, racha de 3 y de 7 días, 100 preguntas, nivel 3, nota mínima) con recompensa al conseguirlos; simulacros como fichas con la nota frente a la mínima y el sello APTO. La primera vez, los hitos ya conseguidos se apuntan sin aviso.
+- Comprobado: tipos, ESLint y pruebas en verde (148 de la app) y en el emulador; capturas `docs/capturas/fase-9c-historial-v2*.png`.
+- Siguiente: Cuenta.
+
+**2026-11-25 · Fase 9 · Parte C · Inicio v2**
+
+- Prototipo `docs/prototipos/inicio-v2.html` aprobado tal cual por el propietario, con sonidos (ajuste en Cuenta), rebote y burbujas solo en recompensas y tono sobrio.
+- Hecho: objetivo de hoy con anillo (preguntas respondidas hoy, de 12), semana en burbujas, racha visible, nivel con barra al siguiente, simulacro como tarjeta secundaria y aptitudes en casillas con barra de acierto. Al cumplir el objetivo, una vez al día: anillo amarillo, burbujas, sonido, vibración y aviso. Sonidos también al acertar o fallar en práctica y al entregar un simulacro. Dependencia nueva `expo-audio`; sonidos propios generados con `scripts/sonidos.py`.
+- Comprobado: tipos, ESLint y pruebas en verde (141 de la app, 32 de componentes) y en el emulador con capturas `docs/capturas/fase-9c-inicio-v2*.png`.
+- Siguiente: Historial y Cuenta con el mismo criterio (las otras dos ventanas principales).
+
+**2026-11-25 · Fase 9 · Parte C · Pulido de la experiencia (en curso)**
+
+- Plan `docs/planes/fase-9-experiencia.md` aprobado por el propietario con las cinco propuestas; rama `fase-9-experiencia` (sale de `fase-9-lanzamiento`).
+- Hecho (C1–C9): componentes nuevos (hoja inferior, escala al pulsar, esqueletos, botón de icono y hoja «i», cuadrícula de preguntas, selector de mes, cifra que cuenta), pestañas con pastilla deslizante y papel opaco debajo; Inicio según el prototipo; simulacro con cabecera fija (cronómetro siempre visible, SIM-02), bandera, cuadrícula, barra de 3 acciones, deslizar y series en casillas; resultado con nota que cuenta, sello animado, «a reforzar» solo con datos y Premium como tarjeta (sin muro automático); práctica con cerrar, vibración de acierto y fallo y explicación por capas; repaso de uno en uno; onboarding con bienvenida y mes del examen; Cuenta con el plan primero.
+- Comprobado: `pnpm typecheck`, `pnpm lint` y `pnpm test` en verde (motor, 32 de componentes y 137 de la app) y recorrido en el emulador Android (versión de desarrollo) con capturas.
+- `revisor-interfaz` pasado: corregidos el bloqueante (en iPhone, VoiceOver no podía cerrar las hojas) y los importantes (temblor solo al fallar, barras de 250 ms, el año del selector ya no elige mes, «a reforzar» común y sin empates, una sola hoja en el simulacro, pulsar con «reducir movimiento», encabezados para el lector). Capturas en `docs/capturas/fase-9c-*.png`.
+- Pendiente: `review-animations`, TalkBack y VoiceOver en dispositivo, comprobar las hojas en un iPhone; Maestro actualizado pero sin ejecutar (no está instalado); repaso a fondo de textos de pantallas secundarias (recordatorio, datos de uso); menores del revisor que esperan decisión del propietario (ver el resumen de la sesión).
+- Para compilar en este ordenador hace falta `JAVA_HOME` con el JDK 17 que descargó Gradle (`%USERPROFILE%\.gradle\jdks\eclipse_adoptium-17-amd64-windows.2`) y `ANDROID_HOME`; el Java por defecto (27) es demasiado nuevo para Gradle.
+
+**2026-11-25 · Fase 9 · Series sin términos repetidos (EXP-01, NFR-07)**
+
+- `NUM.SERIE` v4 y `LET.SERIE` v5 descartan y reintentan toda serie con un término repetido seguido: «× 2 − 3» desde 3 daba «3, 3, 3, 3, 3» con un «Observa» falso, y en las intercaladas las subseries coincidían (en letras, ~30 % de los niveles 4 y 5). Pruebas con fast-check que fallaban antes; `pnpm test`, `test:stress` y `revisor-contenido` en verde (sin bloqueantes).
+
+**2026-11-25 · Fase 9 · Qué falta para terminar**
+
+1. **RevenueCat:** «Check again» de la cuenta de servicio y, al validar, «Google developer notifications».
+2. **Play Console, ficha y requisitos:** países (solo España), ficha (`docs/tiendas/ficha.md`), capturas, gráfico 1024 × 500, icono 512, privacidad y borrar cuenta (`https://aptiq.inkfinitysoft.com/privacidad` y `/borrar-cuenta`), seguridad de los datos (`docs/tiendas/privacidad.md`), clasificación de contenido, público objetivo (18+), anuncios (no), acceso a la app, pruebas de licencia y lista de probadores.
+3. **Compilación de la beta** con las 7 variables (versión 5), prueba en el emulador y en un móvil, y subida a la prueba cerrada.
+4. **Antes de abrir la beta:** borrar los datos de prueba de Supabase (con confirmación), fechas y enlace en `docs/beta/guia-probadores.md`.
+5. **Beta:** 12+ probadores durante 14 días; errores graves (T13) y primera calibración (T14).
+6. **Legal:** revisión del abogado (criterio de aceptación), estado de operador en Play Console, comisión del 15 %.
+7. **Cierre de la fase:** accesibilidad, revisor-interfaz, revisor-contenido, verificador-fase, `/cerrar-fase 9` y PR.
+8. **Opcional o después:** token de Sentry para mapas de código; iPhone (falta Apple Developer); pendientes de la fase 8 (aprobar verbales y ver el reporte en el panel).
+
+**2026-11-25 · Fase 9 · Web publicada**
+
+- Web en `https://aptiq.pages.dev` (comprobadas todas las páginas, fuentes, CSS e imágenes); dominio `https://aptiq.inkfinitysoft.com` activo (comprobado: portada, privacidad y borrar cuenta responden con HTTPS). Correo de soporte, proveedores (Arsys, Cloudflare) y licencias OFL añadidos.
+- Las **7 variables** de la app ya están en EAS (`production` y `preview`).
+- **Titular publicado** (Javier Oller Sánchez, NIF y domicilio en Albox). **Sigue pendiente en los textos legales:** plazos de conservación de PostHog, Sentry y RevenueCat, transferencias internacionales (RevenueCat, Cloudflare), juzgados y desistimiento (abogado). La web lo muestra como «Pendiente» con el aviso de borrador.
+- Validación de RevenueCat sin comprobar hoy (el Chrome conectado tenía otra cuenta de RevenueCat).
+
+**2026-11-24 · Fase 9 · Web (en curso)**
+
+- Decisiones del propietario: web en **`aptiq.inkfinitysoft.com`**; correo de soporte **`support@inkfinitysoft.com`** (comprobar que el buzón existe en Arsys); el propietario pidió que el agente redacte los datos del titular, pero el NIF y el domicilio no se pueden inventar: **pedírselos** (y confirmar si el titular es persona física o «Inkfinity Software»).
+- Hallazgo: el DNS de `inkfinitysoft.com` está en **Cloudflare** (la web actual se sirve por Cloudflare), así que el propietario ya tiene cuenta: publicar `apps/web` en Cloudflare Pages y añadir el subdominio es directo.
+- Siguiente: licencia OFL en `apps/web/fonts/` (los textos están en `node_modules/@expo-google-fonts/*/LICENSE_FONT`), completar textos legales y web con dominio y correo, publicar, y dar de alta `EXPO_PUBLIC_WEB_URL` y `EXPO_PUBLIC_SOPORTE_EMAIL` en EAS. Comprobar mañana la validación de RevenueCat («Check again»).
+
+**2026-11-23 · Fase 9 · Compras de Google Play (en curso)**
+
+- Diseño confirmado por el propietario (ver `docs/decisiones.md`): suscripción `premium` con mensual, anual (7 días gratis) y pases de prepago de 3 y 6 meses.
+- **Bloqueo:** Play Console no deja crear suscripciones sin **cuenta de comercio de Google Payments** en Inkfinity Software. La crea el propietario (datos fiscales y bancarios). Afecta también a la declaración de «comerciante» (abogado).
+- **2026-11-24 · Hecho en Play Console:** el propietario creó el perfil de pagos. Suscripción `premium` («Aptiq Premium») con los planes `mensual` (7,99 €), `anual` (39,99 €, con la oferta `prueba-7-dias` solo para quien nunca la tuvo), `pase-3-meses` (19,99 €, prepago) y `pase-6-meses` (29,99 €, prepago), todos **activos**. Precios con IVA en España; Google exige precio en todos los países, así que se fijó el mismo precio base sin IVA y Google lo convierte (dónde se vende lo limita la disponibilidad de la app por países: **pendiente limitarla a España** en la prueba cerrada).
+- **Google Cloud (2026-11-24):** condiciones de Google Cloud aceptadas con permiso del propietario (sin prueba de 300 $ ni tarjeta); proyecto `aptiq-play` con Google Play Android Developer API y Cloud Pub/Sub API habilitadas; cuenta de servicio `revenuecat@aptiq-play.iam.gserviceaccount.com` con los roles Editor de Pub/Sub y Visualizador de Monitoring. **Falta:** que el propietario cree la clave JSON y la suba a RevenueCat (app «Aptiq (Play Store)»), e invitar la cuenta de servicio en Play Console.
+- **Cuenta de servicio en Play Console (2026-11-24):** invitada y activa, solo para Aptiq, con ver información de la app, ver calidad, ver datos financieros y gestionar pedidos y suscripciones. Clave JSON creada y guardada en RevenueCat por el propietario. **La validación de RevenueCat sigue en «need attention»**: Google tarda hasta 24-36 h en aplicar los permisos; pulsar «Check again» en la app «Aptiq (Play Store)» y, cuando valide, conectar «Google developer notifications» (Pub/Sub). El propietario debe borrar el `.json` de Descargas.
+- **RevenueCat (2026-11-24):** permiso `premium` con los productos `premium:mensual` (retrocompatible), `premium:anual`, `premium:pase-3-meses` y `premium:pase-6-meses`; oferta `default` («Aptiq Premium», la oferta por defecto) con `$rc_monthly`, `$rc_annual`, `$rc_three_month` y `$rc_six_month`, que es lo que lee `src/purchases/revenuecat.ts`.
+- Avisos de Play Console para el propietario: apuntarse a la **comisión del 15 %** (grupo de cuentas y aceptar términos) y declarar el estado de operador antes del 1 de febrero de 2027.
+- Después: crear los productos en Play Console, la cuenta de servicio de Google Cloud con su clave JSON (la crea y sube a RevenueCat el propietario; el agente guía) y el permiso, productos y oferta en RevenueCat.
+
+**2026-11-22 · Fase 9 · Supabase de producción (T10, en parte)**
+
+- No se pudo crear un proyecto nuevo (límite de 2 proyectos gratuitos activos del propietario). Decisión: `aptiq` es producción (ver `docs/decisiones.md`).
+- Comprobado: las 8 migraciones del repositorio aplicadas, función `borrar-cuenta` activa (sin cambios desde el 2026-11-15), avisos de seguridad solo los ya conocidos (`metricas()` aceptado; contraseñas filtradas no aplica: se entra con código).
+- URL y clave publicable dadas de alta en EAS. Las 5 variables de la app ya están en EAS; faltan `EXPO_PUBLIC_WEB_URL` y `EXPO_PUBLIC_SOPORTE_EMAIL` (dominio pendiente).
+- **SMTP y plantillas (hecho):** correo por Arsys desde `dev@inkfinitysoft.com` y plantillas en español con el código de 6 cifras y el enlace del panel. Prueba: petición de código a `dev@inkfinitysoft.com` aceptada (registro de Supabase 22:30, «Confirm sign up»); el propietario confirmó que el correo llegó con el código (2026-11-22). T10 hecha salvo el borrado de datos de prueba antes de la beta. La prueba creó el usuario `dev@inkfinitysoft.com`.
+- **Antes de la beta (con confirmación):** borrar los 2 reportes de prueba y el usuario de prueba `dev@inkfinitysoft.com` (si no se va a usar), conservando la cuenta de administrador del panel. Las pruebas `supabase/tests/rls-*.sql` no se han vuelto a ejecutar porque el esquema no ha cambiado desde la fase 8, salvo la columna `perfil`, que hereda la RLS de su tabla.
+
+**2026-11-22 · Fase 9 · Claves de PostHog, Sentry y RevenueCat**
+
+- PostHog (UE), Sentry (`aptiq`, UE) y RevenueCat («Aptiq», app de Play Store) listos en las cuentas de Inkfinity Software; sus claves públicas, dadas de alta en EAS para `production` y `preview` (detalle en `docs/decisiones.md`).
+- **Pendiente del propietario:** confirmar el correo de RevenueCat (aviso en su panel).
+- **Pendiente en RevenueCat y Google Play:**
+  1. Cuenta de servicio de Google Cloud con acceso a Play Console, y su JSON subido a RevenueCat (sin ella no valida compras).
+  2. En Play Console: suscripción (mensual y anual con 7 días de prueba) y pases de 3 y 6 meses.
+  3. En RevenueCat: permiso `premium`, productos y oferta por defecto.
+- **Pendiente en Sentry:** token de organización (secreto de EAS), `SENTRY_ORG=inkfinity-software`, `SENTRY_PROJECT=aptiq` y quitar `SENTRY_DISABLE_AUTO_UPLOAD`; activar «no guardar IP» (cambiar ajustes: pedir permiso).
+- Sigue faltando para la compilación de beta: Supabase de producción (T10), web con dominio (`EXPO_PUBLIC_WEB_URL`, correo de soporte).
+
+**2026-11-22 · Fase 9 · App creada en Google Play**
+
+- Compilación de tienda `versionCode` 4 terminada en EAS.
+- App «Aptiq: psicotécnicos oposición» creada en Play Console, en la cuenta de desarrollador **Inkfinity Software** (sesión dev@inkfinitysoft.com; cuenta personal: aplica la regla de 12 probadores durante 14 días). Paquete `com.javioller.aptiq`, español (España), app sin coste; declaraciones de políticas y exportación marcadas con el permiso del propietario. Firma de apps de Google Play activa.
+- Versión «1.0.0 (4) - primera subida» en **Prueba cerrada - Alpha**, guardada como **borrador** (no enviada a revisión ni a probadores). El `.aab` lo arrastró el propietario: la extensión de Chrome no sube archivos de más de 10 MB. Copia local en `dist-android/aptiq-4.aab` (ignorada por Git).
+- Play Console avisa: declarar el estado de operador antes de febrero de 2027 (consulta al abogado).
+- Hay dos Chrome: el del perfil personal y el de Inkfinity Software; Play Console se usa desde el segundo.
+- **Siguiente:** pasos 2 a 8 de abajo (claves públicas, Sentry, Supabase de producción, RevenueCat al borrar cuenta, web, compilación de beta). Con la versión subida ya se pueden crear en Play Console la suscripción y los pases para RevenueCat.
+
+**2026-11-20 · Fase 9 · Dónde seguir (siguiente sesión)**
+
+- **Estado:** parte A terminada (T1–T8) y parte B empezada. Rama `fase-9-lanzamiento` con 16 commits, **sin subir a GitHub** y sin PR. Pruebas en verde (app 134, componentes 27), sin secretos.
+- **Cuentas:** el propietario tiene Expo, Google Play, PostHog, Sentry y RevenueCat; **falta Apple Developer** (la beta empieza solo en Android).
+- **EAS:** sesión abierta en este ordenador como `javioller` (inicio con código de dispositivo: `npx eas-cli@latest login --device --non-interactive`, el propietario aprueba en su Chrome). Proyecto `@javioller/aptiq` (`ba05ed2f-ae3d-46d5-a725-36db0b99a2b4`). Clave de firma de Android generada y guardada por Expo (decisión del propietario).
+- **Compilación de tienda en curso:** `versionCode` 4, https://expo.dev/accounts/javioller/projects/aptiq/builds/2fe246b8-d020-48d7-8474-fc979f78dd36. Las dos anteriores: una cancelada (subía la carpeta `android` de Windows; arreglado con `.easignore`) y otra fallida (subida de mapas de Sentry sin organización; desactivada con `SENTRY_DISABLE_AUTO_UPLOAD`). Ver su estado: `npx eas-cli@latest build:view 2fe246b8-d020-48d7-8474-fc979f78dd36`.
+- **Esta compilación no vale para la beta:** no lleva variables de entorno (sin Supabase no hay cuentas; sin RevenueCat no hay compras; sin PostHog ni Sentry no se envía nada; sin web no salen las filas legales). Sirve para crear la app en Google Play y probar la subida.
+
+**Siguientes pasos, en orden:**
+
+1. ~~Crear la app en Play Console y subir el `.aab`~~ hecho el 2026-11-22 (arriba).
+2. ~~Claves públicas en EAS~~ hecho el 2026-11-22 (PostHog, Sentry, RevenueCat). Faltan las de Supabase de producción, la web y el correo. Antes: PostHog (`phc_…`, región UE), Sentry (DSN con `ingest.de.sentry.io`), RevenueCat Google (`goog_…`). Darlas de alta en EAS con `eas env:create` (entorno `production` y `preview`) junto con `EXPO_PUBLIC_SUPABASE_URL` y `EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (de producción, T10), `EXPO_PUBLIC_WEB_URL` y `EXPO_PUBLIC_SOPORTE_EMAIL`.
+3. Sentry: organización, proyecto y token (secreto de EAS) → quitar `SENTRY_DISABLE_AUTO_UPLOAD` de `eas.json`. En Sentry, activar «no guardar direcciones IP».
+4. T10: Supabase de producción (proyecto nuevo en la UE, mismas migraciones y función `borrar-cuenta`, pruebas `supabase/tests/rls-*.sql`) y SMTP de Arsys (la contraseña la escribe el propietario).
+5. Borrar el registro de RevenueCat al borrar la cuenta (función `borrar-cuenta`, clave secreta de RevenueCat como secreto de Supabase). Imprescindible antes de la beta.
+6. Web: dominio, alojamiento (Cloudflare Pages), correo de soporte, texto de la licencia OFL en `apps/web/fonts/` y datos del titular en los textos legales. Revisión del abogado.
+7. Compilación de beta con todas las variables → probar en el emulador y en un móvil → Play Console: probadores (también en «Pruebas de licencia»), guía `docs/beta/guia-probadores.md` con fechas y enlaces → empezar los 14 días.
+8. Pendiente sin bloquear: añadir a `apps/mobile/.env.example` las variables `EXPO_PUBLIC_WEB_URL`, `EXPO_PUBLIC_SOPORTE_EMAIL`, `EXPO_PUBLIC_POSTHOG_KEY` y `EXPO_PUBLIC_SENTRY_DSN` (el agente no tiene permiso para abrir ese archivo).
+
+**2026-11-19 · Fase 9 · Plan**
+
+- Plan en `docs/planes/fase-9.md`, confirmado por el propietario («Sí, tal cual») con las propuestas de las decisiones 1–9. Parte A (sin cuentas) en curso; la parte B espera a las cuentas, los datos del titular y los probadores.
+- **T2 (prototipos):** `docs/prototipos/consentimiento.html`, `ayuda.html` y pie del muro con «Términos de uso · Privacidad». **Pendientes de tu aprobación** antes de T6 y T7.
+- **T5 (ADM-03):** hecho. Cada simulacro guarda el perfil con que empezó y se puntúa con él; prueba nueva en `content.test.ts`; columna `perfil` en SQLite y en Supabase (migración aplicada en el proyecto actual). App: 127 pruebas en verde.
+- **T3 (textos legales):** borrador en `apps/web/` (privacidad, aviso legal, términos, borrar cuenta, ayuda), con tus datos de titular, plazos y transferencias marcados como pendientes. Hallazgo: al borrar la cuenta no se borra el registro de compras en RevenueCat; queda anotado en la página y hay que resolverlo antes de la beta.
+- **T1 (icono):** hecho. Icono y arranque de Aptiq comprobados en el emulador Android (release): `docs/capturas/fase-9-icono.png` y `fase-9-arranque.png`.
+- **T4 (web):** portada en `apps/web/index.html` con capturas reales de la app (simulacro, explicación e inicio) y una tarjeta de resultado marcada como ejemplo. Revisada a 1440 y 390 px, sin desbordes y con zonas táctiles de 44. Pendiente al publicar: enlace del App Store, correo de soporte, dominio y el texto de la licencia OFL de las fuentes. Vista previa: configuración `web` de `.claude/launch.json`.
+- **Prototipos aprobados** por el propietario («Aprobados, sigue»).
+- **T6 (ayuda y legal):** hecho. Sección «Ayuda y legal» al final de Cuenta (con y sin sesión), «Términos de uso · Privacidad» al pie del muro. Las filas abren la web (`EXPO_PUBLIC_WEB_URL`) y el correo (`EXPO_PUBLIC_SOPORTE_EMAIL`); sin esas variables no se muestran.
+- **T7 (datos de uso):** hecho. Pregunta tras el test de nivel, interruptor en Cuenta, 7 eventos sin datos personales a PostHog UE, nada sin permiso ni sin clave (`EXPO_PUBLIC_POSTHOG_KEY`). 5 pruebas nuevas. Falta comprobar en PostHog que llegan (parte B, sin cuenta).
+- **T8 (fallos):** hecho. `@sentry/react-native` sin datos personales, solo con `EXPO_PUBLIC_SENTRY_DSN`. Falta ver un fallo de prueba en Sentry (parte B, sin cuenta).
+- **Comprobado en el emulador Android (release):** pantalla de datos de uso, sección de Cuenta y que «Política de privacidad» abre la web. Capturas `docs/capturas/fase-9-datos-de-uso.png`, `fase-9-cuenta-ayuda.png` y `fase-9-privacidad-abierta.png`. App: 133 pruebas; componentes: 27; búsqueda de secretos en verde.
+- **Cuentas (2026-11-20):** el propietario tiene Expo, Google Play, PostHog, Sentry y RevenueCat; falta Apple Developer. La beta empieza solo en Android.
+- **Arreglos de interfaz:** botones del simulacro alineados (`docs/capturas/fase-9-simulacro-botones.png`), texto de botón centrado en dos líneas (componente `Button`, toda la app) y el operador unido a su número en las explicaciones («+ 25»; prueba nueva). El «último botón bajo la barra» era la captura a media página, no un fallo. App: 134 pruebas.
+- **T11:** borrador de fichas (`docs/tiendas/ficha.md`, longitudes comprobadas con `scripts/ficha-longitudes.mjs`) y respuestas de privacidad de Google y Apple (`docs/tiendas/privacidad.md`), sacadas del código.
+- **T12:** guía para probadores (`docs/beta/guia-probadores.md`), con fechas, enlace y correo pendientes. En Play Console hay que poner a los probadores también en «Pruebas de licencia» para que compren sin pagar.
+- **T9 (en parte):** `eas.json` listo para Android (envío a prueba cerrada como borrador). Falta entrar en EAS (`eas login`, lo hace el propietario), `eas init`, `expo-updates` y las variables de entorno.
+- **Tienes que añadir** a `apps/mobile/.env.example` (no tengo permiso para abrirlo): `EXPO_PUBLIC_WEB_URL`, `EXPO_PUBLIC_SOPORTE_EMAIL`, `EXPO_PUBLIC_POSTHOG_KEY` y `EXPO_PUBLIC_SENTRY_DSN`, vacías.
+- **Visto de paso en el emulador** (para la revisión de interfaz): en el simulacro, los botones de abajo («Dejar en blanco», «Marcar para revisar», «Anterior», «Siguiente», «Siguiente marcada») quedan de anchos distintos y el último queda bajo la barra del sistema; en Inicio, «Simulacros ilimitados con Premium» parte en dos líneas alineadas a la izquierda; en las explicaciones, «+ 25» se corta entre líneas.
 
 **2026-11-19 · Fase 8 · Aprobación**
 

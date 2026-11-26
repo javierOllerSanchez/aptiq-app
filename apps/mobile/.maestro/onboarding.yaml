@@ -3,13 +3,15 @@ appId: com.javioller.aptiq
 ---
 - launchApp:
     clearState: true
+# Parte C de la fase 9: bienvenida antes de la oposición.
+- assertVisible: "Saca tu apto."
+- tapOn: "Empezar"
 - assertVisible: "¿Qué oposición preparas?"
 - tapOn: "Guardia Civil · Escala de Cabos y Guardias"
 - assertVisible: "¿Cuándo es tu examen?"
-- tapOn: "Fecha prevista del examen.*"
-- inputText: "2027-06-15"
-# Enter confirma el campo y cierra el teclado (hideKeyboard pulsa «Atrás» y saldría de la app).
-- pressKey: Enter
+# Mes y año con el selector propio (parte C de la fase 9).
+- tapOn: "2027"
+- tapOn: "junio de 2027"
 - tapOn: "Hacer el test de nivel"
 - repeat:
     times: 18

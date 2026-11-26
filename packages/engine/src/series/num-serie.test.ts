@@ -1,6 +1,8 @@
+import fc from 'fast-check';
 import { expect, test } from 'vitest';
 
 import { generatorSuite } from '../../test/suite';
+import { levels, type Level, type OptionCount } from '../types';
 
 import { numSerie } from './num-serie';
 import { numSerieSolver, predictNext } from './num-serie.solver';
@@ -46,6 +48,33 @@ test('cada pregunta de nivel 1 es una suma constante pequeña', () => {
   const d = t[1]! - t[0]!;
   expect(d).toBeGreaterThanOrEqual(2);
   expect(d).toBeLessThanOrEqual(9);
+});
+
+const diffs = (t: number[]) => t.slice(1).map((x, j) => x - t[j]!);
+
+// Caso del emulador (v3, semilla r13, nivel 3): «3, 3, 3, 3, 3» con «× 2 − 3».
+test('ninguna serie repite un término seguido ni es constante (punto fijo de × a + b)', () => {
+  fc.assert(
+    fc.property(fc.string(), fc.constantFrom(...levels), fc.constantFrom(3, 4), (seed, level, oc) => {
+      const item = numSerie.generate(seed, level as Level, oc as OptionCount);
+      const all = [...item.stem.terms, Number(item.options[item.answerIndex])];
+      expect(diffs(all), `${seed}, nivel ${level}: ${all.join(', ')}`).not.toContain(0);
+    }),
+    { numRuns: 5_000 },
+  );
+});
+
+test('en «× a + b», «Observa» cita las diferencias reales y estas crecen de verdad', () => {
+  fc.assert(
+    fc.property(fc.string(), fc.constantFrom(3, 4), (seed, oc) => {
+      const item = numSerie.generate(seed, 3, oc as OptionCount);
+      if (item.meta.family !== 'multiplicaYSuma') return;
+      const d = diffs(item.stem.terms);
+      expect(item.explanation.observe).toContain(`(${d.join(', ')})`);
+      d.slice(1).forEach((x, j) => expect(Math.abs(x), item.stem.text).toBeGreaterThan(Math.abs(d[j]!)));
+    }),
+    { numRuns: 5_000 },
+  );
 });
 
 test('los niveles 4 y 5 nunca son, en realidad, una suma constante (nivel 1)', () => {

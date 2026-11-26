@@ -16,6 +16,8 @@ test('detecta la clave secreta moderna, pero no el prefijo suelto de supabase-js
   assert.deepEqual(secretosEn('startsWith("sb_secret_")'), []);
   // En el paquete compilado los textos van pegados: «sb_secret_» + «_internal_expo_router…».
   assert.deepEqual(secretosEn('sb_secret__internal_expo_router_no_animation'), []);
+  // Hermes pega textos sin separador: «sb_secret_» + «addResourceSpans» + «entry» (fase 9).
+  assert.deepEqual(secretosEn('removePartsb_secret_addResourceSpansentry.is_remote'), []);
 });
 
 test('detecta un JWT service_role y deja pasar el anon', () => {

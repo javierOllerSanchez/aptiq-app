@@ -1,8 +1,10 @@
 import { tokens } from '@aptiq/tokens';
+import * as Sentry from '@sentry/react-native';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { AuthProvider } from '@/auth/provider';
 import { StoreProvider } from '@/data/provider';
@@ -11,7 +13,19 @@ import { PurchasesProvider } from '@/purchases/provider';
 
 SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
+// Fallos de la app (fase 9 · T8). Sin DSN (o en desarrollo) no envía nada. Servidor de la UE, según el DSN.
+const dsn = process.env.EXPO_PUBLIC_SENTRY_DSN;
+Sentry.init({
+  dsn,
+  enabled: !!dsn && !__DEV__,
+  sendDefaultPii: false, // sin IP, usuario ni cabeceras (NFR-05)
+  attachScreenshot: false,
+  attachViewHierarchy: false, // la jerarquía incluiría el texto de la pantalla
+});
+
+export default Sentry.wrap(RootLayout);
+
+function RootLayout() {
   const [loaded, error] = useFonts(fontAssets);
 
   useEffect(() => {
@@ -21,17 +35,20 @@ export default function RootLayout() {
 
   if (!loaded && !error) return null;
   return (
-    <StoreProvider>
-      <AuthProvider>
-        <PurchasesProvider>
-          <Stack
-            screenOptions={{
-              headerShown: false,
-              contentStyle: { backgroundColor: tokens.color.paper },
-            }}
-          />
-        </PurchasesProvider>
-      </AuthProvider>
-    </StoreProvider>
+    // Raíz de gestos: deslizar entre preguntas y cerrar hojas (Gesture Handler).
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <StoreProvider>
+        <AuthProvider>
+          <PurchasesProvider>
+            <Stack
+              screenOptions={{
+                headerShown: false,
+                contentStyle: { backgroundColor: tokens.color.paper },
+              }}
+            />
+          </PurchasesProvider>
+        </AuthProvider>
+      </StoreProvider>
+    </GestureHandlerRootView>
   );
 }

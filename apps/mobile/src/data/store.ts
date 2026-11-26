@@ -1,5 +1,7 @@
 import type { Level, TypeCode } from '@aptiq/engine';
 
+import type { PerfilUsado } from '@/content/content';
+
 /** Una pregunta tal como se respondió: lo justo para regenerarla con el motor (semilla) y saber qué se contestó. */
 export interface SavedQuestion {
   type: TypeCode;
@@ -33,6 +35,8 @@ export interface SavedAttempt {
   /** null mientras el simulacro sigue abierto. */
   finishedAt: number | null;
   questions: SavedQuestion[];
+  /** Perfil con que empezó (ADM-03). Falta en los anteriores a la fase 9. */
+  perfil?: PerfilUsado;
 }
 
 export interface SavedSetting {

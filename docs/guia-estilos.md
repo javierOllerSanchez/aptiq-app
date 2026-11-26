@@ -30,6 +30,7 @@ Reglas:
 - **El amarillo nunca es color de texto** sobre papel. Siempre como fondo con texto `ink`, o como icono sobre `ink`.
 - **El rojo solo comunica estado**, nunca decora.
 - Prohibido: degradados de color, brillos o neón, manchas de luz de fondo, texto con degradado, modo oscuro por defecto, emojis.
+- Excepción (2026-11-25): el fundido de `paper` transparente a `paper` opaco bajo la barra de pestañas. No es un degradado de color: hace que el contenido se desvanezca en el papel.
 
 ## 2. Tipografía
 
@@ -63,7 +64,7 @@ Respetar el texto dinámico del sistema. Ningún texto de lectura por debajo de 
 
 ## 4. Cristal (plantilla de corrección)
 
-**Solo en:** barra de navegación inferior, cronómetro, tarjetas de resumen (nivel estimado, aciertos/fallos/en blanco). Excepción aprobada (2026-11-15): el formulario de correo de Cuenta; una tarjeta de cristal con controles dentro no agrupa su contenido para el lector de pantalla (`accessible={false}`).
+**Solo en:** barra de navegación inferior, cronómetro, tarjetas de resumen (nivel estimado, objetivo de hoy, cifras de Historial, aciertos/fallos/en blanco) y la ficha de perfil de Cuenta (2026-11-25). Excepción aprobada (2026-11-15): el formulario de correo de Cuenta; una tarjeta de cristal con controles dentro no agrupa su contenido para el lector de pantalla (`accessible={false}`).
 **Nunca en:** la tarjeta de la pregunta ni en las opciones (deben leerse perfectamente).
 
 Receta: relleno blanco del 82 % (arriba izquierda) al 55 % (abajo derecha), desenfoque 14–16, saturación 140–150 %, borde 1 px blanco al 95 %, reflejo interior superior blanco de 1 px, sombra `ink` al 12 % con desplazamiento vertical 12 y difuminado 30.
@@ -78,21 +79,51 @@ En React Native: `expo-blur` (`BlurView`, intensidad equivalente) + capa de colo
 | `ProgressTicks` | Una casilla por pregunta, 12 de alto, separación 3. Respondidas `ink`, actual `highlighter` con borde `ink` 1,5, pendientes `ink` al 12 %. |
 | `LevelBubbles` | 10 burbujas de 22: rellenas `ink`, vacías con borde `ink` al 25 %. |
 | `GlassCard` | Receta de cristal. Radio 24. Para resúmenes. |
-| `TabBar` | Cristal, radio 22, 3 pestañas (Inicio, Historial, Cuenta; fase 5). Activa: fondo `ink`, icono `highlighter`. |
+| `TabBar` | Barra flotante de 64 en blanco al 88 % (alternativa sin desenfoque del cristal), radio 22, 3 pestañas con icono (Inicio, Historial, Cuenta); solo la activa muestra su nombre en mono. Sobre la activa, una muesca de 56 × 14 con una burbuja `highlighter` de borde `ink`; la muesca y la burbuja se deslizan a la pestaña nueva (muelle sin rebote), el icono sube, pasa de `graphite` a `ink` y su nombre aparece debajo con fundido, y vibra levemente. Con «reducir movimiento», sin desplazamientos. (2026-11-25, referencia del propietario; antes: pastilla `ink` con icono `highlighter`.) |
 | `Timer` | Píldora de cristal con icono de reloj y tiempo en mono 15. |
-| `Stamp` | «APTO» en Bricolage 800 color `seal`, doble borde, girado −6°. Solo en Resultado, más pequeño que la nota. |
+| `Stamp` | «APTO» en Bricolage 800 color `seal`, doble borde, girado −6°. En Resultado (más pequeño que la nota) y, reducido, en las fichas de simulacro de Historial. |
 | `SourceNote` | Icono de documento + «Formato según la convocatoria oficial: …» con la cita del perfil (p. ej. «BOE-A-2026-9982, bases 6.1.2.a, 7.3 y 7.8»). No menciona exámenes publicados: la Guardia Civil no publica el cuestionario de aptitudes. Obligatorio en cada simulacro. |
-| `SeriesTile` | Casilla de serie: radio 12, borde `ink` 1,5, número 24/700. La incógnita con borde discontinuo y «?» en `graphite`. |
+| `SeriesTile` | Casilla de serie: radio 12, borde `ink` 1,5, número 21/700 (como el enunciado, para que quepan seis en una fila). La incógnita con borde discontinuo y «?» en `graphite`. |
 | `ListRow` | Fila de 52 con separador al 14 %; nombre 17/600, valor en mono 15/600, chevron. Valor en `sealText` si es el punto débil. |
 | `PaperBackground` | Papel con cuadrícula. |
 | `Logo` | SVG oficial de `docs/marca/`. Nunca recrearlo con una fuente. |
+| `Sheet` | Hoja inferior propia sobre `paperCard`, radio 24 arriba, asa de 36 × 4 en `line`, fondo oscurecido `ink` al 32 %. Se cierra deslizando o tocando fuera. Sustituye a los diálogos nativos. |
+| `PressScale` | Envoltorio de todo lo pulsable: escala a 0,97 mientras se mantiene pulsado (150 ms). |
+| `Skeleton` | Bloques `ink` al 6 % con radio del elemento que sustituyen; laten de 6 % a 10 % (900 ms). Sustituye a «Cargando…». |
+| `InfoButton` | Icono «i» de 22 en círculo de 44 que abre una `Sheet` con la fuente, el método y el aviso de independencia. |
+| `QuestionGrid` | Cuadrícula del simulacro: casillas de 44 (`questionCell`) con el número en mono. Respondida `ink`, en blanco con borde `ink` al 25 %, marcada con bandera, actual `highlighter`. |
+| `MonthPicker` | Año en píldoras y 12 meses en cuadrícula de 3 columnas, con «Aún no lo sé». |
+| `CountUp` | Cifra que cuenta hasta su valor en 600 ms ease-out (sin animación con «reducir movimiento»). |
+| `ProgressRing` | Anillo del objetivo de hoy (96, trazo 8): se rellena en 600 ms y, completo, el centro se pinta de `highlighter` con rebote. |
+| `WeekStrip` | Semana de lunes a domingo en burbujas de 28: `ink` con check `highlighter` si practicaste; hoy con borde `ink`. |
+| `StreakChip` | Racha: píldora con burbuja `highlighter` y número en mono que sube con rebote al crecer. |
+| `Burst` | Burbujas `ink` y `highlighter` que saltan desde lo conseguido (solo recompensas). |
+| `RewardToast` | Aviso de logro en `ink` que baja desde arriba y se va solo a los 2,6 s; en iOS se anuncia a VoiceOver. |
+| `AptitudeTile` | Casilla de aptitud (Inicio): nombre, acierto en mono, barra de acierto y, con Premium, nivel en burbujas; candado si es de Premium. |
+| `ConsistencyCalendar` | Constancia de 5 semanas en burbujas (Historial). |
+| `MilestoneGrid` | Hitos como sellos `highlighter` (conseguidos) o discontinuos con barra (pendientes). |
+| `SettingsGroup` / `IconTile` | Ajustes agrupados en tarjeta `paperCard`; cada fila con su icono en una casilla de papel de 36 (Cuenta). |
 
 ## 6. Pantallas de referencia
 
-### Inicio (`prototipos/inicio.html`)
-1. Cabecera: logotipo a la izquierda, selector de oposición (píldora con borde) a la derecha.
-2. Título «Sesión de hoy» y una línea con el formato oficial de la oposición.
-3. `GlassCard` con nivel estimado (cifra grande), racha en mono, `LevelBubbles`, botón principal «Empezar simulacro» y `SourceNote`.
+### Inicio (`prototipos/inicio-v2.html`, aprobado el 2026-11-25; sustituye a `inicio.html`)
+1. Cabecera: logotipo, racha (píldora con burbuja amarilla y número en mono) y botón «i».
+2. Oposición y mes del examen en mono.
+3. `GlassCard` «Objetivo de hoy»: anillo con las preguntas respondidas hoy (de 12), Sesión de hoy y botón principal; debajo, la semana (una burbuja por día, marcada si practicaste).
+4. Tarjeta de nivel: cifra grande y barra hacia el nivel siguiente.
+5. Tarjeta de simulacro (secundaria): formato en una línea y botón con borde.
+6. «Practica por aptitud»: casillas de dos columnas con acierto y nivel en burbujas; las de Premium con candado.
+
+### Historial (`prototipos/historial-v2.html`, aprobado el 2026-11-25)
+Título, cifras en cristal (racha, días practicados, preguntas), nivel con la línea que se dibuja y la semana actual en `highlighter`, constancia de 5 semanas, hitos y simulacros como fichas con la nota frente a la mínima.
+
+### Cuenta (`prototipos/cuenta-v2.html`, aprobado el 2026-11-25)
+Ficha de perfil en cristal, Premium como tarjeta `ink` (solo plan gratuito), «Guarda tu progreso» en una hoja y ajustes agrupados: Preferencias, Tu plan o Tu cuenta, Ayuda y privacidad; pie con la independencia y la versión.
+
+### Inicio v1 (`prototipos/inicio.html`, histórico)
+1. Cabecera: logotipo a la izquierda (hace de título y se anuncia como «Inicio»), oposición (píldora con borde) y botón «i» a la derecha.
+2. Mes del examen en mono si se conoce («Examen en marzo de 2027»).
+3. `GlassCard` con nivel estimado (cifra grande), racha en mono, `LevelBubbles`, formato en una línea mono y botón principal «Empezar simulacro». La fuente (`SourceNote`) y los avisos van en la hoja «i» (§7 bis); `SourceNote` se ve al empezar el simulacro.
 4. «PRÁCTICA POR APTITUD»: lista de aptitudes con su porcentaje de acierto; la más floja en rojo.
 5. `TabBar` flotante.
 
@@ -120,11 +151,18 @@ El canvas de diseño original está en [Aptiq — Identidad visual](https://clau
 - Icono de app: tres burbujas sobre `ink`, la central en `highlighter`. Variante: sobre `highlighter` con burbujas en `ink`.
 - Área de respeto: la altura de la x a cada lado. Tamaño mínimo del logotipo: 64 px de ancho.
 
+## 7 bis. Densidad y acciones (aprobado el 2026-11-25)
+
+- **Como mucho una línea de texto de apoyo por bloque.** El método, la fuente y la independencia van en la hoja de `InfoButton`. `SourceNote` sigue visible al empezar cada simulacro.
+- **Una acción principal y como mucho una secundaria a la vista.** El resto, en iconos con etiqueta de accesibilidad o en una `Sheet`.
+- Sin datos no se muestra «0 %»: se muestra «—» y «Sin empezar».
+- Cada pantalla de foco (simulacro, práctica, resultado, repaso) tiene un botón de cerrar arriba a la izquierda y no muestra la barra de pestañas.
+
 ## 8. Movimiento
 
 Criterio de las skills de Emil Kowalski (`emil-design-eng`, `animate-expo`) con estas reglas:
 
-- 150–250 ms, ease-out. Sin rebotes durante un simulacro.
+- 150–250 ms, ease-out. Sin rebotes durante un simulacro. Excepciones aprobadas: `CountUp` (600 ms) y el latido de `Skeleton` (900 ms).
 - Se anima solo lo que informa:
   - marcar una burbuja (relleno de 150 ms);
   - confirmar una respuesta;
@@ -132,6 +170,26 @@ Criterio de las skills de Emil Kowalski (`emil-design-eng`, `animate-expo`) con 
   - aparición del sello (escala de 1,15 a 1 con giro, 250 ms).
 - Vibración ligera al marcar y al confirmar.
 - Respetar «reducir movimiento»: sin escalas ni desplazamientos, solo fundidos.
+- Momentos añadidos el 2026-11-25:
+  - entrar en una pantalla: fundido y 8 px hacia arriba; tarjetas escalonadas 40 ms;
+  - pulsar: escala 0,97 (`PressScale`);
+  - confirmar en práctica: acierto con relleno de subrayador y vibración de éxito; fallo con un temblor horizontal de 4 px (una vez) y vibración de error;
+  - cambiar de pregunta: desplazamiento lateral de 24 px con fundido;
+  - resultado: `CountUp` de la nota, barras que crecen escalonadas y el sello al final;
+  - nivel: las burbujas se rellenan una tras otra;
+  - hojas: suben desde abajo (250 ms) con el fondo oscurecido;
+  - pestañas: la muesca con su burbuja se desliza a la pestaña activa;
+  - cronómetro: en el último minuto el tiempo pasa a `sealText` (estado).
+
+### Recompensas (aprobado el 2026-11-25)
+
+Solo en momentos de logro (objetivo de hoy cumplido, racha que sube, simulacro terminado), **nunca durante el simulacro**:
+
+- Rebote suave (muelle `motion.spring` 400 ms con amortiguación 0,6, como el prototipo aprobado) en lo que celebra: el anillo que se rellena, el número de la racha, el día que se marca, el aviso que baja.
+- Burbujas tinta y amarillas (círculos de la hoja de respuestas) que saltan desde lo conseguido y se desvanecen en 700 ms. Nada de brillos, estrellas ni confeti de colores.
+- Vibración de éxito y un sonido corto propio (ajuste «Sonidos» en Cuenta; respeta el modo silencio).
+- Texto sobrio: «Objetivo de hoy cumplido · Racha de 7 días». Sin exclamaciones ni emojis.
+- Con «reducir movimiento»: sin rebote ni burbujas; solo fundidos, vibración y sonido.
 
 ## 9. Tono de los textos
 
